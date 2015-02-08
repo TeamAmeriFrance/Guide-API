@@ -42,6 +42,7 @@ public class GuiCategory extends GuiScreen {
     public void initGui() {
         super.initGui();
         this.buttonList.clear();
+        this.entryWrapperList.clear();
 
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
