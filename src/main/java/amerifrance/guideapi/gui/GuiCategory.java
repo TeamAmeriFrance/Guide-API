@@ -31,7 +31,7 @@ public class GuiCategory extends GuiScreen {
         this.book = book;
     }
 
-    public GuiCategory(ResourceLocation texture,Book book, Category category, EntityPlayer player) {
+    public GuiCategory(ResourceLocation texture, Book book, Category category, EntityPlayer player) {
         this.texture = texture;
         this.category = category;
         this.player = player;
@@ -87,11 +87,7 @@ public class GuiCategory extends GuiScreen {
 
     @Override
     public void keyTyped(char typedChar, int keyCode) {
-        if (keyCode == 1) {
-            this.mc.displayGuiScreen((GuiScreen) null);
-            this.mc.setIngameFocus();
-        }
-        if (keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
+        if (keyCode == 1 || keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
             this.mc.displayGuiScreen((GuiScreen) null);
             this.mc.setIngameFocus();
         }

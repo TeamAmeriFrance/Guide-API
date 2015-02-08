@@ -80,4 +80,12 @@ public class GuiHome extends GuiScreen {
     public boolean doesGuiPauseGame() {
         return false;
     }
+
+    @Override
+    public void keyTyped(char typedChar, int keyCode) {
+        if (keyCode == 1 || keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
+            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.setIngameFocus();
+        }
+    }
 }
