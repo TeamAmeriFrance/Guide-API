@@ -4,7 +4,10 @@ import java.util
 
 import net.minecraft.util.StatCollector
 
-class Category(entries: util.List[Entry] = new util.ArrayList[Entry](), unlocCategoryName: String) {
+class Category(entryList: util.List[Entry] = new util.ArrayList[Entry](), unlocCategoryName: String) {
+
+  var entries: util.List[Entry] = entryList
+  var unlocalizedCategoryName: String = unlocCategoryName
 
   def addEntry(entry: Entry) = {
     this.entries.add(entry)
@@ -23,6 +26,6 @@ class Category(entries: util.List[Entry] = new util.ArrayList[Entry](), unlocCat
   }
 
   def getLocalizedName(): String = {
-    return StatCollector.translateToLocal(unlocCategoryName)
+    return StatCollector.translateToLocal(unlocalizedCategoryName)
   }
 }

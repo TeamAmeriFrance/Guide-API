@@ -10,5 +10,7 @@ public abstract class AbstractWrapper {
 
     public abstract boolean canPlayerSee(EntityPlayer player);
 
-    public abstract void draw(int guiWidth, int guiHeight);
+    public abstract void draw();
+
+    public abstract boolean isMouseOnWrapper(int mouseX, int mouseY);
 }
