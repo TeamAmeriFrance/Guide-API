@@ -20,7 +20,6 @@ public class ConfigHandler {
     }
 
     public static void syncConfig() {
-
         enableLogging = config.get(general, "enableLogging", true).getBoolean();
 
         config.save();
