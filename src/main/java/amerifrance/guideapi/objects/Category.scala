@@ -2,6 +2,8 @@ package amerifrance.guideapi.objects
 
 import java.util
 
+import net.minecraft.util.StatCollector
+
 class Category(entries: util.List[Entry] = new util.ArrayList[Entry](), unlocCategoryName: String) {
 
   def addEntry(entry: Entry) = {
@@ -18,5 +20,9 @@ class Category(entries: util.List[Entry] = new util.ArrayList[Entry](), unlocCat
 
   def removeCategoryList(list: util.List[Entry]) = {
     this.entries.remove(list)
+  }
+
+  def getLocalizedName(): String = {
+    return StatCollector.translateToLocal(unlocCategoryName)
   }
 }
