@@ -45,7 +45,7 @@ public class GuiHome extends GuiScreen {
         int cX = guiLeft + 0;
         int cY = guiTop + 5;
         for (Category category : book.categories()) {
-            categoryWrappers.add(new CategoryWrapper(book, category, cX, cY, 15, 15, player));
+            categoryWrappers.add(new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender));
             cY += 15;
         }
     }
@@ -57,12 +57,12 @@ public class GuiHome extends GuiScreen {
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
         for (CategoryWrapper wrapper : this.categoryWrappers) {
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                wrapper.onHoverOver(mouseX, mouseY);
-            }
-
             if (wrapper.canPlayerSee()) {
                 wrapper.draw();
+            }
+
+            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
+                wrapper.onHoverOver(mouseX, mouseY);
             }
         }
     }

@@ -15,8 +15,7 @@ public class GuiHelper {
         return (mouseX > x && mouseX < xSize && mouseY > y && mouseY < ySize);
     }
 
-    public static void drawItemStack(ItemStack stack, int x, int y) {
-        RenderItem ri = new RenderItem();
+    public static void drawItemStack(ItemStack stack, int x, int y, RenderItem renderItem) {
         GL11.glPushMatrix();
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -24,8 +23,8 @@ public class GuiHelper {
         RenderHelper.enableGUIStandardItemLighting();
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
-        ri.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, x, y);
-        ri.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, x, y);
+        renderItem.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, x, y);
+        renderItem.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, x, y);
         RenderHelper.disableStandardItemLighting();
         GL11.glPopMatrix();
         GL11.glDisable(GL11.GL_LIGHTING);

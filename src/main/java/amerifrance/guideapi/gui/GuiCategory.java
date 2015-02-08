@@ -61,12 +61,11 @@ public class GuiCategory extends GuiScreen {
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
         for (EntryWrapper wrapper : this.entryWrapperList) {
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                wrapper.onHoverOver(mouseX, mouseY);
-            }
-
             if (wrapper.canPlayerSee()) {
                 wrapper.draw();
+            }
+            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
+                wrapper.onHoverOver(mouseX, mouseY);
             }
         }
     }

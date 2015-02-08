@@ -5,6 +5,8 @@ import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.Category;
 import amerifrance.guideapi.util.GuiHelper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class CategoryWrapper extends AbstractWrapper {
@@ -13,8 +15,10 @@ public class CategoryWrapper extends AbstractWrapper {
     public Category category;
     public int x, y, width, height;
     public EntityPlayer player;
+    public FontRenderer renderer;
+    public RenderItem renderItem;
 
-    public CategoryWrapper(Book book, Category category, int x, int y, int width, int height, EntityPlayer player) {
+    public CategoryWrapper(Book book, Category category, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer, RenderItem renderItem) {
         this.book = book;
         this.category = category;
         this.x = x;
@@ -22,6 +26,8 @@ public class CategoryWrapper extends AbstractWrapper {
         this.width = width;
         this.height = height;
         this.player = player;
+        this.renderer = renderer;
+        this.renderItem = renderItem;
     }
 
     @Override
@@ -32,7 +38,7 @@ public class CategoryWrapper extends AbstractWrapper {
 
     @Override
     public void onHoverOver(int mouseX, int mouseY) {
-        Minecraft.getMinecraft().fontRenderer.drawString(category.getLocalizedName(), mouseX + 6, mouseY, 0);
+        this.renderer.drawString(category.getLocalizedName(), mouseX + 6, mouseY, 0);
     }
 
     @Override
@@ -46,7 +52,7 @@ public class CategoryWrapper extends AbstractWrapper {
 
     @Override
     public void draw() {
-        GuiHelper.drawItemStack(category.stack(), x, y);
+        GuiHelper.drawItemStack(category.stack(), x, y, this.renderItem);
     }
 
     @Override
