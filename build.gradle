@@ -10,6 +10,7 @@ buildscript {
     }
 }
 
+apply plugin: 'scala'
 apply plugin: 'forge'
 apply plugin: 'maven-publish'
 
