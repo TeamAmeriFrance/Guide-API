@@ -23,7 +23,7 @@ public class GuiHome extends GuiScreen {
     public EntityPlayer player;
 
     public GuiHome(Book book, EntityPlayer player) {
-        this.texture = new ResourceLocation(ModInformation.TEXTUREPATH + ":textures/gui/default_home");
+        this.texture = new ResourceLocation(ModInformation.GUITEXLOC + "default_home");
         this.book = book;
         this.player = player;
     }

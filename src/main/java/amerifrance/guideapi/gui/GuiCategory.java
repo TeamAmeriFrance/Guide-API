@@ -25,7 +25,7 @@ public class GuiCategory extends GuiScreen {
     public EntityPlayer player;
 
     public GuiCategory(Book book, Category category, EntityPlayer player) {
-        this.texture = new ResourceLocation(ModInformation.TEXTUREPATH + ":textures/gui/default_home");
+        this.texture = new ResourceLocation(ModInformation.GUITEXLOC + "default_home");
         this.category = category;
         this.player = player;
         this.book = book;

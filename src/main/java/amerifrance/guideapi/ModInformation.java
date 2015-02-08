@@ -7,5 +7,6 @@ public class ModInformation {
     public static final String CHANNEL = "GuideAPI";
     public static final String DEPEND = "";
     public static final String VERSION = "@VERSION@";
-    public static final String TEXTUREPATH = "guideapi";
+    public static final String TEXLOC = "guideapi:";
+    public static final String GUITEXLOC = TEXLOC + "textures/gui/";
 }
