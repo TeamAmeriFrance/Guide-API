@@ -63,7 +63,7 @@ public class GuiHome extends GuiScreen {
             }
 
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                wrapper.onHoverOver(mouseX, mouseY);
+                this.drawHoveringText(wrapper.getTooltip(), mouseX, mouseY, this.fontRendererObj);
             }
         }
     }

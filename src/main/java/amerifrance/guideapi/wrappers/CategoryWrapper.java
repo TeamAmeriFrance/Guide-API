@@ -9,6 +9,9 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CategoryWrapper extends AbstractWrapper {
 
     public Book book;
@@ -38,7 +41,6 @@ public class CategoryWrapper extends AbstractWrapper {
 
     @Override
     public void onHoverOver(int mouseX, int mouseY) {
-        this.renderer.drawString(category.getLocalizedName(), mouseX + 6, mouseY, 0);
     }
 
     @Override
@@ -58,5 +60,11 @@ public class CategoryWrapper extends AbstractWrapper {
     @Override
     public boolean isMouseOnWrapper(int mouseX, int mouseY) {
         return GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height);
+    }
+
+    public List<String> getTooltip() {
+        ArrayList<String> list = new ArrayList<String>();
+        list.add(category.getLocalizedName());
+        return list;
     }
 }
