@@ -1,38 +1,35 @@
 package amerifrance.guideapi.wrappers;
 
-import amerifrance.guideapi.gui.GuiCategory;
-import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.Category;
+import amerifrance.guideapi.objects.Entry;
 import amerifrance.guideapi.util.GuiHelper;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class CategoryWrapper extends AbstractWrapper {
+public class EntryWrapper extends AbstractWrapper {
 
-    public Book book;
-    public Category category;
+    public Entry entry;
     public int x, y, width, height;
     public EntityPlayer player;
+    public FontRenderer renderer;
 
-    public CategoryWrapper(Book book, Category category, int x, int y, int width, int height, EntityPlayer player) {
-        this.book = book;
-        this.category = category;
+    public EntryWrapper(Entry entry, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer) {
+        this.entry = entry;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.player = player;
+        this.renderer = renderer;
     }
 
     @Override
     public void onClicked() {
-        System.out.println(category.getLocalizedName());
-        Minecraft.getMinecraft().displayGuiScreen(new GuiCategory(book, category, player));
+        System.out.println(entry.getLocalizedName());
     }
 
     @Override
     public void onHoverOver(int mouseX, int mouseY) {
-        Minecraft.getMinecraft().fontRenderer.drawString(category.getLocalizedName(), mouseX + 6, mouseY, 0);
+        //Minecraft.getMinecraft().fontRenderer.drawString(entry.getLocalizedName(), mouseX + 6, mouseY, 0);
     }
 
     @Override
@@ -46,7 +43,7 @@ public class CategoryWrapper extends AbstractWrapper {
 
     @Override
     public void draw() {
-        GuiHelper.drawItemStack(category.stack(), x, y);
+        renderer.drawString(entry.getLocalizedName(), x, y, 0);
     }
 
     @Override

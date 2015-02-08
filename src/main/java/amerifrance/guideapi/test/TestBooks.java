@@ -4,6 +4,9 @@ import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.Category;
 import amerifrance.guideapi.objects.Entry;
 import amerifrance.guideapi.objects.Page;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 
@@ -24,8 +27,8 @@ public class TestBooks {
         entries.add(entry1);
         entries.add(entry2);
 
-        Category category1 = new Category(entries, "TestCategory1");
-        Category category2 = new Category(entries, "TestCategory2");
+        Category category1 = new Category(entries, "TestCategory1", new ItemStack(Items.reeds));
+        Category category2 = new Category(entries, "TestCategory2", new ItemStack(Blocks.brick_stairs));
         ArrayList<Category> categories = new ArrayList<Category>();
         categories.add(category1);
         categories.add(category2);
