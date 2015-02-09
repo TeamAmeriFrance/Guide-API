@@ -30,7 +30,12 @@ public class PageWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void onClicked() {
+    public void onClicked(int mouseX, int mouseY, int typeOfClick) {
+        if (typeOfClick == 0) {
+            page.onLeftClicked(mouseX, mouseY);
+        } else if (typeOfClick == 1) {
+            page.onRightClicked(mouseX, mouseY);
+        }
     }
 
     @Override

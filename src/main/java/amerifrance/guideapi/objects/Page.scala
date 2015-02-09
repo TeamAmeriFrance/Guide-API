@@ -15,4 +15,10 @@ class Page() {
   def canSee(player: EntityPlayer): Boolean = {
     return true
   }
+
+  def onLeftClicked(mouseX: Int, mouseY: Int) = {
+  }
+
+  def onRightClicked(mouseX: Int, mouseY: Int) = {
+  }
 }

@@ -4,7 +4,7 @@ import amerifrance.guideapi.gui.GuiBase;
 
 public abstract class AbstractWrapper {
 
-    public abstract void onClicked();
+    public abstract void onClicked(int mouseX, int mouseY, int typeOfClick);
 
     public abstract void onHoverOver(int mouseX, int mouseY);
 

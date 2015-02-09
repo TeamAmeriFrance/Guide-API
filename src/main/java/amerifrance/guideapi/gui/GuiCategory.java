@@ -73,13 +73,15 @@ public class GuiCategory extends GuiBase {
     }
 
     @Override
-    public void mouseClicked(int mouseX, int mouseY, int typeOfHit) {
+    public void mouseClicked(int mouseX, int mouseY, int typeofClick) {
         for (EntryWrapper wrapper : this.entryWrapperList) {
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                wrapper.onClicked();
+                this.mc.displayGuiScreen(new GuiEntry(this, book, category, wrapper.entry, player));
+                wrapper.onClicked(typeofClick, mouseX, mouseY);
+                return;
             }
         }
-        if (typeOfHit == 1) {
+        if (typeofClick == 1) {
             this.mc.displayGuiScreen(new GuiHome(book, player));
         }
     }

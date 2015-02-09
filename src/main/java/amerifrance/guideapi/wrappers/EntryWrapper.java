@@ -2,12 +2,10 @@ package amerifrance.guideapi.wrappers;
 
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
-import amerifrance.guideapi.gui.GuiEntry;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.Category;
 import amerifrance.guideapi.objects.Entry;
 import amerifrance.guideapi.util.GuiHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -35,9 +33,13 @@ public class EntryWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void onClicked() {
+    public void onClicked(int mouseX, int mouseY, int typeOfClick) {
         System.out.println(entry.getLocalizedName());
-        Minecraft.getMinecraft().displayGuiScreen(new GuiEntry(categoryGui, book, category, entry, player));
+        if (typeOfClick == 0) {
+            entry.onLeftClicked(mouseX, mouseY);
+        } else if (typeOfClick == 1) {
+            entry.onRightClicked(mouseX, mouseY);
+        }
     }
 
     @Override
