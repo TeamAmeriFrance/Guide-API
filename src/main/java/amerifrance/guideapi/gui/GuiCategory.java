@@ -49,7 +49,7 @@ public class GuiCategory extends GuiBase {
         int cX = guiLeft + 0;
         int cY = guiTop + 5;
         for (Entry entry : category.entries()) {
-            entryWrapperList.add(new EntryWrapper(book, category, entry, cX, cY, xSize, 10, player, this.fontRendererObj));
+            entryWrapperList.add(new EntryWrapper(this, book, category, entry, cX, cY, xSize, 10, player, this.fontRendererObj));
             cY += 10;
         }
     }

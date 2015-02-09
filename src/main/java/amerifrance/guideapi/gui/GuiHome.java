@@ -41,7 +41,7 @@ public class GuiHome extends GuiBase {
         int cX = guiLeft + 0;
         int cY = guiTop + 5;
         for (Category category : book.categories()) {
-            categoryWrappers.add(new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender));
+            categoryWrappers.add(new CategoryWrapper(this, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender));
             cY += 15;
         }
     }
