@@ -36,16 +36,6 @@ public class CategoryWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void onClicked(int mouseX, int mouseY, int typeOfClick) {
-        System.out.println(category.getLocalizedName());
-        if (typeOfClick == 0) {
-            category.onLeftClicked(mouseX, mouseY);
-        } else if (typeOfClick == 1) {
-            category.onRightClicked(mouseX, mouseY);
-        }
-    }
-
-    @Override
     public void onHoverOver(int mouseX, int mouseY) {
     }
 

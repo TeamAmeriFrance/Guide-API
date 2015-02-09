@@ -17,8 +17,10 @@ class Page() {
   }
 
   def onLeftClicked(mouseX: Int, mouseY: Int) = {
+    System.out.println("Left Clicked")
   }
 
   def onRightClicked(mouseX: Int, mouseY: Int) = {
+    System.out.println("Right Clicked")
   }
 }

@@ -66,11 +66,14 @@ public class GuiHome extends GuiBase {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int typeofClick) {
+        super.mouseClicked(mouseX, mouseY, typeofClick);
+
         for (CategoryWrapper wrapper : this.categoryWrappers) {
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
                 this.mc.displayGuiScreen(new GuiCategory(this, book, wrapper.category, player));
-                wrapper.onClicked(typeofClick, mouseX, mouseY);
-                return;
+
+                if (typeofClick == 0) wrapper.category.onLeftClicked(mouseX, mouseY);
+                else if (typeofClick == 1) wrapper.category.onRightClicked(mouseX, mouseY);
             }
         }
     }

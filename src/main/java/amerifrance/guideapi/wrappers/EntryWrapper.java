@@ -33,16 +33,6 @@ public class EntryWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void onClicked(int mouseX, int mouseY, int typeOfClick) {
-        System.out.println(entry.getLocalizedName());
-        if (typeOfClick == 0) {
-            entry.onLeftClicked(mouseX, mouseY);
-        } else if (typeOfClick == 1) {
-            entry.onRightClicked(mouseX, mouseY);
-        }
-    }
-
-    @Override
     public void onHoverOver(int mouseX, int mouseY) {
     }
 

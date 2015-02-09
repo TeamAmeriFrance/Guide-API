@@ -74,10 +74,12 @@ public class GuiEntry extends GuiBase {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int typeofClick) {
+        super.mouseClicked(mouseX, mouseY, typeofClick);
+
         for (PageWrapper wrapper : this.pageWrapperList) {
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                wrapper.onClicked(typeofClick, mouseX, mouseY);
-                return;
+                if (typeofClick == 0) pageWrapperList.get(pageNumber).page.onLeftClicked(mouseX, mouseY);
+                if (typeofClick == 1) pageWrapperList.get(pageNumber).page.onRightClicked(mouseX, mouseY);
             }
         }
         if (typeofClick == 1) {

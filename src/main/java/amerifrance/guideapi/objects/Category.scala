@@ -41,8 +41,10 @@ class Category(entryList: util.List[Entry] = new util.ArrayList[Entry](), unlocC
   }
 
   def onLeftClicked(mouseX: Int, mouseY: Int) = {
+    System.out.println(getLocalizedName() + "Left Clicked")
   }
 
   def onRightClicked(mouseX: Int, mouseY: Int) = {
+    System.out.println(getLocalizedName() + "Right Clicked")
   }
 }
