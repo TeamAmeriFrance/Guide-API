@@ -45,7 +45,7 @@ public class CategoryWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void draw() {
+    public void draw(GuiBase gui) {
         GuiHelper.drawItemStack(category.stack(), x, y, this.renderItem);
     }
 

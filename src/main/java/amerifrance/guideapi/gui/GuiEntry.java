@@ -66,7 +66,7 @@ public class GuiEntry extends GuiBase {
 
         if (pageNumber < pageWrapperList.size()) {
             if (pageWrapperList.get(pageNumber).canPlayerSee()) {
-                pageWrapperList.get(pageNumber).draw();
+                pageWrapperList.get(pageNumber).draw(this);
                 pageWrapperList.get(pageNumber).drawExtras(mouseX, mouseY, this);
             }
         }

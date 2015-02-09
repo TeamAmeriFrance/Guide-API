@@ -8,7 +8,7 @@ public abstract class AbstractWrapper {
 
     public abstract boolean canPlayerSee();
 
-    public abstract void draw();
+    public abstract void draw(GuiBase gui);
 
     public abstract void drawExtras(int mouseX, int mouseY, GuiBase gui);
 

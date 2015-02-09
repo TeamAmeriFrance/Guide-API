@@ -54,7 +54,7 @@ public class GuiHome extends GuiBase {
 
         for (CategoryWrapper wrapper : this.categoryWrappers) {
             if (wrapper.canPlayerSee()) {
-                wrapper.draw();
+                wrapper.draw(this);
                 wrapper.drawExtras(mouseX, mouseY, this);
             }
 

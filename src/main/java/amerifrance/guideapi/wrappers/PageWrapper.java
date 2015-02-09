@@ -39,8 +39,8 @@ public class PageWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void draw() {
-        page.drawPage(guiWidth, guiHeight);
+    public void draw(GuiBase gui) {
+        page.drawPage(gui, guiWidth, guiHeight);
     }
 
     @Override

@@ -42,7 +42,7 @@ public class EntryWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void draw() {
+    public void draw(GuiBase gui) {
         renderer.drawString(entry.getLocalizedName(), x, y, 0);
     }
 

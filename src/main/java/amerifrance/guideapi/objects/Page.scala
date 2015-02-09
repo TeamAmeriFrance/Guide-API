@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer
 class Page() {
 
 
-  def drawPage(guiLeft: Int, guiTop: Int) = {
+  def drawPage(guiBase: GuiBase, guiLeft: Int, guiTop: Int) = {
   }
 
   def drawExtras(mouseX: Int, mouseY: Int, guiBase: GuiBase) = {

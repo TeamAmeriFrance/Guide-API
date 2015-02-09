@@ -62,7 +62,7 @@ public class GuiCategory extends GuiBase {
 
         for (EntryWrapper wrapper : this.entryWrapperList) {
             if (wrapper.canPlayerSee()) {
-                wrapper.draw();
+                wrapper.draw(this);
                 wrapper.drawExtras(mouseX, mouseY, this);
             }
 
