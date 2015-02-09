@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class GuiCategory extends GuiScreen {
         int cX = guiLeft + 0;
         int cY = guiTop + 5;
         for (Entry entry : category.entries()) {
-            entryWrapperList.add(new EntryWrapper(entry, cX, cY, xSize, 10, player, this.fontRendererObj));
+            entryWrapperList.add(new EntryWrapper(book, category, entry, cX, cY, xSize, 10, player, this.fontRendererObj));
             cY += 10;
         }
     }
@@ -78,6 +79,9 @@ public class GuiCategory extends GuiScreen {
                 wrapper.onClicked();
             }
         }
+        if (typeOfHit == 1) {
+            this.mc.displayGuiScreen(new GuiHome(book, player));
+        }
     }
 
     @Override
@@ -91,7 +95,7 @@ public class GuiCategory extends GuiScreen {
             this.mc.displayGuiScreen((GuiScreen) null);
             this.mc.setIngameFocus();
         }
-        if (keyCode == 14) {
+        if (keyCode == Keyboard.KEY_BACK || keyCode == this.mc.gameSettings.keyBindUseItem.getKeyCode()) {
             this.mc.displayGuiScreen(new GuiHome(book, player));
         }
     }

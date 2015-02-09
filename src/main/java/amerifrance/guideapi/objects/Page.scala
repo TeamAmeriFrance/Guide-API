@@ -1,7 +1,12 @@
 package amerifrance.guideapi.objects
 
-class Page {
+import net.minecraft.client.Minecraft
 
-  def drawPage(guiWidth: Int, guiHeight: Int) = {
+class Page(ts: String) {
+
+  var text: String = ts
+
+  def drawPage(guiLeft: Int, guiTop: Int) = {
+    Minecraft.getMinecraft.fontRenderer.drawString(text, guiLeft, guiTop, 0)
   }
 }

@@ -3,7 +3,9 @@ package amerifrance.guideapi.gui;
 import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.Category;
-import amerifrance.guideapi.wrappers.CategoryWrapper;
+import amerifrance.guideapi.objects.Entry;
+import amerifrance.guideapi.objects.Page;
+import amerifrance.guideapi.wrappers.PageWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,42 +15,48 @@ import org.lwjgl.input.Keyboard;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiHome extends GuiScreen {
+public class GuiEntry extends GuiScreen {
 
     public ResourceLocation texture;
     public Book book;
-    public List<CategoryWrapper> categoryWrappers = new ArrayList<CategoryWrapper>();
+    public Category category;
+    public Entry entry;
+    public List<PageWrapper> pageWrapperList = new ArrayList<PageWrapper>();
     public int guiLeft, guiTop;
     public int xSize = 192;
     public int ySize = 192;
     public EntityPlayer player;
+    private int pageNumber;
 
-    public GuiHome(Book book, EntityPlayer player) {
+    public GuiEntry(Book book, Category category, Entry entry, EntityPlayer player) {
         this.texture = new ResourceLocation(ModInformation.GUITEXLOC + "default_home");
-        this.book = book;
+        this.category = category;
         this.player = player;
+        this.book = book;
+        this.entry = entry;
+        this.pageNumber = 0;
     }
 
-    public GuiHome(ResourceLocation texture, Book book, EntityPlayer player) {
+    public GuiEntry(ResourceLocation texture, Book book, Category category, Entry entry, EntityPlayer player) {
         this.texture = texture;
-        this.book = book;
+        this.category = category;
         this.player = player;
+        this.book = book;
+        this.entry = entry;
+        this.pageNumber = 0;
     }
 
     @Override
     public void initGui() {
         super.initGui();
         this.buttonList.clear();
-        this.categoryWrappers.clear();
+        this.pageWrapperList.clear();
 
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
-        int cX = guiLeft + 0;
-        int cY = guiTop + 5;
-        for (Category category : book.categories()) {
-            categoryWrappers.add(new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender));
-            cY += 15;
+        for (Page page : this.entry.pages()) {
+            pageWrapperList.add(new PageWrapper(page, guiLeft, guiTop, player, this.fontRendererObj));
         }
     }
 
@@ -58,23 +66,20 @@ public class GuiHome extends GuiScreen {
         Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
-        for (CategoryWrapper wrapper : this.categoryWrappers) {
-            if (wrapper.canPlayerSee()) {
-                wrapper.draw();
-            }
-
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                this.drawHoveringText(wrapper.getTooltip(), mouseX, mouseY, this.fontRendererObj);
-            }
+        if (pageNumber < pageWrapperList.size()) {
+            pageWrapperList.get(pageNumber).draw();
         }
     }
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int typeOfHit) {
-        for (CategoryWrapper wrapper : this.categoryWrappers) {
+        for (PageWrapper wrapper : this.pageWrapperList) {
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee(player)) {
                 wrapper.onClicked();
             }
+        }
+        if (typeOfHit == 1) {
+            this.mc.displayGuiScreen(new GuiCategory(book, category, player));
         }
     }
 
@@ -85,9 +90,18 @@ public class GuiHome extends GuiScreen {
 
     @Override
     public void keyTyped(char typedChar, int keyCode) {
-        if (keyCode == Keyboard.KEY_ESCAPE || keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
+        if (keyCode == 1 || keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
             this.mc.displayGuiScreen((GuiScreen) null);
             this.mc.setIngameFocus();
+        }
+        if (keyCode == Keyboard.KEY_BACK || keyCode == this.mc.gameSettings.keyBindUseItem.getKeyCode()) {
+            this.mc.displayGuiScreen(new GuiCategory(book, category, player));
+        }
+        if ((keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_RIGHT) && pageNumber + 1 < pageWrapperList.size()) {
+            this.pageNumber++;
+        }
+        if ((keyCode == Keyboard.KEY_DOWN || keyCode == Keyboard.KEY_LEFT) && pageNumber > 0) {
+            this.pageNumber--;
         }
     }
 }
