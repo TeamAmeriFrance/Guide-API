@@ -1,12 +1,18 @@
 package amerifrance.guideapi.objects
 
-import net.minecraft.client.Minecraft
+import amerifrance.guideapi.gui.GuiBase
+import net.minecraft.entity.player.EntityPlayer
 
-class Page(ts: String) {
+class Page() {
 
-  var text: String = ts
 
   def drawPage(guiLeft: Int, guiTop: Int) = {
-    Minecraft.getMinecraft.fontRenderer.drawString(text, guiLeft, guiTop, 0)
+  }
+
+  def drawExtras(mouseX: Int, mouseY: Int, guiBase: GuiBase) = {
+  }
+
+  def canSee(player: EntityPlayer): Boolean = {
+    return true
   }
 }

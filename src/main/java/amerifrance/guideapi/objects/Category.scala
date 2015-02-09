@@ -2,6 +2,8 @@ package amerifrance.guideapi.objects
 
 import java.util
 
+import amerifrance.guideapi.gui.GuiBase
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.StatCollector
 
@@ -29,5 +31,12 @@ class Category(entryList: util.List[Entry] = new util.ArrayList[Entry](), unlocC
 
   def getLocalizedName(): String = {
     return StatCollector.translateToLocal(unlocalizedCategoryName)
+  }
+
+  def drawExtras(mouseX: Int, mouseY: Int, guiBase: GuiBase) = {
+  }
+
+  def canSee(player: EntityPlayer): Boolean = {
+    return true
   }
 }

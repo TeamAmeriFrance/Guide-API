@@ -1,17 +1,27 @@
 package amerifrance.guideapi.wrappers;
 
+import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.objects.Book;
+import amerifrance.guideapi.objects.Category;
+import amerifrance.guideapi.objects.Entry;
 import amerifrance.guideapi.objects.Page;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class PageWrapper extends AbstractWrapper {
 
+    public Book book;
+    public Category category;
+    public Entry entry;
     public Page page;
     public int guiWidth, guiHeight;
     public EntityPlayer player;
     public FontRenderer renderer;
 
-    public PageWrapper(Page page, int guiWidth, int guiHeight, EntityPlayer player, FontRenderer renderer) {
+    public PageWrapper(Book book, Category category, Entry entry, Page page, int guiWidth, int guiHeight, EntityPlayer player, FontRenderer renderer) {
+        this.book = book;
+        this.category = category;
+        this.entry = entry;
         this.page = page;
         this.guiWidth = guiWidth;
         this.guiHeight = guiHeight;
@@ -29,7 +39,7 @@ public class PageWrapper extends AbstractWrapper {
 
     @Override
     public boolean canPlayerSee(EntityPlayer player) {
-        return true;
+        return page.canSee(player);
     }
 
     public boolean canPlayerSee() {
@@ -39,6 +49,11 @@ public class PageWrapper extends AbstractWrapper {
     @Override
     public void draw() {
         page.drawPage(guiWidth, guiHeight);
+    }
+
+    @Override
+    public void drawExtras(int mouseX, int mouseY, GuiBase gui) {
+        page.drawExtras(mouseX, mouseY, gui);
     }
 
     @Override

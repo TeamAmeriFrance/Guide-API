@@ -6,7 +6,6 @@ import amerifrance.guideapi.objects.Category;
 import amerifrance.guideapi.objects.Entry;
 import amerifrance.guideapi.wrappers.EntryWrapper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
@@ -14,28 +13,24 @@ import org.lwjgl.input.Keyboard;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiCategory extends GuiScreen {
+public class GuiCategory extends GuiBase {
 
     public ResourceLocation texture;
     public Book book;
     public Category category;
     public List<EntryWrapper> entryWrapperList = new ArrayList<EntryWrapper>();
-    public int guiLeft, guiTop;
-    public int xSize = 192;
-    public int ySize = 192;
-    public EntityPlayer player;
 
     public GuiCategory(Book book, Category category, EntityPlayer player) {
+        super(player);
         this.texture = new ResourceLocation(ModInformation.GUITEXLOC + "default_home");
         this.category = category;
-        this.player = player;
         this.book = book;
     }
 
     public GuiCategory(ResourceLocation texture, Book book, Category category, EntityPlayer player) {
+        super(player);
         this.texture = texture;
         this.category = category;
-        this.player = player;
         this.book = book;
     }
 
@@ -65,7 +60,9 @@ public class GuiCategory extends GuiScreen {
         for (EntryWrapper wrapper : this.entryWrapperList) {
             if (wrapper.canPlayerSee()) {
                 wrapper.draw();
+                wrapper.drawExtras(mouseX, mouseY, this);
             }
+
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
                 wrapper.onHoverOver(mouseX, mouseY);
             }
@@ -91,10 +88,7 @@ public class GuiCategory extends GuiScreen {
 
     @Override
     public void keyTyped(char typedChar, int keyCode) {
-        if (keyCode == 1 || keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
-            this.mc.displayGuiScreen((GuiScreen) null);
-            this.mc.setIngameFocus();
-        }
+        super.keyTyped(typedChar, keyCode);
         if (keyCode == Keyboard.KEY_BACK || keyCode == this.mc.gameSettings.keyBindUseItem.getKeyCode()) {
             this.mc.displayGuiScreen(new GuiHome(book, player));
         }

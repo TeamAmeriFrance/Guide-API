@@ -1,5 +1,6 @@
 package amerifrance.guideapi.wrappers;
 
+import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiEntry;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.Category;
@@ -42,7 +43,7 @@ public class EntryWrapper extends AbstractWrapper {
 
     @Override
     public boolean canPlayerSee(EntityPlayer player) {
-        return true;
+        return entry.canSee(player);
     }
 
     public boolean canPlayerSee() {
@@ -52,6 +53,11 @@ public class EntryWrapper extends AbstractWrapper {
     @Override
     public void draw() {
         renderer.drawString(entry.getLocalizedName(), x, y, 0);
+    }
+
+    @Override
+    public void drawExtras(int mouseX, int mouseY, GuiBase gui) {
+        entry.drawExtras(mouseX, mouseY, gui);
     }
 
     @Override

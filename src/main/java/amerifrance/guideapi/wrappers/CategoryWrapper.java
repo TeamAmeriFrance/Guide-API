@@ -1,5 +1,6 @@
 package amerifrance.guideapi.wrappers;
 
+import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.Category;
@@ -45,7 +46,7 @@ public class CategoryWrapper extends AbstractWrapper {
 
     @Override
     public boolean canPlayerSee(EntityPlayer player) {
-        return true;
+        return category.canSee(player);
     }
 
     public boolean canPlayerSee() {
@@ -55,6 +56,11 @@ public class CategoryWrapper extends AbstractWrapper {
     @Override
     public void draw() {
         GuiHelper.drawItemStack(category.stack(), x, y, this.renderItem);
+    }
+
+    @Override
+    public void drawExtras(int mouseX, int mouseY, GuiBase gui) {
+        category.drawExtras(mouseX, mouseY, gui);
     }
 
     @Override

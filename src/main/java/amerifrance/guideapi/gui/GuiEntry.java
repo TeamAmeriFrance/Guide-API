@@ -7,7 +7,6 @@ import amerifrance.guideapi.objects.Entry;
 import amerifrance.guideapi.objects.Page;
 import amerifrance.guideapi.wrappers.PageWrapper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
@@ -15,32 +14,28 @@ import org.lwjgl.input.Keyboard;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiEntry extends GuiScreen {
+public class GuiEntry extends GuiBase {
 
     public ResourceLocation texture;
     public Book book;
     public Category category;
     public Entry entry;
     public List<PageWrapper> pageWrapperList = new ArrayList<PageWrapper>();
-    public int guiLeft, guiTop;
-    public int xSize = 192;
-    public int ySize = 192;
-    public EntityPlayer player;
     private int pageNumber;
 
     public GuiEntry(Book book, Category category, Entry entry, EntityPlayer player) {
+        super(player);
         this.texture = new ResourceLocation(ModInformation.GUITEXLOC + "default_home");
         this.category = category;
-        this.player = player;
         this.book = book;
         this.entry = entry;
         this.pageNumber = 0;
     }
 
     public GuiEntry(ResourceLocation texture, Book book, Category category, Entry entry, EntityPlayer player) {
+        super(player);
         this.texture = texture;
         this.category = category;
-        this.player = player;
         this.book = book;
         this.entry = entry;
         this.pageNumber = 0;
@@ -56,7 +51,7 @@ public class GuiEntry extends GuiScreen {
         guiTop = (this.height - this.ySize) / 2;
 
         for (Page page : this.entry.pages()) {
-            pageWrapperList.add(new PageWrapper(page, guiLeft, guiTop, player, this.fontRendererObj));
+            pageWrapperList.add(new PageWrapper(book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj));
         }
     }
 
@@ -67,7 +62,10 @@ public class GuiEntry extends GuiScreen {
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
         if (pageNumber < pageWrapperList.size()) {
-            pageWrapperList.get(pageNumber).draw();
+            if (pageWrapperList.get(pageNumber).canPlayerSee()) {
+                pageWrapperList.get(pageNumber).draw();
+                pageWrapperList.get(pageNumber).drawExtras(mouseX, mouseY, this);
+            }
         }
     }
 
@@ -90,10 +88,7 @@ public class GuiEntry extends GuiScreen {
 
     @Override
     public void keyTyped(char typedChar, int keyCode) {
-        if (keyCode == 1 || keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
-            this.mc.displayGuiScreen((GuiScreen) null);
-            this.mc.setIngameFocus();
-        }
+        super.keyTyped(typedChar, keyCode);
         if (keyCode == Keyboard.KEY_BACK || keyCode == this.mc.gameSettings.keyBindUseItem.getKeyCode()) {
             this.mc.displayGuiScreen(new GuiCategory(book, category, player));
         }
