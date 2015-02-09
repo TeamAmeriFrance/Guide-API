@@ -1,6 +1,7 @@
 package amerifrance.guideapi.wrappers;
 
 import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiEntry;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.Category;
@@ -18,8 +19,9 @@ public class EntryWrapper extends AbstractWrapper {
     public int x, y, width, height;
     public EntityPlayer player;
     public FontRenderer renderer;
+    public GuiCategory categoryGui;
 
-    public EntryWrapper(Book book, Category category, Entry entry, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer) {
+    public EntryWrapper(GuiCategory categoryGui, Book book, Category category, Entry entry, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer) {
         this.book = book;
         this.category = category;
         this.entry = entry;
@@ -29,12 +31,13 @@ public class EntryWrapper extends AbstractWrapper {
         this.height = height;
         this.player = player;
         this.renderer = renderer;
+        this.categoryGui = categoryGui;
     }
 
     @Override
     public void onClicked() {
         System.out.println(entry.getLocalizedName());
-        Minecraft.getMinecraft().displayGuiScreen(new GuiEntry(book, category, entry, player));
+        Minecraft.getMinecraft().displayGuiScreen(new GuiEntry(categoryGui, book, category, entry, player));
     }
 
     @Override

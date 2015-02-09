@@ -16,6 +16,7 @@ import java.util.List;
 
 public class GuiEntry extends GuiBase {
 
+    public GuiCategory categoryGui;
     public ResourceLocation texture;
     public Book book;
     public Category category;
@@ -23,8 +24,9 @@ public class GuiEntry extends GuiBase {
     public List<PageWrapper> pageWrapperList = new ArrayList<PageWrapper>();
     private int pageNumber;
 
-    public GuiEntry(Book book, Category category, Entry entry, EntityPlayer player) {
+    public GuiEntry(GuiCategory categoryGui, Book book, Category category, Entry entry, EntityPlayer player) {
         super(player);
+        this.categoryGui = categoryGui;
         this.texture = new ResourceLocation(ModInformation.GUITEXLOC + "default_home");
         this.category = category;
         this.book = book;
@@ -32,8 +34,9 @@ public class GuiEntry extends GuiBase {
         this.pageNumber = 0;
     }
 
-    public GuiEntry(ResourceLocation texture, Book book, Category category, Entry entry, EntityPlayer player) {
+    public GuiEntry(GuiCategory categoryGui, ResourceLocation texture, Book book, Category category, Entry entry, EntityPlayer player) {
         super(player);
+        this.categoryGui = categoryGui;
         this.texture = texture;
         this.category = category;
         this.book = book;
@@ -77,7 +80,7 @@ public class GuiEntry extends GuiBase {
             }
         }
         if (typeOfHit == 1) {
-            this.mc.displayGuiScreen(new GuiCategory(book, category, player));
+            this.mc.displayGuiScreen(categoryGui);
         }
     }
 
@@ -85,7 +88,7 @@ public class GuiEntry extends GuiBase {
     public void keyTyped(char typedChar, int keyCode) {
         super.keyTyped(typedChar, keyCode);
         if (keyCode == Keyboard.KEY_BACK || keyCode == this.mc.gameSettings.keyBindUseItem.getKeyCode()) {
-            this.mc.displayGuiScreen(new GuiCategory(book, category, player));
+            this.mc.displayGuiScreen(categoryGui);
         }
         if ((keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_RIGHT) && pageNumber + 1 < pageWrapperList.size()) {
             this.pageNumber++;
