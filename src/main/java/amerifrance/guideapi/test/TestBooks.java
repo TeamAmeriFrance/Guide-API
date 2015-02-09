@@ -15,8 +15,8 @@ public class TestBooks {
     public static Book testBook1;
 
     public static void setTestBook1() {
-        Page page1 = new Page("I am page 1");
-        Page page2 = new Page("I am page 2");
+        Page page1 = new Page();
+        Page page2 = new Page();
         ArrayList<Page> pages = new ArrayList<Page>();
         pages.add(page1);
         pages.add(page2);
