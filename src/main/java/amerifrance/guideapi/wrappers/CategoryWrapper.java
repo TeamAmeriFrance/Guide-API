@@ -45,12 +45,8 @@ public class CategoryWrapper extends AbstractWrapper {
     }
 
     @Override
-    public boolean canPlayerSee(EntityPlayer player) {
-        return category.canSee(player);
-    }
-
     public boolean canPlayerSee() {
-        return canPlayerSee(player);
+        return category.canSee(player);
     }
 
     @Override

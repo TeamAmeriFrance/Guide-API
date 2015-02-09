@@ -72,18 +72,13 @@ public class GuiCategory extends GuiBase {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int typeOfHit) {
         for (EntryWrapper wrapper : this.entryWrapperList) {
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee(player)) {
+            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
                 wrapper.onClicked();
             }
         }
         if (typeOfHit == 1) {
             this.mc.displayGuiScreen(new GuiHome(book, player));
         }
-    }
-
-    @Override
-    public boolean doesGuiPauseGame() {
-        return false;
     }
 
     @Override

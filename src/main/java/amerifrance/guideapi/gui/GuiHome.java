@@ -67,7 +67,7 @@ public class GuiHome extends GuiBase {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int typeOfHit) {
         for (CategoryWrapper wrapper : this.categoryWrappers) {
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee(player)) {
+            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
                 wrapper.onClicked();
             }
         }

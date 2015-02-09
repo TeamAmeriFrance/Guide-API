@@ -42,12 +42,8 @@ public class EntryWrapper extends AbstractWrapper {
     }
 
     @Override
-    public boolean canPlayerSee(EntityPlayer player) {
-        return entry.canSee(player);
-    }
-
     public boolean canPlayerSee() {
-        return canPlayerSee(player);
+        return entry.canSee(player);
     }
 
     @Override

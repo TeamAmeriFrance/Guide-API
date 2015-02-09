@@ -38,12 +38,8 @@ public class PageWrapper extends AbstractWrapper {
     }
 
     @Override
-    public boolean canPlayerSee(EntityPlayer player) {
-        return page.canSee(player);
-    }
-
     public boolean canPlayerSee() {
-        return canPlayerSee(player);
+        return page.canSee(player);
     }
 
     @Override

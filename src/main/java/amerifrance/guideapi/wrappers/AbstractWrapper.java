@@ -1,7 +1,6 @@
 package amerifrance.guideapi.wrappers;
 
 import amerifrance.guideapi.gui.GuiBase;
-import net.minecraft.entity.player.EntityPlayer;
 
 public abstract class AbstractWrapper {
 
@@ -9,7 +8,7 @@ public abstract class AbstractWrapper {
 
     public abstract void onHoverOver(int mouseX, int mouseY);
 
-    public abstract boolean canPlayerSee(EntityPlayer player);
+    public abstract boolean canPlayerSee();
 
     public abstract void draw();
 
