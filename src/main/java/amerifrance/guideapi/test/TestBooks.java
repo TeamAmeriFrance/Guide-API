@@ -29,9 +29,15 @@ public class TestBooks {
 
         Category category1 = new Category(entries, "TestCategory1", new ItemStack(Items.reeds));
         Category category2 = new Category(entries, "TestCategory2", new ItemStack(Blocks.brick_stairs));
+        Category category3 = new Category(entries, "TestCategory3", new ItemStack(Blocks.dragon_egg));
+        Category category4 = new Category(entries, "TestCategory4", new ItemStack(Items.skull, 1, 0));
+        Category category5 = new Category(entries, "TestCategory5", new ItemStack(Blocks.fence_gate));
         ArrayList<Category> categories = new ArrayList<Category>();
         categories.add(category1);
         categories.add(category2);
+        categories.add(category3);
+        categories.add(category4);
+        categories.add(category5);
 
         testBook1 = new Book(categories, "ItemTestBook");
     }

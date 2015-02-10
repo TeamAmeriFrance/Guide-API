@@ -19,7 +19,7 @@ public class GuiHome extends GuiBase {
 
     public GuiHome(Book book, EntityPlayer player) {
         super(player);
-        this.texture = new ResourceLocation(ModInformation.GUITEXLOC + "default_home");
+        this.texture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
         this.book = book;
     }
 
@@ -38,11 +38,21 @@ public class GuiHome extends GuiBase {
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
-        int cX = guiLeft + 0;
-        int cY = guiTop + 5;
+        int cX = guiLeft;
+        int cY = guiTop + 15;
+        boolean drawOnLeft = true;
+
         for (Category category : book.categories()) {
-            categoryWrappers.add(new CategoryWrapper(this, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender));
-            cY += 15;
+            if (drawOnLeft) {
+                categoryWrappers.add(new CategoryWrapper(this, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender));
+                cX = guiLeft + 180;
+                drawOnLeft = false;
+            } else {
+                categoryWrappers.add(new CategoryWrapper(this, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender));
+                cY += 25;
+                cX = guiLeft;
+                drawOnLeft = true;
+            }
         }
     }
 

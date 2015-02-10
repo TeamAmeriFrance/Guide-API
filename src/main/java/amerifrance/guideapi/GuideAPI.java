@@ -10,6 +10,10 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,12 +23,22 @@ import java.io.File;
 public class GuideAPI {
 
     public static Logger logger = LogManager.getLogger(ModInformation.NAME);
-    public static final String commonProxy = "amerifrance.guideapi.proxies.CommonProxy";
-    public static final String clientProxy = "amerifrance.guideapi.proxies.ClientProxy";
+
+    public static CreativeTabs tabGuide = new CreativeTabs(ModInformation.ID + ".creativeTab") {
+        @Override
+        public ItemStack getIconItemStack() {
+            return new ItemStack(Items.book);
+        }
+
+        @Override
+        public Item getTabIconItem() {
+            return Items.book;
+        }
+    };
 
     @Mod.Instance
     public static GuideAPI instance;
-    @SidedProxy(clientSide = clientProxy, serverSide = commonProxy)
+    @SidedProxy(clientSide = ModInformation.CLIENTPROXY, serverSide = ModInformation.COMMONPROXY)
     public static CommonProxy proxy;
 
     @Mod.EventHandler
