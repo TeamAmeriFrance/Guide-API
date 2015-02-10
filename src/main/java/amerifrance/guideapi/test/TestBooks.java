@@ -8,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class TestBooks {
@@ -39,6 +40,6 @@ public class TestBooks {
         categories.add(category4);
         categories.add(category5);
 
-        testBook1 = new Book(categories, "ItemTestBook");
+        testBook1 = new Book(categories, "ItemTestBook", new Color(171, 80, 30));
     }
 }

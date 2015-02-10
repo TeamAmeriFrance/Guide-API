@@ -13,19 +13,20 @@ import java.util.List;
 
 public class GuiHome extends GuiBase {
 
-    public ResourceLocation texture;
+    public ResourceLocation outlineTexture;
+    public ResourceLocation pageTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png");
     public Book book;
     public List<CategoryWrapper> categoryWrappers = new ArrayList<CategoryWrapper>();
 
     public GuiHome(Book book, EntityPlayer player) {
         super(player);
-        this.texture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
+        this.outlineTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
         this.book = book;
     }
 
     public GuiHome(ResourceLocation texture, Book book, EntityPlayer player) {
         super(player);
-        this.texture = texture;
+        this.outlineTexture = texture;
         this.book = book;
     }
 
@@ -41,14 +42,13 @@ public class GuiHome extends GuiBase {
         int cX = guiLeft;
         int cY = guiTop + 15;
         boolean drawOnLeft = true;
-
         for (Category category : book.categories()) {
             if (drawOnLeft) {
-                categoryWrappers.add(new CategoryWrapper(this, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender));
+                categoryWrappers.add(new CategoryWrapper(this, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft));
                 cX = guiLeft + 180;
                 drawOnLeft = false;
             } else {
-                categoryWrappers.add(new CategoryWrapper(this, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender));
+                categoryWrappers.add(new CategoryWrapper(this, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft));
                 cY += 25;
                 cX = guiLeft;
                 drawOnLeft = true;
@@ -59,15 +59,16 @@ public class GuiHome extends GuiBase {
     @Override
     public void drawScreen(int mouseX, int mouseY, float renderPartialTicks) {
         super.drawScreen(mouseX, mouseY, renderPartialTicks);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
+        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.color());
 
         for (CategoryWrapper wrapper : this.categoryWrappers) {
             if (wrapper.canPlayerSee()) {
                 wrapper.draw(this);
                 wrapper.drawExtras(mouseX, mouseY, this);
             }
-
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
                 this.drawHoveringText(wrapper.getTooltip(), mouseX, mouseY, this.fontRendererObj);
             }
@@ -81,7 +82,6 @@ public class GuiHome extends GuiBase {
         for (CategoryWrapper wrapper : this.categoryWrappers) {
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
                 this.mc.displayGuiScreen(new GuiCategory(this, book, wrapper.category, player));
-
                 if (typeofClick == 0) wrapper.category.onLeftClicked(mouseX, mouseY);
                 else if (typeofClick == 1) wrapper.category.onRightClicked(mouseX, mouseY);
             }
