@@ -1,9 +1,9 @@
 package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.ModInformation;
+import amerifrance.guideapi.objects.AbstractCategory;
+import amerifrance.guideapi.objects.AbstractEntry;
 import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.Category;
-import amerifrance.guideapi.objects.Entry;
 import amerifrance.guideapi.objects.Page;
 import amerifrance.guideapi.wrappers.CategoryWrapper;
 import amerifrance.guideapi.wrappers.PageWrapper;
@@ -21,13 +21,13 @@ public class GuiEntry extends GuiBase {
     public ResourceLocation outlineTexture;
     public ResourceLocation pageTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png");
     public Book book;
-    public Category category;
-    public Entry entry;
+    public AbstractCategory category;
+    public AbstractEntry entry;
     public List<CategoryWrapper> categoryWrappers = new ArrayList<CategoryWrapper>();
     public List<PageWrapper> pageWrapperList = new ArrayList<PageWrapper>();
     private int pageNumber;
 
-    public GuiEntry(GuiCategory categoryGui, Book book, Category category, Entry entry, EntityPlayer player) {
+    public GuiEntry(GuiCategory categoryGui, Book book, AbstractCategory category, AbstractEntry entry, EntityPlayer player) {
         super(player);
         this.categoryGui = categoryGui;
         this.outlineTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
@@ -37,7 +37,7 @@ public class GuiEntry extends GuiBase {
         this.pageNumber = 0;
     }
 
-    public GuiEntry(GuiCategory categoryGui, ResourceLocation texture, Book book, Category category, Entry entry, EntityPlayer player) {
+    public GuiEntry(GuiCategory categoryGui, ResourceLocation texture, Book book, AbstractCategory category, AbstractEntry entry, EntityPlayer player) {
         super(player);
         this.categoryGui = categoryGui;
         this.outlineTexture = texture;
@@ -61,7 +61,7 @@ public class GuiEntry extends GuiBase {
         int cY = guiTop + 15;
         boolean drawOnLeft = true;
 
-        for (Category category : book.categories()) {
+        for (AbstractCategory category : book.categories()) {
             if (drawOnLeft) {
                 categoryWrappers.add(new CategoryWrapper(categoryGui.homeGui, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft));
                 cX = guiLeft + 180;
@@ -85,8 +85,7 @@ public class GuiEntry extends GuiBase {
 
         for (CategoryWrapper wrapper : this.categoryWrappers) {
             if (wrapper.canPlayerSee()) {
-                wrapper.draw(this);
-                wrapper.drawExtras(mouseX, mouseY, this);
+                wrapper.draw(mouseX, mouseY, this);
             }
         }
 
@@ -97,16 +96,18 @@ public class GuiEntry extends GuiBase {
 
         if (pageNumber < pageWrapperList.size()) {
             if (pageWrapperList.get(pageNumber).canPlayerSee()) {
-                pageWrapperList.get(pageNumber).draw(this);
+                pageWrapperList.get(pageNumber).draw(mouseX, mouseY, this);
                 pageWrapperList.get(pageNumber).drawExtras(mouseX, mouseY, this);
             }
         }
 
         for (CategoryWrapper wrapper : this.categoryWrappers) {
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                this.drawHoveringText(wrapper.getTooltip(), mouseX, mouseY, this.fontRendererObj);
+            if (wrapper.canPlayerSee()) {
+                wrapper.drawExtras(mouseX, mouseY, this);
             }
         }
+
+        drawCenteredString(fontRendererObj, String.valueOf(pageNumber + 1) + "/" + String.valueOf(pageWrapperList.size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
     }
 
     @Override
@@ -115,10 +116,9 @@ public class GuiEntry extends GuiBase {
 
         for (CategoryWrapper wrapper : this.categoryWrappers) {
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                this.mc.displayGuiScreen(new GuiCategory(categoryGui.homeGui, book, wrapper.category, player));
-
-                if (typeofClick == 0) wrapper.category.onLeftClicked(mouseX, mouseY);
-                else if (typeofClick == 1) wrapper.category.onRightClicked(mouseX, mouseY);
+                if (typeofClick == 0) wrapper.category.onLeftClicked(book, mouseX, mouseY, player, categoryGui.homeGui);
+                else if (typeofClick == 1)
+                    wrapper.category.onRightClicked(book, mouseX, mouseY, player, categoryGui.homeGui);
             }
         }
 

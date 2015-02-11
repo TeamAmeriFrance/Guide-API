@@ -1,9 +1,9 @@
 package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.ModInformation;
+import amerifrance.guideapi.objects.AbstractCategory;
+import amerifrance.guideapi.objects.AbstractEntry;
 import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.Category;
-import amerifrance.guideapi.objects.Entry;
 import amerifrance.guideapi.wrappers.CategoryWrapper;
 import amerifrance.guideapi.wrappers.EntryWrapper;
 import net.minecraft.client.Minecraft;
@@ -20,11 +20,11 @@ public class GuiCategory extends GuiBase {
     public ResourceLocation outlineTexture;
     public ResourceLocation pageTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png");
     public Book book;
-    public Category category;
+    public AbstractCategory category;
     public List<CategoryWrapper> categoryWrappers = new ArrayList<CategoryWrapper>();
     public List<EntryWrapper> entryWrapperList = new ArrayList<EntryWrapper>();
 
-    public GuiCategory(GuiHome homeGui, Book book, Category category, EntityPlayer player) {
+    public GuiCategory(GuiHome homeGui, Book book, AbstractCategory category, EntityPlayer player) {
         super(player);
         this.homeGui = homeGui;
         this.outlineTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
@@ -32,7 +32,7 @@ public class GuiCategory extends GuiBase {
         this.book = book;
     }
 
-    public GuiCategory(GuiHome homeGui, ResourceLocation texture, Book book, Category category, EntityPlayer player) {
+    public GuiCategory(GuiHome homeGui, ResourceLocation texture, Book book, AbstractCategory category, EntityPlayer player) {
         super(player);
         this.homeGui = homeGui;
         this.outlineTexture = texture;
@@ -53,7 +53,7 @@ public class GuiCategory extends GuiBase {
         int cX = guiLeft;
         int cY = guiTop + 15;
         boolean drawOnLeft = true;
-        for (Category category : book.categories()) {
+        for (AbstractCategory category : book.categories()) {
             if (drawOnLeft) {
                 categoryWrappers.add(new CategoryWrapper(homeGui, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft));
                 cX = guiLeft + 180;
@@ -66,9 +66,9 @@ public class GuiCategory extends GuiBase {
             }
         }
 
-        int eX = guiLeft + 0;
-        int eY = guiTop + 5;
-        for (Entry entry : category.entries()) {
+        int eX = guiLeft + 37;
+        int eY = guiTop + 12;
+        for (AbstractEntry entry : category.entries()) {
             entryWrapperList.add(new EntryWrapper(this, book, category, entry, eX, eY, xSize, 10, player, this.fontRendererObj));
             eY += 10;
         }
@@ -79,10 +79,7 @@ public class GuiCategory extends GuiBase {
         super.drawScreen(mouseX, mouseY, renderPartialTicks);
 
         for (CategoryWrapper wrapper : this.categoryWrappers) {
-            if (wrapper.canPlayerSee()) {
-                wrapper.draw(this);
-                wrapper.drawExtras(mouseX, mouseY, this);
-            }
+            if (wrapper.canPlayerSee()) wrapper.draw(mouseX, mouseY, this);
         }
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
@@ -92,7 +89,7 @@ public class GuiCategory extends GuiBase {
 
         for (EntryWrapper wrapper : this.entryWrapperList) {
             if (wrapper.canPlayerSee()) {
-                wrapper.draw(this);
+                wrapper.draw(mouseX, mouseY, this);
                 wrapper.drawExtras(mouseX, mouseY, this);
             }
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
@@ -101,9 +98,7 @@ public class GuiCategory extends GuiBase {
         }
 
         for (CategoryWrapper wrapper : this.categoryWrappers) {
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                this.drawHoveringText(wrapper.getTooltip(), mouseX, mouseY, this.fontRendererObj);
-            }
+            if (wrapper.canPlayerSee()) wrapper.drawExtras(mouseX, mouseY, this);
         }
     }
 
@@ -113,19 +108,15 @@ public class GuiCategory extends GuiBase {
 
         for (CategoryWrapper wrapper : this.categoryWrappers) {
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                this.mc.displayGuiScreen(new GuiCategory(homeGui, book, wrapper.category, player));
-
-                if (typeofClick == 0) wrapper.category.onLeftClicked(mouseX, mouseY);
-                else if (typeofClick == 1) wrapper.category.onRightClicked(mouseX, mouseY);
+                if (typeofClick == 0) wrapper.category.onLeftClicked(book, mouseX, mouseY, player, homeGui);
+                else if (typeofClick == 1) wrapper.category.onRightClicked(book, mouseX, mouseY, player, homeGui);
             }
         }
 
         for (EntryWrapper wrapper : this.entryWrapperList) {
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                this.mc.displayGuiScreen(new GuiEntry(this, book, category, wrapper.entry, player));
-
-                if (typeofClick == 0) wrapper.entry.onLeftClicked(mouseX, mouseY);
-                else if (typeofClick == 1) wrapper.entry.onRightClicked(mouseX, mouseY);
+                if (typeofClick == 0) wrapper.entry.onLeftClicked(book, category, mouseX, mouseY, player, this);
+                else if (typeofClick == 1) wrapper.entry.onRightClicked(book, category, mouseX, mouseY, player, this);
             }
         }
 

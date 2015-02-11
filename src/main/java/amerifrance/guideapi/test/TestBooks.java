@@ -1,9 +1,6 @@
 package amerifrance.guideapi.test;
 
-import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.Category;
-import amerifrance.guideapi.objects.Entry;
-import amerifrance.guideapi.objects.Page;
+import amerifrance.guideapi.objects.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -22,18 +19,18 @@ public class TestBooks {
         pages.add(page1);
         pages.add(page2);
 
-        Entry entry1 = new Entry(pages, "TestEntry1");
-        Entry entry2 = new Entry(pages, "TestEntry2");
-        ArrayList<Entry> entries = new ArrayList<Entry>();
+        EntryBase entry1 = new EntryBase(pages, "TestEntry1");
+        EntryBase entry2 = new EntryBase(pages, "TestEntry2");
+        ArrayList<AbstractEntry> entries = new ArrayList<AbstractEntry>();
         entries.add(entry1);
         entries.add(entry2);
 
-        Category category1 = new Category(entries, "TestCategory1", new ItemStack(Items.reeds));
-        Category category2 = new Category(entries, "TestCategory2", new ItemStack(Blocks.brick_stairs));
-        Category category3 = new Category(entries, "TestCategory3", new ItemStack(Blocks.dragon_egg));
-        Category category4 = new Category(entries, "TestCategory4", new ItemStack(Items.skull, 1, 0));
-        Category category5 = new Category(entries, "TestCategory5", new ItemStack(Blocks.fence_gate));
-        ArrayList<Category> categories = new ArrayList<Category>();
+        CategoryBase category1 = new CategoryBase(entries, "TestCategory1", new ItemStack(Items.reeds));
+        CategoryBase category2 = new CategoryBase(entries, "TestCategory2", new ItemStack(Blocks.brick_stairs));
+        CategoryBase category3 = new CategoryBase(entries, "TestCategory3", new ItemStack(Blocks.dragon_egg));
+        CategoryBase category4 = new CategoryBase(entries, "TestCategory4", new ItemStack(Items.skull, 1, 0));
+        CategoryBase category5 = new CategoryBase(entries, "TestCategory5", new ItemStack(Blocks.fence_gate));
+        ArrayList<AbstractCategory> categories = new ArrayList<AbstractCategory>();
         categories.add(category1);
         categories.add(category2);
         categories.add(category3);

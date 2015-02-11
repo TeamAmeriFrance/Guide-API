@@ -57,6 +57,5 @@ public class GuideAPI {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-
     }
 }

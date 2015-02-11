@@ -5,25 +5,25 @@ import java.util
 
 import net.minecraft.util.StatCollector
 
-class Book(categoryList: util.List[Category] = new util.ArrayList[Category](), unlocTitle: String, bookColor: Color = new Color(171, 80, 30)) {
+class Book(categoryList: util.List[AbstractCategory] = new util.ArrayList[AbstractCategory](), unlocTitle: String, bookColor: Color = new Color(171, 80, 30)) {
 
-  var categories: util.List[Category] = categoryList
+  var categories: util.List[AbstractCategory] = categoryList
   var unlocalizedTitle: String = unlocTitle
   var color: Color = bookColor
 
-  def addCategory(category: Category) = {
+  def addCategory(category: AbstractCategory) = {
     this.categories.add(category)
   }
 
-  def addCategoryList(list: util.List[Category]) = {
+  def addCategoryList(list: util.List[AbstractCategory]) = {
     this.categories.addAll(list)
   }
 
-  def removeCategory(category: Category) = {
+  def removeCategory(category: AbstractCategory) = {
     this.categories.remove(category)
   }
 
-  def removeCategoryList(list: util.List[Category]) = {
+  def removeCategoryList(list: util.List[AbstractCategory]) = {
     this.categories.remove(list)
   }
 

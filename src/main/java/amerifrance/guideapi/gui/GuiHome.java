@@ -2,7 +2,7 @@ package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.Category;
+import amerifrance.guideapi.objects.AbstractCategory;
 import amerifrance.guideapi.wrappers.CategoryWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -42,7 +42,7 @@ public class GuiHome extends GuiBase {
         int cX = guiLeft;
         int cY = guiTop + 15;
         boolean drawOnLeft = true;
-        for (Category category : book.categories()) {
+        for (AbstractCategory category : book.categories()) {
             if (drawOnLeft) {
                 categoryWrappers.add(new CategoryWrapper(this, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft));
                 cX = guiLeft + 180;
@@ -66,11 +66,8 @@ public class GuiHome extends GuiBase {
 
         for (CategoryWrapper wrapper : this.categoryWrappers) {
             if (wrapper.canPlayerSee()) {
-                wrapper.draw(this);
+                wrapper.draw(mouseX, mouseY, this);
                 wrapper.drawExtras(mouseX, mouseY, this);
-            }
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                this.drawHoveringText(wrapper.getTooltip(), mouseX, mouseY, this.fontRendererObj);
             }
         }
     }
@@ -81,9 +78,8 @@ public class GuiHome extends GuiBase {
 
         for (CategoryWrapper wrapper : this.categoryWrappers) {
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                this.mc.displayGuiScreen(new GuiCategory(this, book, wrapper.category, player));
-                if (typeofClick == 0) wrapper.category.onLeftClicked(mouseX, mouseY);
-                else if (typeofClick == 1) wrapper.category.onRightClicked(mouseX, mouseY);
+                if (typeofClick == 0) wrapper.category.onLeftClicked(book, mouseX, mouseY, player, this);
+                else if (typeofClick == 1) wrapper.category.onRightClicked(book, mouseX, mouseY, player, this);
             }
         }
     }
