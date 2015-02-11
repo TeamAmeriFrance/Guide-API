@@ -2,7 +2,7 @@ package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.AbstractCategory;
+import amerifrance.guideapi.objects.abstraction.AbstractCategory;
 import amerifrance.guideapi.wrappers.CategoryWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;

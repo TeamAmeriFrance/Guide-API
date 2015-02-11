@@ -2,8 +2,8 @@ package amerifrance.guideapi.wrappers;
 
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiHome;
-import amerifrance.guideapi.objects.AbstractCategory;
 import amerifrance.guideapi.objects.Book;
+import amerifrance.guideapi.objects.abstraction.AbstractCategory;
 import amerifrance.guideapi.util.GuiHelper;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -19,6 +19,7 @@ public class CategoryWrapper extends AbstractWrapper {
     public RenderItem renderItem;
     public GuiHome homeGui;
     public boolean drawOnLeft;
+    public int categoryNumber;
 
     public CategoryWrapper(GuiHome homeGui, Book book, AbstractCategory category, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer, RenderItem renderItem, boolean drawOnLeft) {
         this.book = book;
@@ -32,6 +33,7 @@ public class CategoryWrapper extends AbstractWrapper {
         this.renderItem = renderItem;
         this.homeGui = homeGui;
         this.drawOnLeft = drawOnLeft;
+        this.categoryNumber = categoryNumber;
     }
 
     @Override

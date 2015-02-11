@@ -2,8 +2,8 @@ package amerifrance.guideapi.wrappers;
 
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
-import amerifrance.guideapi.objects.AbstractCategory;
-import amerifrance.guideapi.objects.AbstractEntry;
+import amerifrance.guideapi.objects.abstraction.AbstractCategory;
+import amerifrance.guideapi.objects.abstraction.AbstractEntry;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.util.GuiHelper;
 import net.minecraft.client.Minecraft;

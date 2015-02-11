@@ -3,6 +3,7 @@ package amerifrance.guideapi.objects
 import java.awt.Color
 import java.util
 
+import amerifrance.guideapi.objects.abstraction.AbstractCategory
 import net.minecraft.util.StatCollector
 
 class Book(categoryList: util.List[AbstractCategory] = new util.ArrayList[AbstractCategory](), unlocTitle: String, bookColor: Color = new Color(171, 80, 30)) {

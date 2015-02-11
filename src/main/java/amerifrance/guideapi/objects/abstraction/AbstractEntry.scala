@@ -1,30 +1,31 @@
-package amerifrance.guideapi.objects
+package amerifrance.guideapi.objects.abstraction
 
 import java.util
 
 import amerifrance.guideapi.gui.{GuiBase, GuiCategory}
+import amerifrance.guideapi.objects.Book
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.StatCollector
 
-abstract class AbstractEntry(pageList: util.List[Page] = new util.ArrayList[Page], unlocEntryName: String) {
+abstract class AbstractEntry(pageList: util.List[AbstractPage] = new util.ArrayList[AbstractPage], unlocEntryName: String) {
 
-  var pages: util.List[Page] = pageList
+  var pages: util.List[AbstractPage] = pageList
   var unlocalizedEntryName: String = unlocEntryName
 
-  def addPage(page: Page) = {
+  def addPage(page: AbstractPage) = {
     this.pages.add(page)
   }
 
-  def addPageList(list: util.List[Page]) = {
+  def addPageList(list: util.List[AbstractPage]) = {
     this.pages.addAll(list)
   }
 
-  def removePage(page: Page) = {
+  def removePage(page: AbstractPage) = {
     this.pages.remove(page)
   }
 
-  def removePageList(list: util.List[Page]) = {
+  def removePageList(list: util.List[AbstractPage]) = {
     this.pages.remove(list)
   }
 

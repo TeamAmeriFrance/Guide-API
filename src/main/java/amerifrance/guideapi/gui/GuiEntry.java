@@ -1,10 +1,10 @@
 package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.ModInformation;
-import amerifrance.guideapi.objects.AbstractCategory;
-import amerifrance.guideapi.objects.AbstractEntry;
 import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.Page;
+import amerifrance.guideapi.objects.abstraction.AbstractCategory;
+import amerifrance.guideapi.objects.abstraction.AbstractEntry;
+import amerifrance.guideapi.objects.abstraction.AbstractPage;
 import amerifrance.guideapi.wrappers.CategoryWrapper;
 import amerifrance.guideapi.wrappers.PageWrapper;
 import net.minecraft.client.Minecraft;
@@ -74,7 +74,7 @@ public class GuiEntry extends GuiBase {
             }
         }
 
-        for (Page page : this.entry.pages()) {
+        for (AbstractPage page : this.entry.pages()) {
             pageWrapperList.add(new PageWrapper(book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj));
         }
     }
@@ -124,8 +124,12 @@ public class GuiEntry extends GuiBase {
 
         for (PageWrapper wrapper : this.pageWrapperList) {
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                if (typeofClick == 0) pageWrapperList.get(pageNumber).page.onLeftClicked(mouseX, mouseY);
-                if (typeofClick == 1) pageWrapperList.get(pageNumber).page.onRightClicked(mouseX, mouseY);
+                if (typeofClick == 0) {
+                    pageWrapperList.get(pageNumber).page.onLeftClicked(book, category, entry, mouseX, mouseY, player, this);
+                }
+                if (typeofClick == 1) {
+                    pageWrapperList.get(pageNumber).page.onRightClicked(book, category, entry, mouseX, mouseY, player, this);
+                }
             }
         }
 

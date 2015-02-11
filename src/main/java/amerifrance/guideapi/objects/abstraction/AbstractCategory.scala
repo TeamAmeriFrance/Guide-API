@@ -1,8 +1,9 @@
-package amerifrance.guideapi.objects
+package amerifrance.guideapi.objects.abstraction
 
 import java.util
 
 import amerifrance.guideapi.gui.{GuiBase, GuiHome}
+import amerifrance.guideapi.objects.Book
 import net.minecraft.client.renderer.entity.RenderItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack

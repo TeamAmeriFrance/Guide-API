@@ -4,6 +4,8 @@ import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiHome;
+import amerifrance.guideapi.objects.abstraction.AbstractCategory;
+import amerifrance.guideapi.objects.abstraction.AbstractEntry;
 import amerifrance.guideapi.util.GuiHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
