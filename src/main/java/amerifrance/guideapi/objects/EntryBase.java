@@ -41,7 +41,7 @@ public class EntryBase extends AbstractEntry {
     @Override
     public void onLeftClicked(Book book, AbstractCategory category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory) {
         System.out.println(getLocalizedName() + "Left Clicked");
-        Minecraft.getMinecraft().displayGuiScreen(new GuiEntry(guiCategory, book, category, this, player, guiCategory.bookStack));
+        Minecraft.getMinecraft().displayGuiScreen(new GuiEntry(book, category, this, player, guiCategory.bookStack));
     }
 
     @Override

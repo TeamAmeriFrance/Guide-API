@@ -26,9 +26,9 @@ public class GuiEntry extends GuiBase {
     public AbstractEntry entry;
     public List<PageWrapper> pageWrapperList = new ArrayList<PageWrapper>();
     private int pageNumber;
-    public ButtonBack buttonBack;
+    public ButtonBack buttonBack, buttonFirstPage;
 
-    public GuiEntry(GuiCategory categoryGui, Book book, AbstractCategory category, AbstractEntry entry, EntityPlayer player, ItemStack bookStack) {
+    public GuiEntry(Book book, AbstractCategory category, AbstractEntry entry, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
         this.outlineTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
         this.category = category;
@@ -47,6 +47,7 @@ public class GuiEntry extends GuiBase {
         guiTop = (this.height - this.ySize) / 2;
 
         this.buttonList.add(buttonBack = new ButtonBack(0, guiLeft, guiTop));
+        this.buttonList.add(buttonFirstPage = new ButtonBack(1, guiLeft + xSize / 6, guiTop + 5 * ySize / 6));
 
         for (AbstractPage page : this.entry.pages()) {
             pageWrapperList.add(new PageWrapper(book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj, bookStack));
@@ -109,6 +110,8 @@ public class GuiEntry extends GuiBase {
     public void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack));
+        } else if (button.id == 1) {
+            this.pageNumber = 0;
         }
     }
 }
