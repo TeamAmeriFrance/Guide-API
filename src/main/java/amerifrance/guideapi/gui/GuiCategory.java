@@ -8,6 +8,7 @@ import amerifrance.guideapi.wrappers.CategoryWrapper;
 import amerifrance.guideapi.wrappers.EntryWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 
@@ -24,16 +25,16 @@ public class GuiCategory extends GuiBase {
     public List<CategoryWrapper> categoryWrappers = new ArrayList<CategoryWrapper>();
     public List<EntryWrapper> entryWrapperList = new ArrayList<EntryWrapper>();
 
-    public GuiCategory(GuiHome homeGui, Book book, AbstractCategory category, EntityPlayer player) {
-        super(player);
+    public GuiCategory(GuiHome homeGui, Book book, AbstractCategory category, EntityPlayer player, ItemStack bookStack) {
+        super(player, bookStack);
         this.homeGui = homeGui;
         this.outlineTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
         this.category = category;
         this.book = book;
     }
 
-    public GuiCategory(GuiHome homeGui, ResourceLocation texture, Book book, AbstractCategory category, EntityPlayer player) {
-        super(player);
+    public GuiCategory(GuiHome homeGui, ResourceLocation texture, Book book, AbstractCategory category, EntityPlayer player, ItemStack bookStack) {
+        super(player, bookStack);
         this.homeGui = homeGui;
         this.outlineTexture = texture;
         this.category = category;
@@ -55,11 +56,11 @@ public class GuiCategory extends GuiBase {
         boolean drawOnLeft = true;
         for (AbstractCategory category : book.categories()) {
             if (drawOnLeft) {
-                categoryWrappers.add(new CategoryWrapper(homeGui, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft));
+                categoryWrappers.add(new CategoryWrapper(homeGui, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
                 cX = guiLeft + 180;
                 drawOnLeft = false;
             } else {
-                categoryWrappers.add(new CategoryWrapper(homeGui, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft));
+                categoryWrappers.add(new CategoryWrapper(homeGui, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
                 cY += 25;
                 cX = guiLeft;
                 drawOnLeft = true;
@@ -69,7 +70,7 @@ public class GuiCategory extends GuiBase {
         int eX = guiLeft + 37;
         int eY = guiTop + 12;
         for (AbstractEntry entry : category.entries()) {
-            entryWrapperList.add(new EntryWrapper(this, book, category, entry, eX, eY, xSize, 10, player, this.fontRendererObj));
+            entryWrapperList.add(new EntryWrapper(this, book, category, entry, eX, eY, xSize, 10, player, this.fontRendererObj, bookStack));
             eY += 10;
         }
     }

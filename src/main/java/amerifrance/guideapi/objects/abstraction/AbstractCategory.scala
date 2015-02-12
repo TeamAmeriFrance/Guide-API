@@ -49,5 +49,5 @@ abstract class AbstractCategory(entryList: util.List[AbstractEntry] = new util.A
 
   def drawExtras(book: Book, categoryX: Int, categoryY: Int, categoryWidth: Int, categoryHeight: Int, mouseX: Int, mouseY: Int, guiBase: GuiBase, drawOnLeft: Boolean, renderItem: RenderItem)
 
-  def canSee(player: EntityPlayer): Boolean
+  def canSee(player: EntityPlayer, bookStack: ItemStack): Boolean
 }

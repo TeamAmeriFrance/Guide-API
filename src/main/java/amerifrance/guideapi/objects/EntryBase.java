@@ -10,6 +10,7 @@ import amerifrance.guideapi.util.GuiHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
@@ -33,14 +34,14 @@ public class EntryBase extends AbstractEntry {
     }
 
     @Override
-    public boolean canSee(EntityPlayer player) {
+    public boolean canSee(EntityPlayer player, ItemStack bookStack) {
         return true;
     }
 
     @Override
     public void onLeftClicked(Book book, AbstractCategory category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory) {
         System.out.println(getLocalizedName() + "Left Clicked");
-        Minecraft.getMinecraft().displayGuiScreen(new GuiEntry(guiCategory, book, category, this, player));
+        Minecraft.getMinecraft().displayGuiScreen(new GuiEntry(guiCategory, book, category, this, player, guiCategory.bookStack));
     }
 
     @Override

@@ -8,6 +8,7 @@ import amerifrance.guideapi.util.GuiHelper;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 
 public class CategoryWrapper extends AbstractWrapper {
 
@@ -19,9 +20,9 @@ public class CategoryWrapper extends AbstractWrapper {
     public RenderItem renderItem;
     public GuiHome homeGui;
     public boolean drawOnLeft;
-    public int categoryNumber;
+    public ItemStack bookStack;
 
-    public CategoryWrapper(GuiHome homeGui, Book book, AbstractCategory category, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer, RenderItem renderItem, boolean drawOnLeft) {
+    public CategoryWrapper(GuiHome homeGui, Book book, AbstractCategory category, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer, RenderItem renderItem, boolean drawOnLeft, ItemStack bookStack) {
         this.book = book;
         this.category = category;
         this.x = x;
@@ -33,7 +34,7 @@ public class CategoryWrapper extends AbstractWrapper {
         this.renderItem = renderItem;
         this.homeGui = homeGui;
         this.drawOnLeft = drawOnLeft;
-        this.categoryNumber = categoryNumber;
+        this.bookStack = bookStack;
     }
 
     @Override
@@ -42,7 +43,7 @@ public class CategoryWrapper extends AbstractWrapper {
 
     @Override
     public boolean canPlayerSee() {
-        return category.canSee(player);
+        return category.canSee(player, bookStack);
     }
 
     @Override

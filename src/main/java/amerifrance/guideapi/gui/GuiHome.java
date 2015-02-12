@@ -6,6 +6,7 @@ import amerifrance.guideapi.objects.abstraction.AbstractCategory;
 import amerifrance.guideapi.wrappers.CategoryWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
@@ -18,14 +19,14 @@ public class GuiHome extends GuiBase {
     public Book book;
     public List<CategoryWrapper> categoryWrappers = new ArrayList<CategoryWrapper>();
 
-    public GuiHome(Book book, EntityPlayer player) {
-        super(player);
+    public GuiHome(Book book, EntityPlayer player, ItemStack bookStack) {
+        super(player, bookStack);
         this.outlineTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
         this.book = book;
     }
 
-    public GuiHome(ResourceLocation texture, Book book, EntityPlayer player) {
-        super(player);
+    public GuiHome(ResourceLocation texture, Book book, EntityPlayer player, ItemStack bookStack) {
+        super(player, bookStack);
         this.outlineTexture = texture;
         this.book = book;
     }
@@ -44,11 +45,11 @@ public class GuiHome extends GuiBase {
         boolean drawOnLeft = true;
         for (AbstractCategory category : book.categories()) {
             if (drawOnLeft) {
-                categoryWrappers.add(new CategoryWrapper(this, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft));
+                categoryWrappers.add(new CategoryWrapper(this, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
                 cX = guiLeft + 180;
                 drawOnLeft = false;
             } else {
-                categoryWrappers.add(new CategoryWrapper(this, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft));
+                categoryWrappers.add(new CategoryWrapper(this, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
                 cY += 25;
                 cX = guiLeft;
                 drawOnLeft = true;

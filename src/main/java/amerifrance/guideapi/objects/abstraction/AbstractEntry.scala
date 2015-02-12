@@ -6,6 +6,7 @@ import amerifrance.guideapi.gui.{GuiBase, GuiCategory}
 import amerifrance.guideapi.objects.Book
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemStack
 import net.minecraft.util.StatCollector
 
 abstract class AbstractEntry(pageList: util.List[AbstractPage] = new util.ArrayList[AbstractPage], unlocEntryName: String) {
@@ -37,7 +38,7 @@ abstract class AbstractEntry(pageList: util.List[AbstractPage] = new util.ArrayL
 
   def drawExtras(book: Book, category: AbstractCategory, entryX: Int, entryY: Int, entryWidth: Int, entryHeight: Int, mouseX: Int, mouseY: Int, guiBase: GuiBase, fontRenderer: FontRenderer)
 
-  def canSee(player: EntityPlayer): Boolean
+  def canSee(player: EntityPlayer, bookStack: ItemStack): Boolean
 
   def onLeftClicked(book: Book, category: AbstractCategory, mouseX: Int, mouseY: Int, player: EntityPlayer, guiCategory: GuiCategory)
 

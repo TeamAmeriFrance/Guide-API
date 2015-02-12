@@ -42,20 +42,20 @@ public class CategoryBase extends AbstractCategory {
 
     @Override
     public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
-        if (canSee(guiBase.player) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight)) {
+        if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight)) {
             guiBase.drawHoveringText(getTooltip(), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
         }
     }
 
     @Override
-    public boolean canSee(EntityPlayer player) {
+    public boolean canSee(EntityPlayer player, ItemStack bookStack) {
         return true;
     }
 
     @Override
     public void onLeftClicked(Book book, int mouseX, int mouseY, EntityPlayer player, GuiHome guiHome) {
         System.out.println(getLocalizedName() + "Left Clicked");
-        Minecraft.getMinecraft().displayGuiScreen(new GuiCategory(guiHome, book, this, player));
+        Minecraft.getMinecraft().displayGuiScreen(new GuiCategory(guiHome, book, this, player, guiHome.bookStack));
     }
 
     @Override

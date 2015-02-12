@@ -7,6 +7,7 @@ import amerifrance.guideapi.objects.abstraction.AbstractEntry;
 import amerifrance.guideapi.objects.abstraction.AbstractPage;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 
 public class PageBase extends AbstractPage {
 
@@ -19,7 +20,7 @@ public class PageBase extends AbstractPage {
     }
 
     @Override
-    public boolean canSee(EntityPlayer player) {
+    public boolean canSee(EntityPlayer player, ItemStack bookStack) {
         return true;
     }
 

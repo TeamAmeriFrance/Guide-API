@@ -1,13 +1,14 @@
 package amerifrance.guideapi.wrappers;
 
 import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.abstraction.AbstractCategory;
 import amerifrance.guideapi.objects.abstraction.AbstractEntry;
-import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.abstraction.AbstractPage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 
 public class PageWrapper extends AbstractWrapper {
 
@@ -18,8 +19,9 @@ public class PageWrapper extends AbstractWrapper {
     public int guiLeft, guiTop;
     public EntityPlayer player;
     public FontRenderer renderer;
+    public ItemStack bookStack;
 
-    public PageWrapper(Book book, AbstractCategory category, AbstractEntry entry, AbstractPage page, int guiLeft, int guiTop, EntityPlayer player, FontRenderer renderer) {
+    public PageWrapper(Book book, AbstractCategory category, AbstractEntry entry, AbstractPage page, int guiLeft, int guiTop, EntityPlayer player, FontRenderer renderer, ItemStack bookStack) {
         this.book = book;
         this.category = category;
         this.entry = entry;
@@ -28,6 +30,7 @@ public class PageWrapper extends AbstractWrapper {
         this.guiTop = guiTop;
         this.player = player;
         this.renderer = renderer;
+        this.bookStack = bookStack;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class PageWrapper extends AbstractWrapper {
 
     @Override
     public boolean canPlayerSee() {
-        return page.canSee(player);
+        return page.canSee(player, bookStack);
     }
 
     @Override

@@ -2,13 +2,14 @@ package amerifrance.guideapi.wrappers;
 
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
+import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.abstraction.AbstractCategory;
 import amerifrance.guideapi.objects.abstraction.AbstractEntry;
-import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.util.GuiHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 
 public class EntryWrapper extends AbstractWrapper {
 
@@ -19,8 +20,9 @@ public class EntryWrapper extends AbstractWrapper {
     public EntityPlayer player;
     public FontRenderer renderer;
     public GuiCategory categoryGui;
+    public ItemStack bookStack;
 
-    public EntryWrapper(GuiCategory categoryGui, Book book, AbstractCategory category, AbstractEntry entry, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer) {
+    public EntryWrapper(GuiCategory categoryGui, Book book, AbstractCategory category, AbstractEntry entry, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer, ItemStack bookStack) {
         this.book = book;
         this.category = category;
         this.entry = entry;
@@ -31,6 +33,7 @@ public class EntryWrapper extends AbstractWrapper {
         this.player = player;
         this.renderer = renderer;
         this.categoryGui = categoryGui;
+        this.bookStack = bookStack;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class EntryWrapper extends AbstractWrapper {
 
     @Override
     public boolean canPlayerSee() {
-        return entry.canSee(player);
+        return entry.canSee(player, bookStack);
     }
 
     @Override

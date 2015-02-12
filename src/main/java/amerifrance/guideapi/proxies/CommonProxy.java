@@ -19,7 +19,7 @@ public class CommonProxy implements IGuiHandler {
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == 0) {
-            return new GuiHome(TestBooks.testBook1, player);
+            return new GuiHome(TestBooks.testBook1, player, player.getHeldItem());
         }
         return null;
     }

@@ -9,6 +9,7 @@ import amerifrance.guideapi.wrappers.CategoryWrapper;
 import amerifrance.guideapi.wrappers.PageWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 
@@ -27,8 +28,8 @@ public class GuiEntry extends GuiBase {
     public List<PageWrapper> pageWrapperList = new ArrayList<PageWrapper>();
     private int pageNumber;
 
-    public GuiEntry(GuiCategory categoryGui, Book book, AbstractCategory category, AbstractEntry entry, EntityPlayer player) {
-        super(player);
+    public GuiEntry(GuiCategory categoryGui, Book book, AbstractCategory category, AbstractEntry entry, EntityPlayer player, ItemStack bookStack) {
+        super(player, bookStack);
         this.categoryGui = categoryGui;
         this.outlineTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
         this.category = category;
@@ -37,8 +38,8 @@ public class GuiEntry extends GuiBase {
         this.pageNumber = 0;
     }
 
-    public GuiEntry(GuiCategory categoryGui, ResourceLocation texture, Book book, AbstractCategory category, AbstractEntry entry, EntityPlayer player) {
-        super(player);
+    public GuiEntry(GuiCategory categoryGui, ResourceLocation texture, Book book, AbstractCategory category, AbstractEntry entry, EntityPlayer player, ItemStack bookStack) {
+        super(player, bookStack);
         this.categoryGui = categoryGui;
         this.outlineTexture = texture;
         this.category = category;
@@ -63,11 +64,11 @@ public class GuiEntry extends GuiBase {
 
         for (AbstractCategory category : book.categories()) {
             if (drawOnLeft) {
-                categoryWrappers.add(new CategoryWrapper(categoryGui.homeGui, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft));
+                categoryWrappers.add(new CategoryWrapper(categoryGui.homeGui, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
                 cX = guiLeft + 180;
                 drawOnLeft = false;
             } else {
-                categoryWrappers.add(new CategoryWrapper(categoryGui.homeGui, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft));
+                categoryWrappers.add(new CategoryWrapper(categoryGui.homeGui, book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
                 cY += 25;
                 cX = guiLeft;
                 drawOnLeft = true;
@@ -75,7 +76,7 @@ public class GuiEntry extends GuiBase {
         }
 
         for (AbstractPage page : this.entry.pages()) {
-            pageWrapperList.add(new PageWrapper(book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj));
+            pageWrapperList.add(new PageWrapper(book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj, bookStack));
         }
     }
 
