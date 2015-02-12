@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 public class ItemTestBook extends Item {
 
-    public ItemTestBook(){
+    public ItemTestBook() {
         this.setCreativeTab(CreativeTabs.tabFood);
         this.setUnlocalizedName("TestBook");
     }

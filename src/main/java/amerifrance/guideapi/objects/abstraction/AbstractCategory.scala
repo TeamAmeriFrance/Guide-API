@@ -2,18 +2,17 @@ package amerifrance.guideapi.objects.abstraction
 
 import java.util
 
-import amerifrance.guideapi.gui.{GuiBase, GuiHome}
+import amerifrance.guideapi.gui.GuiBase
 import amerifrance.guideapi.objects.Book
 import net.minecraft.client.renderer.entity.RenderItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.StatCollector
 
-abstract class AbstractCategory(entryList: util.List[AbstractEntry] = new util.ArrayList[AbstractEntry](), unlocCategoryName: String, itemstack: ItemStack) {
+abstract class AbstractCategory(entryList: util.List[AbstractEntry] = new util.ArrayList[AbstractEntry](), unlocCategoryName: String) {
 
   var entries: util.List[AbstractEntry] = entryList
   var unlocalizedCategoryName: String = unlocCategoryName
-  var stack = itemstack
 
   def addEntry(entry: AbstractEntry) = {
     this.entries.add(entry)
@@ -31,19 +30,19 @@ abstract class AbstractCategory(entryList: util.List[AbstractEntry] = new util.A
     this.entries.remove(list)
   }
 
-  def getLocalizedName(): String = {
-    return StatCollector.translateToLocal(unlocalizedCategoryName)
-  }
-
   def getTooltip: util.List[String] = {
     val list: util.ArrayList[String] = new util.ArrayList[String]
     list.add(getLocalizedName)
     return list
   }
 
-  def onLeftClicked(book: Book, mouseX: Int, mouseY: Int, player: EntityPlayer, guiHome: GuiHome)
+  def getLocalizedName(): String = {
+    return StatCollector.translateToLocal(unlocalizedCategoryName)
+  }
 
-  def onRightClicked(book: Book, mouseX: Int, mouseY: Int, player: EntityPlayer, guiHome: GuiHome)
+  def onLeftClicked(book: Book, mouseX: Int, mouseY: Int, player: EntityPlayer, bookStack: ItemStack)
+
+  def onRightClicked(book: Book, mouseX: Int, mouseY: Int, player: EntityPlayer, bookStack: ItemStack)
 
   def draw(book: Book, categoryX: Int, categoryY: Int, categoryWidth: Int, categoryHeight: Int, mouseX: Int, mouseY: Int, guiBase: GuiBase, drawOnLeft: Boolean, renderItem: RenderItem)
 

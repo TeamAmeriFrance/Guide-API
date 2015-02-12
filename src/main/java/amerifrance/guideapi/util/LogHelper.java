@@ -6,7 +6,6 @@ import amerifrance.guideapi.GuideAPI;
 public class LogHelper {
 
     /**
-     *
      * @param info - String to log to the info level
      */
 
@@ -16,7 +15,6 @@ public class LogHelper {
     }
 
     /**
-     *
      * @param error - String to log to the error level
      */
 
@@ -26,7 +24,6 @@ public class LogHelper {
     }
 
     /**
-     *
      * @param debug - String to log to the debug level
      */
 

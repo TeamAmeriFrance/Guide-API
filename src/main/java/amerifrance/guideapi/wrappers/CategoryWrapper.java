@@ -1,7 +1,6 @@
 package amerifrance.guideapi.wrappers;
 
 import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiHome;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.abstraction.AbstractCategory;
 import amerifrance.guideapi.util.GuiHelper;
@@ -18,11 +17,10 @@ public class CategoryWrapper extends AbstractWrapper {
     public EntityPlayer player;
     public FontRenderer renderer;
     public RenderItem renderItem;
-    public GuiHome homeGui;
     public boolean drawOnLeft;
     public ItemStack bookStack;
 
-    public CategoryWrapper(GuiHome homeGui, Book book, AbstractCategory category, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer, RenderItem renderItem, boolean drawOnLeft, ItemStack bookStack) {
+    public CategoryWrapper(Book book, AbstractCategory category, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer, RenderItem renderItem, boolean drawOnLeft, ItemStack bookStack) {
         this.book = book;
         this.category = category;
         this.x = x;
@@ -32,7 +30,6 @@ public class CategoryWrapper extends AbstractWrapper {
         this.player = player;
         this.renderer = renderer;
         this.renderItem = renderItem;
-        this.homeGui = homeGui;
         this.drawOnLeft = drawOnLeft;
         this.bookStack = bookStack;
     }

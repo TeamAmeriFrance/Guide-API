@@ -53,4 +53,9 @@ public class GuiBase extends GuiScreen {
     public void drawHoveringText(List list, int x, int y, FontRenderer font) {
         super.drawHoveringText(list, x, y, font);
     }
+
+    @Override
+    public void drawCenteredString(FontRenderer fontRenderer, String string, int x, int y, int color) {
+        fontRenderer.drawString(string, x - fontRenderer.getStringWidth(string) / 2, y, color);
+    }
 }

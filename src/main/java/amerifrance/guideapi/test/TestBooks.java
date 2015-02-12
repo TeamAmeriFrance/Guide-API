@@ -43,6 +43,11 @@ public class TestBooks {
         categories.add(category4);
         categories.add(category5);
 
+        for (int i = 6; i <= 25; i++) {
+            CategoryBase categoryBase = new CategoryBase(entries, "TestCategory" + String.valueOf(i), new ItemStack(Items.diamond));
+            categories.add(categoryBase);
+        }
+
         testBook1 = new Book(categories, "ItemTestBook", new Color(171, 80, 30));
     }
 }
