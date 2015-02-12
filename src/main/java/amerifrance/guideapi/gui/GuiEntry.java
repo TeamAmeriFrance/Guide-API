@@ -1,12 +1,14 @@
 package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.ModInformation;
+import amerifrance.guideapi.buttons.ButtonBack;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.abstraction.AbstractCategory;
 import amerifrance.guideapi.objects.abstraction.AbstractEntry;
 import amerifrance.guideapi.objects.abstraction.AbstractPage;
 import amerifrance.guideapi.wrappers.PageWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -24,6 +26,7 @@ public class GuiEntry extends GuiBase {
     public AbstractEntry entry;
     public List<PageWrapper> pageWrapperList = new ArrayList<PageWrapper>();
     private int pageNumber;
+    public ButtonBack buttonBack;
 
     public GuiEntry(GuiCategory categoryGui, Book book, AbstractCategory category, AbstractEntry entry, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
@@ -43,6 +46,8 @@ public class GuiEntry extends GuiBase {
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
+        this.buttonList.add(buttonBack = new ButtonBack(0, guiLeft, guiTop));
+
         for (AbstractPage page : this.entry.pages()) {
             pageWrapperList.add(new PageWrapper(book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj, bookStack));
         }
@@ -50,8 +55,6 @@ public class GuiEntry extends GuiBase {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float renderPartialTicks) {
-        super.drawScreen(mouseX, mouseY, renderPartialTicks);
-
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
@@ -65,6 +68,7 @@ public class GuiEntry extends GuiBase {
         }
 
         drawCenteredString(fontRendererObj, String.valueOf(pageNumber + 1) + "/" + String.valueOf(pageWrapperList.size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
 
     @Override
@@ -98,6 +102,13 @@ public class GuiEntry extends GuiBase {
         }
         if ((keyCode == Keyboard.KEY_DOWN || keyCode == Keyboard.KEY_LEFT) && pageNumber > 0) {
             this.pageNumber--;
+        }
+    }
+
+    @Override
+    public void actionPerformed(GuiButton button) {
+        if (button.id == 0) {
+            this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack));
         }
     }
 }

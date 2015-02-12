@@ -66,7 +66,6 @@ public class GuiHome extends GuiBase {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float renderPartialTicks) {
-        super.drawScreen(mouseX, mouseY, renderPartialTicks);
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
@@ -78,8 +77,8 @@ public class GuiHome extends GuiBase {
                 wrapper.drawExtras(mouseX, mouseY, this);
             }
         }
-
         drawCenteredString(fontRendererObj, String.valueOf(categoryPage + 1) + "/" + String.valueOf(categoryWrappers.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
 
     @Override

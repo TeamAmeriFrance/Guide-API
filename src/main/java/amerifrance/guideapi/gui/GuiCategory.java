@@ -1,11 +1,13 @@
 package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.ModInformation;
+import amerifrance.guideapi.buttons.ButtonBack;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.abstraction.AbstractCategory;
 import amerifrance.guideapi.objects.abstraction.AbstractEntry;
 import amerifrance.guideapi.wrappers.EntryWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -21,6 +23,7 @@ public class GuiCategory extends GuiBase {
     public Book book;
     public AbstractCategory category;
     public List<EntryWrapper> entryWrapperList = new ArrayList<EntryWrapper>();
+    public ButtonBack buttonBack;
 
     public GuiCategory(Book book, AbstractCategory category, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
@@ -38,6 +41,8 @@ public class GuiCategory extends GuiBase {
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
+        this.buttonList.add(buttonBack = new ButtonBack(0, guiLeft, guiTop));
+
         int eX = guiLeft + 37;
         int eY = guiTop + 12;
         for (AbstractEntry entry : category.entries()) {
@@ -48,8 +53,6 @@ public class GuiCategory extends GuiBase {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float renderPartialTicks) {
-        super.drawScreen(mouseX, mouseY, renderPartialTicks);
-
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
@@ -64,6 +67,8 @@ public class GuiCategory extends GuiBase {
                 wrapper.onHoverOver(mouseX, mouseY);
             }
         }
+
+        super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
 
     @Override
@@ -86,6 +91,13 @@ public class GuiCategory extends GuiBase {
     public void keyTyped(char typedChar, int keyCode) {
         super.keyTyped(typedChar, keyCode);
         if (keyCode == Keyboard.KEY_BACK || keyCode == this.mc.gameSettings.keyBindUseItem.getKeyCode()) {
+            this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
+        }
+    }
+
+    @Override
+    public void actionPerformed(GuiButton button) {
+        if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
         }
     }
