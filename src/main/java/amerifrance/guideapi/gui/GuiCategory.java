@@ -41,7 +41,7 @@ public class GuiCategory extends GuiBase {
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
-        this.buttonList.add(buttonBack = new ButtonBack(0, guiLeft, guiTop));
+        this.buttonList.add(buttonBack = new ButtonBack(0, guiLeft, guiTop, this, false));
 
         int eX = guiLeft + 37;
         int eY = guiTop + 12;
