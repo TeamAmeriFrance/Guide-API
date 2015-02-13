@@ -78,22 +78,17 @@ public class GuiHome extends GuiBase {
     @Override
     public void drawScreen(int mouseX, int mouseY, float renderPartialTicks) {
         for (CategoryWrapper wrapper : this.categoryWrappers.get(categoryPage)) {
-            if (wrapper.canPlayerSee()) {
-                wrapper.draw(mouseX, mouseY, this);
-            }
+            if (wrapper.canPlayerSee()) wrapper.draw(mouseX, mouseY, this);
         }
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.color());
-
-        this.fontRendererObj.drawSplitString(book.getLocalizedWelcomMessage(), guiLeft + 37, guiTop + 12, 4 * xSize / 6, 0);
+        drawSplitString(book.getLocalizedWelcomMessage(), guiLeft + 37, guiTop + 12, 4 * xSize / 6, 0);
 
         for (CategoryWrapper wrapper : this.categoryWrappers.get(categoryPage)) {
-            if (wrapper.canPlayerSee()) {
-                wrapper.drawExtras(mouseX, mouseY, this);
-            }
+            if (wrapper.canPlayerSee()) wrapper.drawExtras(mouseX, mouseY, this);
         }
 
         drawCenteredString(fontRendererObj, String.valueOf(categoryPage + 1) + "/" + String.valueOf(categoryWrappers.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);

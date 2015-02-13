@@ -67,4 +67,8 @@ public class GuiBase extends GuiScreen {
     public void drawCenteredString(FontRenderer fontRenderer, String string, int x, int y, int color) {
         fontRenderer.drawString(string, x - fontRenderer.getStringWidth(string) / 2, y, color);
     }
+
+    public void drawSplitString(String string, int x, int y, int maxLength, int color) {
+        fontRendererObj.drawSplitString(string, x, y, maxLength, color);
+    }
 }
