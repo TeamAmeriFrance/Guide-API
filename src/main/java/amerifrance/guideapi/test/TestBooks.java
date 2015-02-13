@@ -53,6 +53,7 @@ public class TestBooks {
             categories.add(categoryBase);
         }
 
-        testBook1 = new Book(categories, "ItemTestBook", new Color(171, 80, 30));
+        testBook1 = new Book(categories, "ItemTestBook", new Color(171, 80, 30), "Hello, I am a welcome message that's " +
+                "just way too long and that says nothing other that I'm there for test purposes");
     }
 }

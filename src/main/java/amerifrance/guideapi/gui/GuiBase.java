@@ -18,10 +18,12 @@ public class GuiBase extends GuiScreen {
     public int ySize = 192;
     public EntityPlayer player;
     public ItemStack bookStack;
+    public float publicZLevel;
 
     public GuiBase(EntityPlayer player, ItemStack bookStack) {
         this.player = player;
         this.bookStack = bookStack;
+        this.publicZLevel = zLevel;
     }
 
     @Override
@@ -52,6 +54,7 @@ public class GuiBase extends GuiScreen {
         tessellator.addVertexWithUV((double) (x + 0), (double) (y + 0), (double) this.zLevel, (double) ((float) (textureX + 0) * f), (double) ((float) (textureY + 0) * f1));
         tessellator.draw();
         GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_BLEND);
         GL11.glPopMatrix();
     }
 

@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
@@ -26,21 +25,18 @@ public class CategoryBase extends AbstractCategory {
 
     @Override
     public void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         if (drawOnLeft) {
             guiBase.mc.getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "category_left.png"));
-            GuiHelper.drawIconWithColor(categoryX - 5, categoryY + 2, 102, 12, 0, book.color());
+            GuiHelper.drawIconWithColor(categoryX - 5, categoryY + 2, 102, 12, guiBase.publicZLevel, book.color());
         } else {
             guiBase.mc.getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "category_right.png"));
-            GuiHelper.drawIconWithColor(categoryX - 80, categoryY + 2, 102, 12, 0, book.color());
+            GuiHelper.drawIconWithColor(categoryX - 80, categoryY + 2, 102, 12, guiBase.publicZLevel, book.color());
         }
-        GuiHelper.drawItemStack(this.stack, categoryX, categoryY, renderItem);
-        GL11.glDisable(GL11.GL_BLEND);
     }
 
     @Override
     public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
+        GuiHelper.drawItemStack(this.stack, categoryX, categoryY);
         if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight)) {
             guiBase.drawHoveringText(getTooltip(), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
         }

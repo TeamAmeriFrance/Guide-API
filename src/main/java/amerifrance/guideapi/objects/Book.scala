@@ -6,11 +6,12 @@ import java.util
 import amerifrance.guideapi.objects.abstraction.AbstractCategory
 import net.minecraft.util.StatCollector
 
-class Book(categoryList: util.List[AbstractCategory] = new util.ArrayList[AbstractCategory](), unlocTitle: String, bookColor: Color = new Color(171, 80, 30)) {
+class Book(categoryList: util.List[AbstractCategory] = new util.ArrayList[AbstractCategory](), unlocTitle: String, bookColor: Color = new Color(171, 80, 30), unlocWelcomeMessage: String) {
 
   var categories: util.List[AbstractCategory] = categoryList
   var unlocalizedTitle: String = unlocTitle
   var color: Color = bookColor
+  var welcomeMessage: String = unlocWelcomeMessage
 
   def addCategory(category: AbstractCategory) = {
     this.categories.add(category)
@@ -30,5 +31,9 @@ class Book(categoryList: util.List[AbstractCategory] = new util.ArrayList[Abstra
 
   def getLocalizedName(): String = {
     return StatCollector.translateToLocal(unlocalizedTitle)
+  }
+
+  def getLocalizedWelcomMessage(): String = {
+    return StatCollector.translateToLocal(welcomeMessage)
   }
 }
