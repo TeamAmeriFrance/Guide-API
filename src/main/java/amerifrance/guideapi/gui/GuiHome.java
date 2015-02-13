@@ -1,11 +1,15 @@
 package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.ModInformation;
+import amerifrance.guideapi.buttons.ButtonBack;
+import amerifrance.guideapi.buttons.ButtonNext;
+import amerifrance.guideapi.buttons.ButtonPrev;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.abstraction.AbstractCategory;
 import amerifrance.guideapi.wrappers.CategoryWrapper;
 import com.google.common.collect.HashMultimap;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -16,8 +20,11 @@ public class GuiHome extends GuiBase {
     public ResourceLocation outlineTexture;
     public ResourceLocation pageTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png");
     public Book book;
-    public int categoryPage;
+    private int categoryPage;
     public HashMultimap<Integer, CategoryWrapper> categoryWrappers;
+    public ButtonBack buttonFirstPage;
+    public ButtonNext buttonNext;
+    public ButtonPrev buttonPrev;
 
     public GuiHome(Book book, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
@@ -35,6 +42,10 @@ public class GuiHome extends GuiBase {
 
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
+
+        this.buttonList.add(buttonFirstPage = new ButtonBack(1, guiLeft + xSize / 6, guiTop, this, true));
+        this.buttonList.add(buttonNext = new ButtonNext(2, guiLeft + 5 * xSize / 6, guiTop + 5 * ySize / 6, this));
+        this.buttonList.add(buttonPrev = new ButtonPrev(3, guiLeft + xSize / 6, guiTop + 5 * ySize / 6, this));
 
         int cX = guiLeft;
         int cY = guiTop + 15;
@@ -66,6 +77,12 @@ public class GuiHome extends GuiBase {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float renderPartialTicks) {
+        for (CategoryWrapper wrapper : this.categoryWrappers.get(categoryPage)) {
+            if (wrapper.canPlayerSee()) {
+                wrapper.draw(mouseX, mouseY, this);
+            }
+        }
+
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
@@ -73,10 +90,10 @@ public class GuiHome extends GuiBase {
 
         for (CategoryWrapper wrapper : this.categoryWrappers.get(categoryPage)) {
             if (wrapper.canPlayerSee()) {
-                wrapper.draw(mouseX, mouseY, this);
                 wrapper.drawExtras(mouseX, mouseY, this);
             }
         }
+
         drawCenteredString(fontRendererObj, String.valueOf(categoryPage + 1) + "/" + String.valueOf(categoryWrappers.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
         super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
@@ -96,10 +113,21 @@ public class GuiHome extends GuiBase {
     @Override
     public void keyTyped(char typedChar, int keyCode) {
         super.keyTyped(typedChar, keyCode);
-        if (keyCode == Keyboard.KEY_ADD && categoryPage + 1 < categoryWrappers.asMap().size()) {
+        if ((keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_RIGHT) && categoryPage + 1 < categoryWrappers.asMap().size()) {
             this.categoryPage++;
         }
-        if (keyCode == Keyboard.KEY_SUBTRACT && categoryPage > 0) {
+        if ((keyCode == Keyboard.KEY_DOWN || keyCode == Keyboard.KEY_LEFT) && categoryPage > 0) {
+            this.categoryPage--;
+        }
+    }
+
+    @Override
+    public void actionPerformed(GuiButton button) {
+        if (button.id == 1) {
+            this.categoryPage = 0;
+        } else if (button.id == 2 && categoryPage + 1 < categoryWrappers.asMap().size()) {
+            this.categoryPage++;
+        } else if (button.id == 3 && categoryPage > 0) {
             this.categoryPage--;
         }
     }

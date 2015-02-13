@@ -31,6 +31,11 @@ public class TestBooks {
         entries.add(entry1);
         entries.add(entry2);
 
+        for (int i = 6; i <= 25; i++) {
+            EntryBase entryBase = new EntryBase(pages, "TestEntry" + String.valueOf(i));
+            entries.add(entryBase);
+        }
+
         CategoryBase category1 = new CategoryBase(entries, "TestCategory1", new ItemStack(Items.reeds));
         CategoryBase category2 = new CategoryBase(entries, "TestCategory2", new ItemStack(Blocks.brick_stairs));
         CategoryBase category3 = new CategoryBase(entries, "TestCategory3", new ItemStack(Blocks.dragon_egg));
