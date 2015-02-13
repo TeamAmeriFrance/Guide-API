@@ -15,14 +15,12 @@ import java.util.List;
 public class ButtonBack extends GuiButton {
 
     public GuiBase guiBase;
-    public boolean isBackToFirstPage;
 
-    public ButtonBack(int id, int x, int y, GuiBase guiBase, boolean isBackToFirstPage) {
+    public ButtonBack(int id, int x, int y, GuiBase guiBase) {
         super(id, x, y, "");
         width = 18;
         height = 10;
         this.guiBase = guiBase;
-        this.isBackToFirstPage = isBackToFirstPage;
     }
 
     @Override
@@ -44,7 +42,6 @@ public class ButtonBack extends GuiButton {
     public List<String> getHoveringText() {
         ArrayList<String> list = new ArrayList<String>();
         String s = StatCollector.translateToLocal("button.back.name");
-        if (isBackToFirstPage) s = s + " " + StatCollector.translateToLocal("button.back.first.page.name");
         list.add(s);
         return list;
     }

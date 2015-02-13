@@ -1,5 +1,6 @@
 package amerifrance.guideapi.test;
 
+import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.CategoryBase;
 import amerifrance.guideapi.objects.EntryBase;
@@ -10,6 +11,7 @@ import amerifrance.guideapi.objects.abstraction.AbstractPage;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -54,6 +56,8 @@ public class TestBooks {
         }
 
         testBook1 = new Book(categories, "ItemTestBook", new Color(171, 80, 30), "Hello, I am a welcome message that's " +
-                "just way too long and that says nothing other that I'm there for test purposes");
+                "just way too long and that says nothing other that I'm there for test purposes",
+                new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png"), new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png"));
+
     }
 }

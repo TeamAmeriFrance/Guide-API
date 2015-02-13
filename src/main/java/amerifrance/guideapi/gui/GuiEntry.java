@@ -1,6 +1,5 @@
 package amerifrance.guideapi.gui;
 
-import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.buttons.ButtonBack;
 import amerifrance.guideapi.buttons.ButtonNext;
 import amerifrance.guideapi.buttons.ButtonPrev;
@@ -22,22 +21,23 @@ import java.util.List;
 public class GuiEntry extends GuiBase {
 
     public ResourceLocation outlineTexture;
-    public ResourceLocation pageTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png");
+    public ResourceLocation pageTexture;
     public Book book;
     public AbstractCategory category;
     public AbstractEntry entry;
     public List<PageWrapper> pageWrapperList = new ArrayList<PageWrapper>();
     private int pageNumber;
-    public ButtonBack buttonBack, buttonFirstPage;
+    public ButtonBack buttonBack;
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
 
     public GuiEntry(Book book, AbstractCategory category, AbstractEntry entry, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
-        this.outlineTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
-        this.category = category;
         this.book = book;
+        this.category = category;
         this.entry = entry;
+        this.pageTexture = book.pageTexture();
+        this.outlineTexture = book.outlineTexture();
         this.pageNumber = 0;
     }
 
@@ -50,10 +50,9 @@ public class GuiEntry extends GuiBase {
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
-        this.buttonList.add(buttonBack = new ButtonBack(0, guiLeft, guiTop, this, false));
-        this.buttonList.add(buttonFirstPage = new ButtonBack(1, guiLeft + xSize / 6, guiTop, this, true));
-        this.buttonList.add(buttonNext = new ButtonNext(2, guiLeft + 5 * xSize / 6, guiTop + 5 * ySize / 6, this));
-        this.buttonList.add(buttonPrev = new ButtonPrev(3, guiLeft + xSize / 6, guiTop + 5 * ySize / 6, this));
+        this.buttonList.add(buttonBack = new ButtonBack(0, guiLeft + xSize / 6, guiTop, this));
+        this.buttonList.add(buttonNext = new ButtonNext(1, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
+        this.buttonList.add(buttonPrev = new ButtonPrev(2, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
 
         for (AbstractPage page : this.entry.pages()) {
             pageWrapperList.add(new PageWrapper(book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj, bookStack));
@@ -116,11 +115,9 @@ public class GuiEntry extends GuiBase {
     public void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack));
-        } else if (button.id == 1) {
-            this.pageNumber = 0;
-        } else if (button.id == 2 && pageNumber + 1 < pageWrapperList.size()) {
+        } else if (button.id == 1 && pageNumber + 1 < pageWrapperList.size()) {
             this.pageNumber++;
-        } else if (button.id == 3 && pageNumber > 0) {
+        } else if (button.id == 2 && pageNumber > 0) {
             this.pageNumber--;
         }
     }

@@ -1,7 +1,5 @@
 package amerifrance.guideapi.gui;
 
-import amerifrance.guideapi.ModInformation;
-import amerifrance.guideapi.buttons.ButtonBack;
 import amerifrance.guideapi.buttons.ButtonNext;
 import amerifrance.guideapi.buttons.ButtonPrev;
 import amerifrance.guideapi.objects.Book;
@@ -18,18 +16,18 @@ import org.lwjgl.input.Keyboard;
 public class GuiHome extends GuiBase {
 
     public ResourceLocation outlineTexture;
-    public ResourceLocation pageTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png");
+    public ResourceLocation pageTexture;
     public Book book;
     private int categoryPage;
     public HashMultimap<Integer, CategoryWrapper> categoryWrappers;
-    public ButtonBack buttonFirstPage;
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
 
     public GuiHome(Book book, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
-        this.outlineTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
         this.book = book;
+        this.pageTexture = book.pageTexture();
+        this.outlineTexture = book.outlineTexture();
         this.categoryPage = 0;
         this.categoryWrappers = this.categoryWrappers.create();
     }
@@ -43,9 +41,8 @@ public class GuiHome extends GuiBase {
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
-        this.buttonList.add(buttonFirstPage = new ButtonBack(1, guiLeft + xSize / 6, guiTop, this, true));
-        this.buttonList.add(buttonNext = new ButtonNext(2, guiLeft + 5 * xSize / 6, guiTop + 5 * ySize / 6, this));
-        this.buttonList.add(buttonPrev = new ButtonPrev(3, guiLeft + xSize / 6, guiTop + 5 * ySize / 6, this));
+        this.buttonList.add(buttonNext = new ButtonNext(0, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
+        this.buttonList.add(buttonPrev = new ButtonPrev(1, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
 
         int cX = guiLeft;
         int cY = guiTop + 15;
@@ -120,11 +117,9 @@ public class GuiHome extends GuiBase {
 
     @Override
     public void actionPerformed(GuiButton button) {
-        if (button.id == 1) {
-            this.categoryPage = 0;
-        } else if (button.id == 2 && categoryPage + 1 < categoryWrappers.asMap().size()) {
+        if (button.id == 0 && categoryPage + 1 < categoryWrappers.asMap().size()) {
             this.categoryPage++;
-        } else if (button.id == 3 && categoryPage > 0) {
+        } else if (button.id == 1 && categoryPage > 0) {
             this.categoryPage--;
         }
     }
