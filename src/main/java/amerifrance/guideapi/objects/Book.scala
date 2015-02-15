@@ -28,14 +28,14 @@ class Book(categoryList: util.List[AbstractCategory] = new util.ArrayList[Abstra
   }
 
   def removeCategoryList(list: util.List[AbstractCategory]) = {
-    this.categories.remove(list)
+    this.categories.removeAll(list)
   }
 
   def getLocalizedName(): String = {
     return StatCollector.translateToLocal(unlocalizedTitle)
   }
 
-  def getLocalizedWelcomMessage(): String = {
+  def getLocalizedWelcomeMessage(): String = {
     return StatCollector.translateToLocal(welcomeMessage)
   }
 }

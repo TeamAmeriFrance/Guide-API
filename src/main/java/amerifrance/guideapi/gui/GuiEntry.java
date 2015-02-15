@@ -26,10 +26,10 @@ public class GuiEntry extends GuiBase {
     public AbstractCategory category;
     public AbstractEntry entry;
     public List<PageWrapper> pageWrapperList = new ArrayList<PageWrapper>();
-    private int pageNumber;
     public ButtonBack buttonBack;
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
+    private int pageNumber;
 
     public GuiEntry(Book book, AbstractCategory category, AbstractEntry entry, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);

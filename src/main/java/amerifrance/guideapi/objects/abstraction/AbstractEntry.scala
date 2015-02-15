@@ -27,7 +27,7 @@ abstract class AbstractEntry(pageList: util.List[AbstractPage] = new util.ArrayL
   }
 
   def removePageList(list: util.List[AbstractPage]) = {
-    this.pages.remove(list)
+    this.pages.removeAll(list)
   }
 
   def getLocalizedName(): String = {

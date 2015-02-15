@@ -27,7 +27,7 @@ abstract class AbstractCategory(entryList: util.List[AbstractEntry] = new util.A
   }
 
   def removeCategoryList(list: util.List[AbstractEntry]) = {
-    this.entries.remove(list)
+    this.entries.removeAll(list)
   }
 
   def getTooltip: util.List[String] = {

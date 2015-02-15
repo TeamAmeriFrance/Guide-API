@@ -18,10 +18,10 @@ public class GuiHome extends GuiBase {
     public ResourceLocation outlineTexture;
     public ResourceLocation pageTexture;
     public Book book;
-    private int categoryPage;
     public HashMultimap<Integer, CategoryWrapper> categoryWrappers;
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
+    private int categoryPage;
 
     public GuiHome(Book book, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
@@ -82,7 +82,7 @@ public class GuiHome extends GuiBase {
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.color());
-        drawSplitString(book.getLocalizedWelcomMessage(), guiLeft + 37, guiTop + 12, 4 * xSize / 6, 0);
+        drawSplitString(book.getLocalizedWelcomeMessage(), guiLeft + 37, guiTop + 12, 4 * xSize / 6, 0);
 
         for (CategoryWrapper wrapper : this.categoryWrappers.get(categoryPage)) {
             if (wrapper.canPlayerSee()) wrapper.drawExtras(mouseX, mouseY, this);

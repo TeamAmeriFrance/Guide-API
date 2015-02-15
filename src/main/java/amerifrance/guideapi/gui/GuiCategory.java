@@ -22,10 +22,10 @@ public class GuiCategory extends GuiBase {
     public Book book;
     public AbstractCategory category;
     public HashMultimap<Integer, EntryWrapper> entryWrapperList;
-    private int entryPage;
     public ButtonBack buttonBack;
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
+    private int entryPage;
 
     public GuiCategory(Book book, AbstractCategory category, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
