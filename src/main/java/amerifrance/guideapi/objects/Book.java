@@ -47,7 +47,7 @@ public class Book {
     }
 
     public String getLocalizedWelcomeMessage() {
-        return StatCollector.translateToLocal(unlocBookTitle);
+        return StatCollector.translateToLocal(unlocWelcomeMessage);
     }
 
     @Override
