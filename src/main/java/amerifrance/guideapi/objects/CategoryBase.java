@@ -61,4 +61,22 @@ public class CategoryBase extends AbstractCategory {
     public void onRightClicked(Book book, int mouseX, int mouseY, EntityPlayer player, ItemStack bookStack) {
         System.out.println(getLocalizedName() + "Right Clicked");
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        CategoryBase that = (CategoryBase) o;
+        if (stack != null ? !stack.equals(that.stack) : that.stack != null) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (stack != null ? stack.hashCode() : 0);
+        return result;
+    }
 }

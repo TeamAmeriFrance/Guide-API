@@ -46,4 +46,19 @@ abstract class AbstractEntry(pageList: util.List[AbstractPage] = new util.ArrayL
   def onLeftClicked(book: Book, category: AbstractCategory, mouseX: Int, mouseY: Int, player: EntityPlayer, guiCategory: GuiCategory)
 
   def onRightClicked(book: Book, category: AbstractCategory, mouseX: Int, mouseY: Int, player: EntityPlayer, guiCategory: GuiCategory)
+
+  def canEqual(other: Any): Boolean = other.isInstanceOf[AbstractEntry]
+
+  override def equals(other: Any): Boolean = other match {
+    case that: AbstractEntry =>
+      (that canEqual this) &&
+        pages == that.pages &&
+        unlocalizedEntryName == that.unlocalizedEntryName
+    case _ => false
+  }
+
+  override def hashCode(): Int = {
+    val state = Seq(pages, unlocalizedEntryName)
+    state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
+  }
 }

@@ -38,4 +38,23 @@ class Book(categoryList: util.List[AbstractCategory] = new util.ArrayList[Abstra
   def getLocalizedWelcomeMessage(): String = {
     return StatCollector.translateToLocal(welcomeMessage)
   }
+
+  def canEqual(other: Any): Boolean = other.isInstanceOf[Book]
+
+  override def equals(other: Any): Boolean = other match {
+    case that: Book =>
+      (that canEqual this) &&
+        categories == that.categories &&
+        unlocalizedTitle == that.unlocalizedTitle &&
+        color == that.color &&
+        welcomeMessage == that.welcomeMessage &&
+        pageTexture == that.pageTexture &&
+        outlineTexture == that.outlineTexture
+    case _ => false
+  }
+
+  override def hashCode(): Int = {
+    val state = Seq(categories, unlocalizedTitle, color, welcomeMessage, pageTexture, outlineTexture)
+    state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
+  }
 }

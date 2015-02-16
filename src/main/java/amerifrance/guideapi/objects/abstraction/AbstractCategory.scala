@@ -52,4 +52,19 @@ abstract class AbstractCategory(entryList: util.List[AbstractEntry] = new util.A
   def drawExtras(book: Book, categoryX: Int, categoryY: Int, categoryWidth: Int, categoryHeight: Int, mouseX: Int, mouseY: Int, guiBase: GuiBase, drawOnLeft: Boolean, renderItem: RenderItem)
 
   def canSee(player: EntityPlayer, bookStack: ItemStack): Boolean
+
+  def canEqual(other: Any): Boolean = other.isInstanceOf[AbstractCategory]
+
+  override def equals(other: Any): Boolean = other match {
+    case that: AbstractCategory =>
+      (that canEqual this) &&
+        entries == that.entries &&
+        unlocalizedCategoryName == that.unlocalizedCategoryName
+    case _ => false
+  }
+
+  override def hashCode(): Int = {
+    val state = Seq(entries, unlocalizedCategoryName)
+    state.map(_.hashCode()).foldLeft(0)((a, b) => 31 * a + b)
+  }
 }
