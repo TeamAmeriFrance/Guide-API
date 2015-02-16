@@ -26,8 +26,8 @@ public class GuiHome extends GuiBase {
     public GuiHome(Book book, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
         this.book = book;
-        this.pageTexture = book.pageTexture();
-        this.outlineTexture = book.outlineTexture();
+        this.pageTexture = book.pageTexture;
+        this.outlineTexture = book.outlineTexture;
         this.categoryPage = 0;
         this.categoryWrappers = this.categoryWrappers.create();
     }
@@ -50,7 +50,7 @@ public class GuiHome extends GuiBase {
         int i = 0;
         int pageNumber = 0;
 
-        for (AbstractCategory category : book.categories()) {
+        for (AbstractCategory category : book.categoryList) {
             if (drawOnLeft) {
                 categoryWrappers.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
                 cX = guiLeft + 180;
@@ -81,7 +81,7 @@ public class GuiHome extends GuiBase {
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
-        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.color());
+        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.bookColor);
         drawSplitString(book.getLocalizedWelcomeMessage(), guiLeft + 37, guiTop + 12, 4 * xSize / 6, 0);
 
         for (CategoryWrapper wrapper : this.categoryWrappers.get(categoryPage)) {

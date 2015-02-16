@@ -36,8 +36,8 @@ public class GuiEntry extends GuiBase {
         this.book = book;
         this.category = category;
         this.entry = entry;
-        this.pageTexture = book.pageTexture();
-        this.outlineTexture = book.outlineTexture();
+        this.pageTexture = book.pageTexture;
+        this.outlineTexture = book.outlineTexture;
         this.pageNumber = 0;
     }
 
@@ -54,7 +54,7 @@ public class GuiEntry extends GuiBase {
         this.buttonList.add(buttonNext = new ButtonNext(1, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
         this.buttonList.add(buttonPrev = new ButtonPrev(2, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
 
-        for (AbstractPage page : this.entry.pages()) {
+        for (AbstractPage page : this.entry.pageList) {
             pageWrapperList.add(new PageWrapper(book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj, bookStack));
         }
     }
@@ -64,7 +64,7 @@ public class GuiEntry extends GuiBase {
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
-        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.color());
+        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.bookColor);
 
         if (pageNumber < pageWrapperList.size()) {
             if (pageWrapperList.get(pageNumber).canPlayerSee()) {

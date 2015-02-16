@@ -31,8 +31,8 @@ public class GuiCategory extends GuiBase {
         super(player, bookStack);
         this.book = book;
         this.category = category;
-        this.pageTexture = book.pageTexture();
-        this.outlineTexture = book.outlineTexture();
+        this.pageTexture = book.pageTexture;
+        this.outlineTexture = book.outlineTexture;
         this.entryWrapperList = this.entryWrapperList.create();
         this.entryPage = 0;
     }
@@ -54,7 +54,7 @@ public class GuiCategory extends GuiBase {
         int eY = guiTop + 15;
         int i = 0;
         int pageNumber = 0;
-        for (AbstractEntry entry : category.entries()) {
+        for (AbstractEntry entry : category.entryList) {
             entryWrapperList.put(pageNumber, new EntryWrapper(this, book, category, entry, eX, eY, 4 * xSize / 6, 10, player, this.fontRendererObj, bookStack));
             eY += 13;
             i++;
@@ -72,7 +72,7 @@ public class GuiCategory extends GuiBase {
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
-        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.color());
+        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.bookColor);
 
         for (EntryWrapper wrapper : this.entryWrapperList.get(entryPage)) {
             if (wrapper.canPlayerSee()) {

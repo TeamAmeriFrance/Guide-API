@@ -30,10 +30,10 @@ public class CategoryBase extends AbstractCategory {
     public void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
         if (drawOnLeft) {
             guiBase.mc.getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "category_left.png"));
-            GuiHelper.drawIconWithColor(categoryX - 5, categoryY + 2, 102, 12, guiBase.publicZLevel, book.color());
+            GuiHelper.drawIconWithColor(categoryX - 5, categoryY + 2, 102, 12, guiBase.publicZLevel, book.bookColor);
         } else {
             guiBase.mc.getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "category_right.png"));
-            GuiHelper.drawIconWithColor(categoryX - 80, categoryY + 2, 102, 12, guiBase.publicZLevel, book.color());
+            GuiHelper.drawIconWithColor(categoryX - 80, categoryY + 2, 102, 12, guiBase.publicZLevel, book.bookColor);
         }
     }
 
