@@ -4,6 +4,7 @@ import java.util
 
 import amerifrance.guideapi.gui.{GuiBase, GuiCategory}
 import amerifrance.guideapi.objects.Book
+import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -34,8 +35,10 @@ abstract class AbstractEntry(pageList: util.List[AbstractPage] = new util.ArrayL
     return StatCollector.translateToLocal(unlocalizedEntryName)
   }
 
+  @SideOnly(Side.CLIENT)
   def draw(book: Book, category: AbstractCategory, entryX: Int, entryY: Int, entryWidth: Int, entryHeight: Int, mouseX: Int, mouseY: Int, guiBase: GuiBase, fontRenderer: FontRenderer)
 
+  @SideOnly(Side.CLIENT)
   def drawExtras(book: Book, category: AbstractCategory, entryX: Int, entryY: Int, entryWidth: Int, entryHeight: Int, mouseX: Int, mouseY: Int, guiBase: GuiBase, fontRenderer: FontRenderer)
 
   def canSee(player: EntityPlayer, bookStack: ItemStack): Boolean

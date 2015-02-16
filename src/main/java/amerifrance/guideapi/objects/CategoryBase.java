@@ -6,6 +6,8 @@ import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.objects.abstraction.AbstractCategory;
 import amerifrance.guideapi.objects.abstraction.AbstractEntry;
 import amerifrance.guideapi.util.GuiHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +26,7 @@ public class CategoryBase extends AbstractCategory {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
         if (drawOnLeft) {
             guiBase.mc.getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "category_left.png"));
@@ -35,6 +38,7 @@ public class CategoryBase extends AbstractCategory {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
         GuiHelper.drawItemStack(this.stack, categoryX, categoryY);
         if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight)) {
