@@ -4,10 +4,12 @@ import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.CategoryBase;
 import amerifrance.guideapi.objects.EntryBase;
-import amerifrance.guideapi.objects.PageBase;
 import amerifrance.guideapi.objects.abstraction.AbstractCategory;
 import amerifrance.guideapi.objects.abstraction.AbstractEntry;
 import amerifrance.guideapi.objects.abstraction.AbstractPage;
+import amerifrance.guideapi.objects.pages.PageBase;
+import amerifrance.guideapi.objects.pages.PageLocText;
+import amerifrance.guideapi.objects.pages.PageUnlocText;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -21,8 +23,8 @@ public class TestBooks {
     public static Book testBook1;
 
     public static void setTestBook1() {
-        PageBase page1 = new PageBase();
-        PageBase page2 = new PageBase();
+        PageBase page1 = new PageUnlocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE", false);
+        PageLocText page2 = new PageLocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE", true);
         ArrayList<AbstractPage> pages = new ArrayList<AbstractPage>();
         pages.add(page1);
         pages.add(page2);

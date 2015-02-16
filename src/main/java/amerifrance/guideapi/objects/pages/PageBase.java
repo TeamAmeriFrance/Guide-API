@@ -1,7 +1,8 @@
-package amerifrance.guideapi.objects;
+package amerifrance.guideapi.objects.pages;
 
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiEntry;
+import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.abstraction.AbstractCategory;
 import amerifrance.guideapi.objects.abstraction.AbstractEntry;
 import amerifrance.guideapi.objects.abstraction.AbstractPage;
