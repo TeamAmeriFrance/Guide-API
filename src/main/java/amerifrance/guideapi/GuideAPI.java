@@ -47,8 +47,6 @@ public class GuideAPI {
         ConfigHandler.init(new File(event.getModConfigurationDirectory() + "/Guide-API" + ".cfg"));
         GameRegistry.registerItem(new ItemTestBook(), "ItemTestBook");
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
-
-        TestBooks.setTestBook1();
     }
 
     @Mod.EventHandler
@@ -57,5 +55,6 @@ public class GuideAPI {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+        TestBooks.setTestBook1();
     }
 }

@@ -10,6 +10,8 @@ import amerifrance.guideapi.objects.abstraction.AbstractPage;
 import amerifrance.guideapi.objects.pages.PageBase;
 import amerifrance.guideapi.objects.pages.PageLocText;
 import amerifrance.guideapi.objects.pages.PageUnlocText;
+import amerifrance.guideapi.util.PageHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -23,11 +25,12 @@ public class TestBooks {
     public static Book testBook1;
 
     public static void setTestBook1() {
-        PageBase page1 = new PageUnlocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE", false);
-        PageLocText page2 = new PageLocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE", true);
+        PageBase page1 = new PageUnlocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
+        PageLocText page2 = new PageLocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
         ArrayList<AbstractPage> pages = new ArrayList<AbstractPage>();
         pages.add(page1);
         pages.add(page2);
+        pages.addAll(PageHelper.pagesForLongText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE", Minecraft.getMinecraft().fontRenderer, new ItemStack(Items.diamond)));
 
         EntryBase entry1 = new EntryBase(pages, "TestEntry1");
         EntryBase entry2 = new EntryBase(pages, "TestEntry2");
