@@ -71,4 +71,12 @@ public class GuiBase extends GuiScreen {
     public void drawSplitString(String string, int x, int y, int maxLength, int color) {
         fontRendererObj.drawSplitString(string, x, y, maxLength, color);
     }
+
+    @Override
+    public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {
+        GL11.glPushMatrix();
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        super.drawTexturedModalRect(x, y, textureX, textureY, width, height);
+        GL11.glPopMatrix();
+    }
 }
