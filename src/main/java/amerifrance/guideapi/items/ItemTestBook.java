@@ -1,7 +1,6 @@
 package amerifrance.guideapi.items;
 
 import amerifrance.guideapi.GuideAPI;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,7 +9,7 @@ import net.minecraft.world.World;
 public class ItemTestBook extends Item {
 
     public ItemTestBook() {
-        this.setCreativeTab(CreativeTabs.tabFood);
+        this.setCreativeTab(GuideAPI.tabGuide);
         this.setUnlocalizedName("TestBook");
     }
 

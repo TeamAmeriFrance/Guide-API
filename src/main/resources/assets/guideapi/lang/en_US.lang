@@ -1,3 +1,7 @@
+#Creative Tab
+guideapi.creativeTab=Guide-API
+
+#Button hovering text
 button.back.name=Back
 button.next.name=Next
 button.prev.name=Previous
