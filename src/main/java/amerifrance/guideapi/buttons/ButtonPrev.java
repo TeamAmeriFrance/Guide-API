@@ -5,6 +5,7 @@ import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.util.GuiHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
@@ -26,6 +27,7 @@ public class ButtonPrev extends GuiButton {
     @Override
     public void drawButton(Minecraft minecraft, int mouseX, int mouseY) {
         if (this.visible) {
+            RenderHelper.enableGUIStandardItemLighting();
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             minecraft.getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png"));
@@ -36,6 +38,7 @@ public class ButtonPrev extends GuiButton {
                 this.drawTexturedModalRect(xPosition, yPosition, 24, 214, 18, 10);
             }
             GL11.glDisable(GL11.GL_BLEND);
+            RenderHelper.disableStandardItemLighting();
         }
     }
 
