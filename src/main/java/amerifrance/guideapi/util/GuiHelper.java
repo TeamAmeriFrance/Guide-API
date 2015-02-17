@@ -25,7 +25,18 @@ public class GuiHelper {
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderHelper.enableGUIStandardItemLighting();
         renderItem.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, x, y);
-        renderItem.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, x, y);
+        RenderHelper.disableStandardItemLighting();
+        GL11.glPopMatrix();
+    }
+
+    public static void drawScaledItemStack(ItemStack stack, int x, int y, float scale) {
+        RenderItem renderItem = new RenderItem();
+        GL11.glPushMatrix();
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glScalef(scale, scale, 1.0F);
+        RenderHelper.enableGUIStandardItemLighting();
+        renderItem.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, (int) (x / scale), (int) (y / scale));
         RenderHelper.disableStandardItemLighting();
         GL11.glPopMatrix();
     }

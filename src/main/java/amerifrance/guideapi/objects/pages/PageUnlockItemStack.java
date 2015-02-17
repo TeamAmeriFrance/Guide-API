@@ -31,8 +31,7 @@ public class PageUnlockItemStack extends PageUnlocText {
 
     @Override
     public void drawExtras(Book book, AbstractCategory category, AbstractEntry entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
-        //TODO: Find a way to make the icons bigger.
-        GuiHelper.drawItemStack(stack, guiLeft, guiTop + guiBase.ySize / 2);
-        GuiHelper.drawItemStack(stack, guiLeft + 5 * guiBase.xSize / 6, guiTop + guiBase.ySize / 2);
+        GuiHelper.drawScaledItemStack(stack, guiLeft - 20, guiTop + guiBase.ySize / 3, 3);
+        GuiHelper.drawScaledItemStack(stack, guiLeft + 5 * guiBase.xSize / 6, guiTop + guiBase.ySize / 3, 3);
     }
 }
