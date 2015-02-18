@@ -7,16 +7,17 @@ import amerifrance.guideapi.objects.EntryBase;
 import amerifrance.guideapi.objects.abstraction.AbstractCategory;
 import amerifrance.guideapi.objects.abstraction.AbstractEntry;
 import amerifrance.guideapi.objects.abstraction.AbstractPage;
-import amerifrance.guideapi.objects.pages.PageBase;
-import amerifrance.guideapi.objects.pages.PageImage;
-import amerifrance.guideapi.objects.pages.PageLocText;
-import amerifrance.guideapi.objects.pages.PageUnlocText;
+import amerifrance.guideapi.objects.pages.*;
 import amerifrance.guideapi.util.PageHelper;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -29,11 +30,26 @@ public class TestBooks {
         PageBase page1 = new PageUnlocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
         PageLocText page2 = new PageLocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
         PageImage page3 = new PageImage(new ResourceLocation("IAMATESTLOCATION"));
+        PageCraftingRecipe page4 = new PageCraftingRecipe(GameRegistry.addShapedRecipe(new ItemStack(Items.diamond), "XXX", "YYY", "ZZZ", 'X', Items.apple, 'Y', Blocks.beacon, 'Z', Items.beef));
+        ShapedOreRecipe shapedOreRecipe = new ShapedOreRecipe(Items.beef, new Object[]{"XXX", "YYY", "ZZZ", 'X', "stairWood", 'Y', "stone", 'Z', "ingotIron"});
+        PageCraftingRecipe page5 = new PageCraftingRecipe(shapedOreRecipe);
+        ArrayList<ItemStack> shapelessList = new ArrayList<ItemStack>();
+        shapelessList.add(new ItemStack(Items.cauldron));
+        shapelessList.add(new ItemStack(Items.golden_carrot));
+        ShapelessRecipes shapelessRecipes = new ShapelessRecipes(new ItemStack(Items.blaze_rod), shapelessList);
+        PageCraftingRecipe page6 = new PageCraftingRecipe(shapelessRecipes);
+        ShapelessOreRecipe shapelessOreRecipe = new ShapelessOreRecipe(new ItemStack(Items.baked_potato), new Object[]{"ingotIron", "stairWood"});
+        PageCraftingRecipe page7 = new PageCraftingRecipe(shapelessOreRecipe);
+
         ArrayList<AbstractPage> pages = new ArrayList<AbstractPage>();
         pages.add(page1);
         pages.add(page2);
         pages.addAll(PageHelper.pagesForLongText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE", Minecraft.getMinecraft().fontRenderer, new ItemStack(Items.diamond)));
         pages.add(page3);
+        pages.add(page4);
+        pages.add(page5);
+        pages.add(page6);
+        pages.add(page7);
 
         EntryBase entry1 = new EntryBase(pages, "TestEntry1");
         EntryBase entry2 = new EntryBase(pages, "TestEntry2");

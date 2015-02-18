@@ -79,4 +79,9 @@ public class GuiBase extends GuiScreen {
         super.drawTexturedModalRect(x, y, textureX, textureY, width, height);
         GL11.glPopMatrix();
     }
+
+    @Override
+    public void renderToolTip(ItemStack stack, int x, int y) {
+        super.renderToolTip(stack, x, y);
+    }
 }

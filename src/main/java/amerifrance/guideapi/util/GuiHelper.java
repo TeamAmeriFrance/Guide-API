@@ -25,6 +25,7 @@ public class GuiHelper {
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderHelper.enableGUIStandardItemLighting();
         renderItem.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, x, y);
+        renderItem.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, x, y);
         RenderHelper.disableStandardItemLighting();
         GL11.glPopMatrix();
     }
@@ -37,6 +38,7 @@ public class GuiHelper {
         GL11.glScalef(scale, scale, 1.0F);
         RenderHelper.enableGUIStandardItemLighting();
         renderItem.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, (int) (x / scale), (int) (y / scale));
+        renderItem.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, x, y);
         RenderHelper.disableStandardItemLighting();
         GL11.glPopMatrix();
     }
