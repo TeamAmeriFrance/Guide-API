@@ -18,11 +18,11 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.ArrayList;
 
-public class PageCraftingRecipe extends PageBase {
+public class PageIRecipe extends PageBase {
 
     public IRecipe recipe;
 
-    public PageCraftingRecipe(IRecipe recipe) {
+    public PageIRecipe(IRecipe recipe) {
         this.recipe = recipe;
     }
 

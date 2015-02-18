@@ -30,16 +30,16 @@ public class TestBooks {
         PageBase page1 = new PageUnlocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
         PageLocText page2 = new PageLocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
         PageImage page3 = new PageImage(new ResourceLocation("IAMATESTLOCATION"));
-        PageCraftingRecipe page4 = new PageCraftingRecipe(GameRegistry.addShapedRecipe(new ItemStack(Items.diamond), "XXX", "YYY", "ZZZ", 'X', Items.apple, 'Y', Blocks.beacon, 'Z', Items.beef));
+        PageIRecipe page4 = new PageIRecipe(GameRegistry.addShapedRecipe(new ItemStack(Items.diamond), "XXX", "YYY", "ZZZ", 'X', Items.apple, 'Y', Blocks.beacon, 'Z', Items.beef));
         ShapedOreRecipe shapedOreRecipe = new ShapedOreRecipe(Items.beef, new Object[]{"XXX", "YYY", "ZZZ", 'X', "stairWood", 'Y', "stone", 'Z', "ingotIron"});
-        PageCraftingRecipe page5 = new PageCraftingRecipe(shapedOreRecipe);
+        PageIRecipe page5 = new PageIRecipe(shapedOreRecipe);
         ArrayList<ItemStack> shapelessList = new ArrayList<ItemStack>();
         shapelessList.add(new ItemStack(Items.cauldron));
         shapelessList.add(new ItemStack(Items.golden_carrot));
         ShapelessRecipes shapelessRecipes = new ShapelessRecipes(new ItemStack(Items.blaze_rod), shapelessList);
-        PageCraftingRecipe page6 = new PageCraftingRecipe(shapelessRecipes);
+        PageIRecipe page6 = new PageIRecipe(shapelessRecipes);
         ShapelessOreRecipe shapelessOreRecipe = new ShapelessOreRecipe(new ItemStack(Items.baked_potato), new Object[]{"ingotIron", "stairWood"});
-        PageCraftingRecipe page7 = new PageCraftingRecipe(shapelessOreRecipe);
+        PageIRecipe page7 = new PageIRecipe(shapelessOreRecipe);
 
         ArrayList<AbstractPage> pages = new ArrayList<AbstractPage>();
         pages.add(page1);
