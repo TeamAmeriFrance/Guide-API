@@ -12,21 +12,21 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class PageUnlockItemStack extends PageUnlocText {
+public class PageUnlocItemStack extends PageUnlocText {
 
     public ItemStack stack;
 
-    public PageUnlockItemStack(String unlocText, ItemStack stack) {
+    public PageUnlocItemStack(String unlocText, ItemStack stack) {
         super(unlocText);
         this.stack = stack;
     }
 
-    public PageUnlockItemStack(String unlocText, Item item) {
+    public PageUnlocItemStack(String unlocText, Item item) {
         super(unlocText);
         this.stack = new ItemStack(item);
     }
 
-    public PageUnlockItemStack(String unlocText, Block block) {
+    public PageUnlocItemStack(String unlocText, Block block) {
         super(unlocText);
         this.stack = new ItemStack(block);
     }
