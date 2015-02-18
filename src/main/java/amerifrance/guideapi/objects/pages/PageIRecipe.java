@@ -22,6 +22,10 @@ public class PageIRecipe extends PageBase {
 
     public IRecipe recipe;
 
+    /**
+     *
+     * @param recipe - Recipe to draw
+     */
     public PageIRecipe(IRecipe recipe) {
         this.recipe = recipe;
     }

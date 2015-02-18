@@ -17,6 +17,15 @@ public class Book {
     public ResourceLocation outlineTexture;
     public Color bookColor = new Color(171, 70, 30);
 
+    /**
+     *
+     * @param categoryList - Category List with all your information
+     * @param unlocBookTitle - Unlocalized name for a book title
+     * @param unlocWelcomeMessage - Unlocalized welcome message
+     * @param pageTexture - Texture for book's page
+     * @param outlineTexture - Texture for book outline
+     * @param bookColor - Color of book
+     */
     public Book(List<AbstractCategory> categoryList, String unlocBookTitle, String unlocWelcomeMessage, ResourceLocation pageTexture, ResourceLocation outlineTexture, Color bookColor) {
         this.categoryList = categoryList;
         this.unlocBookTitle = unlocBookTitle;
@@ -26,26 +35,50 @@ public class Book {
         this.bookColor = bookColor;
     }
 
+    /**
+     *
+     * @param category - Add this category
+     */
     public void addCategory(AbstractCategory category) {
         this.categoryList.add(category);
     }
 
+    /**
+     *
+     * @param category - Remove this category
+     */
     public void removeCategory(AbstractCategory category) {
         this.categoryList.remove(category);
     }
 
+    /**
+     *
+     * @param categories - Add these category
+     */
     public void addCategoryList(List<AbstractCategory> categories) {
         this.categoryList.addAll(categories);
     }
 
+    /**
+     *
+     * @param categories - Remove these category
+     */
     public void removeCategoryList(List<AbstractCategory> categories) {
         this.categoryList.removeAll(categories);
     }
 
+    /**
+     *
+     * @return - Localized book title
+     */
     public String getLocalizedBookTitle() {
         return StatCollector.translateToLocal(unlocBookTitle);
     }
 
+    /**
+     *
+     * @return - Localized welcome message
+     */
     public String getLocalizedWelcomeMessage() {
         return StatCollector.translateToLocal(unlocWelcomeMessage);
     }

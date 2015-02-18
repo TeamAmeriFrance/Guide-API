@@ -12,6 +12,11 @@ public class PageCustomIRecipe extends PageIRecipe {
 
     public ICustomIRecipeDrawingHandler customIRecipeDrawingHandler;
 
+    /**
+     *
+     * @param recipe - Recipe to draw
+     * @param customIRecipeDrawingHandler - Your custom Recipe drawer
+     */
     public PageCustomIRecipe(IRecipe recipe, ICustomIRecipeDrawingHandler customIRecipeDrawingHandler) {
         super(recipe);
         this.customIRecipeDrawingHandler = customIRecipeDrawingHandler;

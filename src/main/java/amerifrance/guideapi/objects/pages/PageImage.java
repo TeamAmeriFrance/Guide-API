@@ -15,6 +15,10 @@ public class PageImage extends PageBase {
 
     public ResourceLocation image;
 
+    /**
+     *
+     * @param image - Image to draw
+     */
     public PageImage(ResourceLocation image) {
         this.image = image;
     }
