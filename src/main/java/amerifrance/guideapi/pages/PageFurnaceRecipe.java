@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class PageFurnaceRecipe extends PageBase {
 
@@ -21,6 +22,19 @@ public class PageFurnaceRecipe extends PageBase {
     public PageFurnaceRecipe(ItemStack input) {
         this.input = input;
         this.output = FurnaceRecipes.smelting().getSmeltingResult(input);
+    }
+
+    public PageFurnaceRecipe(String input) {
+
+        this.input = new ItemStack(Blocks.fire);
+        
+        if (!OreDictionary.getOres(input).isEmpty())
+            for (int i = 0; i < OreDictionary.getOres(input).size(); i++) {
+                ItemStack stack = OreDictionary.getOres(input).get(i);
+
+                this.input = stack;
+                this.output = FurnaceRecipes.smelting().getSmeltingResult(stack);
+            }
     }
 
     @Override
