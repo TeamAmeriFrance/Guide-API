@@ -14,6 +14,10 @@ public class PageUnlocText extends PageBase {
 
     public String unlocText;
 
+    /**
+     *
+     * @param unlocText - Unlocalized text to draw
+     */
     public PageUnlocText(String unlocText) {
         this.unlocText = unlocText;
     }

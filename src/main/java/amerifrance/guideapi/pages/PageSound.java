@@ -21,6 +21,11 @@ public class PageSound extends PageBase {
     public PageAbstract pageToEmulate;
     public String sound;
 
+    /**
+     *
+     * @param pageToEmulate - Which page to use as a base
+     * @param sound - Sound to play
+     */
     public PageSound(PageAbstract pageToEmulate, String sound) {
         this.pageToEmulate = pageToEmulate;
         this.sound = sound;

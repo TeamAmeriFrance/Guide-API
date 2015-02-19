@@ -13,6 +13,10 @@ public class PageLocText extends PageBase {
 
     public String locText;
 
+    /**
+     *
+     * @param locText - Pre-localized text to draw.
+     */
     public PageLocText(String locText) {
         this.locText = locText;
     }

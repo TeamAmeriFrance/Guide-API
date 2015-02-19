@@ -13,7 +13,7 @@ public class PageCustomIRecipe extends PageIRecipe {
     public IRecipeRenderer iRecipeRenderer;
 
     /**
-     * @param recipe          - Recipe to draw
+     * @param recipe - Recipe to draw
      * @param iRecipeRenderer - Your custom Recipe drawer
      */
     public PageCustomIRecipe(IRecipe recipe, IRecipeRenderer iRecipeRenderer) {
