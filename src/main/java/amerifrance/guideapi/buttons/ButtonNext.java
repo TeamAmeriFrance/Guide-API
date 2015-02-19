@@ -4,7 +4,6 @@ import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.util.GuiHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -13,15 +12,12 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ButtonNext extends GuiButton {
-
-    public GuiBase guiBase;
+public class ButtonNext extends ButtonGuideAPI {
 
     public ButtonNext(int id, int x, int y, GuiBase guiBase) {
-        super(id, x, y, "");
+        super(id, x, y, guiBase);
         width = 18;
         height = 10;
-        this.guiBase = guiBase;
     }
 
     @Override

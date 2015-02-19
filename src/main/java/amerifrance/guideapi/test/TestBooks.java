@@ -2,6 +2,7 @@ package amerifrance.guideapi.test;
 
 import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.categories.CategoryItemStack;
+import amerifrance.guideapi.entries.EntryText;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.CategoryBase;
 import amerifrance.guideapi.objects.EntryBase;
@@ -9,10 +10,7 @@ import amerifrance.guideapi.objects.PageBase;
 import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.objects.abstraction.EntryAbstract;
 import amerifrance.guideapi.objects.abstraction.PageAbstract;
-import amerifrance.guideapi.pages.PageIRecipe;
-import amerifrance.guideapi.pages.PageImage;
-import amerifrance.guideapi.pages.PageLocText;
-import amerifrance.guideapi.pages.PageUnlocText;
+import amerifrance.guideapi.pages.*;
 import amerifrance.guideapi.util.PageHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.Minecraft;
@@ -45,6 +43,7 @@ public class TestBooks {
         PageIRecipe page6 = new PageIRecipe(shapelessRecipes);
         ShapelessOreRecipe shapelessOreRecipe = new ShapelessOreRecipe(new ItemStack(Items.baked_potato), new Object[]{"ingotIron", "stairWood"});
         PageIRecipe page7 = new PageIRecipe(shapelessOreRecipe);
+        PageSound page8 = new PageSound(page6, "mob.pig.say");
 
         ArrayList<PageAbstract> pages = new ArrayList<PageAbstract>();
         pages.add(page1);
@@ -55,15 +54,16 @@ public class TestBooks {
         pages.add(page5);
         pages.add(page6);
         pages.add(page7);
+        pages.add(page8);
 
-        EntryBase entry1 = new EntryBase(pages, "TestEntry1");
-        EntryBase entry2 = new EntryBase(pages, "TestEntry2");
+        EntryBase entry1 = new EntryText(pages, "TestEntry1");
+        EntryBase entry2 = new EntryText(pages, "TestEntry2");
         ArrayList<EntryAbstract> entries = new ArrayList<EntryAbstract>();
         entries.add(entry1);
         entries.add(entry2);
 
         for (int i = 6; i <= 25; i++) {
-            EntryBase entryBase = new EntryBase(pages, "TestEntry" + String.valueOf(i));
+            EntryBase entryBase = new EntryText(pages, "TestEntry" + String.valueOf(i));
             entries.add(entryBase);
         }
 
