@@ -3,10 +3,9 @@ package amerifrance.guideapi.objects;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiEntry;
-import amerifrance.guideapi.objects.abstraction.AbstractCategory;
-import amerifrance.guideapi.objects.abstraction.AbstractEntry;
-import amerifrance.guideapi.objects.abstraction.AbstractPage;
-import amerifrance.guideapi.util.GuiHelper;
+import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
+import amerifrance.guideapi.objects.abstraction.EntryAbstract;
+import amerifrance.guideapi.objects.abstraction.PageAbstract;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -16,25 +15,20 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-public class EntryBase extends AbstractEntry {
+public class EntryBase extends EntryAbstract {
 
-    public EntryBase(List<AbstractPage> pageList, String unlocEntryName) {
+    public EntryBase(List<PageAbstract> pageList, String unlocEntryName) {
         super(pageList, unlocEntryName);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void draw(Book book, AbstractCategory category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
-        if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight)) {
-            fontRenderer.drawString(getLocalizedName(), entryX, entryY - 2, 0x423EBC);
-        } else {
-            fontRenderer.drawString(getLocalizedName(), entryX, entryY, 0);
-        }
+    public void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void drawExtras(Book book, AbstractCategory category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
+    public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
     }
 
     @Override
@@ -43,13 +37,13 @@ public class EntryBase extends AbstractEntry {
     }
 
     @Override
-    public void onLeftClicked(Book book, AbstractCategory category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory) {
+    public void onLeftClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory) {
         System.out.println(getLocalizedName() + "Left Clicked");
         Minecraft.getMinecraft().displayGuiScreen(new GuiEntry(book, category, this, player, guiCategory.bookStack));
     }
 
     @Override
-    public void onRightClicked(Book book, AbstractCategory category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory) {
+    public void onRightClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory) {
         System.out.println(getLocalizedName() + "Right Clicked");
     }
 }

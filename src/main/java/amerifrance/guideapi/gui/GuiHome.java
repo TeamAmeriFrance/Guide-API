@@ -3,7 +3,7 @@ package amerifrance.guideapi.gui;
 import amerifrance.guideapi.buttons.ButtonNext;
 import amerifrance.guideapi.buttons.ButtonPrev;
 import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.abstraction.AbstractCategory;
+import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.wrappers.CategoryWrapper;
 import com.google.common.collect.HashMultimap;
 import net.minecraft.client.Minecraft;
@@ -50,7 +50,7 @@ public class GuiHome extends GuiBase {
         int i = 0;
         int pageNumber = 0;
 
-        for (AbstractCategory category : book.categoryList) {
+        for (CategoryAbstract category : book.categoryList) {
             if (drawOnLeft) {
                 categoryWrappers.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
                 cX = guiLeft + 180;

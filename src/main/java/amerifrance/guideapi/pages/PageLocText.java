@@ -1,9 +1,10 @@
-package amerifrance.guideapi.objects.pages;
+package amerifrance.guideapi.pages;
 
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.abstraction.AbstractCategory;
-import amerifrance.guideapi.objects.abstraction.AbstractEntry;
+import amerifrance.guideapi.objects.PageBase;
+import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
+import amerifrance.guideapi.objects.abstraction.EntryAbstract;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
@@ -18,7 +19,7 @@ public class PageLocText extends PageBase {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void draw(Book book, AbstractCategory category, AbstractEntry entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
         fontRenderer.setUnicodeFlag(true);
         fontRenderer.drawSplitString(locText, guiLeft + 37, guiTop + 12, 4 * guiBase.xSize / 6, 0);
         fontRenderer.setUnicodeFlag(false);

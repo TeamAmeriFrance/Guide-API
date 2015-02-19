@@ -4,8 +4,8 @@ import amerifrance.guideapi.buttons.ButtonBack;
 import amerifrance.guideapi.buttons.ButtonNext;
 import amerifrance.guideapi.buttons.ButtonPrev;
 import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.abstraction.AbstractCategory;
-import amerifrance.guideapi.objects.abstraction.AbstractEntry;
+import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
+import amerifrance.guideapi.objects.abstraction.EntryAbstract;
 import amerifrance.guideapi.wrappers.EntryWrapper;
 import com.google.common.collect.HashMultimap;
 import net.minecraft.client.Minecraft;
@@ -20,14 +20,14 @@ public class GuiCategory extends GuiBase {
     public ResourceLocation outlineTexture;
     public ResourceLocation pageTexture;
     public Book book;
-    public AbstractCategory category;
+    public CategoryAbstract category;
     public HashMultimap<Integer, EntryWrapper> entryWrapperList;
     public ButtonBack buttonBack;
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
     private int entryPage;
 
-    public GuiCategory(Book book, AbstractCategory category, EntityPlayer player, ItemStack bookStack) {
+    public GuiCategory(Book book, CategoryAbstract category, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
         this.book = book;
         this.category = category;
@@ -54,7 +54,7 @@ public class GuiCategory extends GuiBase {
         int eY = guiTop + 15;
         int i = 0;
         int pageNumber = 0;
-        for (AbstractEntry entry : category.entryList) {
+        for (EntryAbstract entry : category.entryList) {
             entryWrapperList.put(pageNumber, new EntryWrapper(this, book, category, entry, eX, eY, 4 * xSize / 6, 10, player, this.fontRendererObj, bookStack));
             eY += 13;
             i++;

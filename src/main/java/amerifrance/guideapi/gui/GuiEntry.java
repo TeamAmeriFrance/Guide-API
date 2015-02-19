@@ -4,9 +4,9 @@ import amerifrance.guideapi.buttons.ButtonBack;
 import amerifrance.guideapi.buttons.ButtonNext;
 import amerifrance.guideapi.buttons.ButtonPrev;
 import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.abstraction.AbstractCategory;
-import amerifrance.guideapi.objects.abstraction.AbstractEntry;
-import amerifrance.guideapi.objects.abstraction.AbstractPage;
+import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
+import amerifrance.guideapi.objects.abstraction.EntryAbstract;
+import amerifrance.guideapi.objects.abstraction.PageAbstract;
 import amerifrance.guideapi.wrappers.PageWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -23,15 +23,15 @@ public class GuiEntry extends GuiBase {
     public ResourceLocation outlineTexture;
     public ResourceLocation pageTexture;
     public Book book;
-    public AbstractCategory category;
-    public AbstractEntry entry;
+    public CategoryAbstract category;
+    public EntryAbstract entry;
     public List<PageWrapper> pageWrapperList = new ArrayList<PageWrapper>();
     public ButtonBack buttonBack;
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
     private int pageNumber;
 
-    public GuiEntry(Book book, AbstractCategory category, AbstractEntry entry, EntityPlayer player, ItemStack bookStack) {
+    public GuiEntry(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
         this.book = book;
         this.category = category;
@@ -54,7 +54,7 @@ public class GuiEntry extends GuiBase {
         this.buttonList.add(buttonNext = new ButtonNext(1, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
         this.buttonList.add(buttonPrev = new ButtonPrev(2, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
 
-        for (AbstractPage page : this.entry.pageList) {
+        for (PageAbstract page : this.entry.pageList) {
             pageWrapperList.add(new PageWrapper(book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj, bookStack));
         }
     }

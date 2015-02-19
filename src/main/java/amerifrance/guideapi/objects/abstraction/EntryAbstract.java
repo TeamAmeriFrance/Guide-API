@@ -13,29 +13,29 @@ import net.minecraft.util.StatCollector;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractEntry {
+public abstract class EntryAbstract {
 
-    public List<AbstractPage> pageList = new ArrayList<AbstractPage>();
+    public List<PageAbstract> pageList = new ArrayList<PageAbstract>();
     public String unlocEntryName;
 
-    public AbstractEntry(List pageList, String unlocEntryName) {
+    public EntryAbstract(List pageList, String unlocEntryName) {
         this.pageList = pageList;
         this.unlocEntryName = unlocEntryName;
     }
 
-    public void addPage(AbstractPage page) {
+    public void addPage(PageAbstract page) {
         this.pageList.add(page);
     }
 
-    public void removePage(AbstractPage page) {
+    public void removePage(PageAbstract page) {
         this.pageList.remove(page);
     }
 
-    public void addPageList(List<AbstractPage> pages) {
+    public void addPageList(List<PageAbstract> pages) {
         this.pageList.addAll(pages);
     }
 
-    public void removePageList(List<AbstractPage> pages) {
+    public void removePageList(List<PageAbstract> pages) {
         this.pageList.removeAll(pages);
     }
 
@@ -44,23 +44,23 @@ public abstract class AbstractEntry {
     }
 
     @SideOnly(Side.CLIENT)
-    public abstract void draw(Book book, AbstractCategory category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer renderer);
+    public abstract void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer renderer);
 
     @SideOnly(Side.CLIENT)
-    public abstract void drawExtras(Book book, AbstractCategory category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer renderer);
+    public abstract void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer renderer);
 
     public abstract boolean canSee(EntityPlayer player, ItemStack bookStack);
 
-    public abstract void onLeftClicked(Book book, AbstractCategory category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory);
+    public abstract void onLeftClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory);
 
-    public abstract void onRightClicked(Book book, AbstractCategory category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory);
+    public abstract void onRightClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory);
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AbstractEntry)) return false;
+        if (!(o instanceof EntryAbstract)) return false;
 
-        AbstractEntry that = (AbstractEntry) o;
+        EntryAbstract that = (EntryAbstract) o;
 
         if (pageList != null ? !pageList.equals(that.pageList) : that.pageList != null) return false;
         if (unlocEntryName != null ? !unlocEntryName.equals(that.unlocEntryName) : that.unlocEntryName != null)
@@ -78,6 +78,6 @@ public abstract class AbstractEntry {
 
     @Override
     public String toString() {
-        return "AbstractEntry{pageList=" + pageList + ", unlocEntryName='" + unlocEntryName + '\'' + '}';
+        return "EntryAbstract{pageList=" + pageList + ", unlocEntryName='" + unlocEntryName + '\'' + '}';
     }
 }

@@ -12,29 +12,29 @@ import net.minecraft.util.StatCollector;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractCategory {
+public abstract class CategoryAbstract {
 
-    public List<AbstractEntry> entryList = new ArrayList<AbstractEntry>();
+    public List<EntryAbstract> entryList = new ArrayList<EntryAbstract>();
     public String unlocCategoryName;
 
-    public AbstractCategory(List<AbstractEntry> entryList, String unlocCategoryName) {
+    public CategoryAbstract(List<EntryAbstract> entryList, String unlocCategoryName) {
         this.entryList = entryList;
         this.unlocCategoryName = unlocCategoryName;
     }
 
-    public void addEntry(AbstractEntry entry) {
+    public void addEntry(EntryAbstract entry) {
         this.entryList.add(entry);
     }
 
-    public void removeEntry(AbstractEntry entry) {
+    public void removeEntry(EntryAbstract entry) {
         this.entryList.remove(entry);
     }
 
-    public void addEntryList(List<AbstractEntry> entries) {
+    public void addEntryList(List<EntryAbstract> entries) {
         this.entryList.addAll(entries);
     }
 
-    public void removeEntryList(List<AbstractEntry> entries) {
+    public void removeEntryList(List<EntryAbstract> entries) {
         this.entryList.removeAll(entries);
     }
 
@@ -63,9 +63,9 @@ public abstract class AbstractCategory {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AbstractCategory)) return false;
+        if (!(o instanceof CategoryAbstract)) return false;
 
-        AbstractCategory that = (AbstractCategory) o;
+        CategoryAbstract that = (CategoryAbstract) o;
 
         if (entryList != null ? !entryList.equals(that.entryList) : that.entryList != null) return false;
         if (unlocCategoryName != null ? !unlocCategoryName.equals(that.unlocCategoryName) : that.unlocCategoryName != null)
@@ -83,6 +83,6 @@ public abstract class AbstractCategory {
 
     @Override
     public String toString() {
-        return "AbstractCategory{entryList=" + entryList + ", unlocCategoryName='" + unlocCategoryName + '\'' + '}';
+        return "CategoryAbstract{entryList=" + entryList + ", unlocCategoryName='" + unlocCategoryName + '\'' + '}';
     }
 }

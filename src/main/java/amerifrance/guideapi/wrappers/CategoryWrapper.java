@@ -2,7 +2,7 @@ package amerifrance.guideapi.wrappers;
 
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.abstraction.AbstractCategory;
+import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.util.GuiHelper;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 public class CategoryWrapper extends AbstractWrapper {
 
     public Book book;
-    public AbstractCategory category;
+    public CategoryAbstract category;
     public int x, y, width, height;
     public EntityPlayer player;
     public FontRenderer renderer;
@@ -20,7 +20,7 @@ public class CategoryWrapper extends AbstractWrapper {
     public boolean drawOnLeft;
     public ItemStack bookStack;
 
-    public CategoryWrapper(Book book, AbstractCategory category, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer, RenderItem renderItem, boolean drawOnLeft, ItemStack bookStack) {
+    public CategoryWrapper(Book book, CategoryAbstract category, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer, RenderItem renderItem, boolean drawOnLeft, ItemStack bookStack) {
         this.book = book;
         this.category = category;
         this.x = x;

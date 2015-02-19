@@ -1,9 +1,10 @@
-package amerifrance.guideapi.objects.pages;
+package amerifrance.guideapi.pages;
 
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.abstraction.AbstractCategory;
-import amerifrance.guideapi.objects.abstraction.AbstractEntry;
+import amerifrance.guideapi.objects.PageBase;
+import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
+import amerifrance.guideapi.objects.abstraction.EntryAbstract;
 import amerifrance.guideapi.util.GuiHelper;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
@@ -23,7 +24,6 @@ public class PageIRecipe extends PageBase {
     public IRecipe recipe;
 
     /**
-     *
      * @param recipe - Recipe to draw
      */
     public PageIRecipe(IRecipe recipe) {
@@ -32,7 +32,7 @@ public class PageIRecipe extends PageBase {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void draw(Book book, AbstractCategory category, AbstractEntry entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
         if (recipe instanceof ShapedRecipes) {
             ShapedRecipes shapedRecipes = (ShapedRecipes) recipe;
             for (int y = 0; y < shapedRecipes.recipeHeight; y++) {
