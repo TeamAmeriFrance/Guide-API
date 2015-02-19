@@ -5,3 +5,9 @@ guideapi.creativeTab=Guide-API
 button.back.name=Back
 button.next.name=Next
 button.prev.name=Previous
+
+#Text to draw
+text.shaped.crafting=Shaped Crafting
+text.shapeless.crafting=Shapeless Crafting
+text.furnace.smelting=Smelting
+text.furnace.error=Error in the recipe

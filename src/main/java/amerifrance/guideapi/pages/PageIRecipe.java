@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -34,6 +35,7 @@ public class PageIRecipe extends PageBase {
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
         if (recipe instanceof ShapedRecipes) {
+            guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.shaped.crafting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
             ShapedRecipes shapedRecipes = (ShapedRecipes) recipe;
             for (int y = 0; y < shapedRecipes.recipeHeight; y++) {
                 for (int x = 0; x < shapedRecipes.recipeWidth; x++) {
@@ -53,6 +55,7 @@ public class PageIRecipe extends PageBase {
                 guiBase.renderToolTip(shapedRecipes.getRecipeOutput(), outputX, outputY);
             }
         } else if (recipe instanceof ShapedOreRecipe) {
+            guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.shaped.crafting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
             ShapedOreRecipe shapedOreRecipe = (ShapedOreRecipe) recipe;
             int width = (Integer) ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shapedOreRecipe, 4);
             int height = (Integer) ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shapedOreRecipe, 5);
@@ -85,6 +88,7 @@ public class PageIRecipe extends PageBase {
                 guiBase.renderToolTip(shapedOreRecipe.getRecipeOutput(), outputX, outputY);
             }
         } else if (recipe instanceof ShapelessRecipes) {
+            guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.shapeless.crafting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
             ShapelessRecipes shapelessRecipes = (ShapelessRecipes) recipe;
             for (int y = 0; y < 3; y++) {
                 for (int x = 0; x < 3; x++) {
@@ -108,6 +112,7 @@ public class PageIRecipe extends PageBase {
                 guiBase.renderToolTip(shapelessRecipes.getRecipeOutput(), outputX, outputY);
             }
         } else if (recipe instanceof ShapelessOreRecipe) {
+            guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.shapeless.crafting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
             ShapelessOreRecipe shapelessOreRecipe = (ShapelessOreRecipe) recipe;
             for (int y = 0; y < 3; y++) {
                 for (int x = 0; x < 3; x++) {

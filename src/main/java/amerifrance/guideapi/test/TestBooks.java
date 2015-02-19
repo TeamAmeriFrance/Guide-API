@@ -44,6 +44,8 @@ public class TestBooks {
         ShapelessOreRecipe shapelessOreRecipe = new ShapelessOreRecipe(new ItemStack(Items.baked_potato), new Object[]{"ingotIron", "stairWood"});
         PageIRecipe page7 = new PageIRecipe(shapelessOreRecipe);
         PageSound page8 = new PageSound(page6, "mob.pig.say");
+        PageFurnaceRecipe page9 = new PageFurnaceRecipe(new ItemStack(Items.potato));
+        PageFurnaceRecipe page10 = new PageFurnaceRecipe(new ItemStack(Items.diamond_axe));
 
         ArrayList<PageAbstract> pages = new ArrayList<PageAbstract>();
         pages.add(page1);
@@ -55,6 +57,8 @@ public class TestBooks {
         pages.add(page6);
         pages.add(page7);
         pages.add(page8);
+        pages.add(page9);
+        pages.add(page10);
 
         EntryBase entry1 = new EntryText(pages, "TestEntry1");
         EntryBase entry2 = new EntryText(pages, "TestEntry2");

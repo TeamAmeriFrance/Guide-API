@@ -21,12 +21,10 @@ public class EntryText extends EntryBase {
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
-        fontRenderer.setUnicodeFlag(true);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight)) {
             fontRenderer.drawString(getLocalizedName(), entryX, entryY - 2, 0x423EBC);
         } else {
             fontRenderer.drawString(getLocalizedName(), entryX, entryY, 0);
         }
-        fontRenderer.setUnicodeFlag(false);
     }
 }
