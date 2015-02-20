@@ -49,4 +49,25 @@ public class PageUnlocImage extends PageBase {
             fontRenderer.setUnicodeFlag(false);
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        PageUnlocImage that = (PageUnlocImage) o;
+        if (drawAtTop != that.drawAtTop) return false;
+        if (image != null ? !image.equals(that.image) : that.image != null) return false;
+        if (unlocText != null ? !unlocText.equals(that.unlocText) : that.unlocText != null) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = unlocText != null ? unlocText.hashCode() : 0;
+        result = 31 * result + (image != null ? image.hashCode() : 0);
+        result = 31 * result + (drawAtTop ? 1 : 0);
+        return result;
+    }
 }

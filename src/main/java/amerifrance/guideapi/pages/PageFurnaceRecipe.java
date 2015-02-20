@@ -21,7 +21,6 @@ public class PageFurnaceRecipe extends PageBase {
     public ItemStack output;
 
     /**
-     *
      * @param input - Input ItemStack to draw smelting result of
      */
     public PageFurnaceRecipe(ItemStack input) {
@@ -30,7 +29,6 @@ public class PageFurnaceRecipe extends PageBase {
     }
 
     /**
-     *
      * @param input - Input Item to draw smelting result of
      */
     public PageFurnaceRecipe(Item input) {
@@ -39,7 +37,6 @@ public class PageFurnaceRecipe extends PageBase {
     }
 
     /**
-     *
      * @param input - Input Block to draw smelting result of
      */
     public PageFurnaceRecipe(Block input) {
@@ -48,7 +45,6 @@ public class PageFurnaceRecipe extends PageBase {
     }
 
     /**
-     *
      * @param input - Input OreDict entry to draw smelting result of
      */
     public PageFurnaceRecipe(String input) {
@@ -87,5 +83,24 @@ public class PageFurnaceRecipe extends PageBase {
         if (output.getItem() == Item.getItemFromBlock(Blocks.fire)) {
             guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.furnace.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        PageFurnaceRecipe that = (PageFurnaceRecipe) o;
+        if (input != null ? !input.isItemEqual(that.input) : that.input != null) return false;
+        if (output != null ? !output.isItemEqual(that.output) : that.output != null) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = input != null ? input.hashCode() : 0;
+        result = 31 * result + (output != null ? output.hashCode() : 0);
+        return result;
     }
 }

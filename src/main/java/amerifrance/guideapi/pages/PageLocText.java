@@ -28,4 +28,20 @@ public class PageLocText extends PageBase {
         fontRenderer.drawSplitString(locText, guiLeft + 37, guiTop + 12, 4 * guiBase.xSize / 6, 0);
         fontRenderer.setUnicodeFlag(false);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        PageLocText that = (PageLocText) o;
+        if (locText != null ? !locText.equals(that.locText) : that.locText != null) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return locText != null ? locText.hashCode() : 0;
+    }
 }

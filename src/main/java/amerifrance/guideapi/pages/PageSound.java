@@ -58,4 +58,24 @@ public class PageSound extends PageBase {
     public void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry) {
         pageToEmulate.onRightClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        PageSound pageSound = (PageSound) o;
+        if (pageToEmulate != null ? !pageToEmulate.equals(pageSound.pageToEmulate) : pageSound.pageToEmulate != null)
+            return false;
+        if (sound != null ? !sound.equals(pageSound.sound) : pageSound.sound != null) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = pageToEmulate != null ? pageToEmulate.hashCode() : 0;
+        result = 31 * result + (sound != null ? sound.hashCode() : 0);
+        return result;
+    }
 }

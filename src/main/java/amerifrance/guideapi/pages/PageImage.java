@@ -29,4 +29,20 @@ public class PageImage extends PageBase {
         Minecraft.getMinecraft().getTextureManager().bindTexture(image);
         GuiHelper.drawSizedIconWithoutColor(guiLeft + 50, guiTop + 34, guiBase.xSize, guiBase.ySize, 0);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        PageImage pageImage = (PageImage) o;
+        if (image != null ? !image.equals(pageImage.image) : pageImage.image != null) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return image != null ? image.hashCode() : 0;
+    }
 }

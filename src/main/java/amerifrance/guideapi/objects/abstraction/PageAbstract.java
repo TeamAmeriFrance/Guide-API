@@ -22,4 +22,7 @@ public abstract class PageAbstract {
     public abstract void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry);
 
     public abstract void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry);
+
+    @Override
+    public abstract boolean equals(Object o);
 }

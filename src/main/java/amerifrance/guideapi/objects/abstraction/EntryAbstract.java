@@ -58,10 +58,9 @@ public abstract class EntryAbstract {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof EntryAbstract)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         EntryAbstract that = (EntryAbstract) o;
-
         if (pageList != null ? !pageList.equals(that.pageList) : that.pageList != null) return false;
         if (unlocEntryName != null ? !unlocEntryName.equals(that.unlocEntryName) : that.unlocEntryName != null)
             return false;
@@ -74,10 +73,5 @@ public abstract class EntryAbstract {
         int result = pageList != null ? pageList.hashCode() : 0;
         result = 31 * result + (unlocEntryName != null ? unlocEntryName.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "EntryAbstract{pageList=" + pageList + ", unlocEntryName='" + unlocEntryName + '\'' + '}';
     }
 }

@@ -75,4 +75,34 @@ public class Book {
     public String getLocalizedWelcomeMessage() {
         return StatCollector.translateToLocal(unlocWelcomeMessage);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+        if (bookColor != null ? !bookColor.equals(book.bookColor) : book.bookColor != null) return false;
+        if (categoryList != null ? !categoryList.equals(book.categoryList) : book.categoryList != null) return false;
+        if (outlineTexture != null ? !outlineTexture.equals(book.outlineTexture) : book.outlineTexture != null)
+            return false;
+        if (pageTexture != null ? !pageTexture.equals(book.pageTexture) : book.pageTexture != null) return false;
+        if (unlocBookTitle != null ? !unlocBookTitle.equals(book.unlocBookTitle) : book.unlocBookTitle != null)
+            return false;
+        if (unlocWelcomeMessage != null ? !unlocWelcomeMessage.equals(book.unlocWelcomeMessage) : book.unlocWelcomeMessage != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = categoryList != null ? categoryList.hashCode() : 0;
+        result = 31 * result + (unlocBookTitle != null ? unlocBookTitle.hashCode() : 0);
+        result = 31 * result + (unlocWelcomeMessage != null ? unlocWelcomeMessage.hashCode() : 0);
+        result = 31 * result + (pageTexture != null ? pageTexture.hashCode() : 0);
+        result = 31 * result + (outlineTexture != null ? outlineTexture.hashCode() : 0);
+        result = 31 * result + (bookColor != null ? bookColor.hashCode() : 0);
+        return result;
+    }
 }

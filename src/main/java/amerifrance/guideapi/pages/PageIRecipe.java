@@ -6,6 +6,7 @@ import amerifrance.guideapi.objects.PageBase;
 import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.objects.abstraction.EntryAbstract;
 import amerifrance.guideapi.util.GuiHelper;
+import amerifrance.guideapi.util.PageHelper;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -147,5 +148,21 @@ public class PageIRecipe extends PageBase {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        PageIRecipe that = (PageIRecipe) o;
+        if (recipe != null ? !PageHelper.areIRecipesEqual(recipe, that.recipe) : that.recipe != null) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return recipe != null ? recipe.hashCode() : 0;
     }
 }

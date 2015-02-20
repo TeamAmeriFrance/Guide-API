@@ -44,4 +44,22 @@ public class CategoryItemStack extends CategoryBase {
             guiBase.drawHoveringText(this.getTooltip(), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        CategoryItemStack that = (CategoryItemStack) o;
+        if (stack != null ? !stack.isItemEqual(that.stack) : that.stack != null) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (stack != null ? stack.hashCode() : 0);
+        return result;
+    }
 }

@@ -63,10 +63,9 @@ public abstract class CategoryAbstract {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CategoryAbstract)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         CategoryAbstract that = (CategoryAbstract) o;
-
         if (entryList != null ? !entryList.equals(that.entryList) : that.entryList != null) return false;
         if (unlocCategoryName != null ? !unlocCategoryName.equals(that.unlocCategoryName) : that.unlocCategoryName != null)
             return false;
@@ -79,10 +78,5 @@ public abstract class CategoryAbstract {
         int result = entryList != null ? entryList.hashCode() : 0;
         result = 31 * result + (unlocCategoryName != null ? unlocCategoryName.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "CategoryAbstract{entryList=" + entryList + ", unlocCategoryName='" + unlocCategoryName + '\'' + '}';
     }
 }
