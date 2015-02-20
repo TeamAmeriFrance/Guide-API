@@ -1,6 +1,6 @@
 package amerifrance.guideapi;
 
-import amerifrance.guideapi.items.ItemTestBook;
+import amerifrance.guideapi.items.ItemsRegistry;
 import amerifrance.guideapi.proxies.CommonProxy;
 import amerifrance.guideapi.test.TestBooks;
 import cpw.mods.fml.common.Mod;
@@ -45,7 +45,7 @@ public class GuideAPI {
     public void preInit(FMLPreInitializationEvent event) {
         instance = this;
         ConfigHandler.init(new File(event.getModConfigurationDirectory() + "/Guide-API" + ".cfg"));
-        GameRegistry.registerItem(new ItemTestBook(), "ItemTestBook");
+        ItemsRegistry.registerItems();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
     }
 
@@ -56,5 +56,9 @@ public class GuideAPI {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         TestBooks.setTestBook1();
+        TestBooks.setTestBook2();
+
+        GameRegistry.addShapelessRecipe(GuideRegistry.getItemStackForBook(TestBooks.testBook1), new Object[]{new ItemStack(Items.book), new ItemStack(Items.apple)});
+        GameRegistry.addShapelessRecipe(GuideRegistry.getItemStackForBook(TestBooks.testBook2), new Object[]{new ItemStack(Items.book), new ItemStack(Items.arrow)});
     }
 }

@@ -1,5 +1,5 @@
 #Creative Tab
-guideapi.creativeTab=Guide-API
+itemGroup.guideapi.creativeTab=Guide-API
 
 #Button hovering text
 button.back.name=Back
