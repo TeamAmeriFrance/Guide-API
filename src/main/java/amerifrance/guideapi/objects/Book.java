@@ -49,14 +49,14 @@ public class Book {
     }
 
     /**
-     * @param categories - Add these category
+     * @param categories - Add these categories
      */
     public void addCategoryList(List<CategoryAbstract> categories) {
         this.categoryList.addAll(categories);
     }
 
     /**
-     * @param categories - Remove these category
+     * @param categories - Remove these categories
      */
     public void removeCategoryList(List<CategoryAbstract> categories) {
         this.categoryList.removeAll(categories);
