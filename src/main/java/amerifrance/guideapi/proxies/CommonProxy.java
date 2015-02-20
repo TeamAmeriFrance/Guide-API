@@ -17,4 +17,7 @@ public class CommonProxy implements IGuiHandler {
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         return new GuiHome(GuideRegistry.getBook(ID), player, player.getHeldItem());
     }
+
+    public void registerBooks() {
+    }
 }
