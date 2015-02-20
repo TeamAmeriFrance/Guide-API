@@ -22,8 +22,6 @@ import java.io.File;
 @Mod(modid = ModInformation.ID, name = ModInformation.NAME, version = ModInformation.VERSION, dependencies = ModInformation.DEPEND)
 public class GuideAPI {
 
-    public static Logger logger = LogManager.getLogger(ModInformation.NAME);
-
     public static CreativeTabs tabGuide = new CreativeTabs(ModInformation.ID + ".creativeTab") {
         @Override
         public ItemStack getIconItemStack() {
