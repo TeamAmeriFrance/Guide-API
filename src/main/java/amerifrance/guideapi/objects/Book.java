@@ -13,6 +13,7 @@ public class Book {
     public List<CategoryAbstract> categoryList = new ArrayList<CategoryAbstract>();
     public String unlocBookTitle;
     public String unlocWelcomeMessage;
+    public String unlocDisplayName;
     public ResourceLocation pageTexture;
     public ResourceLocation outlineTexture;
     public Color bookColor = new Color(171, 70, 30);
@@ -21,14 +22,16 @@ public class Book {
      * @param categoryList        - Category List with all your information
      * @param unlocBookTitle      - Unlocalized name for a book title
      * @param unlocWelcomeMessage - Unlocalized welcome message
+     * @param unlocDisplayName    - Unlocalized item display name
      * @param pageTexture         - Texture for book's page
      * @param outlineTexture      - Texture for book outline
      * @param bookColor           - Color of book
      */
-    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, ResourceLocation pageTexture, ResourceLocation outlineTexture, Color bookColor) {
+    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, ResourceLocation pageTexture, ResourceLocation outlineTexture, Color bookColor) {
         this.categoryList = categoryList;
         this.unlocBookTitle = unlocBookTitle;
         this.unlocWelcomeMessage = unlocWelcomeMessage;
+        this.unlocDisplayName = unlocDisplayName;
         this.pageTexture = pageTexture;
         this.outlineTexture = outlineTexture;
         this.bookColor = bookColor;
@@ -74,6 +77,13 @@ public class Book {
      */
     public String getLocalizedWelcomeMessage() {
         return StatCollector.translateToLocal(unlocWelcomeMessage);
+    }
+
+    /**
+     * @return - Localized item display name
+     */
+    public String getLocalizedDisplayName() {
+        return StatCollector.translateToLocal(unlocDisplayName);
     }
 
     @Override
