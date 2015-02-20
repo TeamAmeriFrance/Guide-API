@@ -7,7 +7,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +14,11 @@ import java.util.List;
 public abstract class CategoryAbstract {
 
     public List<EntryAbstract> entryList = new ArrayList<EntryAbstract>();
-    public String unlocCategoryName;
+    public String localizedCategoryName;
 
-    public CategoryAbstract(List<EntryAbstract> entryList, String unlocCategoryName) {
+    public CategoryAbstract(List<EntryAbstract> entryList, String localizedCategoryName) {
         this.entryList = entryList;
-        this.unlocCategoryName = unlocCategoryName;
+        this.localizedCategoryName = localizedCategoryName;
     }
 
     public void addEntry(EntryAbstract entry) {
@@ -38,13 +37,9 @@ public abstract class CategoryAbstract {
         this.entryList.removeAll(entries);
     }
 
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal(unlocCategoryName);
-    }
-
     public List<String> getTooltip() {
         List<String> list = new ArrayList<String>();
-        list.add(getLocalizedName());
+        list.add(localizedCategoryName);
         return list;
     }
 
@@ -67,7 +62,7 @@ public abstract class CategoryAbstract {
 
         CategoryAbstract that = (CategoryAbstract) o;
         if (entryList != null ? !entryList.equals(that.entryList) : that.entryList != null) return false;
-        if (unlocCategoryName != null ? !unlocCategoryName.equals(that.unlocCategoryName) : that.unlocCategoryName != null)
+        if (localizedCategoryName != null ? !localizedCategoryName.equals(that.localizedCategoryName) : that.localizedCategoryName != null)
             return false;
 
         return true;
@@ -76,7 +71,7 @@ public abstract class CategoryAbstract {
     @Override
     public int hashCode() {
         int result = entryList != null ? entryList.hashCode() : 0;
-        result = 31 * result + (unlocCategoryName != null ? unlocCategoryName.hashCode() : 0);
+        result = 31 * result + (localizedCategoryName != null ? localizedCategoryName.hashCode() : 0);
         return result;
     }
 }

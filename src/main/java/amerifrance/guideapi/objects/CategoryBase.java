@@ -15,8 +15,8 @@ import java.util.List;
 
 public class CategoryBase extends CategoryAbstract {
 
-    public CategoryBase(List<EntryAbstract> entryList, String unlocCategoryName) {
-        super(entryList, unlocCategoryName);
+    public CategoryBase(List<EntryAbstract> entryList, String localizedCategoryName) {
+        super(entryList, localizedCategoryName);
     }
 
     @Override
@@ -36,12 +36,12 @@ public class CategoryBase extends CategoryAbstract {
 
     @Override
     public void onLeftClicked(Book book, int mouseX, int mouseY, EntityPlayer player, ItemStack bookStack) {
-        System.out.println(getLocalizedName() + "Left Clicked");
+        System.out.println(localizedCategoryName + "Left Clicked");
         Minecraft.getMinecraft().displayGuiScreen(new GuiCategory(book, this, player, bookStack));
     }
 
     @Override
     public void onRightClicked(Book book, int mouseX, int mouseY, EntityPlayer player, ItemStack bookStack) {
-        System.out.println(getLocalizedName() + "Right Clicked");
+        System.out.println(localizedCategoryName + "Right Clicked");
     }
 }

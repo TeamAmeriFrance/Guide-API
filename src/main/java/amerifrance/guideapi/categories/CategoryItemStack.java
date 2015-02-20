@@ -19,8 +19,8 @@ public class CategoryItemStack extends CategoryBase {
 
     public ItemStack stack;
 
-    public CategoryItemStack(List<EntryAbstract> entryList, String unlocCategoryName, ItemStack stack) {
-        super(entryList, unlocCategoryName);
+    public CategoryItemStack(List<EntryAbstract> entryList, String localizedCategoryName, ItemStack stack) {
+        super(entryList, localizedCategoryName);
         this.stack = stack;
     }
 
