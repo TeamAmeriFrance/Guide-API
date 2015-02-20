@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +16,11 @@ import java.util.List;
 public abstract class EntryAbstract {
 
     public List<PageAbstract> pageList = new ArrayList<PageAbstract>();
-    public String localizedEntryName;
+    public String unlocEntryName;
 
-    public EntryAbstract(List pageList, String localizedEntryName) {
+    public EntryAbstract(List pageList, String unlocEntryName) {
         this.pageList = pageList;
-        this.localizedEntryName = localizedEntryName;
+        this.unlocEntryName = unlocEntryName;
     }
 
     public void addPage(PageAbstract page) {
@@ -36,6 +37,10 @@ public abstract class EntryAbstract {
 
     public void removePageList(List<PageAbstract> pages) {
         this.pageList.removeAll(pages);
+    }
+
+    public String getLocalizedName() {
+        return StatCollector.translateToLocal(unlocEntryName);
     }
 
     @SideOnly(Side.CLIENT)
@@ -56,9 +61,9 @@ public abstract class EntryAbstract {
         if (o == null || getClass() != o.getClass()) return false;
 
         EntryAbstract that = (EntryAbstract) o;
-        if (localizedEntryName != null ? !localizedEntryName.equals(that.localizedEntryName) : that.localizedEntryName != null)
-            return false;
         if (pageList != null ? !pageList.equals(that.pageList) : that.pageList != null) return false;
+        if (unlocEntryName != null ? !unlocEntryName.equals(that.unlocEntryName) : that.unlocEntryName != null)
+            return false;
 
         return true;
     }
@@ -66,7 +71,7 @@ public abstract class EntryAbstract {
     @Override
     public int hashCode() {
         int result = pageList != null ? pageList.hashCode() : 0;
-        result = 31 * result + (localizedEntryName != null ? localizedEntryName.hashCode() : 0);
+        result = 31 * result + (unlocEntryName != null ? unlocEntryName.hashCode() : 0);
         return result;
     }
 }

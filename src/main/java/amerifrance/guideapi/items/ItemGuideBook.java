@@ -5,7 +5,6 @@ import amerifrance.guideapi.GuideRegistry;
 import amerifrance.guideapi.ModInformation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -39,16 +38,11 @@ public class ItemGuideBook extends Item {
     @Override
     public String getUnlocalizedName(ItemStack stack) {
         if (!GuideRegistry.isEmpty()) {
-            String name = String.valueOf(stack.getItemDamage());
+            String name = GuideRegistry.getBook(stack.getItemDamage()).unlocBookTitle;
             return getUnlocalizedName() + "." + name;
         } else {
             return super.getUnlocalizedName(stack);
         }
-    }
-
-    @Override
-    public String getItemStackDisplayName(ItemStack stack) {
-        return GuideRegistry.getBook(stack.getItemDamage()).localizedBookName;
     }
 
     @Override
@@ -84,11 +78,6 @@ public class ItemGuideBook extends Item {
         } else {
             return super.getColorFromItemStack(stack, pass);
         }
-    }
-
-    @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-        if (GuiScreen.isShiftKeyDown()) list.add(getUnlocalizedName(stack));
     }
 
     @Override

@@ -14,17 +14,17 @@ import java.util.List;
 
 public class EntryText extends EntryBase {
 
-    public EntryText(List<PageAbstract> pageList, String localizedEntryName) {
-        super(pageList, localizedEntryName);
+    public EntryText(List<PageAbstract> pageList, String unlocEntryName) {
+        super(pageList, unlocEntryName);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight)) {
-            fontRenderer.drawString(localizedEntryName, entryX, entryY - 2, 0x423EBC);
+            fontRenderer.drawString(getLocalizedName(), entryX, entryY - 2, 0x423EBC);
         } else {
-            fontRenderer.drawString(localizedEntryName, entryX, entryY, 0);
+            fontRenderer.drawString(getLocalizedName(), entryX, entryY, 0);
         }
     }
 }

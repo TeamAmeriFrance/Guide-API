@@ -91,7 +91,7 @@ public class TestBooks {
         }
 
         testBook1 = new Book(categories, "ItemTestBook", "Hello, I am a welcome message that's " +
-                "just way too long and that says nothing other that I'm there for test purposes", "Test Book 1",
+                "just way too long and that says nothing other that I'm there for test purposes",
                 new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png"), new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png"), new Color(171, 80, 30));
 
         GuideRegistry.registerBook(testBook1);
@@ -160,7 +160,7 @@ public class TestBooks {
         categories.add(category26);
 
         testBook2 = new Book(categories, "ItemBookNumber2", "Hello, I am a welcome message that's " +
-                "just way too long and that says nothing other that I'm there for test purposes, and that this is the second book", "Test Book 2",
+                "just way too long and that says nothing other that I'm there for test purposes, and that this is the second book",
                 new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png"), new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png"), new Color(50, 150, 102));
 
         GuideRegistry.registerBook(testBook2);
