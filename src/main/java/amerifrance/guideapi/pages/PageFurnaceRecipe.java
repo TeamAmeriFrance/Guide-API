@@ -1,5 +1,6 @@
 package amerifrance.guideapi.pages;
 
+import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.PageBase;
@@ -7,11 +8,13 @@ import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.objects.abstraction.EntryAbstract;
 import amerifrance.guideapi.util.GuiHelper;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -62,6 +65,10 @@ public class PageFurnaceRecipe extends PageBase {
 
     @Override
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
+
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "recipe_elements.png"));
+        guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 65, 105, 65);
+
         guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.furnace.smelting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
         int inputX = (1 + 1) * 20 + (guiLeft + guiBase.xSize / 7);

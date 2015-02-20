@@ -1,5 +1,6 @@
 package amerifrance.guideapi.pages;
 
+import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.PageBase;
@@ -10,11 +11,13 @@ import amerifrance.guideapi.util.PageHelper;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -35,6 +38,10 @@ public class PageIRecipe extends PageBase {
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
+
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "recipe_elements.png"));
+        guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 0, 105, 65);
+
         if (recipe instanceof ShapedRecipes) {
             guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.shaped.crafting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
             ShapedRecipes shapedRecipes = (ShapedRecipes) recipe;
