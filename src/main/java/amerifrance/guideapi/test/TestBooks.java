@@ -31,6 +31,11 @@ public class TestBooks {
     public static Book testBook1;
     public static Book testBook2;
 
+    public static void  setTestBooks() {
+        setTestBook1();
+        setTestBook2();
+    }
+
     public static void setTestBook1() {
         PageBase page1 = new PageUnlocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
         PageLocText page2 = new PageLocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
@@ -91,8 +96,7 @@ public class TestBooks {
         }
 
         testBook1 = new Book(categories, "ItemTestBook", "Hello, I am a welcome message that's " +
-                "just way too long and that says nothing other that I'm there for test purposes", "Test Book Number 1",
-                new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png"), new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png"), new Color(171, 80, 30));
+                "just way too long and that says nothing other that I'm there for test purposes", "Test Book Number 1", new Color(171, 80, 30));
 
         GuideRegistry.registerBook(testBook1);
     }
@@ -160,8 +164,7 @@ public class TestBooks {
         categories.add(category26);
 
         testBook2 = new Book(categories, "ItemBookNumber2", "Hello, I am a welcome message that's " +
-                "just way too long and that says nothing other that I'm there for test purposes, and that this is the second book", "Teste Bouko Dos",
-                new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png"), new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png"), new Color(50, 150, 102));
+                "just way too long and that says nothing other that I'm there for test purposes, and that this is the second book", "Teste Bouko Dos", new Color(50, 150, 102));
 
         GuideRegistry.registerBook(testBook2);
     }

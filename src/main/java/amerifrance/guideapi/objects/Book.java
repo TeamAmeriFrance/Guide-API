@@ -1,5 +1,6 @@
 package amerifrance.guideapi.objects;
 
+import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -34,6 +35,23 @@ public class Book {
         this.unlocDisplayName = unlocDisplayName;
         this.pageTexture = pageTexture;
         this.outlineTexture = outlineTexture;
+        this.bookColor = bookColor;
+    }
+
+    /**
+     * @param categoryList        - Category List with all your information
+     * @param unlocBookTitle      - Unlocalized name for a book title
+     * @param unlocWelcomeMessage - Unlocalized welcome message
+     * @param unlocDisplayName    - Unlocalized item display name
+     * @param bookColor           - Color of book
+     */
+    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, Color bookColor) {
+        this.categoryList = categoryList;
+        this.unlocBookTitle = unlocBookTitle;
+        this.unlocWelcomeMessage = unlocWelcomeMessage;
+        this.unlocDisplayName = unlocDisplayName;
+        this.pageTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png");
+        this.outlineTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
         this.bookColor = bookColor;
     }
 
