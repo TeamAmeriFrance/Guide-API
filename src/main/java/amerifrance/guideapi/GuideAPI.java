@@ -3,6 +3,8 @@ package amerifrance.guideapi;
 import amerifrance.guideapi.items.ItemsRegistry;
 import amerifrance.guideapi.proxies.CommonProxy;
 import amerifrance.guideapi.test.TestBooks;
+import amerifrance.guideapi.util.BookCreator;
+import com.google.gson.GsonBuilder;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -14,8 +16,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 
@@ -56,5 +56,12 @@ public class GuideAPI {
         proxy.registerBooks();
         GameRegistry.addShapelessRecipe(GuideRegistry.getItemStackForBook(TestBooks.testBook1), new Object[]{new ItemStack(Items.book), new ItemStack(Items.apple)});
         GameRegistry.addShapelessRecipe(GuideRegistry.getItemStackForBook(TestBooks.testBook2), new Object[]{new ItemStack(Items.book), new ItemStack(Items.arrow)});
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        BookCreator.registerCustomSerializers(gsonBuilder);
+        //try {
+        //    new FileWriter(new File("testBook.json")).write(gsonBuilder.setPrettyPrinting().create().toJson(GuideRegistry.getBook(0)));
+        //} catch (IOException e) {
+        //    e.printStackTrace();
+        //}
     }
 }

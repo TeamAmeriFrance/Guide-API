@@ -12,6 +12,7 @@ import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.objects.abstraction.EntryAbstract;
 import amerifrance.guideapi.objects.abstraction.PageAbstract;
 import amerifrance.guideapi.pages.*;
+import amerifrance.guideapi.util.BookCreator;
 import amerifrance.guideapi.util.PageHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.Minecraft;
@@ -31,9 +32,10 @@ public class TestBooks {
     public static Book testBook1;
     public static Book testBook2;
 
-    public static void  setTestBooks() {
+    public static void setTestBooks() {
         setTestBook1();
         setTestBook2();
+        GuideRegistry.registerBook(BookCreator.createBookFromJson("testBook.json"));
     }
 
     public static void setTestBook1() {
@@ -73,10 +75,12 @@ public class TestBooks {
         entries.add(entry1);
         entries.add(entry2);
 
+        /*
         for (int i = 6; i <= 25; i++) {
             EntryBase entryBase = new EntryText(pages, "TestEntry" + String.valueOf(i));
             entries.add(entryBase);
         }
+        */
 
         CategoryBase category1 = new CategoryItemStack(entries, "TestCategory1", new ItemStack(Items.reeds));
         CategoryBase category2 = new CategoryItemStack(entries, "TestCategory2", new ItemStack(Blocks.brick_stairs));
@@ -90,10 +94,12 @@ public class TestBooks {
         categories.add(category4);
         categories.add(category5);
 
+        /*
         for (int i = 6; i <= 25; i++) {
             CategoryBase categoryBase = new CategoryItemStack(entries, "TestCategory" + String.valueOf(i), new ItemStack(Items.diamond));
             categories.add(categoryBase);
         }
+        */
 
         testBook1 = new Book(categories, "ItemTestBook", "Hello, I am a welcome message that's " +
                 "just way too long and that says nothing other that I'm there for test purposes", "Test Book Number 1", new Color(171, 80, 30));
