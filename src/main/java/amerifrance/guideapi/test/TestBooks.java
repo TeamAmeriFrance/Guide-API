@@ -12,7 +12,6 @@ import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.objects.abstraction.EntryAbstract;
 import amerifrance.guideapi.objects.abstraction.PageAbstract;
 import amerifrance.guideapi.pages.*;
-import amerifrance.guideapi.util.BookCreator;
 import amerifrance.guideapi.util.PageHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.Minecraft;
@@ -35,7 +34,6 @@ public class TestBooks {
     public static void setTestBooks() {
         setTestBook1();
         setTestBook2();
-        GuideRegistry.registerBook(BookCreator.createBookFromJson("testBook.json"));
     }
 
     public static void setTestBook1() {

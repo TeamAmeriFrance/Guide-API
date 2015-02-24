@@ -59,9 +59,10 @@ public class GuideAPI {
         GsonBuilder gsonBuilder = new GsonBuilder();
         BookCreator.registerCustomSerializers(gsonBuilder);
         //try {
-        //    new FileWriter(new File("testBook.json")).write(gsonBuilder.setPrettyPrinting().create().toJson(GuideRegistry.getBook(0)));
+          //  new FileWriter(new File("testBook.json")).write(gsonBuilder.setPrettyPrinting().create().toJson(GuideRegistry.getBook(0)));
         //} catch (IOException e) {
-        //    e.printStackTrace();
+          //  e.printStackTrace();
         //}
+        GuideRegistry.registerBook(BookCreator.createBookFromJson(gsonBuilder, "testBook.json"));
     }
 }

@@ -1,9 +1,8 @@
 package amerifrance.guideapi.util;
 
-import amerifrance.guideapi.categories.CategoryItemStack;
+import amerifrance.guideapi.entries.EntryText;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.CategoryBase;
-import amerifrance.guideapi.objects.EntryBase;
 import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.objects.abstraction.EntryAbstract;
 import amerifrance.guideapi.objects.abstraction.PageAbstract;
@@ -21,9 +20,9 @@ import java.util.List;
 
 public class BookCreator {
 
-    public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public static Book createBookFromJson(String fileName) {
+    public static Book createBookFromJson(GsonBuilder gsonBuilder, String fileName) {
+        Gson gson = gsonBuilder.create();
         try {
             return gson.fromJson(new FileReader(fileName), Book.class);
         } catch (FileNotFoundException e) {
@@ -38,7 +37,6 @@ public class BookCreator {
         gsonBuilder.registerTypeAdapter(EntryAbstract.class, new CustomEntryJson());
         gsonBuilder.registerTypeAdapter(CategoryAbstract.class, new CustomCategoryJson());
         gsonBuilder.registerTypeAdapter(Book.class, new CustomBookJson());
-
     }
 
     public static class CustomItemStackJson implements JsonDeserializer<ItemStack>, JsonSerializer<ItemStack> {
@@ -48,11 +46,10 @@ public class BookCreator {
             boolean isBlock = json.getAsJsonObject().get("IsBlock").getAsBoolean();
             String name = json.getAsJsonObject().get("Name").getAsString();
             int meta = json.getAsJsonObject().get("Metadata").getAsInt();
-            int stacksize = json.getAsJsonObject().get("StackSize").getAsInt();
             if (isBlock) {
-                return new ItemStack(GameData.getBlockRegistry().getObject(name), stacksize, meta);
+                return new ItemStack(GameData.getBlockRegistry().getObject(name), 1, meta);
             } else {
-                return new ItemStack(GameData.getItemRegistry().getObject(name), stacksize, meta);
+                return new ItemStack(GameData.getItemRegistry().getObject(name), 1, meta);
             }
         }
 
@@ -66,7 +63,6 @@ public class BookCreator {
                 jsonObject.addProperty("Name", GameData.getItemRegistry().getNameForObject(src.getItem()));
             }
             jsonObject.addProperty("Metadata", src.getItemDamage());
-            jsonObject.addProperty("Stacksize", src.stackSize);
             return jsonObject;
         }
     }
@@ -99,7 +95,7 @@ public class BookCreator {
         public EntryAbstract deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             String name = json.getAsJsonObject().get("UnlocEntryName").getAsString();
             List<PageAbstract> list = context.deserialize(json.getAsJsonObject().get("PageList"), List.class);
-            return new EntryBase(list, name);
+            return new EntryText(list, name);
         }
 
         @Override
@@ -117,10 +113,6 @@ public class BookCreator {
         public CategoryAbstract deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             String name = json.getAsJsonObject().get("UnlocCategoryName").getAsString();
             List<EntryAbstract> list = context.deserialize(json.getAsJsonObject().get("EntryList"), List.class);
-            if (json.getAsJsonObject().get("Type").getAsString().equals(CategoryItemStack.class.getName())) {
-                ItemStack stack = context.deserialize(json.getAsJsonObject().get("ItemStack"), ItemStack.class);
-                return new CategoryItemStack(list, name, stack);
-            }
             return new CategoryBase(list, name);
         }
 
@@ -129,9 +121,6 @@ public class BookCreator {
             JsonObject jsonObject = new JsonObject();
             jsonObject.add("UnlocCategoryName", context.serialize(src.unlocCategoryName));
             jsonObject.add("EntryList", context.serialize(src.entryList));
-            if (src instanceof CategoryItemStack) {
-                jsonObject.add("ItemStack", context.serialize(((CategoryItemStack) src).stack));
-            }
             jsonObject.addProperty("Type", src.getClass().getName());
             return jsonObject;
         }
