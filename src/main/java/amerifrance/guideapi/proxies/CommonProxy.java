@@ -5,6 +5,7 @@ import amerifrance.guideapi.gui.GuiHome;
 import com.google.gson.GsonBuilder;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class CommonProxy implements IGuiHandler {
@@ -23,5 +24,8 @@ public class CommonProxy implements IGuiHandler {
     }
 
     public void registerJsonBooks(GsonBuilder gsonBuilder) {
+    }
+
+    public void playSound(ResourceLocation sound) {
     }
 }

@@ -1,5 +1,6 @@
 package amerifrance.guideapi.pages;
 
+import amerifrance.guideapi.GuideAPI;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiEntry;
 import amerifrance.guideapi.objects.Book;
@@ -9,8 +10,6 @@ import amerifrance.guideapi.objects.abstraction.EntryAbstract;
 import amerifrance.guideapi.objects.abstraction.PageAbstract;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -22,9 +21,8 @@ public class PageSound extends PageBase {
     public String sound;
 
     /**
-     *
      * @param pageToEmulate - Which page to use as a base
-     * @param sound - Sound to play
+     * @param sound         - Sound to play
      */
     public PageSound(PageAbstract pageToEmulate, String sound) {
         this.pageToEmulate = pageToEmulate;
@@ -50,7 +48,7 @@ public class PageSound extends PageBase {
 
     @Override
     public void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry) {
-        Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation(sound), 1.0F));
+        GuideAPI.proxy.playSound(new ResourceLocation(sound));
         pageToEmulate.onLeftClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
     }
 
