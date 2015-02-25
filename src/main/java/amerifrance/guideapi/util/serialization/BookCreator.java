@@ -1,39 +1,44 @@
 package amerifrance.guideapi.util.serialization;
 
-import amerifrance.guideapi.interfaces.ICategorySerializing;
-import amerifrance.guideapi.interfaces.IEntrySerializing;
+import java.awt.Color;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import amerifrance.guideapi.interfaces.ITypeReader;
 import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.EntryBase;
 import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.objects.abstraction.EntryAbstract;
 import amerifrance.guideapi.objects.abstraction.IPage;
 
 import com.google.common.collect.Maps;
-import com.google.gson.*;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 
 import cpw.mods.fml.common.registry.GameData;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-
-import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.List;
 
 public class BookCreator {
 
-    private static HashMap<String, ITypeReader<?>> serializers = Maps.newHashMap();
+    @SuppressWarnings("rawtypes")
+    private static Map<Class, ITypeReader> serializers = Maps.newHashMap();
+    private static Map<String, Class<?>> idents = Maps.newHashMap();
 
     public static Book createBookFromJson(GsonBuilder gsonBuilder, File file) {
-        Gson gson = gsonBuilder.setPrettyPrinting().create();
         try {
-            return gson.fromJson(new FileReader(file), Book.class);
+            return gsonBuilder.setPrettyPrinting().create().fromJson(new FileReader(file), Book.class);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -41,7 +46,8 @@ public class BookCreator {
     }
 
     public static void registerSerializer(ITypeReader<?> serializer) {
-        serializers.put(serializer.identifier(), serializer);
+        serializers.put(serializer.getType(), serializer);
+        idents.put(serializer.getClass().getSimpleName(), serializer.getClass());
     }
 
     public static void registerCustomSerializers(GsonBuilder gsonBuilder) {
@@ -109,12 +115,13 @@ public class BookCreator {
         @Override
         public IPage deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             String name = context.deserialize(json.getAsJsonObject().get("pageType"), String.class);
-            return (IPage) serializers.get(name).deserialize(json, typeOfT, context);
+            return (IPage) serializers.get(idents.get(name)).deserialize(json, typeOfT, context);
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public JsonElement serialize(IPage src, Type typeOfSrc, JsonSerializationContext context) {
-            return serializers.get(src.getClass().getSimpleName()).serialize(src, typeOfSrc, context);
+            return serializers.get(src.getClass()).serialize(src, typeOfSrc, context);
         }
     }
 
@@ -123,12 +130,13 @@ public class BookCreator {
         @Override
         public EntryAbstract deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             String name = context.deserialize(json.getAsJsonObject().get("entryType"), String.class);
-            return entrySerializingMap.get(name).deserialize(json, typeOfT, context);
+            return (EntryAbstract) serializers.get(idents.get(name)).deserialize(json, typeOfT, context);
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public JsonElement serialize(EntryAbstract src, Type typeOfSrc, JsonSerializationContext context) {
-            return entrySerializingMap.get(src.getClass().getSimpleName()).serialize(src, typeOfSrc, context);
+            return serializers.get(src.getClass()).serialize(src, typeOfSrc, context);
         }
     }
 
@@ -137,12 +145,13 @@ public class BookCreator {
         @Override
         public CategoryAbstract deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             String name = context.deserialize(json.getAsJsonObject().get("categoryType"), String.class);
-            return categorySerializingMap.get(name).deserialize(json, typeOfT, context);
+            return (CategoryAbstract) serializers.get(idents.get(name)).deserialize(json, typeOfT, context);
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public JsonElement serialize(CategoryAbstract src, Type typeOfSrc, JsonSerializationContext context) {
-            return categorySerializingMap.get(src.getClass().getSimpleName()).serialize(src, typeOfSrc, context);
+            return serializers.get(src.getClass()).serialize(src, typeOfSrc, context);
         }
     }
 
