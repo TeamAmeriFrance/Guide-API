@@ -6,7 +6,7 @@ import amerifrance.guideapi.buttons.ButtonPrev;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.objects.abstraction.EntryAbstract;
-import amerifrance.guideapi.objects.abstraction.PageAbstract;
+import amerifrance.guideapi.objects.abstraction.IPage;
 import amerifrance.guideapi.wrappers.PageWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -55,7 +55,7 @@ public class GuiEntry extends GuiBase {
         this.buttonList.add(buttonNext = new ButtonNext(1, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
         this.buttonList.add(buttonPrev = new ButtonPrev(2, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
 
-        for (PageAbstract page : this.entry.pageList) {
+        for (IPage page : this.entry.pageList) {
             pageWrapperList.add(new PageWrapper(book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj, bookStack));
         }
     }

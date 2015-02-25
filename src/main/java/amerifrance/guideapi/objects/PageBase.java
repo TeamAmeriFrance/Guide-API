@@ -4,14 +4,14 @@ import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiEntry;
 import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.objects.abstraction.EntryAbstract;
-import amerifrance.guideapi.objects.abstraction.PageAbstract;
+import amerifrance.guideapi.objects.abstraction.IPage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-public class PageBase extends PageAbstract {
+public class PageBase implements IPage {
 
     @Override
     @SideOnly(Side.CLIENT)

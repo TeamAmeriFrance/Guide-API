@@ -1,21 +1,21 @@
 package amerifrance.guideapi.objects.abstraction;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.objects.Book;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class EntryAbstract {
 
-    public List<PageAbstract> pageList = new ArrayList<PageAbstract>();
+    public List<IPage> pageList = new ArrayList<IPage>();
     public String unlocEntryName;
 
     public EntryAbstract(List pageList, String unlocEntryName) {
@@ -23,19 +23,19 @@ public abstract class EntryAbstract {
         this.unlocEntryName = unlocEntryName;
     }
 
-    public void addPage(PageAbstract page) {
+    public void addPage(IPage page) {
         this.pageList.add(page);
     }
 
-    public void removePage(PageAbstract page) {
+    public void removePage(IPage page) {
         this.pageList.remove(page);
     }
 
-    public void addPageList(List<PageAbstract> pages) {
+    public void addPageList(List<IPage> pages) {
         this.pageList.addAll(pages);
     }
 
-    public void removePageList(List<PageAbstract> pages) {
+    public void removePageList(List<IPage> pages) {
         this.pageList.removeAll(pages);
     }
 

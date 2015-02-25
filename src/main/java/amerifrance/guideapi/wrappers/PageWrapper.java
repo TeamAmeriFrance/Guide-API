@@ -4,7 +4,7 @@ import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.objects.abstraction.EntryAbstract;
-import amerifrance.guideapi.objects.abstraction.PageAbstract;
+import amerifrance.guideapi.objects.abstraction.IPage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,13 +15,13 @@ public class PageWrapper extends AbstractWrapper {
     public Book book;
     public CategoryAbstract category;
     public EntryAbstract entry;
-    public PageAbstract page;
+    public IPage page;
     public int guiLeft, guiTop;
     public EntityPlayer player;
     public FontRenderer renderer;
     public ItemStack bookStack;
 
-    public PageWrapper(Book book, CategoryAbstract category, EntryAbstract entry, PageAbstract page, int guiLeft, int guiTop, EntityPlayer player, FontRenderer renderer, ItemStack bookStack) {
+    public PageWrapper(Book book, CategoryAbstract category, EntryAbstract entry, IPage page, int guiLeft, int guiTop, EntityPlayer player, FontRenderer renderer, ItemStack bookStack) {
         this.book = book;
         this.category = category;
         this.entry = entry;

@@ -4,7 +4,7 @@ import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.EntryBase;
 import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
-import amerifrance.guideapi.objects.abstraction.PageAbstract;
+import amerifrance.guideapi.objects.abstraction.IPage;
 import amerifrance.guideapi.util.GuiHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class EntryText extends EntryBase {
 
-    public EntryText(List<PageAbstract> pageList, String unlocEntryName) {
+    public EntryText(List<IPage> pageList, String unlocEntryName) {
         super(pageList, unlocEntryName);
     }
 

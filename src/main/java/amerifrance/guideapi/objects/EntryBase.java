@@ -5,7 +5,7 @@ import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiEntry;
 import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.objects.abstraction.EntryAbstract;
-import amerifrance.guideapi.objects.abstraction.PageAbstract;
+import amerifrance.guideapi.objects.abstraction.IPage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class EntryBase extends EntryAbstract {
 
-    public EntryBase(List<PageAbstract> pageList, String unlocEntryName) {
+    public EntryBase(List<IPage> pageList, String unlocEntryName) {
         super(pageList, unlocEntryName);
     }
 

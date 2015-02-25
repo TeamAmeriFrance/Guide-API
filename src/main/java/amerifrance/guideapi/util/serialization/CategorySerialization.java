@@ -57,7 +57,7 @@ public class CategorySerialization {
         }
     };
 
-    public static void registerCategorySerializers() {
+    public static void init() {
         BookCreator.addCategorySerializingToMap(CategoryBase.class, categoryBaseSerialization);
         BookCreator.addCategorySerializingToMap(CategoryItemStack.class, categoryItemStackSerialization);
     }

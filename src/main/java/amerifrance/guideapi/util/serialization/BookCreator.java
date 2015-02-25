@@ -2,13 +2,17 @@ package amerifrance.guideapi.util.serialization;
 
 import amerifrance.guideapi.interfaces.ICategorySerializing;
 import amerifrance.guideapi.interfaces.IEntrySerializing;
-import amerifrance.guideapi.interfaces.IPageSerializing;
+import amerifrance.guideapi.interfaces.ITypeReader;
 import amerifrance.guideapi.objects.Book;
+import amerifrance.guideapi.objects.EntryBase;
 import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.objects.abstraction.EntryAbstract;
-import amerifrance.guideapi.objects.abstraction.PageAbstract;
+import amerifrance.guideapi.objects.abstraction.IPage;
+
+import com.google.common.collect.Maps;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+
 import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
@@ -24,9 +28,7 @@ import java.util.List;
 
 public class BookCreator {
 
-    private static HashMap<String, IPageSerializing> pageSerializingMap = new HashMap<String, IPageSerializing>();
-    private static HashMap<String, ICategorySerializing> categorySerializingMap = new HashMap<String, ICategorySerializing>();
-    private static HashMap<String, IEntrySerializing> entrySerializingMap = new HashMap<String, IEntrySerializing>();
+    private static HashMap<String, ITypeReader<?>> serializers = Maps.newHashMap();
 
     public static Book createBookFromJson(GsonBuilder gsonBuilder, File file) {
         Gson gson = gsonBuilder.setPrettyPrinting().create();
@@ -38,26 +40,15 @@ public class BookCreator {
         return null;
     }
 
-    public static void addPageSerializingToMap(Class page, IPageSerializing iPageSerializing) {
-        pageSerializingMap.put(page.getSimpleName(), iPageSerializing);
+    public static void registerSerializer(ITypeReader<?> serializer) {
+        serializers.put(serializer.identifier(), serializer);
     }
-
-    public static void addCategorySerializingToMap(Class category, ICategorySerializing iCategorySerializing) {
-        categorySerializingMap.put(category.getSimpleName(), iCategorySerializing);
-    }
-
-    public static void addEntrySerializingToMap(Class entry, IEntrySerializing iEntrySerializing) {
-        entrySerializingMap.put(entry.getSimpleName(), iEntrySerializing);
-    }
-
 
     public static void registerCustomSerializers(GsonBuilder gsonBuilder) {
-        PageSerialization.registerPageSerializers();
-        EntrySerialization.registerEntrySerializers();
-        CategorySerialization.registerCategorySerializers();
+        TypeReaders.init();
         gsonBuilder.registerTypeAdapter(ItemStack.class, new CustomItemStackJson());
         gsonBuilder.registerTypeAdapter(Color.class, new CustomColorJson());
-        gsonBuilder.registerTypeAdapter(PageAbstract.class, new CustomPageJson());
+        gsonBuilder.registerTypeAdapter(IPage.class, new CustomPageJson());
         gsonBuilder.registerTypeAdapter(EntryAbstract.class, new CustomEntryJson());
         gsonBuilder.registerTypeAdapter(CategoryAbstract.class, new CustomCategoryJson());
         gsonBuilder.registerTypeAdapter(Book.class, new CustomBookJson());
@@ -113,17 +104,17 @@ public class BookCreator {
         }
     }
 
-    public static class CustomPageJson implements JsonDeserializer<PageAbstract>, JsonSerializer<PageAbstract> {
+    public static class CustomPageJson implements JsonDeserializer<IPage>, JsonSerializer<IPage> {
 
         @Override
-        public PageAbstract deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public IPage deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             String name = context.deserialize(json.getAsJsonObject().get("pageType"), String.class);
-            return pageSerializingMap.get(name).deserialize(json, typeOfT, context);
+            return (IPage) serializers.get(name).deserialize(json, typeOfT, context);
         }
 
         @Override
-        public JsonElement serialize(PageAbstract src, Type typeOfSrc, JsonSerializationContext context) {
-            return pageSerializingMap.get(src.getClass().getSimpleName()).serialize(src, typeOfSrc, context);
+        public JsonElement serialize(IPage src, Type typeOfSrc, JsonSerializationContext context) {
+            return serializers.get(src.getClass().getSimpleName()).serialize(src, typeOfSrc, context);
         }
     }
 

@@ -10,7 +10,7 @@ import amerifrance.guideapi.objects.EntryBase;
 import amerifrance.guideapi.objects.PageBase;
 import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.objects.abstraction.EntryAbstract;
-import amerifrance.guideapi.objects.abstraction.PageAbstract;
+import amerifrance.guideapi.objects.abstraction.IPage;
 import amerifrance.guideapi.pages.*;
 import amerifrance.guideapi.util.PageHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -54,7 +54,7 @@ public class TestBooks {
         PageFurnaceRecipe page9 = new PageFurnaceRecipe(new ItemStack(Items.potato));
         PageFurnaceRecipe page10 = new PageFurnaceRecipe(new ItemStack(Items.diamond_axe));
 
-        ArrayList<PageAbstract> pages = new ArrayList<PageAbstract>();
+        ArrayList<IPage> pages = new ArrayList<IPage>();
         pages.add(page1);
         pages.add(page2);
         pages.addAll(PageHelper.pagesForLongText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE", Minecraft.getMinecraft().fontRenderer, new ItemStack(Items.diamond)));
@@ -123,7 +123,7 @@ public class TestBooks {
         PageFurnaceRecipe page9 = new PageFurnaceRecipe(new ItemStack(Items.potato));
         PageFurnaceRecipe page10 = new PageFurnaceRecipe(new ItemStack(Items.diamond_axe));
 
-        ArrayList<PageAbstract> pages = new ArrayList<PageAbstract>();
+        ArrayList<IPage> pages = new ArrayList<IPage>();
         pages.add(page1);
         pages.add(page2);
         pages.addAll(PageHelper.pagesForLongText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE", Minecraft.getMinecraft().fontRenderer, new ItemStack(Items.diamond)));

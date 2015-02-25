@@ -7,7 +7,7 @@ import amerifrance.guideapi.objects.Book;
 import amerifrance.guideapi.objects.PageBase;
 import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
 import amerifrance.guideapi.objects.abstraction.EntryAbstract;
-import amerifrance.guideapi.objects.abstraction.PageAbstract;
+import amerifrance.guideapi.objects.abstraction.IPage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
@@ -17,14 +17,14 @@ import net.minecraft.util.ResourceLocation;
 
 public class PageSound extends PageBase {
 
-    public PageAbstract pageToEmulate;
+    public IPage pageToEmulate;
     public String sound;
 
     /**
      * @param pageToEmulate - Which page to use as a base
      * @param sound         - Sound to play
      */
-    public PageSound(PageAbstract pageToEmulate, String sound) {
+    public PageSound(IPage pageToEmulate, String sound) {
         this.pageToEmulate = pageToEmulate;
         this.sound = sound;
     }
