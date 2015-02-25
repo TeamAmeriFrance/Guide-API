@@ -37,7 +37,7 @@ public class TestBooks {
     }
 
     public static void setTestBook1() {
-        PageBase page1 = new PageUnlocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
+        PageUnlocText page1 = new PageUnlocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
         PageLocText page2 = new PageLocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
         PageImage page3 = new PageImage(new ResourceLocation(ModInformation.GUITEXLOC + "testimage.png"));
         PageIRecipe page4 = new PageIRecipe(GameRegistry.addShapedRecipe(new ItemStack(Items.diamond), "XXX", "YYY", "ZZZ", 'X', Items.apple, 'Y', Blocks.beacon, 'Z', Items.beef));
@@ -67,8 +67,8 @@ public class TestBooks {
         pages.add(page9);
         pages.add(page10);
 
-        EntryBase entry1 = new EntryText(pages, "TestEntry1");
-        EntryBase entry2 = new EntryText(pages, "TestEntry2");
+        EntryText entry1 = new EntryText(pages, "TestEntry1");
+        EntryText entry2 = new EntryText(pages, "TestEntry2");
         ArrayList<EntryAbstract> entries = new ArrayList<EntryAbstract>();
         entries.add(entry1);
         entries.add(entry2);
@@ -80,11 +80,11 @@ public class TestBooks {
         }
         */
 
-        CategoryBase category1 = new CategoryItemStack(entries, "TestCategory1", new ItemStack(Items.reeds));
-        CategoryBase category2 = new CategoryItemStack(entries, "TestCategory2", new ItemStack(Blocks.brick_stairs));
-        CategoryBase category3 = new CategoryItemStack(entries, "TestCategory3", new ItemStack(Blocks.dragon_egg));
-        CategoryBase category4 = new CategoryItemStack(entries, "TestCategory4", new ItemStack(Items.skull, 1, 0));
-        CategoryBase category5 = new CategoryItemStack(entries, "TestCategory5", new ItemStack(Blocks.fence_gate));
+        CategoryItemStack category1 = new CategoryItemStack(entries, "TestCategory1", new ItemStack(Items.reeds));
+        CategoryItemStack category2 = new CategoryItemStack(entries, "TestCategory2", new ItemStack(Blocks.brick_stairs));
+        CategoryItemStack category3 = new CategoryItemStack(entries, "TestCategory3", new ItemStack(Blocks.dragon_egg));
+        CategoryItemStack category4 = new CategoryItemStack(entries, "TestCategory4", new ItemStack(Items.skull, 1, 0));
+        CategoryItemStack category5 = new CategoryItemStack(entries, "TestCategory5", new ItemStack(Blocks.fence_gate));
         ArrayList<CategoryAbstract> categories = new ArrayList<CategoryAbstract>();
         categories.add(category1);
         categories.add(category2);

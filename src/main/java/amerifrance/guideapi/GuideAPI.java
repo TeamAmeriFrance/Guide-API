@@ -1,9 +1,10 @@
 package amerifrance.guideapi;
 
 import amerifrance.guideapi.items.ItemsRegistry;
+import amerifrance.guideapi.pages.PageUnlocText;
 import amerifrance.guideapi.proxies.CommonProxy;
 import amerifrance.guideapi.test.TestBooks;
-import amerifrance.guideapi.util.BookCreator;
+import amerifrance.guideapi.util.serialization.BookCreator;
 import com.google.gson.GsonBuilder;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -56,13 +57,15 @@ public class GuideAPI {
         proxy.registerBooks();
         GameRegistry.addShapelessRecipe(GuideRegistry.getItemStackForBook(TestBooks.testBook1), new Object[]{new ItemStack(Items.book), new ItemStack(Items.apple)});
         GameRegistry.addShapelessRecipe(GuideRegistry.getItemStackForBook(TestBooks.testBook2), new Object[]{new ItemStack(Items.book), new ItemStack(Items.arrow)});
+        System.out.println(PageUnlocText.class.getSimpleName());
         GsonBuilder gsonBuilder = new GsonBuilder();
         BookCreator.registerCustomSerializers(gsonBuilder);
         //try {
-          //  new FileWriter(new File("testBook.json")).write(gsonBuilder.setPrettyPrinting().create().toJson(GuideRegistry.getBook(0)));
+        //    FileWriter writer = new FileWriter("TestBook.json");
+        //    writer.write(gsonBuilder.setPrettyPrinting().create().toJson(TestBooks.testBook1));
         //} catch (IOException e) {
-          //  e.printStackTrace();
+        //    e.printStackTrace();
         //}
-        GuideRegistry.registerBook(BookCreator.createBookFromJson(gsonBuilder, "testBook.json"));
+        GuideRegistry.registerBook(BookCreator.createBookFromJson(gsonBuilder, "TestBook.json"));
     }
 }
