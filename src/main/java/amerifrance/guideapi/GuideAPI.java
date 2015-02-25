@@ -60,12 +60,6 @@ public class GuideAPI {
         System.out.println(PageUnlocText.class.getSimpleName());
         GsonBuilder gsonBuilder = new GsonBuilder();
         BookCreator.registerCustomSerializers(gsonBuilder);
-        //try {
-        //    FileWriter writer = new FileWriter("TestBook.json");
-        //    writer.write(gsonBuilder.setPrettyPrinting().create().toJson(TestBooks.testBook1));
-        //} catch (IOException e) {
-        //    e.printStackTrace();
-        //}
-        GuideRegistry.registerBook(BookCreator.createBookFromJson(gsonBuilder, "TestBook.json"));
+        proxy.registerJsonBooks(gsonBuilder);
     }
 }
