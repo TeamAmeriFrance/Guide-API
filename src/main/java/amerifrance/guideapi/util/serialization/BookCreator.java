@@ -15,6 +15,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 import java.awt.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
@@ -27,10 +28,10 @@ public class BookCreator {
     private static HashMap<String, ICategorySerializing> categorySerializingMap = new HashMap<String, ICategorySerializing>();
     private static HashMap<String, IEntrySerializing> entrySerializingMap = new HashMap<String, IEntrySerializing>();
 
-    public static Book createBookFromJson(GsonBuilder gsonBuilder, String fileName) {
+    public static Book createBookFromJson(GsonBuilder gsonBuilder, File file) {
         Gson gson = gsonBuilder.setPrettyPrinting().create();
         try {
-            return gson.fromJson(new FileReader(fileName), Book.class);
+            return gson.fromJson(new FileReader(file), Book.class);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
