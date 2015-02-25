@@ -2,6 +2,7 @@ package amerifrance.guideapi.proxies;
 
 import amerifrance.guideapi.GuideRegistry;
 import amerifrance.guideapi.gui.GuiHome;
+import com.google.gson.GsonBuilder;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -19,5 +20,8 @@ public class CommonProxy implements IGuiHandler {
     }
 
     public void registerBooks() {
+    }
+
+    public void registerJsonBooks(GsonBuilder gsonBuilder) {
     }
 }
