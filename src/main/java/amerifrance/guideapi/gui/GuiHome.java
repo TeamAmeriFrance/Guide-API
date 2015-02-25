@@ -13,6 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
+
 public class GuiHome extends GuiBase {
 
     public ResourceLocation outlineTexture;
@@ -89,6 +91,7 @@ public class GuiHome extends GuiBase {
         }
 
         drawCenteredString(fontRendererObj, String.valueOf(categoryPage + 1) + "/" + String.valueOf(categoryWrappers.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        drawCenteredString(fontRendererObj, book.getLocalizedBookTitle(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
         super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
 
