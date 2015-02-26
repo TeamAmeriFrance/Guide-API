@@ -47,7 +47,7 @@ public class BookCreator {
 
     public static void registerSerializer(ITypeReader<?> serializer) {
         serializers.put(serializer.getType(), serializer);
-        idents.put(serializer.getClass().getSimpleName(), serializer.getClass());
+        idents.put(serializer.getType().getSimpleName(), serializer.getType());
     }
 
     public static void registerCustomSerializers(GsonBuilder gsonBuilder) {
@@ -114,7 +114,7 @@ public class BookCreator {
 
         @Override
         public IPage deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            String name = context.deserialize(json.getAsJsonObject().get("pageType"), String.class);
+            String name = context.deserialize(json.getAsJsonObject().get("type"), String.class);
             return (IPage) serializers.get(idents.get(name)).deserialize(json, typeOfT, context);
         }
 
@@ -129,7 +129,7 @@ public class BookCreator {
 
         @Override
         public EntryAbstract deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            String name = context.deserialize(json.getAsJsonObject().get("entryType"), String.class);
+            String name = context.deserialize(json.getAsJsonObject().get("type"), String.class);
             return (EntryAbstract) serializers.get(idents.get(name)).deserialize(json, typeOfT, context);
         }
 
@@ -144,7 +144,7 @@ public class BookCreator {
 
         @Override
         public CategoryAbstract deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            String name = context.deserialize(json.getAsJsonObject().get("categoryType"), String.class);
+            String name = context.deserialize(json.getAsJsonObject().get("type"), String.class);
             return (CategoryAbstract) serializers.get(idents.get(name)).deserialize(json, typeOfT, context);
         }
 
