@@ -36,7 +36,7 @@ public abstract class TypeReaders<T> implements ITypeReader<T>
 {
 
     // Pages
-    public static TypeReaders<PageFurnaceRecipe> pageFurnaceRecipe = new TypeReaders<PageFurnaceRecipe>(PageFurnaceRecipe.class)
+    public static TypeReaders<PageFurnaceRecipe> PAGE_FURNACE_RECIPE = new TypeReaders<PageFurnaceRecipe>(PageFurnaceRecipe.class)
     {
         @Override
         public PageFurnaceRecipe deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
@@ -52,7 +52,7 @@ public abstract class TypeReaders<T> implements ITypeReader<T>
         }
     };
 
-    public static TypeReaders<PageImage> pageImage = new TypeReaders<PageImage>(PageImage.class)
+    public static TypeReaders<PageImage> PAGE_IMAGE = new TypeReaders<PageImage>(PageImage.class)
     {
         @Override
         public PageImage deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
@@ -68,7 +68,7 @@ public abstract class TypeReaders<T> implements ITypeReader<T>
         }
     };
 
-    public static TypeReaders<PageIRecipe> pageIRecipe = new TypeReaders<PageIRecipe>(PageIRecipe.class)
+    public static TypeReaders<PageIRecipe> PAGE_IRECIPE = new TypeReaders<PageIRecipe>(PageIRecipe.class)
     {
         @Override
         public PageIRecipe deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
@@ -84,7 +84,7 @@ public abstract class TypeReaders<T> implements ITypeReader<T>
         }
     };
 
-    public static TypeReaders<PageLocImage> pageLocImage = new TypeReaders<PageLocImage>(PageLocImage.class)
+    public static TypeReaders<PageLocImage> PAGE_IMAGE_LOC = new TypeReaders<PageLocImage>(PageLocImage.class)
     {
         @Override
         public PageLocImage deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
@@ -104,7 +104,7 @@ public abstract class TypeReaders<T> implements ITypeReader<T>
         }
     };
 
-    public static TypeReaders<PageLocItemStack> pageLocItemStack = new TypeReaders<PageLocItemStack>(PageLocItemStack.class)
+    public static TypeReaders<PageLocItemStack> PAGE_ITEMSTACK_LOC = new TypeReaders<PageLocItemStack>(PageLocItemStack.class)
     {
         @Override
         public PageLocItemStack deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
@@ -123,7 +123,7 @@ public abstract class TypeReaders<T> implements ITypeReader<T>
         }
     };
 
-    public static TypeReaders<PageLocText> pageLocText = new TypeReaders<PageLocText>(PageLocText.class)
+    public static TypeReaders<PageLocText> PAGE_TEXT_LOC = new TypeReaders<PageLocText>(PageLocText.class)
     {
         @Override
         public PageLocText deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
@@ -139,7 +139,7 @@ public abstract class TypeReaders<T> implements ITypeReader<T>
         }
     };
 
-    public static TypeReaders<PageSound> pageSound = new TypeReaders<PageSound>(PageSound.class)
+    public static TypeReaders<PageSound> PAGE_SOUND = new TypeReaders<PageSound>(PageSound.class)
     {
         @Override
         public PageSound deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
