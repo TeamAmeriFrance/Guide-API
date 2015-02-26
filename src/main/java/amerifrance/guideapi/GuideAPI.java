@@ -39,11 +39,15 @@ public class GuideAPI {
     public static GuideAPI instance;
     @SidedProxy(clientSide = ModInformation.CLIENTPROXY, serverSide = ModInformation.COMMONPROXY)
     public static CommonProxy proxy;
+    
+    private static File configDir;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         instance = this;
-        ConfigHandler.init(new File(event.getModConfigurationDirectory() + "/Guide-API" + ".cfg"));
+        configDir = new File(event.getModConfigurationDirectory() + "/" + ModInformation.NAME);
+        configDir.mkdirs();
+        ConfigHandler.init(new File(configDir.getPath() + ModInformation.ID + ".cfg"));
         ItemsRegistry.registerItems();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
     }
@@ -61,5 +65,10 @@ public class GuideAPI {
         GsonBuilder gsonBuilder = new GsonBuilder();
         BookCreator.registerCustomSerializers(gsonBuilder);
         proxy.registerJsonBooks(gsonBuilder);
+    }
+
+    public static File getConfigDir()
+    {
+        return configDir;
     }
 }
