@@ -5,13 +5,13 @@ import amerifrance.guideapi.GuideRegistry;
 import amerifrance.guideapi.ModInformation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class ItemGuideBook extends Item {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        if (!GuideRegistry.isEmpty()) {
+        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage()) {
             player.openGui(GuideAPI.instance, stack.getItemDamage(), world, (int) player.posX, (int) player.posY, (int) player.posZ);
         }
         return stack;
@@ -38,7 +38,7 @@ public class ItemGuideBook extends Item {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        if (!GuideRegistry.isEmpty()) {
+        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage()) {
             String name = String.valueOf(stack.getItemDamage());
             return getUnlocalizedName() + "." + name;
         } else {
@@ -59,7 +59,11 @@ public class ItemGuideBook extends Item {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        return GuideRegistry.getBook(stack.getItemDamage()).getLocalizedDisplayName();
+        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage()) {
+            return GuideRegistry.getBook(stack.getItemDamage()).getLocalizedDisplayName();
+        } else {
+            return super.getItemStackDisplayName(stack);
+        }
     }
 
     @Override
@@ -78,7 +82,7 @@ public class ItemGuideBook extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack stack, int pass) {
-        if (!GuideRegistry.isEmpty()) {
+        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage()) {
             if (pass == 0) return GuideRegistry.getBook(stack.getItemDamage()).bookColor.getRGB();
             else return super.getColorFromItemStack(stack, pass);
         } else {
@@ -99,6 +103,8 @@ public class ItemGuideBook extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-        if (GuiScreen.isShiftKeyDown()) list.add(getUnlocalizedName(stack));
+        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() < stack.getItemDamage()) {
+            list.add(StatCollector.translateToLocal("text.book.warning"));
+        }
     }
 }

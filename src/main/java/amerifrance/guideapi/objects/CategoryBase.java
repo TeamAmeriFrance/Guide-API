@@ -36,12 +36,10 @@ public class CategoryBase extends CategoryAbstract {
 
     @Override
     public void onLeftClicked(Book book, int mouseX, int mouseY, EntityPlayer player, ItemStack bookStack) {
-        System.out.println(getLocalizedName() + "Left Clicked");
         Minecraft.getMinecraft().displayGuiScreen(new GuiCategory(book, this, player, bookStack));
     }
 
     @Override
     public void onRightClicked(Book book, int mouseX, int mouseY, EntityPlayer player, ItemStack bookStack) {
-        System.out.println(getLocalizedName() + "Right Clicked");
     }
 }
