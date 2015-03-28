@@ -14,14 +14,14 @@ public class PageHelper {
 
     public static List<IPage> pagesForLongText(String locText, FontRenderer fontRenderer) {
         List<IPage> pageList = new ArrayList<IPage>();
-        List<String> stringList = fontRenderer.listFormattedStringToWidth(locText, 2550);
+        List<String> stringList = fontRenderer.listFormattedStringToWidth(locText, 2250);
         for (String s : stringList) pageList.add(new PageLocText(s));
         return pageList;
     }
 
     public static List<IPage> pagesForLongText(String locText, FontRenderer fontRenderer, ItemStack stack) {
         List<IPage> pageList = new ArrayList<IPage>();
-        List<String> stringList = fontRenderer.listFormattedStringToWidth(locText, 2550);
+        List<String> stringList = fontRenderer.listFormattedStringToWidth(locText, 2250);
         for (int i = 0; i < stringList.size(); i++) {
             if (i == 0) pageList.add(new PageLocItemStack(stringList.get(i), stack));
             else pageList.add(new PageLocText(stringList.get(i)));

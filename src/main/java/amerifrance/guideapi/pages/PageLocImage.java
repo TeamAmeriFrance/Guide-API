@@ -38,13 +38,13 @@ public class PageLocImage extends PageBase {
             GuiHelper.drawSizedIconWithoutColor(guiLeft + 50, guiTop + 12, guiBase.xSize, guiBase.ySize, 0);
 
             fontRenderer.setUnicodeFlag(true);
-            fontRenderer.drawSplitString(locText, guiLeft + 37, guiTop + 112, 4 * guiBase.xSize / 6, 0);
+            fontRenderer.drawSplitString(locText, guiLeft + 39, guiTop + 112, 3 * guiBase.xSize / 5, 0);
             fontRenderer.setUnicodeFlag(false);
         } else {
             GuiHelper.drawSizedIconWithoutColor(guiLeft + 50, guiTop + 60, guiBase.xSize, guiBase.ySize, 0);
 
             fontRenderer.setUnicodeFlag(true);
-            fontRenderer.drawSplitString(locText, guiLeft + 37, guiTop + 12, 4 * guiBase.xSize / 6, 0);
+            fontRenderer.drawSplitString(locText, guiLeft + 39, guiTop + 12, 3 * guiBase.xSize / 5, 0);
             fontRenderer.setUnicodeFlag(false);
         }
     }
