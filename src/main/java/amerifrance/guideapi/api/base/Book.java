@@ -1,7 +1,7 @@
-package amerifrance.guideapi.objects;
+package amerifrance.guideapi.api.base;
 
 import amerifrance.guideapi.ModInformation;
-import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 

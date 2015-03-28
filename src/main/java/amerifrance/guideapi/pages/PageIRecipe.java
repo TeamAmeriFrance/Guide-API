@@ -1,13 +1,13 @@
 package amerifrance.guideapi.pages;
 
 import amerifrance.guideapi.ModInformation;
+import amerifrance.guideapi.api.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.base.PageBase;
+import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.PageBase;
-import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
-import amerifrance.guideapi.objects.abstraction.EntryAbstract;
-import amerifrance.guideapi.util.GuiHelper;
-import amerifrance.guideapi.util.PageHelper;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -50,9 +50,11 @@ public class PageIRecipe extends PageBase {
                     int stackX = (x + 1) * 20 + (guiLeft + guiBase.xSize / 7);
                     int stackY = (y + 1) * 20 + (guiTop + guiBase.ySize / 5);
                     ItemStack stack = shapedRecipes.recipeItems[y * shapedRecipes.recipeWidth + x];
-                    GuiHelper.drawItemStack(stack, stackX, stackY);
-                    if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
-                        guiBase.renderToolTip(stack, stackX, stackY);
+                    if (stack != null) {
+                        GuiHelper.drawItemStack(stack, stackX, stackY);
+                        if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
+                            guiBase.renderToolTip(stack, stackX, stackY);
+                        }
                     }
                 }
             }
@@ -106,9 +108,11 @@ public class PageIRecipe extends PageBase {
                         int stackX = (x + 1) * 20 + (guiLeft + guiBase.xSize / 7);
                         int stackY = (y + 1) * 20 + (guiTop + guiBase.ySize / 5);
                         ItemStack stack = (ItemStack) shapelessRecipes.recipeItems.get(i);
-                        GuiHelper.drawItemStack(stack, stackX, stackY);
-                        if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
-                            guiBase.renderToolTip(stack, stackX, stackY);
+                        if (stack != null) {
+                            GuiHelper.drawItemStack(stack, stackX, stackY);
+                            if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
+                                guiBase.renderToolTip(stack, stackX, stackY);
+                            }
                         }
                     }
                 }

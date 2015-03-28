@@ -1,8 +1,9 @@
 package amerifrance.guideapi.buttons;
 
 import amerifrance.guideapi.ModInformation;
+import amerifrance.guideapi.api.buttons.ButtonGuideAPI;
 import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.util.GuiHelper;
+import amerifrance.guideapi.api.util.GuiHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;

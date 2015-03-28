@@ -1,7 +1,7 @@
-package amerifrance.guideapi;
+package amerifrance.guideapi.api;
 
 import amerifrance.guideapi.items.ItemsRegistry;
-import amerifrance.guideapi.objects.Book;
+import amerifrance.guideapi.api.base.Book;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;

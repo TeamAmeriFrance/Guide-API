@@ -1,4 +1,4 @@
-package amerifrance.guideapi.objects.abstraction;
+package amerifrance.guideapi.api.abstraction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
-import amerifrance.guideapi.objects.Book;
+import amerifrance.guideapi.api.base.Book;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

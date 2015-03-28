@@ -1,6 +1,6 @@
 package amerifrance.guideapi.proxies;
 
-import amerifrance.guideapi.GuideRegistry;
+import amerifrance.guideapi.api.GuideRegistry;
 import amerifrance.guideapi.gui.GuiHome;
 import com.google.gson.GsonBuilder;
 import cpw.mods.fml.common.network.IGuiHandler;

@@ -12,10 +12,10 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import amerifrance.guideapi.interfaces.ITypeReader;
-import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
-import amerifrance.guideapi.objects.abstraction.EntryAbstract;
-import amerifrance.guideapi.objects.abstraction.IPage;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.abstraction.IPage;
 
 import com.google.common.collect.Maps;
 import com.google.gson.GsonBuilder;

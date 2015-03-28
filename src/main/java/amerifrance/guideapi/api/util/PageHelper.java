@@ -1,6 +1,6 @@
-package amerifrance.guideapi.util;
+package amerifrance.guideapi.api.util;
 
-import amerifrance.guideapi.objects.abstraction.IPage;
+import amerifrance.guideapi.api.abstraction.IPage;
 import amerifrance.guideapi.pages.PageLocItemStack;
 import amerifrance.guideapi.pages.PageLocText;
 import net.minecraft.client.gui.FontRenderer;

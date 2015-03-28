@@ -1,7 +1,7 @@
 package amerifrance.guideapi.proxies;
 
 import amerifrance.guideapi.GuideAPI;
-import amerifrance.guideapi.GuideRegistry;
+import amerifrance.guideapi.api.GuideRegistry;
 import amerifrance.guideapi.util.serialization.BookCreator;
 import com.google.gson.GsonBuilder;
 import net.minecraft.client.Minecraft;

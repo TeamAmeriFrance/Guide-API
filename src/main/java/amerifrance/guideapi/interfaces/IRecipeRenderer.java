@@ -1,9 +1,9 @@
 package amerifrance.guideapi.interfaces;
 
 import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
-import amerifrance.guideapi.objects.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import net.minecraft.client.gui.FontRenderer;
 
 public interface IRecipeRenderer {

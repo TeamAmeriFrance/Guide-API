@@ -1,7 +1,7 @@
 package amerifrance.guideapi.items;
 
 import amerifrance.guideapi.GuideAPI;
-import amerifrance.guideapi.GuideRegistry;
+import amerifrance.guideapi.api.GuideRegistry;
 import amerifrance.guideapi.ModInformation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

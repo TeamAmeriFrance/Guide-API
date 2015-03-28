@@ -1,8 +1,8 @@
-package amerifrance.guideapi.objects.abstraction;
+package amerifrance.guideapi.api.abstraction;
 
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiEntry;
-import amerifrance.guideapi.objects.Book;
+import amerifrance.guideapi.api.base.Book;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;

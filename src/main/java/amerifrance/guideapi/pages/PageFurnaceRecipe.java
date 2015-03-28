@@ -2,11 +2,11 @@ package amerifrance.guideapi.pages;
 
 import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.PageBase;
-import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
-import amerifrance.guideapi.objects.abstraction.EntryAbstract;
-import amerifrance.guideapi.util.GuiHelper;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.base.PageBase;
+import amerifrance.guideapi.api.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.util.GuiHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

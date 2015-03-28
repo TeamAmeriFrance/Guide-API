@@ -1,4 +1,4 @@
-package amerifrance.guideapi.util;
+package amerifrance.guideapi.api.util;
 
 import net.minecraft.util.StatCollector;
 

@@ -2,10 +2,10 @@ package amerifrance.guideapi.categories;
 
 import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.CategoryBase;
-import amerifrance.guideapi.objects.abstraction.EntryAbstract;
-import amerifrance.guideapi.util.GuiHelper;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.base.CategoryBase;
+import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.util.GuiHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;

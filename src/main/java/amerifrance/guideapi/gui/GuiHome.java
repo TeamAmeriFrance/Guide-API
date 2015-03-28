@@ -2,8 +2,8 @@ package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.buttons.ButtonNext;
 import amerifrance.guideapi.buttons.ButtonPrev;
-import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.wrappers.CategoryWrapper;
 import com.google.common.collect.HashMultimap;
 import net.minecraft.client.Minecraft;
