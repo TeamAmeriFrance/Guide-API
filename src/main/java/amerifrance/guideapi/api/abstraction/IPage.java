@@ -19,8 +19,10 @@ public interface IPage {
 
     boolean canSee(EntityPlayer player, ItemStack bookStack);
 
+    @SideOnly(Side.CLIENT)
     void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry);
 
+    @SideOnly(Side.CLIENT)
     void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry);
 
     @Override

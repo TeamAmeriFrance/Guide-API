@@ -1,12 +1,14 @@
 package amerifrance.guideapi.pages;
 
 import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.interfaces.IRecipeRenderer;
+import amerifrance.guideapi.api.abstraction.IRecipeRenderer;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.base.PageBase;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.crafting.IRecipe;
 
@@ -25,12 +27,14 @@ public class PageCustomIRecipe extends PageBase {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
         super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRenderer);
         iRecipeRenderer.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRenderer);
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
         super.drawExtras(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRenderer);
         iRecipeRenderer.drawExtras(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRenderer);

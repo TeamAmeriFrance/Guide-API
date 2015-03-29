@@ -37,11 +37,13 @@ public class EntryBase extends EntryAbstract {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void onLeftClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiEntry(book, category, this, player, guiCategory.bookStack));
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void onRightClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory) {
     }
 }

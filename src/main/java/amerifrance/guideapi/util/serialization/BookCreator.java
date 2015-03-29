@@ -1,40 +1,42 @@
 package amerifrance.guideapi.util.serialization;
 
-import java.awt.Color;
+import amerifrance.guideapi.GuideAPI;
+import amerifrance.guideapi.api.GuideRegistry;
+import amerifrance.guideapi.api.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.abstraction.IPage;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.interfaces.ITypeReader;
+import com.google.common.collect.Maps;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import cpw.mods.fml.common.registry.GameData;
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import org.apache.commons.io.filefilter.FileFilterUtils;
+
+import java.awt.*;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import amerifrance.guideapi.interfaces.ITypeReader;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.abstraction.IPage;
-
-import com.google.common.collect.Maps;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import com.google.gson.reflect.TypeToken;
-
-import cpw.mods.fml.common.registry.GameData;
-
 public class BookCreator {
 
     @SuppressWarnings("rawtypes")
     private static Map<Class, ITypeReader> serializers = Maps.newHashMap();
     private static Map<String, Class<?>> idents = Maps.newHashMap();
+
+    public static void registerJsonBooks(GsonBuilder gsonBuilder) {
+        File folder = new File(GuideAPI.getConfigDir().getPath() + "/books");
+        folder.mkdir();
+        File[] files = folder.listFiles((FileFilter) FileFilterUtils.suffixFileFilter(".json"));
+        for (File file : files) GuideRegistry.registerBook(BookCreator.createBookFromJson(gsonBuilder, file));
+    }
 
     public static Book createBookFromJson(GsonBuilder gsonBuilder, File file) {
         try {

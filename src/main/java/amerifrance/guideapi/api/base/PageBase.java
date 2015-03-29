@@ -29,10 +29,12 @@ public class PageBase implements IPage {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry) {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry) {
     }
 

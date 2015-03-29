@@ -1,17 +1,17 @@
 package amerifrance.guideapi.api.abstraction;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.GuiCategory;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiCategory;
-import amerifrance.guideapi.api.base.Book;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class EntryAbstract {
 
@@ -51,8 +51,10 @@ public abstract class EntryAbstract {
 
     public abstract boolean canSee(EntityPlayer player, ItemStack bookStack);
 
+    @SideOnly(Side.CLIENT)
     public abstract void onLeftClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory);
 
+    @SideOnly(Side.CLIENT)
     public abstract void onRightClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory);
 
     @Override

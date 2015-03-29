@@ -56,8 +56,10 @@ public abstract class CategoryAbstract {
 
     public abstract boolean canSee(EntityPlayer player, ItemStack bookStack);
 
+    @SideOnly(Side.CLIENT)
     public abstract void onLeftClicked(Book book, int mouseX, int mouseY, EntityPlayer player, ItemStack bookStack);
 
+    @SideOnly(Side.CLIENT)
     public abstract void onRightClicked(Book book, int mouseX, int mouseY, EntityPlayer player, ItemStack bookStack);
 
     @Override

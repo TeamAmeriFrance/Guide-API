@@ -47,12 +47,14 @@ public class PageSound extends PageBase {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry) {
         GuideAPI.proxy.playSound(new ResourceLocation(sound));
         pageToEmulate.onLeftClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry) {
         pageToEmulate.onRightClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
     }

@@ -55,10 +55,9 @@ public class GuideAPI {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        proxy.registerBooks();
         GsonBuilder gsonBuilder = new GsonBuilder();
         BookCreator.registerCustomSerializers(gsonBuilder);
-        proxy.registerJsonBooks(gsonBuilder);
+        BookCreator.registerJsonBooks(gsonBuilder);
     }
 
     public static File getConfigDir() {
