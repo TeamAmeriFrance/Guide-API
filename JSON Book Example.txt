@@ -1,0 +1,95 @@
+//This is an example of how to create a book via JSON. All the text looks strange, because this is taken from the Sanguimancy Guide, and I was mostly using StatCollector.
+{
+  "unlocDisplayName": "guide.Sanguimancy.book.name",
+  "unlocWelcomeMessage": "guide.Sanguimancy.welcomeMessage",
+  "unlocBookTitle": "guide.Sanguimancy.book.title",
+  "color": {
+    "red": 190,
+    "green": 10,
+    "blue": 0,
+    "alpha": 255
+  },
+  "categoryList": [
+    {
+      "stack": {
+        "isBlock": false,
+        "name": "minecraft:boat",
+        "metadata": 0
+      },
+      "entryList": [
+        {
+          "type": "EntryUniText",
+          "unlocEntryName": "guide.Sanguimancy.entryName.sacrificeMagic",
+          "pageList": [
+            {
+              "locText": "guide.Sanguimancy.entry.sacrificeMagic"
+            }
+          ]
+        },
+        {
+          "type": "EntryUniText",
+          "unlocEntryName": "guide.Sanguimancy.entryName.corruption",
+          "pageList": [
+            {
+              "locText": "guide.Sanguimancy.entry.corruption"
+            }
+          ]
+        },
+        {
+          "type": "EntryUniText",
+          "unlocEntryName": "guide.Sanguimancy.entryName.protection",
+          "pageList": [
+            {
+              "locText": "guide.Sanguimancy.entry.protection.1"
+            },
+            {
+              "unlocText": "protection.picture.1",
+              "image": {
+                "resourceDomain": "minecraft",
+                "resourcePath": "textures/screenshots/CompleteCrystallizerMultiblock.png"
+              },
+              "drawAtTop": true
+            },
+            {
+              "unlocText": "protection.picture.2",
+              "image": {
+                "resourceDomain": "minecraft",
+                "resourcePath": "textures/screenshots/CrystallizerMultiblock.png"
+              },
+              "drawAtTop": true
+            },
+            {
+              "unlocText": "protection.picture.3",
+              "image": {
+                "resourceDomain": "minecraft",
+                "resourcePath": "textures/screenshots/WaterCrystallizerMultiblock.png"
+              },
+              "drawAtTop": true
+            },
+            {
+              "unlocText": "protection.picture.4",
+              "image": {
+                "resourceDomain": "minecraft",
+                "resourcePath": "textures/screenshots/LavaCrystallizerMultiblock.png"
+              },
+              "drawAtTop": true
+            },
+            {
+              "locText": "guide.Sanguimancy.entry.protection.2"
+            }
+          ]
+        },
+        {
+          "type": "EntryUniText",
+          "unlocEntryName": "guide.Sanguimancy.entryName.apllications",
+          "pageList": [
+            {
+              "locText": "guide.Sanguimancy.entry.applications"
+            }
+          ]
+        }
+      ],
+      "unlocCategoryName": "guide.Sanguimancy.category.lore"
+    }
+  ]
+}
