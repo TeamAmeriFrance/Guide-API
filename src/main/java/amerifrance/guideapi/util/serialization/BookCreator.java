@@ -165,9 +165,10 @@ public class BookCreator {
             String welcome = json.getAsJsonObject().get("unlocWelcomeMessage").getAsString();
             String title = json.getAsJsonObject().get("unlocBookTitle").getAsString();
             Color color = context.deserialize(json.getAsJsonObject().get("color"), Color.class);
+            boolean spawnWithBook = json.getAsJsonObject().get("spawnWithBook").getAsBoolean();
             List<CategoryAbstract> list = context.deserialize(json.getAsJsonObject().get("categoryList"), new TypeToken<List<CategoryAbstract>>() {
             }.getType());
-            return new Book(list, title, welcome, displayName, color);
+            return new Book(list, title, welcome, displayName, color, spawnWithBook);
         }
 
         @Override
@@ -177,6 +178,7 @@ public class BookCreator {
             jsonObject.add("unlocWelcomeMessage", context.serialize(src.unlocWelcomeMessage));
             jsonObject.add("unlocBookTitle", context.serialize(src.unlocBookTitle));
             jsonObject.add("color", context.serialize(src.bookColor));
+            jsonObject.add("spawnWithBook", context.serialize(src.spawnWithBook));
             jsonObject.add("categoryList", context.serialize(src.categoryList));
             return jsonObject;
         }

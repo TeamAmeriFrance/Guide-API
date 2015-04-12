@@ -32,6 +32,10 @@ public class GuideRegistry {
     }
 
     public static ItemStack getItemStackForBook(Book book) {
-        return new ItemStack(ItemsRegistry.guideBook, 1, getIndexOf(book));
+        return new ItemStack(ItemsRegistry.guideBook, 1, getIndexOf(book)).copy();
+    }
+
+    public static List<Book> getBookList() {
+        return new ArrayList<Book>(bookList);
     }
 }

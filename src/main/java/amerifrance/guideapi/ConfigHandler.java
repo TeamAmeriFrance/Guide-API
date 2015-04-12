@@ -13,6 +13,7 @@ public class ConfigHandler {
 
     // Settings
     public static boolean enableLogging;
+    public static boolean canSpawnWithBooks;
 
     public static void init(File file) {
         config = new Configuration(file);
@@ -21,6 +22,7 @@ public class ConfigHandler {
 
     public static void syncConfig() {
         enableLogging = config.get(general, "enableLogging", true).getBoolean();
+        canSpawnWithBooks = config.get(general, "canSpawnWithBooks", true).getBoolean();
 
         config.save();
     }
