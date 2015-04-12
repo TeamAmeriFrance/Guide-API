@@ -1,8 +1,12 @@
 package amerifrance.guideapi.items;
 
 import amerifrance.guideapi.GuideAPI;
-import amerifrance.guideapi.api.GuideRegistry;
 import amerifrance.guideapi.ModInformation;
+import amerifrance.guideapi.api.GuideRegistry;
+import amerifrance.guideapi.api.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.abstraction.IGuideLinked;
+import amerifrance.guideapi.api.base.Book;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -34,6 +38,24 @@ public class ItemGuideBook extends Item {
             player.openGui(GuideAPI.instance, stack.getItemDamage(), world, (int) player.posX, (int) player.posY, (int) player.posZ);
         }
         return stack;
+    }
+
+    @Override
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage() && world.getBlock(x, y, z) instanceof IGuideLinked) {
+            IGuideLinked guideLinked = (IGuideLinked) world.getBlock(x, y, z);
+            Book book = GuideRegistry.getBook(stack.getItemDamage());
+            String entryName = guideLinked.getLinkedEntryUnlocName(world, x, y, z, player, stack);
+            for (CategoryAbstract category : book.categoryList) {
+                for (EntryAbstract entry : category.entryList) {
+                    if (entry.unlocEntryName.equals(entryName)) {
+                        GuideAPI.proxy.openEntry(book, category, entry, player, stack);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     @Override
