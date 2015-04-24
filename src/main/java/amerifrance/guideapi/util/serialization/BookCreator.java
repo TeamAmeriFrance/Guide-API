@@ -1,5 +1,21 @@
 package amerifrance.guideapi.util.serialization;
 
+import java.awt.Color;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+
+import org.apache.commons.io.filefilter.FileFilterUtils;
+
 import amerifrance.guideapi.GuideAPI;
 import amerifrance.guideapi.api.GuideRegistry;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
@@ -7,23 +23,20 @@ import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IPage;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.interfaces.ITypeReader;
-import com.google.common.collect.Maps;
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import cpw.mods.fml.common.registry.GameData;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import org.apache.commons.io.filefilter.FileFilterUtils;
 
-import java.awt.*;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
+import com.google.common.collect.Maps;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
+
+import cpw.mods.fml.common.registry.GameData;
 
 public class BookCreator {
 
@@ -40,8 +53,13 @@ public class BookCreator {
 
     public static Book createBookFromJson(GsonBuilder gsonBuilder, File file) {
         try {
-            return gsonBuilder.setPrettyPrinting().create().fromJson(new FileReader(file), Book.class);
-        } catch (FileNotFoundException e) {
+            Gson gson = gsonBuilder.setPrettyPrinting().create();
+            Book book = gson.fromJson(new FileReader(file), Book.class);
+            String reverse = gson.toJson(book, Book.class);
+            FileWriter fw = new FileWriter(new File(GuideAPI.getConfigDir().getPath() + "/test.json"));
+            fw.write(reverse);
+            fw.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -57,9 +75,9 @@ public class BookCreator {
         gsonBuilder.registerTypeAdapter(ItemStack.class, new CustomItemStackJson());
         gsonBuilder.registerTypeAdapter(Color.class, new CustomColorJson());
         gsonBuilder.registerTypeAdapter(IPage.class, new CustomPageJson());
-        gsonBuilder.registerTypeAdapter(EntryAbstract.class, new CustomEntryJson());
-        gsonBuilder.registerTypeAdapter(CategoryAbstract.class, new CustomCategoryJson());
-        gsonBuilder.registerTypeAdapter(Book.class, new CustomBookJson());
+        gsonBuilder.registerTypeHierarchyAdapter(EntryAbstract.class, new CustomEntryJson());
+        gsonBuilder.registerTypeHierarchyAdapter(CategoryAbstract.class, new CustomCategoryJson());
+        gsonBuilder.registerTypeHierarchyAdapter(Book.class, new CustomBookJson());
     }
 
     public static class CustomItemStackJson implements JsonDeserializer<ItemStack>, JsonSerializer<ItemStack> {

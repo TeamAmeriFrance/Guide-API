@@ -12,7 +12,7 @@
   "categoryList": [
     {
       "type": "CategoryItemStack",
-      "stack": {
+      "itemStack": {
         "isBlock": false,
         "name": "minecraft:boat",
         "metadata": 0

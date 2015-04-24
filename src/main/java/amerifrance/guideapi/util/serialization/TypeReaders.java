@@ -247,8 +247,8 @@ public abstract class TypeReaders<T> implements ITypeReader<T> {
         @Override
         public void addData(JsonObject jsonObject, CategoryItemStack src, JsonSerializationContext context) {
             jsonObject.add("unlocCategoryName", context.serialize(src.unlocCategoryName));
-            jsonObject.add("entryList", context.serialize(src.entryList));
             jsonObject.add("itemStack", context.serialize(src.stack));
+            jsonObject.add("entryList", context.serialize(src.entryList));
         }
     };
 
