@@ -128,6 +128,8 @@ public class GuiEntry extends GuiBase {
     public void onGuiClosed() {
         super.onGuiClosed();
 
+        bookStack.stackTagCompound.setInteger(CATEGORY_TAG, book.categoryList.indexOf(category));
+
         bookStack.stackTagCompound.setInteger(ENTRY_TAG, category.entryList.indexOf(entry));
         bookStack.stackTagCompound.setInteger(PAGE_TAG, pageNumber);
     }

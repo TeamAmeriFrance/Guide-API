@@ -28,7 +28,7 @@ public class CommonProxy implements IGuiHandler {
         Book book = GuideRegistry.getBook(ID);
         if (stack != null && stack.hasTagCompound()) {
             NBTTagCompound tagCompound = stack.stackTagCompound;
-            if (tagCompound.hasKey(GuiBase.ENTRY_TAG)) {
+            if (tagCompound.hasKey(GuiBase.ENTRY_TAG) && tagCompound.hasKey(GuiBase.CATEGORY_TAG)) {
                 CategoryAbstract category = book.categoryList.get(tagCompound.getInteger(GuiBase.CATEGORY_TAG));
                 EntryAbstract entry = category.entryList.get(tagCompound.getInteger(GuiBase.ENTRY_TAG));
                 int pageNumber = tagCompound.getInteger(GuiBase.PAGE_TAG);
@@ -40,10 +40,12 @@ public class CommonProxy implements IGuiHandler {
                 int entryPage = tagCompound.getInteger(GuiBase.ENTRY_PAGE_TAG);
                 GuiCategory guiCategory = new GuiCategory(book, category, player, stack);
                 guiCategory.entryPage = entryPage;
-            } else if (tagCompound.getInteger(GuiBase.CATEGORY_PAGE_TAG) != 0) {
+                return guiCategory;
+            } else {
                 int categoryNumber = tagCompound.getInteger(GuiBase.CATEGORY_PAGE_TAG);
                 GuiHome guiHome = new GuiHome(book, player, stack);
                 guiHome.categoryPage = categoryNumber;
+                return guiHome;
             }
         }
         return new GuiHome(book, player, stack);
