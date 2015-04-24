@@ -47,8 +47,8 @@ public class PageIRecipe extends PageBase {
             ShapedRecipes shapedRecipes = (ShapedRecipes) recipe;
             for (int y = 0; y < shapedRecipes.recipeHeight; y++) {
                 for (int x = 0; x < shapedRecipes.recipeWidth; x++) {
-                    int stackX = (x + 1) * 20 + (guiLeft + guiBase.xSize / 7);
-                    int stackY = (y + 1) * 20 + (guiTop + guiBase.ySize / 5);
+                    int stackX = (x + 1) * 18 + (guiLeft + guiBase.xSize / 7);
+                    int stackY = (y + 1) * 18 + (guiTop + guiBase.ySize / 5);
                     ItemStack stack = shapedRecipes.recipeItems[y * shapedRecipes.recipeWidth + x];
                     if (stack != null) {
                         GuiHelper.drawItemStack(stack, stackX, stackY);
@@ -58,8 +58,8 @@ public class PageIRecipe extends PageBase {
                     }
                 }
             }
-            int outputX = (5 * 20) + (guiLeft + guiBase.xSize / 7);
-            int outputY = (2 * 20) + (guiTop + guiBase.xSize / 5);
+            int outputX = (5 * 18) + (guiLeft + guiBase.xSize / 7);
+            int outputY = (2 * 18) + (guiTop + guiBase.xSize / 5);
             GuiHelper.drawItemStack(shapedRecipes.getRecipeOutput(), outputX, outputY);
             if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15)) {
                 guiBase.renderToolTip(shapedRecipes.getRecipeOutput(), outputX, outputY);
@@ -71,8 +71,8 @@ public class PageIRecipe extends PageBase {
             int height = (Integer) ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shapedOreRecipe, 5);
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
-                    int stackX = (x + 1) * 20 + (guiLeft + guiBase.xSize / 7);
-                    int stackY = (y + 1) * 20 + (guiTop + guiBase.ySize / 5);
+                    int stackX = (x + 1) * 18 + (guiLeft + guiBase.xSize / 7);
+                    int stackY = (y + 1) * 18 + (guiTop + guiBase.ySize / 5);
                     Object component = shapedOreRecipe.getInput()[y * width + x];
                     if (component != null) {
                         if (component instanceof ItemStack) {
@@ -91,8 +91,8 @@ public class PageIRecipe extends PageBase {
                     }
                 }
             }
-            int outputX = (5 * 20) + (guiLeft + guiBase.xSize / 7);
-            int outputY = (2 * 20) + (guiTop + guiBase.xSize / 5);
+            int outputX = (5 * 18) + (guiLeft + guiBase.xSize / 7);
+            int outputY = (2 * 18) + (guiTop + guiBase.xSize / 5);
             GuiHelper.drawItemStack(shapedOreRecipe.getRecipeOutput(), outputX, outputY);
             if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15)) {
                 guiBase.renderToolTip(shapedOreRecipe.getRecipeOutput(), outputX, outputY);
@@ -105,8 +105,8 @@ public class PageIRecipe extends PageBase {
                     int i = 3 * y + x;
                     if (i >= shapelessRecipes.getRecipeSize()) {
                     } else {
-                        int stackX = (x + 1) * 20 + (guiLeft + guiBase.xSize / 7);
-                        int stackY = (y + 1) * 20 + (guiTop + guiBase.ySize / 5);
+                        int stackX = (x + 1) * 18 + (guiLeft + guiBase.xSize / 7);
+                        int stackY = (y + 1) * 18 + (guiTop + guiBase.ySize / 5);
                         ItemStack stack = (ItemStack) shapelessRecipes.recipeItems.get(i);
                         if (stack != null) {
                             GuiHelper.drawItemStack(stack, stackX, stackY);
@@ -117,8 +117,8 @@ public class PageIRecipe extends PageBase {
                     }
                 }
             }
-            int outputX = (5 * 20) + (guiLeft + guiBase.xSize / 7);
-            int outputY = (2 * 20) + (guiTop + guiBase.xSize / 5);
+            int outputX = (5 * 18) + (guiLeft + guiBase.xSize / 7);
+            int outputY = (2 * 18) + (guiTop + guiBase.xSize / 5);
             GuiHelper.drawItemStack(shapelessRecipes.getRecipeOutput(), outputX, outputY);
             if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15)) {
                 guiBase.renderToolTip(shapelessRecipes.getRecipeOutput(), outputX, outputY);
@@ -131,8 +131,8 @@ public class PageIRecipe extends PageBase {
                     int i = 3 * y + x;
                     if (i >= shapelessOreRecipe.getRecipeSize()) {
                     } else {
-                        int stackX = (x + 1) * 20 + (guiLeft + guiBase.xSize / 7);
-                        int stackY = (y + 1) * 20 + (guiTop + guiBase.ySize / 5);
+                        int stackX = (x + 1) * 18 + (guiLeft + guiBase.xSize / 7);
+                        int stackY = (y + 1) * 18 + (guiTop + guiBase.ySize / 5);
                         Object component = shapelessOreRecipe.getInput().get(i);
                         if (component != null) {
                             if (component instanceof ItemStack) {
@@ -151,8 +151,8 @@ public class PageIRecipe extends PageBase {
                         }
                     }
                 }
-                int outputX = (5 * 20) + (guiLeft + guiBase.xSize / 7);
-                int outputY = (2 * 20) + (guiTop + guiBase.xSize / 5);
+                int outputX = (5 * 18) + (guiLeft + guiBase.xSize / 7);
+                int outputY = (2 * 18) + (guiTop + guiBase.xSize / 5);
                 GuiHelper.drawItemStack(shapelessOreRecipe.getRecipeOutput(), outputX, outputY);
                 if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15)) {
                     guiBase.renderToolTip(shapelessOreRecipe.getRecipeOutput(), outputX, outputY);

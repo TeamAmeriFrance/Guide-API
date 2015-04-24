@@ -74,8 +74,8 @@ public class PageFurnaceRecipe extends PageBase {
 
         guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.furnace.smelting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
-        int inputX = (1 + 1) * 20 + (guiLeft + guiBase.xSize / 7);
-        int inputY = (1 + 1) * 20 + (guiTop + guiBase.ySize / 5);
+        int inputX = (1 + 1) * 18 + (guiLeft + guiBase.xSize / 7);
+        int inputY = (1 + 1) * 18 + (guiTop + guiBase.ySize / 5);
         GuiHelper.drawItemStack(input, inputX, inputY);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, inputX, inputY, 15, 15)) {
             guiBase.renderToolTip(input, mouseX, mouseY);
@@ -84,8 +84,8 @@ public class PageFurnaceRecipe extends PageBase {
         if (output == null) {
             output = new ItemStack(Blocks.fire);
         }
-        int outputX = (5 * 20) + (guiLeft + guiBase.xSize / 7);
-        int outputY = (2 * 20) + (guiTop + guiBase.xSize / 5);
+        int outputX = (5 * 18) + (guiLeft + guiBase.xSize / 7);
+        int outputY = (2 * 18) + (guiTop + guiBase.xSize / 5);
         GuiHelper.drawItemStack(output, outputX, outputY);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15)) {
             guiBase.renderToolTip(output, outputX, outputY);
