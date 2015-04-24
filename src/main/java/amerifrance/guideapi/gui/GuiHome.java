@@ -1,9 +1,9 @@
 package amerifrance.guideapi.gui;
 
+import amerifrance.guideapi.api.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.buttons.ButtonNext;
 import amerifrance.guideapi.buttons.ButtonPrev;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.wrappers.CategoryWrapper;
 import com.google.common.collect.HashMultimap;
 import net.minecraft.client.Minecraft;
@@ -23,7 +23,7 @@ public class GuiHome extends GuiBase {
     public HashMultimap<Integer, CategoryWrapper> categoryWrapperMap;
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
-    private int categoryPage;
+    public int categoryPage;
 
     public GuiHome(Book book, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
@@ -125,5 +125,16 @@ public class GuiHome extends GuiBase {
         } else if (button.id == 1 && categoryPage > 0) {
             this.categoryPage--;
         }
+    }
+
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+
+        bookStack.stackTagCompound.setInteger(CATEGORY_PAGE_TAG, categoryPage);
+
+        bookStack.stackTagCompound.removeTag(CATEGORY_TAG);
+
+        bookStack.stackTagCompound.removeTag(ENTRY_TAG);
     }
 }

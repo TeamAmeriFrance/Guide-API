@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -19,6 +20,12 @@ public class GuiBase extends GuiScreen {
     public EntityPlayer player;
     public ItemStack bookStack;
     public float publicZLevel;
+
+    public static String CATEGORY_TAG = "G-API_Category";
+    public static String CATEGORY_PAGE_TAG = CATEGORY_TAG + "_Page";
+    public static String ENTRY_TAG = "G-API_Entry";
+    public static String ENTRY_PAGE_TAG = ENTRY_TAG + "_Page";
+    public static String PAGE_TAG = "G-API_Page";
 
     public GuiBase(EntityPlayer player, ItemStack bookStack) {
         this.player = player;
@@ -83,5 +90,18 @@ public class GuiBase extends GuiScreen {
     @Override
     public void renderToolTip(ItemStack stack, int x, int y) {
         super.renderToolTip(stack, x, y);
+    }
+
+    public void checkAndSetTag() {
+        if (!bookStack.hasTagCompound()) {
+            NBTTagCompound tagCompound = new NBTTagCompound();
+            bookStack.setTagCompound(tagCompound);
+        }
+    }
+
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+        if (bookStack != null) checkAndSetTag();
     }
 }

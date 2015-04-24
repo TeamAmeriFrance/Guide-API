@@ -50,6 +50,8 @@ public class GuideAPI {
         ConfigHandler.init(new File(configDir.getPath() + "/Guide-API.cfg"));
         ItemsRegistry.registerItems();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
+
+        TestBook.testBook();
     }
 
     @Mod.EventHandler

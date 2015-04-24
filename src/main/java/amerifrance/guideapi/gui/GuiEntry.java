@@ -1,12 +1,12 @@
 package amerifrance.guideapi.gui;
 
-import amerifrance.guideapi.buttons.ButtonBack;
-import amerifrance.guideapi.buttons.ButtonNext;
-import amerifrance.guideapi.buttons.ButtonPrev;
-import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IPage;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.buttons.ButtonBack;
+import amerifrance.guideapi.buttons.ButtonNext;
+import amerifrance.guideapi.buttons.ButtonPrev;
 import amerifrance.guideapi.wrappers.PageWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -30,7 +30,7 @@ public class GuiEntry extends GuiBase {
     public ButtonBack buttonBack;
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
-    private int pageNumber;
+    public int pageNumber;
 
     public GuiEntry(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
@@ -122,5 +122,13 @@ public class GuiEntry extends GuiBase {
         } else if (button.id == 2 && pageNumber > 0) {
             this.pageNumber--;
         }
+    }
+
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+
+        bookStack.stackTagCompound.setInteger(ENTRY_TAG, category.entryList.indexOf(entry));
+        bookStack.stackTagCompound.setInteger(PAGE_TAG, pageNumber);
     }
 }

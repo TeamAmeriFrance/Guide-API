@@ -1,11 +1,11 @@
 package amerifrance.guideapi.gui;
 
+import amerifrance.guideapi.api.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.buttons.ButtonBack;
 import amerifrance.guideapi.buttons.ButtonNext;
 import amerifrance.guideapi.buttons.ButtonPrev;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.wrappers.EntryWrapper;
 import com.google.common.collect.HashMultimap;
 import net.minecraft.client.Minecraft;
@@ -27,7 +27,7 @@ public class GuiCategory extends GuiBase {
     public ButtonBack buttonBack;
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
-    private int entryPage;
+    public int entryPage;
 
     public GuiCategory(Book book, CategoryAbstract category, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
@@ -130,5 +130,15 @@ public class GuiCategory extends GuiBase {
         } else if (button.id == 2 && entryPage > 0) {
             this.entryPage--;
         }
+    }
+
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+
+        bookStack.stackTagCompound.setInteger(CATEGORY_TAG, book.categoryList.indexOf(category));
+        bookStack.stackTagCompound.setInteger(ENTRY_PAGE_TAG, entryPage);
+
+        bookStack.stackTagCompound.removeTag(ENTRY_TAG);
     }
 }
