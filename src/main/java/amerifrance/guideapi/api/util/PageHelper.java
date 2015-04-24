@@ -15,7 +15,7 @@ import java.util.List;
 
 public class PageHelper {
 
-    private static List<IPage> pagesForLongText(String locText, int maxLength) {
+    public static List<IPage> pagesForLongText(String locText, int maxLength) {
         List<IPage> pageList = new ArrayList<IPage>();
         for (String s : WordUtils.wrap(locText, maxLength, "\n", false).split("\n")) pageList.add(new PageLocText(s));
         return pageList;
