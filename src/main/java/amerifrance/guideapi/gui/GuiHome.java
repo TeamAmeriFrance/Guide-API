@@ -20,7 +20,7 @@ public class GuiHome extends GuiBase {
     public ResourceLocation outlineTexture;
     public ResourceLocation pageTexture;
     public Book book;
-    public HashMultimap<Integer, CategoryWrapper> categoryWrappers;
+    public HashMultimap<Integer, CategoryWrapper> categoryWrapperMap;
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
     private int categoryPage;
@@ -31,14 +31,14 @@ public class GuiHome extends GuiBase {
         this.pageTexture = book.pageTexture;
         this.outlineTexture = book.outlineTexture;
         this.categoryPage = 0;
-        this.categoryWrappers = this.categoryWrappers.create();
+        this.categoryWrapperMap = this.categoryWrapperMap.create();
     }
 
     @Override
     public void initGui() {
         super.initGui();
         this.buttonList.clear();
-        this.categoryWrappers.clear();
+        this.categoryWrapperMap.clear();
 
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
@@ -54,11 +54,11 @@ public class GuiHome extends GuiBase {
 
         for (CategoryAbstract category : book.categoryList) {
             if (drawOnLeft) {
-                categoryWrappers.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
+                categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
                 cX = guiLeft + 180;
                 drawOnLeft = false;
             } else {
-                categoryWrappers.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
+                categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
                 cY += 25;
                 cX = guiLeft;
                 drawOnLeft = true;
@@ -76,7 +76,7 @@ public class GuiHome extends GuiBase {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float renderPartialTicks) {
-        for (CategoryWrapper wrapper : this.categoryWrappers.get(categoryPage)) {
+        for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage)) {
             if (wrapper.canPlayerSee()) wrapper.draw(mouseX, mouseY, this);
         }
 
@@ -86,11 +86,11 @@ public class GuiHome extends GuiBase {
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.bookColor);
         drawSplitString(book.getLocalizedWelcomeMessage(), guiLeft + 37, guiTop + 12, (4 * xSize / 6) - 4, 0);
 
-        for (CategoryWrapper wrapper : this.categoryWrappers.get(categoryPage)) {
+        for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage)) {
             if (wrapper.canPlayerSee()) wrapper.drawExtras(mouseX, mouseY, this);
         }
 
-        drawCenteredString(fontRendererObj, String.valueOf(categoryPage + 1) + "/" + String.valueOf(categoryWrappers.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        drawCenteredString(fontRendererObj, String.valueOf(categoryPage + 1) + "/" + String.valueOf(categoryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
         drawCenteredString(fontRendererObj, book.getLocalizedBookTitle(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
         super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
@@ -99,7 +99,7 @@ public class GuiHome extends GuiBase {
     public void mouseClicked(int mouseX, int mouseY, int typeofClick) {
         super.mouseClicked(mouseX, mouseY, typeofClick);
 
-        for (CategoryWrapper wrapper : this.categoryWrappers.get(categoryPage)) {
+        for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage)) {
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
                 if (typeofClick == 0) wrapper.category.onLeftClicked(book, mouseX, mouseY, player, bookStack);
                 else if (typeofClick == 1) wrapper.category.onRightClicked(book, mouseX, mouseY, player, bookStack);
@@ -110,7 +110,7 @@ public class GuiHome extends GuiBase {
     @Override
     public void keyTyped(char typedChar, int keyCode) {
         super.keyTyped(typedChar, keyCode);
-        if ((keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_RIGHT) && categoryPage + 1 < categoryWrappers.asMap().size()) {
+        if ((keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_RIGHT) && categoryPage + 1 < categoryWrapperMap.asMap().size()) {
             this.categoryPage++;
         }
         if ((keyCode == Keyboard.KEY_DOWN || keyCode == Keyboard.KEY_LEFT) && categoryPage > 0) {
@@ -120,7 +120,7 @@ public class GuiHome extends GuiBase {
 
     @Override
     public void actionPerformed(GuiButton button) {
-        if (button.id == 0 && categoryPage + 1 < categoryWrappers.asMap().size()) {
+        if (button.id == 0 && categoryPage + 1 < categoryWrapperMap.asMap().size()) {
             this.categoryPage++;
         } else if (button.id == 1 && categoryPage > 0) {
             this.categoryPage--;

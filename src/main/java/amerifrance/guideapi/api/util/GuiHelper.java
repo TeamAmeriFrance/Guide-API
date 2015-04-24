@@ -12,12 +12,26 @@ import java.awt.*;
 
 public class GuiHelper {
 
+    /**
+     * @param mouseX - Position of the mouse on the x-axiq
+     * @param mouseY - Position of the mouse on the y-axis
+     * @param x      - Starting x for the rectangle
+     * @param y      - Starting y for the rectangle
+     * @param width  - Width of the rectangle
+     * @param height - Height of the rectangle
+     * @return whether or not the mouse is in the rectangle
+     */
     public static boolean isMouseBetween(int mouseX, int mouseY, int x, int y, int width, int height) {
         int xSize = x + width;
         int ySize = y + height;
         return (mouseX > x && mouseX < xSize && mouseY > y && mouseY < ySize);
     }
 
+    /**
+     * @param stack - The itemstack to be drawn
+     * @param x     - The position on the x-axis to draw the itemstack
+     * @param y     - The position on the y-axis to draw the itemstack
+     */
     public static void drawItemStack(ItemStack stack, int x, int y) {
         RenderItem renderItem = new RenderItem();
         GL11.glPushMatrix();
@@ -30,6 +44,12 @@ public class GuiHelper {
         GL11.glPopMatrix();
     }
 
+    /**
+     * @param stack - The itemstack to be drawn
+     * @param x     - The position on the x-axis to draw the itemstack
+     * @param y     - The position on the y-axis to draw the itemstack
+     * @param scale - The scale with which to draw the itemstack
+     */
     public static void drawScaledItemStack(ItemStack stack, int x, int y, float scale) {
         RenderItem renderItem = new RenderItem();
         GL11.glPushMatrix();
@@ -43,6 +63,13 @@ public class GuiHelper {
         GL11.glPopMatrix();
     }
 
+    /**
+     * @param x      - The position on the x-axis to draw the icon
+     * @param y      - The position on the y-axis to draw the icon
+     * @param width  - The width of the icon
+     * @param height - The height of the icon
+     * @param zLevel -
+     */
     public static void drawIconWithoutColor(int x, int y, int width, int height, float zLevel) {
         GL11.glPushMatrix();
         GL11.glEnable(GL11.GL_BLEND);
@@ -62,6 +89,14 @@ public class GuiHelper {
         GL11.glPopMatrix();
     }
 
+    /**
+     * @param x      - The position on the x-axis to draw the icon
+     * @param y      - The position on the y-axis to draw the icon
+     * @param width  - The width of the icon
+     * @param height - The height of the icon
+     * @param zLevel -
+     * @param color  - The color the icon will have
+     */
     public static void drawIconWithColor(int x, int y, int width, int height, float zLevel, Color color) {
         GL11.glPushMatrix();
         GL11.glEnable(GL11.GL_BLEND);
@@ -83,6 +118,13 @@ public class GuiHelper {
         GL11.glPopMatrix();
     }
 
+    /**
+     * @param x      - The position on the x-axis to draw the icon
+     * @param y      - The position on the y-axis to draw the icon
+     * @param width  - The width of the icon
+     * @param height - The height of the icon
+     * @param zLevel -
+     */
     public static void drawSizedIconWithoutColor(int x, int y, int width, int height, float zLevel) {
         GL11.glPushMatrix();
         GL11.glEnable(GL11.GL_BLEND);
@@ -105,6 +147,14 @@ public class GuiHelper {
         GL11.glPopMatrix();
     }
 
+    /**
+     * @param x      - The position on the x-axis to draw the icon
+     * @param y      - The position on the y-axis to draw the icon
+     * @param width  - The width of the icon
+     * @param height - The height of the icon
+     * @param zLevel
+     * @param color  - The color the icon will have
+     */
     public static void drawSizedIconWithColor(int x, int y, int width, int height, float zLevel, Color color) {
         GL11.glPushMatrix();
         GL11.glEnable(GL11.GL_BLEND);

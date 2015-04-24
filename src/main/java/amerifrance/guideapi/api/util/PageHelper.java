@@ -21,6 +21,10 @@ public class PageHelper {
         return pageList;
     }
 
+    /**
+     * @param locText - Text
+     * @return a list of IPages with the text cut to fit on page
+     */
     public static List<IPage> pagesForLongText(String locText) {
         return pagesForLongText(locText, 450);
     }
@@ -35,14 +39,30 @@ public class PageHelper {
         return pageList;
     }
 
+
+    /**
+     * @param locText - Text
+     * @param item    - The item to put on the first page
+     * @return a list of IPages with the text cut to fit on page
+     */
     public static List<IPage> pagesForLongText(String locText, Item item) {
         return pagesForLongText(locText, new ItemStack(item));
     }
 
+    /**
+     * @param locText - Text
+     * @param block   - The block to put on the first page
+     * @return a list of IPages with the text cut to fit on page
+     */
     public static List<IPage> pagesForLongText(String locText, Block block) {
         return pagesForLongText(locText, new ItemStack(block));
     }
 
+    /**
+     * @param recipe1 - The first IRecipe to compare
+     * @param recipe2 - The second IRecipe to compare
+     * @return whether or not the class, size and the output of the recipes are the same
+     */
     public static boolean areIRecipesEqual(IRecipe recipe1, IRecipe recipe2) {
         if (recipe1 == recipe2) return true;
         if (recipe1 == null || recipe2 == null || recipe1.getClass() != recipe2.getClass()) return false;

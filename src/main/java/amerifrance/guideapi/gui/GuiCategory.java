@@ -23,7 +23,7 @@ public class GuiCategory extends GuiBase {
     public ResourceLocation pageTexture;
     public Book book;
     public CategoryAbstract category;
-    public HashMultimap<Integer, EntryWrapper> entryWrapperList;
+    public HashMultimap<Integer, EntryWrapper> entryWrapperMap;
     public ButtonBack buttonBack;
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
@@ -35,7 +35,7 @@ public class GuiCategory extends GuiBase {
         this.category = category;
         this.pageTexture = book.pageTexture;
         this.outlineTexture = book.outlineTexture;
-        this.entryWrapperList = this.entryWrapperList.create();
+        this.entryWrapperMap = this.entryWrapperMap.create();
         this.entryPage = 0;
     }
 
@@ -43,7 +43,7 @@ public class GuiCategory extends GuiBase {
     public void initGui() {
         super.initGui();
         this.buttonList.clear();
-        this.entryWrapperList.clear();
+        this.entryWrapperMap.clear();
 
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
@@ -57,7 +57,7 @@ public class GuiCategory extends GuiBase {
         int i = 0;
         int pageNumber = 0;
         for (EntryAbstract entry : category.entryList) {
-            entryWrapperList.put(pageNumber, new EntryWrapper(this, book, category, entry, eX, eY, 4 * xSize / 6, 10, player, this.fontRendererObj, bookStack));
+            entryWrapperMap.put(pageNumber, new EntryWrapper(this, book, category, entry, eX, eY, 4 * xSize / 6, 10, player, this.fontRendererObj, bookStack));
             eY += 13;
             i++;
 
@@ -76,7 +76,7 @@ public class GuiCategory extends GuiBase {
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.bookColor);
 
-        for (EntryWrapper wrapper : this.entryWrapperList.get(entryPage)) {
+        for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
             if (wrapper.canPlayerSee()) {
                 wrapper.draw(mouseX, mouseY, this);
                 wrapper.drawExtras(mouseX, mouseY, this);
@@ -86,7 +86,7 @@ public class GuiCategory extends GuiBase {
             }
         }
 
-        drawCenteredString(fontRendererObj, String.valueOf(entryPage + 1) + "/" + String.valueOf(entryWrapperList.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        drawCenteredString(fontRendererObj, String.valueOf(entryPage + 1) + "/" + String.valueOf(entryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
         drawCenteredString(fontRendererObj, category.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
         super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
@@ -95,7 +95,7 @@ public class GuiCategory extends GuiBase {
     public void mouseClicked(int mouseX, int mouseY, int typeofClick) {
         super.mouseClicked(mouseX, mouseY, typeofClick);
 
-        for (EntryWrapper wrapper : this.entryWrapperList.get(entryPage)) {
+        for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
                 if (typeofClick == 0) wrapper.entry.onLeftClicked(book, category, mouseX, mouseY, player, this);
                 else if (typeofClick == 1) wrapper.entry.onRightClicked(book, category, mouseX, mouseY, player, this);
@@ -113,7 +113,7 @@ public class GuiCategory extends GuiBase {
         if (keyCode == Keyboard.KEY_BACK || keyCode == this.mc.gameSettings.keyBindUseItem.getKeyCode()) {
             this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
         }
-        if ((keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_RIGHT) && entryPage + 1 < entryWrapperList.asMap().size()) {
+        if ((keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_RIGHT) && entryPage + 1 < entryWrapperMap.asMap().size()) {
             this.entryPage++;
         }
         if ((keyCode == Keyboard.KEY_DOWN || keyCode == Keyboard.KEY_LEFT) && entryPage > 0) {
@@ -125,7 +125,7 @@ public class GuiCategory extends GuiBase {
     public void actionPerformed(GuiButton button) {
         if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
-        } else if (button.id == 1 && entryPage + 1 < entryWrapperList.asMap().size()) {
+        } else if (button.id == 1 && entryPage + 1 < entryWrapperMap.asMap().size()) {
             this.entryPage++;
         } else if (button.id == 2 && entryPage > 0) {
             this.entryPage--;
