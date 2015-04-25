@@ -7,6 +7,8 @@ import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.buttons.ButtonBack;
 import amerifrance.guideapi.buttons.ButtonNext;
 import amerifrance.guideapi.buttons.ButtonPrev;
+import amerifrance.guideapi.network.PacketHandler;
+import amerifrance.guideapi.network.PacketSyncEntry;
 import amerifrance.guideapi.wrappers.PageWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -128,9 +130,6 @@ public class GuiEntry extends GuiBase {
     public void onGuiClosed() {
         super.onGuiClosed();
 
-        bookStack.stackTagCompound.setInteger(CATEGORY_TAG, book.categoryList.indexOf(category));
-
-        bookStack.stackTagCompound.setInteger(ENTRY_TAG, category.entryList.indexOf(entry));
-        bookStack.stackTagCompound.setInteger(PAGE_TAG, pageNumber);
+        PacketHandler.INSTANCE.sendToServer(new PacketSyncEntry(bookStack, book.categoryList.indexOf(category), category.entryList.indexOf(entry), pageNumber));
     }
 }

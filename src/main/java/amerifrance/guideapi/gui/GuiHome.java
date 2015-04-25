@@ -4,6 +4,8 @@ import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.buttons.ButtonNext;
 import amerifrance.guideapi.buttons.ButtonPrev;
+import amerifrance.guideapi.network.PacketHandler;
+import amerifrance.guideapi.network.PacketSyncHome;
 import amerifrance.guideapi.wrappers.CategoryWrapper;
 import com.google.common.collect.HashMultimap;
 import net.minecraft.client.Minecraft;
@@ -131,10 +133,6 @@ public class GuiHome extends GuiBase {
     public void onGuiClosed() {
         super.onGuiClosed();
 
-        bookStack.stackTagCompound.setInteger(CATEGORY_PAGE_TAG, categoryPage);
-
-        bookStack.stackTagCompound.removeTag(CATEGORY_TAG);
-
-        bookStack.stackTagCompound.removeTag(ENTRY_TAG);
+        PacketHandler.INSTANCE.sendToServer(new PacketSyncHome(bookStack, categoryPage));
     }
 }

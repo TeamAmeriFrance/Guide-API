@@ -1,6 +1,7 @@
 package amerifrance.guideapi;
 
 import amerifrance.guideapi.items.ItemsRegistry;
+import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxies.CommonProxy;
 import amerifrance.guideapi.util.EventHandler;
 import amerifrance.guideapi.util.serialization.BookCreator;
@@ -49,7 +50,9 @@ public class GuideAPI {
         configDir.mkdirs();
         ConfigHandler.init(new File(configDir.getPath() + "/Guide-API.cfg"));
         ItemsRegistry.registerItems();
+
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
+        PacketHandler.registerPackets();
 
         TestBook.testBook();
     }
