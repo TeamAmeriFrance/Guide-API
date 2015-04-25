@@ -130,6 +130,6 @@ public class GuiEntry extends GuiBase {
     public void onGuiClosed() {
         super.onGuiClosed();
 
-        PacketHandler.INSTANCE.sendToServer(new PacketSyncEntry(bookStack, book.categoryList.indexOf(category), category.entryList.indexOf(entry), pageNumber));
+        PacketHandler.INSTANCE.sendToServer(new PacketSyncEntry(book.categoryList.indexOf(category), category.entryList.indexOf(entry), pageNumber));
     }
 }

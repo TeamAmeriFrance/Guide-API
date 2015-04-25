@@ -138,6 +138,6 @@ public class GuiCategory extends GuiBase {
     public void onGuiClosed() {
         super.onGuiClosed();
 
-        PacketHandler.INSTANCE.sendToServer(new PacketSyncCategory(bookStack, book.categoryList.indexOf(category), entryPage));
+        PacketHandler.INSTANCE.sendToServer(new PacketSyncCategory(book.categoryList.indexOf(category), entryPage));
     }
 }

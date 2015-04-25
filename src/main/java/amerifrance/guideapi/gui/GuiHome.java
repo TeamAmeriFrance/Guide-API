@@ -133,6 +133,6 @@ public class GuiHome extends GuiBase {
     public void onGuiClosed() {
         super.onGuiClosed();
 
-        PacketHandler.INSTANCE.sendToServer(new PacketSyncHome(bookStack, categoryPage));
+        PacketHandler.INSTANCE.sendToServer(new PacketSyncHome(categoryPage));
     }
 }
