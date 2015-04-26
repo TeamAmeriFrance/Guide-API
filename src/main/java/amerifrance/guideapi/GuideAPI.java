@@ -1,11 +1,11 @@
 package amerifrance.guideapi;
 
+import amerifrance.guideapi.api.GuideRegistry;
 import amerifrance.guideapi.items.ItemsRegistry;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxies.CommonProxy;
 import amerifrance.guideapi.util.EventHandler;
 import amerifrance.guideapi.util.serialization.BookCreator;
-import com.google.gson.GsonBuilder;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -54,6 +54,8 @@ public class GuideAPI {
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
         PacketHandler.registerPackets();
 
+        BookCreator.registerCustomSerializers(GuideRegistry.bookBuilder);
+
         TestBook.testBook();
     }
 
@@ -65,9 +67,7 @@ public class GuideAPI {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        BookCreator.registerCustomSerializers(gsonBuilder);
-        BookCreator.registerJsonBooks(gsonBuilder);
+        BookCreator.registerJsonBooks(GuideRegistry.bookBuilder);
     }
 
     public static File getConfigDir() {

@@ -1,12 +1,18 @@
 package amerifrance.guideapi.api;
 
 import amerifrance.guideapi.api.base.Book;
+import com.google.gson.GsonBuilder;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GuideRegistry {
+
+    /**
+     * The GsonBuilder used by Guide-API to create Books from Jsons. Access after Pre-Init
+     */
+    public static GsonBuilder bookBuilder;
 
     private static List<Book> bookList = new ArrayList<Book>();
 
