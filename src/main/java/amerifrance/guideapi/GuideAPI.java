@@ -6,6 +6,7 @@ import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxies.CommonProxy;
 import amerifrance.guideapi.util.EventHandler;
 import amerifrance.guideapi.util.serialization.BookCreator;
+import com.google.gson.GsonBuilder;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -54,6 +55,7 @@ public class GuideAPI {
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
         PacketHandler.registerPackets();
 
+        GuideRegistry.bookBuilder = new GsonBuilder();
         BookCreator.registerCustomSerializers(GuideRegistry.bookBuilder);
 
         //TestBook.testBook();
