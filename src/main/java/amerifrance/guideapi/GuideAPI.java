@@ -56,7 +56,7 @@ public class GuideAPI {
 
         BookCreator.registerCustomSerializers(GuideRegistry.bookBuilder);
 
-        TestBook.testBook();
+        //TestBook.testBook();
     }
 
     @Mod.EventHandler
