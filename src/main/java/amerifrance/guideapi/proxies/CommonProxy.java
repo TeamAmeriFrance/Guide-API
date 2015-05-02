@@ -4,7 +4,7 @@ import amerifrance.guideapi.api.GuideRegistry;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.api.util.NBTBookTags;
 import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiEntry;
 import amerifrance.guideapi.gui.GuiHome;
@@ -28,21 +28,21 @@ public class CommonProxy implements IGuiHandler {
         Book book = GuideRegistry.getBook(ID);
         if (stack != null && stack.hasTagCompound()) {
             NBTTagCompound tagCompound = stack.stackTagCompound;
-            if (tagCompound.hasKey(GuiBase.ENTRY_TAG) && tagCompound.hasKey(GuiBase.CATEGORY_TAG)) {
-                CategoryAbstract category = book.categoryList.get(tagCompound.getInteger(GuiBase.CATEGORY_TAG));
-                EntryAbstract entry = category.entryList.get(tagCompound.getInteger(GuiBase.ENTRY_TAG));
-                int pageNumber = tagCompound.getInteger(GuiBase.PAGE_TAG);
+            if (tagCompound.hasKey(NBTBookTags.ENTRY_TAG) && tagCompound.hasKey(NBTBookTags.CATEGORY_TAG)) {
+                CategoryAbstract category = book.categoryList.get(tagCompound.getInteger(NBTBookTags.CATEGORY_TAG));
+                EntryAbstract entry = category.entryList.get(tagCompound.getInteger(NBTBookTags.ENTRY_TAG));
+                int pageNumber = tagCompound.getInteger(NBTBookTags.PAGE_TAG);
                 GuiEntry guiEntry = new GuiEntry(book, category, entry, player, stack);
                 guiEntry.pageNumber = pageNumber;
                 return guiEntry;
-            } else if (tagCompound.hasKey(GuiBase.CATEGORY_TAG)) {
-                CategoryAbstract category = book.categoryList.get(tagCompound.getInteger(GuiBase.CATEGORY_TAG));
-                int entryPage = tagCompound.getInteger(GuiBase.ENTRY_PAGE_TAG);
+            } else if (tagCompound.hasKey(NBTBookTags.CATEGORY_TAG)) {
+                CategoryAbstract category = book.categoryList.get(tagCompound.getInteger(NBTBookTags.CATEGORY_TAG));
+                int entryPage = tagCompound.getInteger(NBTBookTags.ENTRY_PAGE_TAG);
                 GuiCategory guiCategory = new GuiCategory(book, category, player, stack);
                 guiCategory.entryPage = entryPage;
                 return guiCategory;
             } else {
-                int categoryNumber = tagCompound.getInteger(GuiBase.CATEGORY_PAGE_TAG);
+                int categoryNumber = tagCompound.getInteger(NBTBookTags.CATEGORY_PAGE_TAG);
                 GuiHome guiHome = new GuiHome(book, player, stack);
                 guiHome.categoryPage = categoryNumber;
                 return guiHome;

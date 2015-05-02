@@ -1,6 +1,6 @@
 package amerifrance.guideapi.network;
 
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.api.util.NBTBookTags;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
@@ -33,9 +33,9 @@ public class PacketSyncHome implements IMessage, IMessageHandler<PacketSyncHome,
     public IMessage onMessage(PacketSyncHome message, MessageContext ctx) {
         ItemStack book = ctx.getServerHandler().playerEntity.getHeldItem();
         if (book != null && message.page != -1) {
-            book.stackTagCompound.setInteger(GuiBase.CATEGORY_PAGE_TAG, message.page);
-            book.stackTagCompound.removeTag(GuiBase.CATEGORY_TAG);
-            book.stackTagCompound.removeTag(GuiBase.ENTRY_TAG);
+            book.stackTagCompound.setInteger(NBTBookTags.CATEGORY_PAGE_TAG, message.page);
+            book.stackTagCompound.removeTag(NBTBookTags.CATEGORY_TAG);
+            book.stackTagCompound.removeTag(NBTBookTags.ENTRY_TAG);
         }
         return null;
     }
