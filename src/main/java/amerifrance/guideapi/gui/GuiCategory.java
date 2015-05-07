@@ -89,7 +89,16 @@ public class GuiCategory extends GuiBase {
         }
 
         drawCenteredString(fontRendererObj, String.valueOf(entryPage + 1) + "/" + String.valueOf(entryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
-        drawCenteredString(fontRendererObj, category.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
+        drawCenteredString(fontRendererObj, category.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());	
+		       
+        if(entryPage == 0)buttonPrev.visible = false;
+        else
+        	buttonPrev.visible = true;
+        
+        if(entryPage == entryWrapperMap.asMap().size() - 1)buttonNext.visible = false;
+        else
+        	buttonNext.visible = true;
+        
         super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
 
