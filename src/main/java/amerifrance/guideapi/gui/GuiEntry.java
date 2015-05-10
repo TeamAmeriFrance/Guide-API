@@ -78,6 +78,15 @@ public class GuiEntry extends GuiBase {
 
         drawCenteredString(fontRendererObj, String.valueOf(pageNumber + 1) + "/" + String.valueOf(pageWrapperList.size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
         drawCenteredString(fontRendererObj, entry.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
+		
+		if(pageNumber == 0)buttonPrev.visible = false;
+        else
+        	buttonPrev.visible = true;
+        
+        if(pageNumber == pageWrapperList.size() - 1)buttonNext.visible = false;
+        else
+        	buttonNext.visible = true;
+        
         super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
 
