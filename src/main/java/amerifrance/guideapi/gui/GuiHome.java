@@ -94,15 +94,10 @@ public class GuiHome extends GuiBase {
 
         drawCenteredString(fontRendererObj, String.valueOf(categoryPage + 1) + "/" + String.valueOf(categoryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
         drawCenteredString(fontRendererObj, book.getLocalizedBookTitle(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
-		
-		if(categoryPage == 0)buttonPrev.visible = false;
-		else
-        	buttonPrev.visible = true;
-        
-        if(categoryPage == categoryWrapperMap.asMap().size() - 1)buttonNext.visible = false;
-        else
-        	buttonNext.visible = true;
-        
+
+        buttonPrev.visible = categoryPage != 0;
+        buttonNext.visible = categoryPage != categoryWrapperMap.asMap().size() - 1;
+
         super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
 
