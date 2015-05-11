@@ -8,9 +8,6 @@ public class ConfigHandler {
 
     public static Configuration config;
 
-    // Categories
-    public static String general = "General";
-
     // Settings
     public static boolean enableLogging;
     public static boolean canSpawnWithBooks;
@@ -21,8 +18,11 @@ public class ConfigHandler {
     }
 
     public static void syncConfig() {
-        enableLogging = config.get(general, "enableLogging", true).getBoolean();
-        canSpawnWithBooks = config.get(general, "canSpawnWithBooks", true).getBoolean();
+        String category;
+
+        category = "features";
+        enableLogging = config.getBoolean("enableLogging", category, true, "Enables extra information being printed to the console.");
+        canSpawnWithBooks = config.getBoolean("canSpawnWithBooks", category, true, "Allows books to spawn with new players.\nOnly affects books where the author enables the spawning feature.");
 
         config.save();
     }
