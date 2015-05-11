@@ -92,6 +92,8 @@ public class Book {
         this.unlocBookTitle = unlocBookTitle;
         this.unlocWelcomeMessage = unlocWelcomeMessage;
         this.unlocDisplayName = unlocDisplayName;
+        this.pageTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png");
+        this.outlineTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
         this.bookColor = bookColor;
         this.spawnWithBook = spawnWithBook;
     }
