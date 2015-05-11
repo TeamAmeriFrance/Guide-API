@@ -1,0 +1,8 @@
+site_name: Guide-API Documentation
+pages:
+  - [introduction/index.md, Introduction, Home]
+  - [gettingstarted/index.md, Getting Started, Home]
+  - [gettingstarted/addingguideapi.md, Getting Started, Adding Guide-API]
+  - [createabook/index.md, Create a Book, Home]
+  - [createabook/basic/index.md, Basic Guide, Create a Basic Book]
+  - [createabook/advanced/index.md, Advanced Guide, Create an Advanced Book]
