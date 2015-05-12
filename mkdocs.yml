@@ -1,0 +1,8 @@
+site_name: Guide-API Documentation
+repo_url: https://github.com/TeamAmeriFrance/Guide-API
+pages:
+    - [index.md, Guide-API, Guide-API Home]
+    - [gettingstarted/dependency.md, Getting Started, Adding Guide-API]
+    - [createabook/index.md, Create a Book, Home]
+    - [createabook/basic.md, Create a Book, Basic Book]
+    - [createabook/advanced.md, Create a Book, Advanced Book]

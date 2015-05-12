@@ -29,4 +29,4 @@ Please include the following:
  * Latest Forge log or crash log
 
 ##Modpack Permissions
-For full details, view our license. Distributor rights are automatically given to any user who wishes to include the mod in their modpack if the intent is not malicious and/or commercial. We reserve the right to change this section as needed.
+For full details, view our [license](https://github.com/TeamAmeriFrance/Guide-API/blob/master/LICENSE.md). Distributor rights are automatically given to any user who wishes to include the mod in their modpack if the intent is not malicious and/or commercial. We reserve the right to change this section as needed.
