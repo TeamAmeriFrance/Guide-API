@@ -49,7 +49,7 @@ public class GuideAPI {
         instance = this;
         configDir = new File(event.getModConfigurationDirectory() + "/" + ModInformation.NAME);
         configDir.mkdirs();
-        ConfigHandler.init(new File(configDir.getPath() + "/Guide-API.cfg"));
+        ConfigHandler.init(new File(configDir.getPath(), ModInformation.NAME + ".cfg"));
         ItemsRegistry.registerItems();
 
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
