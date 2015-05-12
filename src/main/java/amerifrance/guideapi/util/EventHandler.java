@@ -21,7 +21,7 @@ public class EventHandler {
                     if (book.spawnWithBook && !tag.getBoolean("hasInitial" + book.unlocBookTitle)) {
                         player.inventory.addItemStackToInventory(GuideRegistry.getItemStackForBook(book));
                         player.inventoryContainer.detectAndSendChanges();
-                        tag.setBoolean("hasInitialChunkClaimer", true);
+                        tag.setBoolean("hasInitial" + book.unlocBookTitle, true);
                     }
                 }
             }
@@ -31,7 +31,8 @@ public class EventHandler {
     public NBTTagCompound getModTag(EntityPlayer player, String modName) {
         NBTTagCompound tag = player.getEntityData();
         NBTTagCompound persistTag;
-        if (tag.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) persistTag = tag.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+        if (tag.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
+            persistTag = tag.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
         else {
             persistTag = new NBTTagCompound();
             tag.setTag(EntityPlayer.PERSISTED_NBT_TAG, persistTag);
