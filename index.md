@@ -15,6 +15,7 @@ The ones we know of at least
 * [Sanguimancy](http://minecraft.curseforge.com/mc-mods/223722-sanguimancy)
 * [Creative Concoctions](https://github.com/TeamAmeriFrance/CreativeConcoctions)
 * [Blood Magic](http://minecraft.curseforge.com/mc-mods/224791-blood-magic) (*In progress*)
+* [Adventurer's Amulets](http://minecraft.curseforge.com/mc-mods/222637-adventurers-amulets)
 
 ##Issue Reporting
 Please include the following:
