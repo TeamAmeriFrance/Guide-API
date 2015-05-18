@@ -2,9 +2,9 @@ package amerifrance.guideapi.api.abstraction;
 
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.gui.GuiBase;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public interface IRecipeRenderer {
 

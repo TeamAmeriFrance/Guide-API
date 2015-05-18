@@ -18,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class GuiCategory extends GuiBase {
 
@@ -99,17 +100,22 @@ public class GuiCategory extends GuiBase {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int typeofClick) {
-        super.mouseClicked(mouseX, mouseY, typeofClick);
+        try {
+            super.mouseClicked(mouseX, mouseY, typeofClick);
 
-        for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                if (typeofClick == 0) wrapper.entry.onLeftClicked(book, category, mouseX, mouseY, player, this);
-                else if (typeofClick == 1) wrapper.entry.onRightClicked(book, category, mouseX, mouseY, player, this);
+            for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
+                if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
+                    if (typeofClick == 0) wrapper.entry.onLeftClicked(book, category, mouseX, mouseY, player, this);
+                    else if (typeofClick == 1)
+                        wrapper.entry.onRightClicked(book, category, mouseX, mouseY, player, this);
+                }
             }
-        }
 
-        if (typeofClick == 1) {
-            this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
+            if (typeofClick == 1) {
+                this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

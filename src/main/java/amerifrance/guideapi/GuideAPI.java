@@ -7,18 +7,18 @@ import amerifrance.guideapi.proxies.CommonProxy;
 import amerifrance.guideapi.util.EventHandler;
 import amerifrance.guideapi.util.serialization.BookCreator;
 import com.google.gson.GsonBuilder;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import java.io.File;
 
@@ -58,7 +58,7 @@ public class GuideAPI {
         GuideRegistry.bookBuilder = new GsonBuilder();
         BookCreator.registerCustomSerializers(GuideRegistry.bookBuilder);
 
-        //TestBook.testBook();
+        TestBook.registerTests(10);
     }
 
     @Mod.EventHandler
@@ -70,6 +70,8 @@ public class GuideAPI {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         BookCreator.registerJsonBooks(GuideRegistry.bookBuilder);
+
+        proxy.initRenders();
     }
 
     public static File getConfigDir() {

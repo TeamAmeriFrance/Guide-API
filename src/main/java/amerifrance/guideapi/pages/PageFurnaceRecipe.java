@@ -7,8 +7,6 @@ import amerifrance.guideapi.api.base.PageBase;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -18,6 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class PageFurnaceRecipe extends PageBase {
@@ -30,7 +30,7 @@ public class PageFurnaceRecipe extends PageBase {
      */
     public PageFurnaceRecipe(ItemStack input) {
         this.input = input;
-        this.output = FurnaceRecipes.smelting().getSmeltingResult(input);
+        this.output = FurnaceRecipes.instance().getSmeltingResult(input);
     }
 
     /**
@@ -38,7 +38,7 @@ public class PageFurnaceRecipe extends PageBase {
      */
     public PageFurnaceRecipe(Item input) {
         this.input = new ItemStack(input);
-        this.output = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(input));
+        this.output = FurnaceRecipes.instance().getSmeltingResult(new ItemStack(input));
     }
 
     /**
@@ -46,7 +46,7 @@ public class PageFurnaceRecipe extends PageBase {
      */
     public PageFurnaceRecipe(Block input) {
         this.input = new ItemStack(input);
-        this.output = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(input));
+        this.output = FurnaceRecipes.instance().getSmeltingResult(new ItemStack(input));
     }
 
     /**
@@ -61,7 +61,7 @@ public class PageFurnaceRecipe extends PageBase {
                 ItemStack stack = OreDictionary.getOres(input).get(i);
 
                 this.input = stack;
-                this.output = FurnaceRecipes.smelting().getSmeltingResult(stack);
+                this.output = FurnaceRecipes.instance().getSmeltingResult(stack);
             }
     }
 
@@ -77,22 +77,22 @@ public class PageFurnaceRecipe extends PageBase {
         int inputX = (1 + 1) * 19 + (guiLeft + guiBase.xSize / 7);
         int inputY = (1 + 1) * 19 + (guiTop + guiBase.ySize / 5);
         GuiHelper.drawItemStack(input, inputX, inputY);
-        if (GuiHelper.isMouseBetween(mouseX, mouseY, inputX, inputY, 15, 15)) {
-            guiBase.renderToolTip(input, mouseX, mouseY);
-        }
 
-        if (output == null) {
-            output = new ItemStack(Blocks.fire);
-        }
+        if (GuiHelper.isMouseBetween(mouseX, mouseY, inputX, inputY, 15, 15))
+            guiBase.renderToolTip(input, mouseX, mouseY);
+
+        if (output == null)
+            output = new ItemStack(Blocks.stone);
+
         int outputX = (5 * 19) + (guiLeft + guiBase.xSize / 7);
         int outputY = (2 * 19) + (guiTop + guiBase.xSize / 5);
         GuiHelper.drawItemStack(output, outputX, outputY);
-        if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15)) {
+
+        if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15))
             guiBase.renderToolTip(output, outputX, outputY);
-        }
-        if (output.getItem() == Item.getItemFromBlock(Blocks.fire)) {
+
+        if (output.getItem() == Item.getItemFromBlock(Blocks.fire))
             guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.furnace.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
-        }
     }
 
     @Override

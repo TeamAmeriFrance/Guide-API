@@ -1,36 +1,33 @@
 package amerifrance.guideapi.items;
 
 import amerifrance.guideapi.GuideAPI;
-import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.api.GuideRegistry;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IGuideLinked;
 import amerifrance.guideapi.api.base.Book;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
 public class ItemGuideBook extends Item {
 
-    public IIcon pagesIcon;
-
     public ItemGuideBook() {
-        this.setCreativeTab(GuideAPI.tabGuide);
-        this.setUnlocalizedName("GuideBook");
-        this.setMaxDamage(0);
-        this.setMaxStackSize(1);
-        this.setHasSubtypes(true);
+        setCreativeTab(GuideAPI.tabGuide);
+        setUnlocalizedName("GuideBook");
+        setMaxDamage(0);
+        setMaxStackSize(1);
+        setHasSubtypes(true);
     }
 
     @Override
@@ -43,11 +40,11 @@ public class ItemGuideBook extends Item {
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage() && world.getBlock(x, y, z) instanceof IGuideLinked) {
-            IGuideLinked guideLinked = (IGuideLinked) world.getBlock(x, y, z);
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage() && world.getBlockState(new BlockPos(pos)) instanceof IGuideLinked) {
+            IGuideLinked guideLinked = (IGuideLinked) world.getBlockState(pos);
             Book book = GuideRegistry.getBook(stack.getItemDamage());
-            String entryName = guideLinked.getLinkedEntryUnlocName(world, x, y, z, player, stack);
+            String entryName = guideLinked.getLinkedEntryUnlocName(world, pos, player, stack);
             for (CategoryAbstract category : book.categoryList) {
                 for (EntryAbstract entry : category.entryList) {
                     if (entry.unlocEntryName.equals(entryName)) {
@@ -71,44 +68,21 @@ public class ItemGuideBook extends Item {
     }
 
     @Override
-    public int getRenderPasses(int metadata) {
-        return requiresMultipleRenderPasses() ? 2 : 1;
-    }
-
-    @Override
-    public IIcon getIcon(ItemStack stack, int pass) {
-        if (pass == 0) return itemIcon;
-        else return pagesIcon;
-    }
-
-    @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage()) {
+        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage())
             return GuideRegistry.getBook(stack.getItemDamage()).getLocalizedDisplayName();
-        } else {
+        else
             return super.getItemStackDisplayName(stack);
-        }
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister ir) {
-        itemIcon = ir.registerIcon(ModInformation.TEXLOC + "book_cover");
-        pagesIcon = ir.registerIcon(ModInformation.TEXLOC + "book_pages");
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public boolean requiresMultipleRenderPasses() {
-        return true;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack stack, int pass) {
         if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage()) {
-            if (pass == 0) return GuideRegistry.getBook(stack.getItemDamage()).bookColor.getRGB();
-            else return super.getColorFromItemStack(stack, pass);
+            if (pass == 0)
+                return GuideRegistry.getBook(stack.getItemDamage()).bookColor.getRGB();
+            else
+                return super.getColorFromItemStack(stack, pass);
         } else {
             return super.getColorFromItemStack(stack, pass);
         }
@@ -116,19 +90,18 @@ public class ItemGuideBook extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
+    @SuppressWarnings("unchecked")
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List list) {
-        if (!GuideRegistry.isEmpty()) {
-            for (int i = 0; i < GuideRegistry.getSize(); i++) {
+        if (!GuideRegistry.isEmpty())
+            for (int i = 0; i < GuideRegistry.getSize(); i++)
                 list.add(new ItemStack(this, 1, i));
-            }
-        }
     }
 
     @Override
     @SideOnly(Side.CLIENT)
+    @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() < stack.getItemDamage()) {
+        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() < stack.getItemDamage())
             list.add(StatCollector.translateToLocal("text.book.warning"));
-        }
     }
 }

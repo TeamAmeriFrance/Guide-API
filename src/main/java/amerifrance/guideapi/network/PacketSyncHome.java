@@ -1,11 +1,11 @@
 package amerifrance.guideapi.network;
 
 import amerifrance.guideapi.api.util.NBTBookTags;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketSyncHome implements IMessage, IMessageHandler<PacketSyncHome, IMessage> {
 
@@ -33,9 +33,9 @@ public class PacketSyncHome implements IMessage, IMessageHandler<PacketSyncHome,
     public IMessage onMessage(PacketSyncHome message, MessageContext ctx) {
         ItemStack book = ctx.getServerHandler().playerEntity.getHeldItem();
         if (book != null && message.page != -1) {
-            book.stackTagCompound.setInteger(NBTBookTags.CATEGORY_PAGE_TAG, message.page);
-            book.stackTagCompound.removeTag(NBTBookTags.CATEGORY_TAG);
-            book.stackTagCompound.removeTag(NBTBookTags.ENTRY_TAG);
+            book.getTagCompound().setInteger(NBTBookTags.CATEGORY_PAGE_TAG, message.page);
+            book.getTagCompound().removeTag(NBTBookTags.CATEGORY_TAG);
+            book.getTagCompound().removeTag(NBTBookTags.ENTRY_TAG);
         }
         return null;
     }

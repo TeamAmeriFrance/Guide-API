@@ -30,7 +30,7 @@ public class ButtonBack extends ButtonGuideAPI {
             minecraft.getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, xPosition, yPosition, width, height)) {
                 this.drawTexturedModalRect(xPosition, yPosition - 2, 70, 201, 18, 10);
-                guiBase.drawHoveringText(getHoveringText(), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
+                guiBase.drawHoveringText(getHoveringText(), mouseX, mouseY, Minecraft.getMinecraft().fontRendererObj);
             } else {
                 this.drawTexturedModalRect(xPosition, yPosition, 94, 201, 18, 10);
             }

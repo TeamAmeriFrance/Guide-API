@@ -18,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,20 +88,24 @@ public class GuiEntry extends GuiBase {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int typeofClick) {
-        super.mouseClicked(mouseX, mouseY, typeofClick);
-        for (PageWrapper wrapper : this.pageWrapperList) {
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                if (typeofClick == 0) {
-                    pageWrapperList.get(pageNumber).page.onLeftClicked(book, category, entry, mouseX, mouseY, player, this);
-                }
-                if (typeofClick == 1) {
-                    pageWrapperList.get(pageNumber).page.onRightClicked(book, category, entry, mouseX, mouseY, player, this);
+        try {
+            super.mouseClicked(mouseX, mouseY, typeofClick);
+            for (PageWrapper wrapper : this.pageWrapperList) {
+                if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
+                    if (typeofClick == 0) {
+                        pageWrapperList.get(pageNumber).page.onLeftClicked(book, category, entry, mouseX, mouseY, player, this);
+                    }
+                    if (typeofClick == 1) {
+                        pageWrapperList.get(pageNumber).page.onRightClicked(book, category, entry, mouseX, mouseY, player, this);
+                    }
                 }
             }
-        }
 
-        if (typeofClick == 1) {
-            this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack));
+            if (typeofClick == 1) {
+                this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

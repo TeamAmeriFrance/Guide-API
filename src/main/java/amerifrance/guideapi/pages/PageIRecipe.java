@@ -8,9 +8,6 @@ import amerifrance.guideapi.api.base.PageBase;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import cpw.mods.fml.relauncher.ReflectionHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
@@ -19,6 +16,9 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -53,7 +53,7 @@ public class PageIRecipe extends PageBase {
                     if (stack != null) {
                         GuiHelper.drawItemStack(stack, stackX, stackY);
                         if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
-                            guiBase.renderToolTip(stack, stackX, stackY);
+                            guiBase.renderToolTip(stack, mouseX, mouseY);
                         }
                     }
                 }
@@ -80,13 +80,13 @@ public class PageIRecipe extends PageBase {
                             if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
                                 guiBase.renderToolTip((ItemStack) component, stackX, stackY);
                             }
-                        } else {
-                            //TODO: Make the page cycle through the items in the ore dict
-                            if (((ArrayList<ItemStack>) component).isEmpty()) return;
-                            GuiHelper.drawItemStack(((ArrayList<ItemStack>) component).get(0), stackX, stackY);
-                            if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
-                                guiBase.renderToolTip(((ArrayList<ItemStack>) component).get(0), stackX, stackY);
-                            }
+//                        } else {
+//                            //TODO: Make the page cycle through the items in the ore dict
+//                            if (((ArrayList<ItemStack>) component).isEmpty()) return;
+//                            GuiHelper.drawItemStack(((ArrayList<ItemStack>) component).get(0), stackX, stackY);
+//                            if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
+//                                guiBase.renderToolTip(((ArrayList<ItemStack>) component).get(0), stackX, stackY);
+//                            }
                         }
                     }
                 }
@@ -140,13 +140,13 @@ public class PageIRecipe extends PageBase {
                                 if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
                                     guiBase.renderToolTip((ItemStack) component, stackX, stackY);
                                 }
-                            } else {
-                                //TODO: Make the page cycle through the items in the ore dict
-                                if (((ArrayList<ItemStack>) component).isEmpty()) return;
-                                GuiHelper.drawItemStack(((ArrayList<ItemStack>) component).get(0), stackX, stackY);
-                                if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
-                                    guiBase.renderToolTip(((ArrayList<ItemStack>) component).get(0), stackX, stackY);
-                                }
+//                            } else {
+//                                //TODO: Make the page cycle through the items in the ore dict
+//                                if (((ArrayList<ItemStack>) component).isEmpty()) return;
+//                                GuiHelper.drawItemStack(((ArrayList<ItemStack>) component).get(0), stackX, stackY);
+//                                if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
+//                                    guiBase.renderToolTip(((ArrayList<ItemStack>) component).get(0), stackX, stackY);
+//                                }
                             }
                         }
                     }

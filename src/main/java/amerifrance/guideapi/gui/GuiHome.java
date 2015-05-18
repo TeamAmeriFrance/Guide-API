@@ -16,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class GuiHome extends GuiBase {
 
@@ -103,13 +104,17 @@ public class GuiHome extends GuiBase {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int typeofClick) {
-        super.mouseClicked(mouseX, mouseY, typeofClick);
+        try {
+            super.mouseClicked(mouseX, mouseY, typeofClick);
 
-        for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage)) {
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                if (typeofClick == 0) wrapper.category.onLeftClicked(book, mouseX, mouseY, player, bookStack);
-                else if (typeofClick == 1) wrapper.category.onRightClicked(book, mouseX, mouseY, player, bookStack);
+            for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage)) {
+                if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
+                    if (typeofClick == 0) wrapper.category.onLeftClicked(book, mouseX, mouseY, player, bookStack);
+                    else if (typeofClick == 1) wrapper.category.onRightClicked(book, mouseX, mouseY, player, bookStack);
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -13,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
+import net.minecraftforge.fml.common.registry.GameData;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 
 import amerifrance.guideapi.GuideAPI;
@@ -34,8 +35,6 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
-
-import cpw.mods.fml.common.registry.GameData;
 
 public class BookCreator {
 
@@ -100,9 +99,9 @@ public class BookCreator {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("isBlock", src.getItem() instanceof ItemBlock);
             if (src.getItem() instanceof ItemBlock) {
-                jsonObject.addProperty("name", GameData.getBlockRegistry().getNameForObject(Block.getBlockFromItem(src.getItem())));
+                jsonObject.addProperty("name", GameData.getBlockRegistry().getNameForObject(Block.getBlockFromItem(src.getItem())).toString());
             } else {
-                jsonObject.addProperty("name", GameData.getItemRegistry().getNameForObject(src.getItem()));
+                jsonObject.addProperty("name", GameData.getItemRegistry().getNameForObject(src.getItem()).toString());
             }
             jsonObject.addProperty("metadata", src.getItemDamage());
             return jsonObject;

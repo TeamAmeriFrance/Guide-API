@@ -9,12 +9,12 @@ import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.categories.CategoryItemStack;
 import amerifrance.guideapi.entries.EntryText;
 import amerifrance.guideapi.pages.*;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -23,21 +23,27 @@ import java.util.ArrayList;
 
 public class TestBook {
 
-    public static void testBook(){
-        Book testBook1;
+    public static void registerTests(int amountOfBooks) {
+
+        Book[] books = new Book[amountOfBooks];
+        for (int j = 0; j < books.length; j++)
+            testBook(books[j], "TestBook" + j);
+    }
+
+    public static void testBook(Book book, String title){
 
         PageUnlocText page1 = new PageUnlocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
         PageLocText page2 = new PageLocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
         PageImage page3 = new PageImage(new ResourceLocation(ModInformation.GUITEXLOC + "testimage.png"));
         PageIRecipe page4 = new PageIRecipe(GameRegistry.addShapedRecipe(new ItemStack(Items.diamond), "XXX", "YYY", "ZZZ", 'X', Items.apple, 'Y', Blocks.beacon, 'Z', Items.beef));
-        ShapedOreRecipe shapedOreRecipe = new ShapedOreRecipe(Items.beef, new Object[]{"XXX", "YYY", "ZZZ", 'X', "stairWood", 'Y', "stone", 'Z', "ingotIron"});
+        ShapedOreRecipe shapedOreRecipe = new ShapedOreRecipe(Items.beef, "XXX", "YYY", "ZZZ", 'X', "stairWood", 'Y', "stone", 'Z', "ingotIron");
         PageIRecipe page5 = new PageIRecipe(shapedOreRecipe);
         ArrayList<ItemStack> shapelessList = new ArrayList<ItemStack>();
         shapelessList.add(new ItemStack(Items.cauldron));
         shapelessList.add(new ItemStack(Items.golden_carrot));
         ShapelessRecipes shapelessRecipes = new ShapelessRecipes(new ItemStack(Items.blaze_rod), shapelessList);
         PageIRecipe page6 = new PageIRecipe(shapelessRecipes);
-        ShapelessOreRecipe shapelessOreRecipe = new ShapelessOreRecipe(new ItemStack(Items.baked_potato), new Object[]{"ingotIron", "stairWood"});
+        ShapelessOreRecipe shapelessOreRecipe = new ShapelessOreRecipe(new ItemStack(Items.baked_potato), "ingotIron", "stairWood");
         PageIRecipe page7 = new PageIRecipe(shapelessOreRecipe);
         PageSound page8 = new PageSound(page6, "mob.pig.say");
         PageFurnaceRecipe page9 = new PageFurnaceRecipe(new ItemStack(Items.potato));
@@ -46,7 +52,6 @@ public class TestBook {
         ArrayList<IPage> pages = new ArrayList<IPage>();
         pages.add(page1);
         pages.add(page2);
-        pages.addAll(PageHelper.pagesForLongText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE", new ItemStack(Items.diamond)));
         pages.add(page3);
         pages.add(page4);
         pages.add(page5);
@@ -66,7 +71,7 @@ public class TestBook {
         CategoryItemStack category2 = new CategoryItemStack(entries, "TestCategory2", new ItemStack(Blocks.brick_stairs));
         CategoryItemStack category3 = new CategoryItemStack(entries, "TestCategory3", new ItemStack(Blocks.dragon_egg));
         CategoryItemStack category4 = new CategoryItemStack(entries, "TestCategory4", new ItemStack(Items.skull, 1, 0));
-        CategoryItemStack category5 = new CategoryItemStack(entries, "TestCategory5", new ItemStack(Blocks.fence_gate));
+        CategoryItemStack category5 = new CategoryItemStack(entries, "TestCategory5", new ItemStack(Blocks.oak_fence_gate));
         ArrayList<CategoryAbstract> categories = new ArrayList<CategoryAbstract>();
         categories.add(category1);
         categories.add(category2);
@@ -74,9 +79,13 @@ public class TestBook {
         categories.add(category4);
         categories.add(category5);
 
-        testBook1 = new Book(categories, "ItemTestBook", "Hello, I am a welcome message that's " +
-                "just way too long and that says nothing other that I'm there for test purposes", "Test Book Number 1", new Color(171, 80, 30));
+        book = new Book(
+                categories, "Item" + title,
+                "Hello, I am a welcome message that's just way too long and that says nothing other that I'm there for test purposes",
+                title,
+                new Color(58, 171, 122)
+        );
 
-        GuideRegistry.registerBook(testBook1);
+        GuideRegistry.registerBook(book);
     }
 }
