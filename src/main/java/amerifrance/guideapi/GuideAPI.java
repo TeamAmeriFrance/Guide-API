@@ -58,7 +58,7 @@ public class GuideAPI {
         GuideRegistry.bookBuilder = new GsonBuilder();
         BookCreator.registerCustomSerializers(GuideRegistry.bookBuilder);
 
-        //TestBook.testBook();
+        TestBook.registerTests(ModInformation.VERSION.equals("@VERSION@") ? 5 : 0);
     }
 
     @Mod.EventHandler
