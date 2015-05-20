@@ -9,6 +9,7 @@
     "alpha": 255
   },
   "spawnWithBook": true,
+  "isLostBook": false,
   "categoryList": [
     {
       "type": "CategoryItemStack",

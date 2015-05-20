@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
+import amerifrance.guideapi.api.util.BookBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -185,9 +186,20 @@ public class BookCreator {
             String title = json.getAsJsonObject().get("unlocBookTitle").getAsString();
             Color color = context.deserialize(json.getAsJsonObject().get("color"), Color.class);
             boolean spawnWithBook = json.getAsJsonObject().get("spawnWithBook").getAsBoolean();
+            boolean isLostBook = json.getAsJsonObject().get("isLostBook").getAsBoolean();
             List<CategoryAbstract> list = context.deserialize(json.getAsJsonObject().get("categoryList"), new TypeToken<List<CategoryAbstract>>() {
             }.getType());
-            return new Book(list, title, welcome, displayName, color, spawnWithBook);
+
+            BookBuilder builder = new BookBuilder();
+            builder.setCategories(list);
+            builder.setUnlocBookTitle(title);
+            builder.setUnlocWelcomeMessage(welcome);
+            builder.setUnlocDisplayName(displayName);
+            builder.setBookColor(color);
+            builder.setSpawnWithBook(spawnWithBook);
+            builder.setIsLostBook(isLostBook);
+
+            return builder.build();
         }
 
         @Override
