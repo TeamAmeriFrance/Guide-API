@@ -19,6 +19,7 @@ public class Book {
     public ResourceLocation outlineTexture;
     public Color bookColor = new Color(171, 70, 30);
     public boolean spawnWithBook;
+    public boolean isLostBook;
 
     /**
      * @param categoryList        - Category List with all your information

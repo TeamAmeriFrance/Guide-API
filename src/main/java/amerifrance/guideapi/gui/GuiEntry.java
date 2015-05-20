@@ -58,7 +58,7 @@ public class GuiEntry extends GuiBase {
         this.buttonList.add(buttonPrev = new ButtonPrev(2, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
 
         for (IPage page : this.entry.pageList) {
-            pageWrapperList.add(new PageWrapper(book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj, bookStack));
+            pageWrapperList.add(new PageWrapper(this, book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj, bookStack));
         }
     }
 
@@ -81,7 +81,7 @@ public class GuiEntry extends GuiBase {
 
         buttonPrev.visible = pageNumber != 0;
         buttonNext.visible = pageNumber != pageWrapperList.size() - 1;
-        
+
         super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
 

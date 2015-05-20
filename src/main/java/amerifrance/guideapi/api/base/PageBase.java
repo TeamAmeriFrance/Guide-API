@@ -1,10 +1,12 @@
 package amerifrance.guideapi.api.base;
 
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiEntry;
+import amerifrance.guideapi.api.GuideRegistry;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IPage;
+import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.GuiEntry;
+import amerifrance.guideapi.items.ItemLostPage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
@@ -24,8 +26,8 @@ public class PageBase implements IPage {
     }
 
     @Override
-    public boolean canSee(EntityPlayer player, ItemStack bookStack) {
-        return true;
+    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack, GuiEntry guiEntry) {
+        return (bookStack.hasTagCompound() && bookStack.stackTagCompound.getBoolean("CreativeBook")) || (book.isLostBook && ItemLostPage.bookHasPage(bookStack, GuideRegistry.getIndexOf(book), book.categoryList.indexOf(category), category.entryList.indexOf(entry), guiEntry.pageNumber));
     }
 
     @Override

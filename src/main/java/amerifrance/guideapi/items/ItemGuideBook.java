@@ -119,7 +119,10 @@ public class ItemGuideBook extends Item {
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List list) {
         if (!GuideRegistry.isEmpty()) {
             for (int i = 0; i < GuideRegistry.getSize(); i++) {
-                list.add(new ItemStack(this, 1, i));
+                ItemStack stack = new ItemStack(this, 1, i);
+                stack.setTagCompound(new NBTTagCompound());
+                stack.stackTagCompound.setBoolean("CreativeBook", true);
+                list.add(stack);
             }
         }
     }
