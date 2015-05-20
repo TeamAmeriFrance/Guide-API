@@ -29,7 +29,23 @@ public class Book {
      * @param pageTexture         - Texture for book's page
      * @param outlineTexture      - Texture for book outline
      * @param bookColor           - Color of book
+     * @param spawnWithBook       - Whether a player gets this book on the first time joining a world
      */
+    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, ResourceLocation pageTexture, ResourceLocation outlineTexture, Color bookColor, boolean spawnWithBook, boolean isLostBook) {
+        this.categoryList = categoryList;
+        this.unlocBookTitle = unlocBookTitle;
+        this.unlocWelcomeMessage = unlocWelcomeMessage;
+        this.unlocDisplayName = unlocDisplayName;
+        this.pageTexture = pageTexture;
+        this.outlineTexture = outlineTexture;
+        this.bookColor = bookColor;
+        this.spawnWithBook = spawnWithBook;
+    }
+
+    /**
+     * Deprecated in favor of {@link amerifrance.guideapi.api.util.BookBuilder}
+     */
+    @Deprecated
     public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, ResourceLocation pageTexture, ResourceLocation outlineTexture, Color bookColor) {
         this.categoryList = categoryList;
         this.unlocBookTitle = unlocBookTitle;
@@ -42,33 +58,9 @@ public class Book {
     }
 
     /**
-     * @param categoryList        - Category List with all your information
-     * @param unlocBookTitle      - Unlocalized name for a book title
-     * @param unlocWelcomeMessage - Unlocalized welcome message
-     * @param unlocDisplayName    - Unlocalized item display name
-     * @param pageTexture         - Texture for book's page
-     * @param outlineTexture      - Texture for book outline
-     * @param bookColor           - Color of book
-     * @param spawnWithBook       - Whether a player gets this book on the first time joining a world
+     * Deprecated in favor of {@link amerifrance.guideapi.api.util.BookBuilder}
      */
-    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, ResourceLocation pageTexture, ResourceLocation outlineTexture, Color bookColor, boolean spawnWithBook) {
-        this.categoryList = categoryList;
-        this.unlocBookTitle = unlocBookTitle;
-        this.unlocWelcomeMessage = unlocWelcomeMessage;
-        this.unlocDisplayName = unlocDisplayName;
-        this.pageTexture = pageTexture;
-        this.outlineTexture = outlineTexture;
-        this.bookColor = bookColor;
-        this.spawnWithBook = spawnWithBook;
-    }
-
-    /**
-     * @param categoryList        - Category List with all your information
-     * @param unlocBookTitle      - Unlocalized name for a book title
-     * @param unlocWelcomeMessage - Unlocalized welcome message
-     * @param unlocDisplayName    - Unlocalized item display name
-     * @param bookColor           - Color of book
-     */
+    @Deprecated
     public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, Color bookColor) {
         this.categoryList = categoryList;
         this.unlocBookTitle = unlocBookTitle;
@@ -81,13 +73,9 @@ public class Book {
     }
 
     /**
-     * @param categoryList        - Category List with all your information
-     * @param unlocBookTitle      - Unlocalized name for a book title
-     * @param unlocWelcomeMessage - Unlocalized welcome message
-     * @param unlocDisplayName    - Unlocalized item display name
-     * @param bookColor           - Color of book
-     * @param spawnWithBook       - Whether a player gets this book on the first time joining a world
+     * Deprecated in favor of {@link amerifrance.guideapi.api.util.BookBuilder}
      */
+    @Deprecated
     public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, Color bookColor, boolean spawnWithBook) {
         this.categoryList = categoryList;
         this.unlocBookTitle = unlocBookTitle;
