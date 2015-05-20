@@ -53,7 +53,14 @@ public class GuideMyMod {
         ArrayList<CategoryAbstract> categories = new ArrayList<CategoryAbstract>(); // Create the list for this book's categories
         categories.add(new CategoryItemStack(entries, "My category", new ItemStack(Items.painting))); // Add your entry list to the category list.
 
-        myBook = new Book(categories, "My book title", "My welcome message", "My book name", Color.GREEN); // Create your book from the category list
+        BookBuilder builder =  new BookBuilder(); // Create a new instance of the book builder
+        builder.setCategories(categories); // Set the category list of the book
+        builder.setUnlocBookTitle("My book title"); // Set the unlocalized book title
+        builder.setUnlocWelcomeMessage("My welcome message"); // Set the unlocalized welcome message
+        builder.setUnlocDisplayName("My book name"); // Set the unlocalized item display name
+        builder.setBookColor(Color.GREEN); // Set the book color
+        myBook = builder.build(); // Create your book from the information provided with your BookBuilder
+        
         GuideRegistry.registerBook(myBook); // Register your book with Guide-API
     }
 }
