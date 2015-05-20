@@ -99,7 +99,14 @@ task deobfJar(type: Jar) {
     classifier = 'deobf'
 }
 
-tasks.build.dependsOn sourceJar, javadocJar, deobfJar
+task apiJar(type: Jar) {
+    from sourceSets.main.allSource
+    from sourceSets.main.output
+    include 'amerifrance/guideapi/api/**/*'
+    classifier = 'api'
+}
+
+tasks.build.dependsOn sourceJar, javadocJar, deobfJar, apiJar
 
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
@@ -113,6 +120,7 @@ publishing {
             artifact sourceJar
             artifact javadocJar
             artifact deobfJar
+            artifact apiJar
         }
     }
     repositories {
@@ -134,11 +142,12 @@ curseforge {
         releaseType = 'release'
  
         mainArtifact(jar) {
-            displayName = "Guide-API - ${mod_version}-${build_number}"
+            displayName = "${mod_name} - ${mod_version}-${build_number}"
         }
  
         addArtifact deobfJar
         addArtifact sourceJar
         addArtifact javadocJar
+        addArtifact apiJar
     }
 }
