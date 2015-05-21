@@ -1,11 +1,11 @@
 package amerifrance.guideapi.pages;
 
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.base.PageBase;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.base.PageBase;
 import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.gui.GuiBase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -19,8 +19,8 @@ public class PageLocImage extends PageBase {
     public boolean drawAtTop;
 
     /**
-     * @param locText - Localized text to draw
-     * @param image - Image to draw
+     * @param locText   - Localized text to draw
+     * @param image     - Image to draw
      * @param drawAtTop - Draw Image at top and text at bottom. False reverses this.
      */
     public PageLocImage(String locText, ResourceLocation image, boolean drawAtTop) {

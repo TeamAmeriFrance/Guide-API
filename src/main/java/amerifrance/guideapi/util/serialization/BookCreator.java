@@ -1,39 +1,27 @@
 package amerifrance.guideapi.util.serialization;
 
-import java.awt.Color;
-import java.io.*;
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
-
-import amerifrance.guideapi.api.util.BookBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-
-import org.apache.commons.io.filefilter.FileFilterUtils;
-
 import amerifrance.guideapi.GuideAPI;
 import amerifrance.guideapi.api.GuideRegistry;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IPage;
 import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.util.BookBuilder;
 import amerifrance.guideapi.interfaces.ITypeReader;
-
 import com.google.common.collect.Maps;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-
 import cpw.mods.fml.common.registry.GameData;
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import org.apache.commons.io.filefilter.FileFilterUtils;
+
+import java.awt.*;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
 
 public class BookCreator {
 
@@ -52,7 +40,7 @@ public class BookCreator {
         try {
             Gson gson = gsonBuilder.setPrettyPrinting().create();
             Book book = gson.fromJson(new FileReader(file), Book.class);
-              // Uncomment for test serialization
+            // Uncomment for test serialization
 //            String reverse = gson.toJson(book, Book.class);
 //            FileWriter fw = new FileWriter(new File(GuideAPI.getConfigDir().getPath() + "/test.json"));
 //            fw.write(reverse);

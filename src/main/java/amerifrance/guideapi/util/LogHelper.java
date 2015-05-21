@@ -1,7 +1,6 @@
 package amerifrance.guideapi.util;
 
 import amerifrance.guideapi.ConfigHandler;
-import amerifrance.guideapi.GuideAPI;
 import amerifrance.guideapi.ModInformation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

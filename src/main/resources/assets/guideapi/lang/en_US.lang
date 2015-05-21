@@ -16,3 +16,7 @@ text.shapeless.crafting=Shapeless Crafting
 text.furnace.smelting=Smelting
 text.furnace.error=Error in the recipe
 text.book.warning=[WARNING] Delete this item, it has no associated book!
+text.book=Book
+text.category=Category
+text.entry=Entry
+text.page=Page

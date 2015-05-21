@@ -5,7 +5,7 @@ import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import net.minecraft.util.ResourceLocation;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +22,6 @@ public class BookBuilder {
     private boolean isLostBook = false;
 
     public BookBuilder() {
-
     }
 
     public BookBuilder setCategories(List<CategoryAbstract> categoryList) {

@@ -1,9 +1,9 @@
 package amerifrance.guideapi.api.base;
 
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.GuiCategory;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;

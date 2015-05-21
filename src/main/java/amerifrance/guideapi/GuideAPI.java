@@ -44,6 +44,10 @@ public class GuideAPI {
 
     private static File configDir;
 
+    public static File getConfigDir() {
+        return configDir;
+    }
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         instance = this;
@@ -70,9 +74,5 @@ public class GuideAPI {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         BookCreator.registerJsonBooks(GuideRegistry.bookBuilder);
-    }
-
-    public static File getConfigDir() {
-        return configDir;
     }
 }
