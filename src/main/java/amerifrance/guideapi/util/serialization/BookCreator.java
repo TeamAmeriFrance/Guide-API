@@ -1,10 +1,7 @@
 package amerifrance.guideapi.util.serialization;
 
 import java.awt.Color;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +52,7 @@ public class BookCreator {
         try {
             Gson gson = gsonBuilder.setPrettyPrinting().create();
             Book book = gson.fromJson(new FileReader(file), Book.class);
-            // Uncomment for test serialization
+              // Uncomment for test serialization
 //            String reverse = gson.toJson(book, Book.class);
 //            FileWriter fw = new FileWriter(new File(GuideAPI.getConfigDir().getPath() + "/test.json"));
 //            fw.write(reverse);
@@ -65,6 +62,18 @@ public class BookCreator {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void createJsonFromBook(GsonBuilder gsonBuilder, Book book) {
+        try {
+            Gson gson = gsonBuilder.setPrettyPrinting().create();
+            String reverse = gson.toJson(book, Book.class);
+            FileWriter fw = new FileWriter(new File(GuideAPI.getConfigDir().getPath(), book.getLocalizedDisplayName() + ".json"));
+            fw.write(reverse);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void registerSerializer(ITypeReader<?> serializer) {
@@ -210,6 +219,7 @@ public class BookCreator {
             jsonObject.add("unlocBookTitle", context.serialize(src.unlocBookTitle));
             jsonObject.add("color", context.serialize(src.bookColor));
             jsonObject.add("spawnWithBook", context.serialize(src.spawnWithBook));
+            jsonObject.add("isLostBook", context.serialize(src.isLostBook));
             jsonObject.add("categoryList", context.serialize(src.categoryList));
             return jsonObject;
         }
