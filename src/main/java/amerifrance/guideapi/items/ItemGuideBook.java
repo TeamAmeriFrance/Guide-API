@@ -19,13 +19,13 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemGuideBook extends Item {
 
     public IIcon pagesIcon;
-    // TODO - Not hardcode the length of this array. Books are registered *after* the item, so we cannot reliably use GuideRegistry.getSize().
-    public IIcon[] customIcons = new IIcon[128];
+    public List<IIcon> customIcons = new ArrayList<IIcon>();
 
     public ItemGuideBook() {
         this.setCreativeTab(GuideAPI.tabGuide);
@@ -80,7 +80,7 @@ public class ItemGuideBook extends Item {
     @Override
     public IIcon getIcon(ItemStack stack, int pass) {
         if (GuideRegistry.getSize() > stack.getItemDamage() && GuideRegistry.getBook(stack.getItemDamage()).itemTexture != null) {
-            return customIcons[stack.getItemDamage()];
+            return customIcons.get(stack.getItemDamage());
         } else {
             if (pass == 0)
                 return itemIcon;
@@ -106,7 +106,7 @@ public class ItemGuideBook extends Item {
 
         for (Book book : GuideRegistry.getBookList())
             if (book.itemTexture != null)
-                customIcons[GuideRegistry.getIndexOf(book)] = ir.registerIcon(book.itemTexture);
+                customIcons.add(GuideRegistry.getIndexOf(book), ir.registerIcon(book.itemTexture));
     }
 
     @Override
