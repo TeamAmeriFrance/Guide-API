@@ -17,7 +17,7 @@ public class Book {
     public String unlocDisplayName;
     public ResourceLocation pageTexture;
     public ResourceLocation outlineTexture;
-    public Color bookColor = new Color(171, 70, 30);
+    public Color bookColor;
     public boolean spawnWithBook;
     public boolean isLostBook;
 
@@ -30,6 +30,7 @@ public class Book {
      * @param outlineTexture      - Texture for book outline
      * @param bookColor           - Color of book
      * @param spawnWithBook       - Whether a player gets this book on the first time joining a world
+     * @param isLostBook          - Pages become dungeon loot
      */
     public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, ResourceLocation pageTexture, ResourceLocation outlineTexture, Color bookColor, boolean spawnWithBook, boolean isLostBook) {
         this.categoryList = categoryList;
@@ -40,6 +41,7 @@ public class Book {
         this.outlineTexture = outlineTexture;
         this.bookColor = bookColor;
         this.spawnWithBook = spawnWithBook;
+        this.isLostBook = isLostBook;
     }
 
     /**
