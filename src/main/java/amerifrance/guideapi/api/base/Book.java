@@ -17,6 +17,7 @@ public class Book {
     public String unlocDisplayName;
     public ResourceLocation pageTexture;
     public ResourceLocation outlineTexture;
+    public String itemTexture;
     public Color bookColor;
     public boolean spawnWithBook;
     public boolean isLostBook;
@@ -40,6 +41,29 @@ public class Book {
         this.pageTexture = pageTexture;
         this.outlineTexture = outlineTexture;
         this.bookColor = bookColor;
+        this.spawnWithBook = spawnWithBook;
+        this.isLostBook = isLostBook;
+    }
+
+    /**
+     * @param categoryList        - Category List with all your information
+     * @param unlocBookTitle      - Unlocalized name for a book title
+     * @param unlocWelcomeMessage - Unlocalized welcome message
+     * @param unlocDisplayName    - Unlocalized item display name
+     * @param pageTexture         - Texture for book's page
+     * @param outlineTexture      - Texture for book outline
+     * @param itemTexture         - Custom texture for the book. Disables the coloring.
+     * @param spawnWithBook       - Whether a player gets this book on the first time joining a world
+     * @param isLostBook          - Pages become dungeon loot
+     */
+    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, ResourceLocation pageTexture, ResourceLocation outlineTexture, String itemTexture, boolean spawnWithBook, boolean isLostBook) {
+        this.categoryList = categoryList;
+        this.unlocBookTitle = unlocBookTitle;
+        this.unlocWelcomeMessage = unlocWelcomeMessage;
+        this.unlocDisplayName = unlocDisplayName;
+        this.pageTexture = pageTexture;
+        this.outlineTexture = outlineTexture;
+        this.itemTexture = itemTexture;
         this.spawnWithBook = spawnWithBook;
         this.isLostBook = isLostBook;
     }

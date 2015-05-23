@@ -24,6 +24,8 @@ import java.util.List;
 public class ItemGuideBook extends Item {
 
     public IIcon pagesIcon;
+    // TODO - Not hardcode the length of this array. Books are registered *after* the item, so we cannot reliably use GuideRegistry.getSize().
+    public IIcon[] customIcons = new IIcon[128];
 
     public ItemGuideBook() {
         this.setCreativeTab(GuideAPI.tabGuide);
@@ -77,8 +79,14 @@ public class ItemGuideBook extends Item {
 
     @Override
     public IIcon getIcon(ItemStack stack, int pass) {
-        if (pass == 0) return itemIcon;
-        else return pagesIcon;
+        if (GuideRegistry.getSize() > stack.getItemDamage() && GuideRegistry.getBook(stack.getItemDamage()).itemTexture != null) {
+            return customIcons[stack.getItemDamage()];
+        } else {
+            if (pass == 0)
+                return itemIcon;
+            else
+                return pagesIcon;
+        }
     }
 
     @Override
@@ -95,6 +103,10 @@ public class ItemGuideBook extends Item {
     public void registerIcons(IIconRegister ir) {
         itemIcon = ir.registerIcon(ModInformation.TEXLOC + "book_cover");
         pagesIcon = ir.registerIcon(ModInformation.TEXLOC + "book_pages");
+
+        for (Book book : GuideRegistry.getBookList())
+            if (book.itemTexture != null)
+                customIcons[GuideRegistry.getIndexOf(book)] = ir.registerIcon(book.itemTexture);
     }
 
     @Override
@@ -106,9 +118,11 @@ public class ItemGuideBook extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack stack, int pass) {
-        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage()) {
-            if (pass == 0) return GuideRegistry.getBook(stack.getItemDamage()).bookColor.getRGB();
-            else return super.getColorFromItemStack(stack, pass);
+        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage() && GuideRegistry.getBook(stack.getItemDamage()).itemTexture == null) {
+            if (pass == 0)
+                return GuideRegistry.getBook(stack.getItemDamage()).bookColor.getRGB();
+            else
+                return super.getColorFromItemStack(stack, pass);
         } else {
             return super.getColorFromItemStack(stack, pass);
         }

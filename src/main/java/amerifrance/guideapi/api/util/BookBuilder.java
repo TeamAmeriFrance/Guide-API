@@ -18,6 +18,7 @@ public class BookBuilder {
     private String unlocDisplayName = unlocBookTitle;
     private ResourceLocation pageTexture = new ResourceLocation(GUITEXLOC + "book_colored.png");
     private ResourceLocation outlineTexture = new ResourceLocation(GUITEXLOC + "book_greyscale.png");
+    private String itemTexture;
     private Color bookColor = new Color(171, 70, 30);
     private boolean spawnWithBook = false;
     private boolean isLostBook = false;
@@ -55,6 +56,11 @@ public class BookBuilder {
         return this;
     }
 
+    public BookBuilder setItemTexture(String iconLoc) {
+        this.itemTexture = iconLoc;
+        return this;
+    }
+
     public BookBuilder setBookColor(Color bookColor) {
         this.bookColor = bookColor;
         return this;
@@ -71,6 +77,9 @@ public class BookBuilder {
     }
 
     public Book build() {
-        return new Book(categoryList, unlocBookTitle, unlocWelcomeMessage, unlocDisplayName, pageTexture, outlineTexture, bookColor, spawnWithBook, isLostBook);
+        if (itemTexture == null)
+            return new Book(categoryList, unlocBookTitle, unlocWelcomeMessage, unlocDisplayName, pageTexture, outlineTexture, bookColor, spawnWithBook, isLostBook);
+        else
+            return new Book(categoryList, unlocBookTitle, unlocWelcomeMessage, unlocDisplayName, pageTexture, outlineTexture, itemTexture, spawnWithBook, isLostBook);
     }
 }
