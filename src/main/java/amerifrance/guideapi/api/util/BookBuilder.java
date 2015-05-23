@@ -1,6 +1,5 @@
 package amerifrance.guideapi.api.util;
 
-import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import net.minecraft.util.ResourceLocation;
@@ -11,12 +10,14 @@ import java.util.List;
 
 public class BookBuilder {
 
+    private String GUITEXLOC = "guideapi:textures/gui/";
+
     private List<CategoryAbstract> categoryList = new ArrayList<CategoryAbstract>();
     private String unlocBookTitle = "item.GuideBook.name";
     private String unlocWelcomeMessage = unlocBookTitle;
     private String unlocDisplayName = unlocBookTitle;
-    private ResourceLocation pageTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png");
-    private ResourceLocation outlineTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
+    private ResourceLocation pageTexture = new ResourceLocation(GUITEXLOC + "book_colored.png");
+    private ResourceLocation outlineTexture = new ResourceLocation(GUITEXLOC + "book_greyscale.png");
     private Color bookColor = new Color(171, 70, 30);
     private boolean spawnWithBook = false;
     private boolean isLostBook = false;
