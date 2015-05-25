@@ -6,6 +6,7 @@ import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.util.NBTBookTags;
+import amerifrance.guideapi.util.Utils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -57,13 +58,14 @@ public class ItemLostPage extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
+    @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() < stack.getItemDamage()) {
             Object[] objects = getPageCharacteristics(stack);
-            list.add(StatCollector.translateToLocal("text.book") + ":" + ((Book) objects[0]).getLocalizedBookTitle());
-            list.add(StatCollector.translateToLocal("text.category") + ":" + ((CategoryAbstract) objects[1]).getLocalizedName());
-            list.add(StatCollector.translateToLocal("text.entry") + ":" + ((EntryAbstract) objects[3]).getLocalizedName());
-            list.add(StatCollector.translateToLocal("text.page") + ":" + objects[3]);
+            list.add(Utils.localizeFormatted("text.book", ((Book) objects[0]).getLocalizedBookTitle()));
+            list.add(Utils.localizeFormatted("text.category", ((CategoryAbstract) objects[1]).getLocalizedName()));
+            list.add(Utils.localizeFormatted("text.entry", ((EntryAbstract) objects[3]).getLocalizedName()));
+            list.add(Utils.localizeFormatted("text.page", objects[3]));
         }
     }
 }
