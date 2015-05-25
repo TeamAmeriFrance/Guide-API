@@ -77,9 +77,6 @@ public class BookBuilder {
     }
 
     public Book build() {
-        if (itemTexture == null)
-            return new Book(categoryList, unlocBookTitle, unlocWelcomeMessage, unlocDisplayName, pageTexture, outlineTexture, bookColor, spawnWithBook, isLostBook);
-        else
-            return new Book(categoryList, unlocBookTitle, unlocWelcomeMessage, unlocDisplayName, pageTexture, outlineTexture, itemTexture, spawnWithBook, isLostBook);
+        return new Book(categoryList, unlocBookTitle, unlocWelcomeMessage, unlocDisplayName, pageTexture, outlineTexture, itemTexture, bookColor, spawnWithBook, isLostBook);
     }
 }

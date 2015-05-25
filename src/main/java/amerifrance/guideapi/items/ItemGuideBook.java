@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -28,11 +29,11 @@ public class ItemGuideBook extends Item {
     public List<IIcon> customIcons = new ArrayList<IIcon>();
 
     public ItemGuideBook() {
-        this.setCreativeTab(GuideAPI.tabGuide);
-        this.setUnlocalizedName("GuideBook");
-        this.setMaxDamage(0);
-        this.setMaxStackSize(1);
-        this.setHasSubtypes(true);
+        setCreativeTab(GuideAPI.tabGuide);
+        setUnlocalizedName("GuideBook");
+        setMaxDamage(0);
+        setMaxStackSize(1);
+        setHasSubtypes(true);
     }
 
     @Override
@@ -106,7 +107,7 @@ public class ItemGuideBook extends Item {
 
         for (Book book : GuideRegistry.getBookList())
             if (book.itemTexture != null)
-                customIcons.add(GuideRegistry.getIndexOf(book), ir.registerIcon(book.itemTexture));
+                customIcons.add(ir.registerIcon(book.itemTexture));
     }
 
     @Override
@@ -144,8 +145,7 @@ public class ItemGuideBook extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() < stack.getItemDamage()) {
-            list.add(StatCollector.translateToLocal("text.book.warning"));
-        }
+        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() < stack.getItemDamage())
+            list.add(EnumChatFormatting.RED + StatCollector.translateToLocal("text.book.warning"));
     }
 }
