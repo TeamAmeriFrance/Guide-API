@@ -2,6 +2,7 @@ package amerifrance.guideapi.api.abstraction;
 
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.GuiHome;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -61,6 +62,9 @@ public abstract class CategoryAbstract {
 
     @SideOnly(Side.CLIENT)
     public abstract void onRightClicked(Book book, int mouseX, int mouseY, EntityPlayer player, ItemStack bookStack);
+
+    @SideOnly(Side.CLIENT)
+    public abstract void onInit(Book book, GuiHome guiHome, EntityPlayer player, ItemStack bookStack);
 
     @Override
     public boolean equals(Object o) {

@@ -25,6 +25,9 @@ public interface IPage {
     @SideOnly(Side.CLIENT)
     void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry);
 
+    @SideOnly(Side.CLIENT)
+    void onInit(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack, GuiEntry guiEntry);
+
     @Override
     boolean equals(Object o);
 }

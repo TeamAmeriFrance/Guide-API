@@ -4,6 +4,7 @@ import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
+import amerifrance.guideapi.gui.GuiHome;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -43,5 +44,10 @@ public class CategoryBase extends CategoryAbstract {
     @Override
     @SideOnly(Side.CLIENT)
     public void onRightClicked(Book book, int mouseX, int mouseY, EntityPlayer player, ItemStack bookStack) {
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onInit(Book book, GuiHome guiHome, EntityPlayer player, ItemStack bookStack) {
     }
 }

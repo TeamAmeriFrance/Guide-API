@@ -57,6 +57,9 @@ public abstract class EntryAbstract {
     @SideOnly(Side.CLIENT)
     public abstract void onRightClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory);
 
+    @SideOnly(Side.CLIENT)
+    public abstract void onInit(Book book, CategoryAbstract category, GuiCategory guiCategory, EntityPlayer player, ItemStack bookStack);
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

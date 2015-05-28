@@ -17,7 +17,7 @@ public class PageHelper {
 
     public static List<IPage> pagesForLongText(String locText, int maxLength) {
         List<IPage> pageList = new ArrayList<IPage>();
-        for (String s : WordUtils.wrap(locText, maxLength, "\n", false).split("\n")) pageList.add(new PageLocText(s));
+        for (String s : WordUtils.wrap(locText, maxLength, "/cut", false).split("/cut")) pageList.add(new PageLocText(s));
         return pageList;
     }
 
@@ -31,7 +31,7 @@ public class PageHelper {
 
     public static List<IPage> pagesForLongText(String locText, ItemStack stack) {
         List<IPage> pageList = new ArrayList<IPage>();
-        String[] strings = WordUtils.wrap(locText, 450, "\n", false).split("\n");
+        String[] strings = WordUtils.wrap(locText, 450, "/cut", false).split("/cut");
         for (int i = 0; i < strings.length; i++) {
             if (i == 0) pageList.add(new PageLocItemStack(strings[i], stack));
             else pageList.add(new PageLocText(strings[i]));

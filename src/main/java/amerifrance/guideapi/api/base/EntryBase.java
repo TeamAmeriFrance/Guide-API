@@ -46,4 +46,9 @@ public class EntryBase extends EntryAbstract {
     @SideOnly(Side.CLIENT)
     public void onRightClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory) {
     }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onInit(Book book, CategoryAbstract category, GuiCategory guiCategory, EntityPlayer player, ItemStack bookStack) {
+    }
 }

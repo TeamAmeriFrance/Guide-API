@@ -55,6 +55,7 @@ public class GuiHome extends GuiBase {
         int pageNumber = 0;
 
         for (CategoryAbstract category : book.categoryList) {
+            category.onInit(book, this, player, bookStack);
             if (drawOnLeft) {
                 categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
                 cX = guiLeft + 180;

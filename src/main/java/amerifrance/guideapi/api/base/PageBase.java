@@ -41,6 +41,11 @@ public class PageBase implements IPage {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
+    public void onInit(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack, GuiEntry guiEntry) {
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;

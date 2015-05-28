@@ -58,6 +58,7 @@ public class GuiEntry extends GuiBase {
         this.buttonList.add(buttonPrev = new ButtonPrev(2, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
 
         for (IPage page : this.entry.pageList) {
+            page.onInit(book, category, entry, player, bookStack, this);
             pageWrapperList.add(new PageWrapper(this, book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj, bookStack));
         }
     }
