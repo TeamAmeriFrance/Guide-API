@@ -1,14 +1,10 @@
 package amerifrance.guideapi.items;
 
-import amerifrance.guideapi.GuideAPI;
-import amerifrance.guideapi.ModInformation;
-import amerifrance.guideapi.api.GuideRegistry;
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.abstraction.IGuideLinked;
-import amerifrance.guideapi.api.base.Book;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
+
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,14 +15,20 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.List;
+import amerifrance.guideapi.GuideAPI;
+import amerifrance.guideapi.ModInformation;
+import amerifrance.guideapi.api.GuideRegistry;
+import amerifrance.guideapi.api.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.abstraction.IGuideLinked;
+import amerifrance.guideapi.api.base.Book;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemGuideBook extends Item {
 
     public IIcon pagesIcon;
-    public List<IIcon> customIcons = new ArrayList<IIcon>();
+    public TIntObjectMap<IIcon> customIcons = new TIntObjectHashMap<IIcon>();
 
     public ItemGuideBook() {
         setCreativeTab(GuideAPI.tabGuide);
@@ -80,14 +82,11 @@ public class ItemGuideBook extends Item {
 
     @Override
     public IIcon getIcon(ItemStack stack, int pass) {
-        if (GuideRegistry.getSize() > stack.getItemDamage() && GuideRegistry.getBook(stack.getItemDamage()).itemTexture != null) {
-            return customIcons.get(stack.getItemDamage());
-        } else {
-            if (pass == 0)
-                return itemIcon;
-            else
-                return pagesIcon;
+        IIcon icon = customIcons.get(stack.getItemDamage());
+        if (icon == null) {
+            icon = pass == 0 ? itemIcon : pagesIcon;
         }
+        return icon;
     }
 
     @Override
@@ -105,9 +104,12 @@ public class ItemGuideBook extends Item {
         itemIcon = ir.registerIcon(ModInformation.TEXLOC + "book_cover");
         pagesIcon = ir.registerIcon(ModInformation.TEXLOC + "book_pages");
 
-        for (Book book : GuideRegistry.getBookList())
-            if (book.itemTexture != null)
-                customIcons.add(ir.registerIcon(book.itemTexture));
+        for (int i = 0; i < GuideRegistry.getBookList().size(); i++) {
+            Book book = GuideRegistry.getBook(i);
+            if (book.itemTexture != null) {
+                customIcons.put(i, ir.registerIcon(book.itemTexture));
+            }
+        }
     }
 
     @Override
