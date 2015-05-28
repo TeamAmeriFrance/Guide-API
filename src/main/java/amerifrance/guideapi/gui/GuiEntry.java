@@ -77,7 +77,7 @@ public class GuiEntry extends GuiBase {
         }
 
         drawCenteredString(fontRendererObj, String.valueOf(pageNumber + 1) + "/" + String.valueOf(pageWrapperList.size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
-        drawCenteredString(fontRendererObj, entry.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
+        drawCenteredStringWithShadow(fontRendererObj, entry.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = pageNumber != 0;
         buttonNext.visible = pageNumber != pageWrapperList.size() - 1;
