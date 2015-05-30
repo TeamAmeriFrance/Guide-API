@@ -40,11 +40,6 @@ public class BookCreator {
         try {
             Gson gson = gsonBuilder.setPrettyPrinting().create();
             Book book = gson.fromJson(new FileReader(file), Book.class);
-            // Uncomment for test serialization
-//            String reverse = gson.toJson(book, Book.class);
-//            FileWriter fw = new FileWriter(new File(GuideAPI.getConfigDir().getPath() + "/test.json"));
-//            fw.write(reverse);
-//            fw.close();
             return book;
         } catch (IOException e) {
             e.printStackTrace();
@@ -83,25 +78,15 @@ public class BookCreator {
 
         @Override
         public ItemStack deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            boolean isBlock = json.getAsJsonObject().get("isBlock").getAsBoolean();
             String name = json.getAsJsonObject().get("name").getAsString();
             int meta = json.getAsJsonObject().get("metadata").getAsInt();
-            if (isBlock) {
-                return new ItemStack(GameData.getBlockRegistry().getObject(name), 1, meta);
-            } else {
-                return new ItemStack(GameData.getItemRegistry().getObject(name), 1, meta);
-            }
+            return new ItemStack(GameData.getItemRegistry().getObject(name), 1, meta);
         }
 
         @Override
         public JsonElement serialize(ItemStack src, Type typeOfSrc, JsonSerializationContext context) {
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("isBlock", src.getItem() instanceof ItemBlock);
-            if (src.getItem() instanceof ItemBlock) {
-                jsonObject.addProperty("name", GameData.getBlockRegistry().getNameForObject(Block.getBlockFromItem(src.getItem())));
-            } else {
-                jsonObject.addProperty("name", GameData.getItemRegistry().getNameForObject(src.getItem()));
-            }
+            jsonObject.addProperty("name", GameData.getItemRegistry().getNameForObject(src.getItem()));
             jsonObject.addProperty("metadata", src.getItemDamage());
             return jsonObject;
         }
