@@ -16,6 +16,7 @@ public class BookBuilder {
     private String unlocBookTitle = "item.GuideBook.name";
     private String unlocWelcomeMessage = unlocBookTitle;
     private String unlocDisplayName = unlocBookTitle;
+    private String author = "Hey author change me please";
     private ResourceLocation pageTexture = new ResourceLocation(GUITEXLOC + "book_colored.png");
     private ResourceLocation outlineTexture = new ResourceLocation(GUITEXLOC + "book_greyscale.png");
     private String itemTexture;
@@ -43,6 +44,11 @@ public class BookBuilder {
 
     public BookBuilder setUnlocDisplayName(String unlocDisplayName) {
         this.unlocDisplayName = unlocDisplayName;
+        return this;
+    }
+
+    public BookBuilder setAuthor(String author) {
+        this.author = author;
         return this;
     }
 
@@ -77,6 +83,6 @@ public class BookBuilder {
     }
 
     public Book build() {
-        return new Book(categoryList, unlocBookTitle, unlocWelcomeMessage, unlocDisplayName, pageTexture, outlineTexture, itemTexture, bookColor, spawnWithBook, isLostBook);
+        return new Book(categoryList, unlocBookTitle, unlocWelcomeMessage, unlocDisplayName, author, pageTexture, outlineTexture, itemTexture, bookColor, spawnWithBook, isLostBook);
     }
 }

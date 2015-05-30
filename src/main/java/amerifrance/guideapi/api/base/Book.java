@@ -15,6 +15,7 @@ public class Book {
     public String unlocBookTitle;
     public String unlocWelcomeMessage;
     public String unlocDisplayName;
+    public String author;
     public ResourceLocation pageTexture;
     public ResourceLocation outlineTexture;
     public String itemTexture;
@@ -27,6 +28,7 @@ public class Book {
      * @param unlocBookTitle      - Unlocalized name for a book title
      * @param unlocWelcomeMessage - Unlocalized welcome message
      * @param unlocDisplayName    - Unlocalized item display name
+     * @param author              - Author of the book. Meant for the modid/modname so the book is displayed when the user searches the mod in NEI
      * @param pageTexture         - Texture for book's page
      * @param outlineTexture      - Texture for book outline
      * @param itemTexture         - Custom texture for the book. Disables the coloring on item
@@ -34,11 +36,12 @@ public class Book {
      * @param spawnWithBook       - Whether a player gets this book on the first time joining a world
      * @param isLostBook          - Pages become dungeon loot
      */
-    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, ResourceLocation pageTexture, ResourceLocation outlineTexture, String itemTexture, Color bookColor, boolean spawnWithBook, boolean isLostBook) {
+    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, String author, ResourceLocation pageTexture, ResourceLocation outlineTexture, String itemTexture, Color bookColor, boolean spawnWithBook, boolean isLostBook) {
         this.categoryList = categoryList;
         this.unlocBookTitle = unlocBookTitle;
         this.unlocWelcomeMessage = unlocWelcomeMessage;
         this.unlocDisplayName = unlocDisplayName;
+        this.author = author;
         this.pageTexture = pageTexture;
         this.outlineTexture = outlineTexture;
         this.itemTexture = itemTexture;

@@ -39,8 +39,7 @@ public class BookCreator {
     public static Book createBookFromJson(GsonBuilder gsonBuilder, File file) {
         try {
             Gson gson = gsonBuilder.setPrettyPrinting().create();
-            Book book = gson.fromJson(new FileReader(file), Book.class);
-            return book;
+            return gson.fromJson(new FileReader(file), Book.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,6 +79,7 @@ public class BookCreator {
         public ItemStack deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             String name = json.getAsJsonObject().get("name").getAsString();
             int meta = json.getAsJsonObject().get("metadata").getAsInt();
+
             return new ItemStack(GameData.getItemRegistry().getObject(name), 1, meta);
         }
 
@@ -88,6 +88,7 @@ public class BookCreator {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("name", GameData.getItemRegistry().getNameForObject(src.getItem()));
             jsonObject.addProperty("metadata", src.getItemDamage());
+
             return jsonObject;
         }
     }
@@ -166,6 +167,7 @@ public class BookCreator {
             String displayName = json.getAsJsonObject().get("unlocDisplayName").getAsString();
             String welcome = json.getAsJsonObject().get("unlocWelcomeMessage").getAsString();
             String title = json.getAsJsonObject().get("unlocBookTitle").getAsString();
+            String author = json.getAsJsonObject().get("author").getAsString();
             Color color = context.deserialize(json.getAsJsonObject().get("color"), Color.class);
             boolean spawnWithBook = json.getAsJsonObject().get("spawnWithBook").getAsBoolean();
             boolean isLostBook = json.getAsJsonObject().get("isLostBook").getAsBoolean();
@@ -177,6 +179,7 @@ public class BookCreator {
             builder.setUnlocBookTitle(title);
             builder.setUnlocWelcomeMessage(welcome);
             builder.setUnlocDisplayName(displayName);
+            builder.setAuthor(author);
             builder.setBookColor(color);
             builder.setSpawnWithBook(spawnWithBook);
             builder.setIsLostBook(isLostBook);
@@ -190,6 +193,7 @@ public class BookCreator {
             jsonObject.add("unlocDisplayName", context.serialize(src.unlocDisplayName));
             jsonObject.add("unlocWelcomeMessage", context.serialize(src.unlocWelcomeMessage));
             jsonObject.add("unlocBookTitle", context.serialize(src.unlocBookTitle));
+            jsonObject.add("author", context.serialize(src.author));
             jsonObject.add("color", context.serialize(src.bookColor));
             jsonObject.add("spawnWithBook", context.serialize(src.spawnWithBook));
             jsonObject.add("isLostBook", context.serialize(src.isLostBook));

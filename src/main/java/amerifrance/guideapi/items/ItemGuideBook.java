@@ -149,5 +149,7 @@ public class ItemGuideBook extends Item {
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
         if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() < stack.getItemDamage())
             list.add(EnumChatFormatting.RED + StatCollector.translateToLocal("text.book.warning"));
+        else
+            list.add(GuideRegistry.getBook(stack.getItemDamage()).author);
     }
 }
