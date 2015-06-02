@@ -1,6 +1,7 @@
 package amerifrance.guideapi.items;
 
 import amerifrance.guideapi.GuideAPI;
+import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.api.GuideRegistry;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
@@ -20,9 +21,10 @@ import java.util.List;
 public class ItemLostPage extends Item {
 
     public ItemLostPage() {
-        this.setCreativeTab(GuideAPI.tabGuide);
-        this.setUnlocalizedName("LostPage");
-        this.setHasSubtypes(true);
+        setUnlocalizedName("LostPage");
+        setTextureName(ModInformation.TEXLOC + "page_lost");
+        setCreativeTab(GuideAPI.tabGuide);
+        setHasSubtypes(true);
     }
 
     public static boolean bookHasPage(ItemStack bookStack, int book, int category, int entry, int pageNumber) {
