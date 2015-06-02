@@ -62,15 +62,17 @@ public class EventHandler {
             return;
 
         if (left.getItem() == GuideAPIItems.guideBook && right.getItem() == GuideAPIItems.lostPage) {
-            if (left.getItemDamage() == GuideRegistry.getIndexOf((Book) ItemLostPage.getPageCharacteristics(right)[0])) {
-                ItemStack output = left.copy();
+            if (ItemLostPage.getPageCharacteristics(right) != null) {
+                if (left.getItemDamage() == GuideRegistry.getIndexOf((Book) ItemLostPage.getPageCharacteristics(right)[0])) {
+                    ItemStack output = left.copy();
 
-                if (!output.hasTagCompound())
-                    output.setTagCompound(new NBTTagCompound());
+                    if (!output.hasTagCompound())
+                        output.setTagCompound(new NBTTagCompound());
 
-                output.stackTagCompound.setBoolean(right.stackTagCompound.getString(NBTBookTags.KEY_TAG), true);
-                event.output = output;
-                event.cost = 5;
+                    output.stackTagCompound.setBoolean(right.stackTagCompound.getString(NBTBookTags.KEY_TAG), true);
+                    event.output = output;
+                    event.cost = 5;
+                }
             }
         } else if (left.getItem() == GuideAPIItems.lostPage && right.getItem() == Items.paper) {
             ItemStack output = left.copy();

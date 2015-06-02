@@ -6,7 +6,6 @@ import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.util.NBTBookTags;
-import amerifrance.guideapi.util.Utils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +22,6 @@ public class ItemLostPage extends Item {
     public ItemLostPage() {
         this.setCreativeTab(GuideAPI.tabGuide);
         this.setUnlocalizedName("LostPage");
-        this.setMaxDamage(0);
         this.setHasSubtypes(true);
     }
 
@@ -48,10 +46,14 @@ public class ItemLostPage extends Item {
         Object[] objects = new Object[4];
         String[] split = pageStack.stackTagCompound.getString(NBTBookTags.KEY_TAG).split(":");
 
-        objects[0] = GuideRegistry.getBook(NumberUtils.toInt(split[0]));
-        objects[1] = GuideRegistry.getBook(NumberUtils.toInt(split[0])).categoryList.get(NumberUtils.toInt(split[1]));
-        objects[2] = GuideRegistry.getBook(NumberUtils.toInt(split[0])).categoryList.get(NumberUtils.toInt(split[1])).entryList.get(NumberUtils.toInt(split[2]));
-        objects[3] = NumberUtils.toInt(split[3]);
+        try {
+            objects[0] = GuideRegistry.getBook(NumberUtils.toInt(split[0]));
+            objects[1] = GuideRegistry.getBook(NumberUtils.toInt(split[0])).categoryList.get(NumberUtils.toInt(split[1]));
+            objects[2] = GuideRegistry.getBook(NumberUtils.toInt(split[0])).categoryList.get(NumberUtils.toInt(split[1])).entryList.get(NumberUtils.toInt(split[2]));
+            objects[3] = NumberUtils.toInt(split[3]) + 1;
+        } catch (IndexOutOfBoundsException e) {
+            // Swallow
+        }
 
         return objects;
     }
@@ -60,12 +62,12 @@ public class ItemLostPage extends Item {
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() < stack.getItemDamage()) {
+        if (!GuideRegistry.isEmpty() && getPageCharacteristics(stack) != null) {
             Object[] objects = getPageCharacteristics(stack);
-            list.add(Utils.localizeFormatted("text.book", ((Book) objects[0]).getLocalizedBookTitle()));
-            list.add(Utils.localizeFormatted("text.category", ((CategoryAbstract) objects[1]).getLocalizedName()));
-            list.add(Utils.localizeFormatted("text.entry", ((EntryAbstract) objects[3]).getLocalizedName()));
-            list.add(Utils.localizeFormatted("text.page", objects[3]));
+            list.add(String.format(StatCollector.translateToLocal("text.book"), objects[0] != null ? ((Book) objects[0]).getLocalizedBookTitle() : "null"));
+            list.add(String.format(StatCollector.translateToLocal("text.category"), objects[1] != null ? ((CategoryAbstract) objects[1]).getLocalizedName() : "null"));
+            list.add(String.format(StatCollector.translateToLocal("text.entry"), objects[2] != null ? ((EntryAbstract) objects[2]).getLocalizedName() : "null"));
+            list.add(String.format(StatCollector.translateToLocal("text.page"), objects[3] != null ? objects[3] : "null"));
         }
     }
 }

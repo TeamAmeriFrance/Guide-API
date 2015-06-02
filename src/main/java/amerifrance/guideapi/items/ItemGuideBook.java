@@ -33,7 +33,6 @@ public class ItemGuideBook extends Item {
     public ItemGuideBook() {
         setCreativeTab(GuideAPI.tabGuide);
         setUnlocalizedName("GuideBook");
-        setMaxDamage(0);
         setMaxStackSize(1);
         setHasSubtypes(true);
     }
@@ -135,10 +134,13 @@ public class ItemGuideBook extends Item {
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List list) {
         if (!GuideRegistry.isEmpty()) {
-            for (int i = 0; i < GuideRegistry.getSize(); i++) {
-                ItemStack stack = new ItemStack(this, 1, i);
-                stack.setTagCompound(new NBTTagCompound());
-                stack.stackTagCompound.setBoolean("CreativeBook", true);
+            for (Book book : GuideRegistry.getBookList()) {
+                ItemStack stack = new ItemStack(this, 1, GuideRegistry.getIndexOf(book));
+
+                if (stack.stackTagCompound == null)
+                    stack.stackTagCompound = new NBTTagCompound();
+
+                stack.stackTagCompound.setBoolean("CreativeBook", book.isLostBook);
                 list.add(stack);
             }
         }
@@ -151,5 +153,11 @@ public class ItemGuideBook extends Item {
             list.add(EnumChatFormatting.RED + StatCollector.translateToLocal("text.book.warning"));
         else
             list.add(GuideRegistry.getBook(stack.getItemDamage()).author);
+
+        if (stack.stackTagCompound == null)
+            stack.stackTagCompound = new NBTTagCompound();
+
+        if (stack.stackTagCompound.getBoolean("CreativeBook"))
+            list.add(EnumChatFormatting.GOLD + StatCollector.translateToLocal("text.book.creative"));
     }
 }
