@@ -22,6 +22,8 @@ public class Book {
     public Color bookColor;
     public boolean spawnWithBook;
     public boolean isLostBook;
+    public int lootChance;
+    public String[] chestHooks;
 
     /**
      * @param categoryList        - Category List with all your information
@@ -35,8 +37,10 @@ public class Book {
      * @param bookColor           - Color for the book. If an itemTexture is set, only affects GUI color
      * @param spawnWithBook       - Whether a player gets this book on the first time joining a world
      * @param isLostBook          - Pages become dungeon loot
+     * @param lootChance          - Chance for pages to generate as loot. 1 = Golden Apples, 100 = Iron Ingot, 1000 = Basically override everything
+     * @param chestHooks          - Types of dungeon chests to generate pages in. See {@link net.minecraftforge.common.ChestGenHooks}
      */
-    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, String author, ResourceLocation pageTexture, ResourceLocation outlineTexture, String itemTexture, Color bookColor, boolean spawnWithBook, boolean isLostBook) {
+    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, String author, ResourceLocation pageTexture, ResourceLocation outlineTexture, String itemTexture, Color bookColor, boolean spawnWithBook, boolean isLostBook, int lootChance, String[] chestHooks) {
         this.categoryList = categoryList;
         this.unlocBookTitle = unlocBookTitle;
         this.unlocWelcomeMessage = unlocWelcomeMessage;
@@ -48,6 +52,8 @@ public class Book {
         this.bookColor = bookColor;
         this.spawnWithBook = spawnWithBook;
         this.isLostBook = isLostBook;
+        this.lootChance = lootChance;
+        this.chestHooks = chestHooks;
     }
 
     /**

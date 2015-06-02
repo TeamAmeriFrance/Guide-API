@@ -5,6 +5,7 @@ import amerifrance.guideapi.items.ItemsRegistry;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxies.CommonProxy;
 import amerifrance.guideapi.util.EventHandler;
+import amerifrance.guideapi.util.LootGenerator;
 import amerifrance.guideapi.util.serialization.BookCreator;
 import com.google.gson.GsonBuilder;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -74,5 +75,6 @@ public class GuideAPI {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         BookCreator.registerJsonBooks(GuideRegistry.bookBuilder);
+        LootGenerator.registerLoot();
     }
 }

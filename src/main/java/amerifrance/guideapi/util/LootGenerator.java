@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 
-public class DungeonLootGenerator {
+public class LootGenerator {
 
     public static void registerLoot() {
         for (Book book : GuideRegistry.getBookList()) {
@@ -20,7 +20,8 @@ public class DungeonLootGenerator {
                         for (int i = 0; i < entryAbstract.pageList.size(); i++) {
                             ItemStack page = new ItemStack(GuideAPIItems.lostPage, 1, 0);
                             ItemLostPage.setPage(page, GuideRegistry.getIndexOf(book), book.categoryList.indexOf(categoryAbstract), categoryAbstract.entryList.indexOf(entryAbstract), i);
-                            ChestGenHooks.getInfo(ChestGenHooks.DUNGEON_CHEST).addItem(new WeightedRandomChestContent(page, 0, 1, 12));
+                            for (String hook : book.chestHooks)
+                                ChestGenHooks.addItem(hook, new WeightedRandomChestContent(page, 1, 1, book.lootChance));
                         }
                     }
                 }

@@ -171,6 +171,9 @@ public class BookCreator {
             Color color = context.deserialize(json.getAsJsonObject().get("color"), Color.class);
             boolean spawnWithBook = json.getAsJsonObject().get("spawnWithBook").getAsBoolean();
             boolean isLostBook = json.getAsJsonObject().get("isLostBook").getAsBoolean();
+            int lootChance = json.getAsJsonObject().get("lootChance").getAsInt();
+            String[] chestHooks = context.deserialize(json.getAsJsonObject().get("chestHooks"), new TypeToken<String[]>() {
+            }.getType());
             List<CategoryAbstract> list = context.deserialize(json.getAsJsonObject().get("categoryList"), new TypeToken<List<CategoryAbstract>>() {
             }.getType());
 
@@ -183,6 +186,8 @@ public class BookCreator {
             builder.setBookColor(color);
             builder.setSpawnWithBook(spawnWithBook);
             builder.setIsLostBook(isLostBook);
+            builder.setLootChance(lootChance);
+            builder.setChestHooks(chestHooks);
 
             return builder.build();
         }
@@ -197,6 +202,8 @@ public class BookCreator {
             jsonObject.add("color", context.serialize(src.bookColor));
             jsonObject.add("spawnWithBook", context.serialize(src.spawnWithBook));
             jsonObject.add("isLostBook", context.serialize(src.isLostBook));
+            jsonObject.add("lootChance", context.serialize(src.lootChance));
+            jsonObject.add("chestHooks", context.serialize(src.chestHooks));
             jsonObject.add("categoryList", context.serialize(src.categoryList));
             return jsonObject;
         }

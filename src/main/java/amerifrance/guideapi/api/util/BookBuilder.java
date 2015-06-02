@@ -3,11 +3,17 @@ package amerifrance.guideapi.api.util;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ChestGenHooks;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Used to set all aspects of your book. None are mandatory.
+ *
+ * Documentation for each value can be found in {@link Book}
+ */
 public class BookBuilder {
 
     private String GUITEXLOC = "guideapi:textures/gui/";
@@ -23,6 +29,8 @@ public class BookBuilder {
     private Color bookColor = new Color(171, 70, 30);
     private boolean spawnWithBook = false;
     private boolean isLostBook = false;
+    private int lootChance = 50;
+    private String[] chestHooks = { ChestGenHooks.DUNGEON_CHEST };
 
     public BookBuilder() {
     }
@@ -82,7 +90,17 @@ public class BookBuilder {
         return this;
     }
 
+    public BookBuilder setLootChance(int lootChance) {
+        this.lootChance = lootChance;
+        return this;
+    }
+
+    public BookBuilder setChestHooks(String ... chestHooks) {
+        this.chestHooks = chestHooks;
+        return this;
+    }
+
     public Book build() {
-        return new Book(categoryList, unlocBookTitle, unlocWelcomeMessage, unlocDisplayName, author, pageTexture, outlineTexture, itemTexture, bookColor, spawnWithBook, isLostBook);
+        return new Book(categoryList, unlocBookTitle, unlocWelcomeMessage, unlocDisplayName, author, pageTexture, outlineTexture, itemTexture, bookColor, spawnWithBook, isLostBook, lootChance, chestHooks);
     }
 }
