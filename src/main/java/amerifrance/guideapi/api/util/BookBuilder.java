@@ -22,7 +22,7 @@ public class BookBuilder {
     private String unlocBookTitle = "item.GuideBook.name";
     private String unlocWelcomeMessage = unlocBookTitle;
     private String unlocDisplayName = unlocBookTitle;
-    private String author = "Hey author change me please";
+    private String author;
     private ResourceLocation pageTexture = new ResourceLocation(GUITEXLOC + "book_colored.png");
     private ResourceLocation outlineTexture = new ResourceLocation(GUITEXLOC + "book_greyscale.png");
     private String itemTexture;

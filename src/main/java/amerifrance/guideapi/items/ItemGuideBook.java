@@ -151,13 +151,11 @@ public class ItemGuideBook extends Item {
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
 
-        Book book = GuideRegistry.getBook(stack.getItemDamage());
-
         if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() < stack.getItemDamage())
             list.add(EnumChatFormatting.RED + StatCollector.translateToLocal("text.book.warning"));
 
-        if (!GuideRegistry.isEmpty() && !(GuideRegistry.getSize() < stack.getItemDamage()) && book.author != null)
-            list.add(book.author);
+        if (!GuideRegistry.isEmpty() && !(GuideRegistry.getSize() < stack.getItemDamage()) && GuideRegistry.getBook(stack.getItemDamage()).author != null)
+            list.add(StatCollector.translateToLocal(GuideRegistry.getBook(stack.getItemDamage()).author));
 
         if (stack.stackTagCompound == null)
             stack.stackTagCompound = new NBTTagCompound();
