@@ -24,9 +24,14 @@ public class PageUnlocText extends PageBase {
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
-        fontRenderer.setUnicodeFlag(true);
-        fontRenderer.drawSplitString(StatCollector.translateToLocal(unlocText), guiLeft + 39, guiTop + 12, 3 * guiBase.xSize / 5, 0);
-        fontRenderer.setUnicodeFlag(false);
+    	if(!fontRenderer.getUnicodeFlag()){
+    		fontRenderer.setUnicodeFlag(true);
+        	fontRenderer.drawSplitString(StatCollector.translateToLocal(unlocText), guiLeft + 39, guiTop + 12, 3 * guiBase.xSize / 5, 0);
+        	fontRenderer.setUnicodeFlag(false);
+    	}
+    	else
+    		fontRenderer.drawSplitString(StatCollector.translateToLocal(unlocText), guiLeft + 39, guiTop + 12, 3 * guiBase.xSize / 5, 0);
+        
     }
 
     @Override
