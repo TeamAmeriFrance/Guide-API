@@ -60,7 +60,9 @@ public class GuiBase extends GuiScreen {
 
     @Override
     public void drawHoveringText(List list, int x, int y, FontRenderer font) {
+        GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
         super.drawHoveringText(list, x, y, font);
+        GL11.glPopAttrib();
     }
 
     @Override
