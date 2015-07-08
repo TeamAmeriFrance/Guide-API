@@ -40,7 +40,7 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "recipe_elements.png"));
         guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 0, 105, 65);
-        guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.shaped.crafting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
+        guiBase.drawCenteredString(fontRenderer, getRecipeName(), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
         
         int outputX = (5 * 18) + (guiLeft + guiBase.xSize / 7);
         int outputY = (2 * 18) + (guiTop + guiBase.xSize / 5);
@@ -53,5 +53,9 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
     protected int getRandomizedCycle(int index, int max) {
         rand.setSeed(index);
         return (index + rand.nextInt(max) + cycleIdx) % max;
+    }
+    
+    protected String getRecipeName() {
+        return StatCollector.translateToLocal("text.shaped.crafting");
     }
 }

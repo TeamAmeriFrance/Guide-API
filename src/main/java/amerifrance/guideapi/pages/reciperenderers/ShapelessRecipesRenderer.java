@@ -3,6 +3,7 @@ package amerifrance.guideapi.pages.reciperenderers;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.StatCollector;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
@@ -34,5 +35,10 @@ public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecip
                 }
             }
         }
+    }
+    
+    @Override
+    protected String getRecipeName() {
+        return StatCollector.translateToLocal("text.shapeless.crafting");
     }
 }
