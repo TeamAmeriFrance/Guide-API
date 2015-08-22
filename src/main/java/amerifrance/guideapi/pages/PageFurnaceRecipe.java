@@ -2,10 +2,12 @@ package amerifrance.guideapi.pages;
 
 import java.util.List;
 
+import amerifrance.guideapi.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -70,7 +72,6 @@ public class PageFurnaceRecipe extends PageBase {
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
-
         Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "recipe_elements.png"));
         guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 65, 105, 65);
 
@@ -81,25 +82,22 @@ public class PageFurnaceRecipe extends PageBase {
         GuiHelper.drawItemStack(input, x, y);
         
         List<String> tooltip = null;
-        if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15)) {
+        if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
             tooltip = GuiHelper.getTooltip(input);
-        }
 
         if (output == null) {
-            output = new ItemStack(Blocks.fire);
+            guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.furnace.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
+            return;
         }
+
         x = guiLeft + 123;
         GuiHelper.drawItemStack(output, x, y);
-        if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15)) {
+
+        if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
             tooltip = GuiHelper.getTooltip(output);
-        }
-        if (output.getItem() == Item.getItemFromBlock(Blocks.fire)) {
-            guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.furnace.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
-        }
-        
-        if (tooltip != null) {
+
+        if (tooltip != null)
         	guiBase.drawHoveringText(tooltip, mouseX, mouseY);
-        }
     }
 
     @Override
