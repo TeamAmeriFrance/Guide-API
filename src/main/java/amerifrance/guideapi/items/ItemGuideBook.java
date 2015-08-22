@@ -80,7 +80,7 @@ public class ItemGuideBook extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack stack, int pass) {
-        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage() && GuideRegistry.getBook(stack.getItemDamage()).itemTexture == null) {
+        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage() && !GuideRegistry.getBook(stack.getItemDamage()).hasCustomModel) {
             if (pass == 0)
                 return GuideRegistry.getBook(stack.getItemDamage()).bookColor.getRGB();
             else

@@ -1,6 +1,5 @@
 package amerifrance.guideapi.api.registry;
 
-import amerifrance.guideapi.GuideAPI;
 import amerifrance.guideapi.api.GuideAPIItems;
 import amerifrance.guideapi.api.base.Book;
 import com.google.gson.GsonBuilder;
@@ -31,6 +30,14 @@ public class GuideRegistry {
         bookList.add(book);
     }
 
+    /**
+     * If you want to use a custom model for your book (IE: Different texture),
+     * register it here. Make sure to call this on the Client only in the
+     * postInit phase.
+     *
+     * @param book             - Book to register a custom model for.
+     * @param resourceLocation - Location for the custom model. Generally modid:MODEL
+     */
     @SideOnly(Side.CLIENT)
     public static void registerBookModel(Book book, String resourceLocation) {
         int meta = getIndexOf(book);

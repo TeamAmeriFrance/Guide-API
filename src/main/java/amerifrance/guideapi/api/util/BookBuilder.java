@@ -25,7 +25,7 @@ public class BookBuilder {
     private String author;
     private ResourceLocation pageTexture = new ResourceLocation(GUITEXLOC + "book_colored.png");
     private ResourceLocation outlineTexture = new ResourceLocation(GUITEXLOC + "book_greyscale.png");
-    private String itemTexture;
+    private boolean hasCustomModel = false;
     private Color bookColor = new Color(171, 70, 30);
     private boolean spawnWithBook = false;
     private boolean isLostBook = false;
@@ -70,8 +70,8 @@ public class BookBuilder {
         return this;
     }
 
-    public BookBuilder setItemTexture(String iconLoc) {
-        this.itemTexture = iconLoc;
+    public BookBuilder setHasCustomModel(Boolean hasCustomModel) {
+        this.hasCustomModel = hasCustomModel;
         return this;
     }
 
@@ -101,6 +101,6 @@ public class BookBuilder {
     }
 
     public Book build() {
-        return new Book(categoryList, unlocBookTitle, unlocWelcomeMessage, unlocDisplayName, author, pageTexture, outlineTexture, itemTexture, bookColor, spawnWithBook, isLostBook, lootChance, chestHooks);
+        return new Book(categoryList, unlocBookTitle, unlocWelcomeMessage, unlocDisplayName, author, pageTexture, outlineTexture, hasCustomModel, bookColor, spawnWithBook, isLostBook, lootChance, chestHooks);
     }
 }

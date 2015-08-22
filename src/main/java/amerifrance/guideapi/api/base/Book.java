@@ -1,6 +1,5 @@
 package amerifrance.guideapi.api.base;
 
-import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -18,7 +17,7 @@ public class Book {
     public String author;
     public ResourceLocation pageTexture;
     public ResourceLocation outlineTexture;
-    public String itemTexture;
+    public boolean hasCustomModel;
     public Color bookColor;
     public boolean spawnWithBook;
     public boolean isLostBook;
@@ -33,14 +32,15 @@ public class Book {
      * @param author              - Author of the book. Meant for the modid/modname so the book is displayed when the user searches the mod in NEI
      * @param pageTexture         - Texture for book's page
      * @param outlineTexture      - Texture for book outline
-     * @param itemTexture         - Custom texture for the book. Disables the coloring on item
+     * @param hasCustomModel      - Whether or not the book has a custom model. Disables item coloring. If you do not set this, but still register a custom model,
+     *                            the new model will take effect, but it will still be colored.
      * @param bookColor           - Color for the book. If an itemTexture is set, only affects GUI color
      * @param spawnWithBook       - Whether a player gets this book on the first time joining a world
      * @param isLostBook          - Pages become dungeon loot
      * @param lootChance          - Chance for pages to generate as loot. 1 = Golden Apples, 100 = Iron Ingot, 1000 = Basically override everything
      * @param chestHooks          - Types of dungeon chests to generate pages in. See {@link net.minecraftforge.common.ChestGenHooks}
      */
-    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, String author, ResourceLocation pageTexture, ResourceLocation outlineTexture, String itemTexture, Color bookColor, boolean spawnWithBook, boolean isLostBook, int lootChance, String[] chestHooks) {
+    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, String author, ResourceLocation pageTexture, ResourceLocation outlineTexture, boolean hasCustomModel, Color bookColor, boolean spawnWithBook, boolean isLostBook, int lootChance, String[] chestHooks) {
         this.categoryList = categoryList;
         this.unlocBookTitle = unlocBookTitle;
         this.unlocWelcomeMessage = unlocWelcomeMessage;
@@ -48,7 +48,7 @@ public class Book {
         this.author = author;
         this.pageTexture = pageTexture;
         this.outlineTexture = outlineTexture;
-        this.itemTexture = itemTexture;
+        this.hasCustomModel = hasCustomModel;
         this.bookColor = bookColor;
         this.spawnWithBook = spawnWithBook;
         this.isLostBook = isLostBook;

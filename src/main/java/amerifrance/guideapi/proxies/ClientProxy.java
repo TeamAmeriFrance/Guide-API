@@ -4,8 +4,8 @@ import amerifrance.guideapi.api.GuideAPIItems;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.registry.GuideRegistry;
 import amerifrance.guideapi.gui.GuiEntry;
-import amerifrance.guideapi.items.ItemsRegistry;
 import amerifrance.guideapi.util.InventoryRenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -27,7 +27,9 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerRenders() {
-        InventoryRenderHelper.itemRenderAll(GuideAPIItems.guideBook);
-        InventoryRenderHelper.itemRenderAll(GuideAPIItems.lostPage);
+        for (Book book : GuideRegistry.getBookList())
+            if (!book.hasCustomModel)
+                InventoryRenderHelper.itemRender(GuideAPIItems.guideBook, GuideRegistry.getIndexOf(book), "ItemGuideBook");
+        InventoryRenderHelper.itemRender(GuideAPIItems.lostPage);
     }
 }
