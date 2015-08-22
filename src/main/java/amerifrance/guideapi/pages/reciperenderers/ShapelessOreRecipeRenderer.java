@@ -1,6 +1,6 @@
 package amerifrance.guideapi.pages.reciperenderers;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
@@ -36,7 +36,7 @@ public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOre
                                 tooltips = GuiHelper.getTooltip((ItemStack) component);
                             }
                         } else {
-                            ArrayList<ItemStack> list = (ArrayList<ItemStack>) component;
+                            List<ItemStack> list = (List<ItemStack>) component;
                             if (!list.isEmpty()) {
                                 ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
                                 GuiHelper.drawItemStack(stack, stackX, stackY);
