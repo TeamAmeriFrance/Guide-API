@@ -2,6 +2,7 @@ package amerifrance.guideapi.items;
 
 import java.util.List;
 
+import amerifrance.guideapi.ModInformation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -25,7 +26,7 @@ public class ItemGuideBook extends Item {
 
     public ItemGuideBook() {
         setCreativeTab(GuideAPI.tabGuide);
-        setUnlocalizedName("GuideBook");
+        setUnlocalizedName(ModInformation.ID + ".book");
         setMaxStackSize(1);
         setHasSubtypes(true);
     }
