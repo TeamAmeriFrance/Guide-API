@@ -1,4 +1,4 @@
-#Guide-API [![Build Status](http://tehnut.info/jenkins/buildStatus/icon?job=Guide-API)](http://tehnut.info/jenkins/job/Guide-API/) [![Documentation Status](https://readthedocs.org/projects/guide-api/badge/?version=latest)](https://readthedocs.org/projects/guide-api/?badge=latest)
+#Guide-API [![Build Status](http://tehnut.info/jenkins/buildStatus/icon?job=Guide-API-1.8)](http://tehnut.info/jenkins/job/Guide-API-1.8/) [![Documentation Status](https://readthedocs.org/projects/guide-api/badge/?version=latest)](https://readthedocs.org/projects/guide-api/?badge=latest)
 
 Library mod for easy creation of guide books. Also allows book creation via JSON files.
 
