@@ -46,7 +46,7 @@ public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe
                         if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
                             tooltips = GuiHelper.getTooltip((ItemStack) component);
                         }
-                    } else if (component instanceof ArrayList<?>) {
+                    } else if (component instanceof List<?>) {
                         List<ItemStack> list = (List<ItemStack>) component;
                         if (!list.isEmpty()) {
                             ItemStack stack = list.get(getRandomizedCycle(x + (y * width), list.size()));
