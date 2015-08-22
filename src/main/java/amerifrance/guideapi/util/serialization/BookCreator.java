@@ -1,40 +1,25 @@
 package amerifrance.guideapi.util.serialization;
 
-import java.awt.Color;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
-
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-
-import net.minecraftforge.fml.common.registry.GameData;
-import org.apache.commons.io.filefilter.FileFilterUtils;
-
 import amerifrance.guideapi.GuideAPI;
-import amerifrance.guideapi.api.GuideRegistry;
+import amerifrance.guideapi.api.registry.GuideRegistry;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IPage;
 import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.util.BookBuilder;
 import amerifrance.guideapi.interfaces.ITypeReader;
-
 import com.google.common.collect.Maps;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraft.item.ItemStack;
+import org.apache.commons.io.filefilter.FileFilterUtils;
+
+import java.awt.*;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
 
 public class BookCreator {
 
@@ -52,17 +37,23 @@ public class BookCreator {
     public static Book createBookFromJson(GsonBuilder gsonBuilder, File file) {
         try {
             Gson gson = gsonBuilder.setPrettyPrinting().create();
-            Book book = gson.fromJson(new FileReader(file), Book.class);
-            // Uncomment for test serialization
-//            String reverse = gson.toJson(book, Book.class);
-//            FileWriter fw = new FileWriter(new File(GuideAPI.getConfigDir().getPath() + "/test.json"));
-//            fw.write(reverse);
-//            fw.close();
-            return book;
+            return gson.fromJson(new FileReader(file), Book.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void createJsonFromBook(GsonBuilder gsonBuilder, Book book) {
+        try {
+            Gson gson = gsonBuilder.setPrettyPrinting().create();
+            String reverse = gson.toJson(book, Book.class);
+            FileWriter fw = new FileWriter(new File(GuideAPI.getConfigDir().getPath(), book.getLocalizedDisplayName() + ".json"));
+            fw.write(reverse);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void registerSerializer(ITypeReader<?> serializer) {
@@ -84,26 +75,18 @@ public class BookCreator {
 
         @Override
         public ItemStack deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            boolean isBlock = json.getAsJsonObject().get("isBlock").getAsBoolean();
             String name = json.getAsJsonObject().get("name").getAsString();
             int meta = json.getAsJsonObject().get("metadata").getAsInt();
-            if (isBlock) {
-                return new ItemStack(GameData.getBlockRegistry().getObject(name), 1, meta);
-            } else {
-                return new ItemStack(GameData.getItemRegistry().getObject(name), 1, meta);
-            }
+
+            return new ItemStack(GameData.getItemRegistry().getObject(name), 1, meta);
         }
 
         @Override
         public JsonElement serialize(ItemStack src, Type typeOfSrc, JsonSerializationContext context) {
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("isBlock", src.getItem() instanceof ItemBlock);
-            if (src.getItem() instanceof ItemBlock) {
-                jsonObject.addProperty("name", GameData.getBlockRegistry().getNameForObject(Block.getBlockFromItem(src.getItem())).toString());
-            } else {
-                jsonObject.addProperty("name", GameData.getItemRegistry().getNameForObject(src.getItem()).toString());
-            }
+            jsonObject.addProperty("name", (String) GameData.getItemRegistry().getNameForObject(src.getItem()));
             jsonObject.addProperty("metadata", src.getItemDamage());
+
             return jsonObject;
         }
     }
@@ -182,11 +165,29 @@ public class BookCreator {
             String displayName = json.getAsJsonObject().get("unlocDisplayName").getAsString();
             String welcome = json.getAsJsonObject().get("unlocWelcomeMessage").getAsString();
             String title = json.getAsJsonObject().get("unlocBookTitle").getAsString();
+            String author = json.getAsJsonObject().get("author").getAsString();
             Color color = context.deserialize(json.getAsJsonObject().get("color"), Color.class);
             boolean spawnWithBook = json.getAsJsonObject().get("spawnWithBook").getAsBoolean();
+            boolean isLostBook = json.getAsJsonObject().get("isLostBook").getAsBoolean();
+            int lootChance = json.getAsJsonObject().get("lootChance").getAsInt();
+            String[] chestHooks = context.deserialize(json.getAsJsonObject().get("chestHooks"), new TypeToken<String[]>() {
+            }.getType());
             List<CategoryAbstract> list = context.deserialize(json.getAsJsonObject().get("categoryList"), new TypeToken<List<CategoryAbstract>>() {
             }.getType());
-            return new Book(list, title, welcome, displayName, color, spawnWithBook);
+
+            BookBuilder builder = new BookBuilder();
+            builder.setCategories(list);
+            builder.setUnlocBookTitle(title);
+            builder.setUnlocWelcomeMessage(welcome);
+            builder.setUnlocDisplayName(displayName);
+            builder.setAuthor(author);
+            builder.setBookColor(color);
+            builder.setSpawnWithBook(spawnWithBook);
+            builder.setIsLostBook(isLostBook);
+            builder.setLootChance(lootChance);
+            builder.setChestHooks(chestHooks);
+
+            return builder.build();
         }
 
         @Override
@@ -195,8 +196,12 @@ public class BookCreator {
             jsonObject.add("unlocDisplayName", context.serialize(src.unlocDisplayName));
             jsonObject.add("unlocWelcomeMessage", context.serialize(src.unlocWelcomeMessage));
             jsonObject.add("unlocBookTitle", context.serialize(src.unlocBookTitle));
+            jsonObject.add("author", context.serialize(src.author));
             jsonObject.add("color", context.serialize(src.bookColor));
             jsonObject.add("spawnWithBook", context.serialize(src.spawnWithBook));
+            jsonObject.add("isLostBook", context.serialize(src.isLostBook));
+            jsonObject.add("lootChance", context.serialize(src.lootChance));
+            jsonObject.add("chestHooks", context.serialize(src.chestHooks));
             jsonObject.add("categoryList", context.serialize(src.categoryList));
             return jsonObject;
         }

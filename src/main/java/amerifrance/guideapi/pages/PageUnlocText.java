@@ -1,14 +1,14 @@
 package amerifrance.guideapi.pages;
 
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.base.PageBase;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.StatCollector;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.base.PageBase;
+import amerifrance.guideapi.gui.GuiBase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.util.StatCollector;
 
 public class PageUnlocText extends PageBase {
 

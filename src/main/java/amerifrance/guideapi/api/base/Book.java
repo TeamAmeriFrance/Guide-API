@@ -15,87 +15,45 @@ public class Book {
     public String unlocBookTitle;
     public String unlocWelcomeMessage;
     public String unlocDisplayName;
+    public String author;
     public ResourceLocation pageTexture;
     public ResourceLocation outlineTexture;
-    public Color bookColor = new Color(171, 70, 30);
+    public String itemTexture;
+    public Color bookColor;
     public boolean spawnWithBook;
+    public boolean isLostBook;
+    public int lootChance;
+    public String[] chestHooks;
 
     /**
      * @param categoryList        - Category List with all your information
      * @param unlocBookTitle      - Unlocalized name for a book title
      * @param unlocWelcomeMessage - Unlocalized welcome message
      * @param unlocDisplayName    - Unlocalized item display name
+     * @param author              - Author of the book. Meant for the modid/modname so the book is displayed when the user searches the mod in NEI
      * @param pageTexture         - Texture for book's page
      * @param outlineTexture      - Texture for book outline
-     * @param bookColor           - Color of book
+     * @param itemTexture         - Custom texture for the book. Disables the coloring on item
+     * @param bookColor           - Color for the book. If an itemTexture is set, only affects GUI color
+     * @param spawnWithBook       - Whether a player gets this book on the first time joining a world
+     * @param isLostBook          - Pages become dungeon loot
+     * @param lootChance          - Chance for pages to generate as loot. 1 = Golden Apples, 100 = Iron Ingot, 1000 = Basically override everything
+     * @param chestHooks          - Types of dungeon chests to generate pages in. See {@link net.minecraftforge.common.ChestGenHooks}
      */
-    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, ResourceLocation pageTexture, ResourceLocation outlineTexture, Color bookColor) {
+    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, String author, ResourceLocation pageTexture, ResourceLocation outlineTexture, String itemTexture, Color bookColor, boolean spawnWithBook, boolean isLostBook, int lootChance, String[] chestHooks) {
         this.categoryList = categoryList;
         this.unlocBookTitle = unlocBookTitle;
         this.unlocWelcomeMessage = unlocWelcomeMessage;
         this.unlocDisplayName = unlocDisplayName;
+        this.author = author;
         this.pageTexture = pageTexture;
         this.outlineTexture = outlineTexture;
-        this.bookColor = bookColor;
-        this.spawnWithBook = false;
-    }
-
-    /**
-     * @param categoryList        - Category List with all your information
-     * @param unlocBookTitle      - Unlocalized name for a book title
-     * @param unlocWelcomeMessage - Unlocalized welcome message
-     * @param unlocDisplayName    - Unlocalized item display name
-     * @param pageTexture         - Texture for book's page
-     * @param outlineTexture      - Texture for book outline
-     * @param bookColor           - Color of book
-     * @param spawnWithBook       - Whether a player gets this book on the first time joining a world
-     */
-    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, ResourceLocation pageTexture, ResourceLocation outlineTexture, Color bookColor, boolean spawnWithBook) {
-        this.categoryList = categoryList;
-        this.unlocBookTitle = unlocBookTitle;
-        this.unlocWelcomeMessage = unlocWelcomeMessage;
-        this.unlocDisplayName = unlocDisplayName;
-        this.pageTexture = pageTexture;
-        this.outlineTexture = outlineTexture;
+        this.itemTexture = itemTexture;
         this.bookColor = bookColor;
         this.spawnWithBook = spawnWithBook;
-    }
-
-    /**
-     * @param categoryList        - Category List with all your information
-     * @param unlocBookTitle      - Unlocalized name for a book title
-     * @param unlocWelcomeMessage - Unlocalized welcome message
-     * @param unlocDisplayName    - Unlocalized item display name
-     * @param bookColor           - Color of book
-     */
-    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, Color bookColor) {
-        this.categoryList = categoryList;
-        this.unlocBookTitle = unlocBookTitle;
-        this.unlocWelcomeMessage = unlocWelcomeMessage;
-        this.unlocDisplayName = unlocDisplayName;
-        this.pageTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png");
-        this.outlineTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
-        this.bookColor = bookColor;
-        this.spawnWithBook = false;
-    }
-
-    /**
-     * @param categoryList        - Category List with all your information
-     * @param unlocBookTitle      - Unlocalized name for a book title
-     * @param unlocWelcomeMessage - Unlocalized welcome message
-     * @param unlocDisplayName    - Unlocalized item display name
-     * @param bookColor           - Color of book
-     * @param spawnWithBook       - Whether a player gets this book on the first time joining a world
-     */
-    public Book(List<CategoryAbstract> categoryList, String unlocBookTitle, String unlocWelcomeMessage, String unlocDisplayName, Color bookColor, boolean spawnWithBook) {
-        this.categoryList = categoryList;
-        this.unlocBookTitle = unlocBookTitle;
-        this.unlocWelcomeMessage = unlocWelcomeMessage;
-        this.unlocDisplayName = unlocDisplayName;
-        this.pageTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png");
-        this.outlineTexture = new ResourceLocation(ModInformation.GUITEXLOC + "book_greyscale.png");
-        this.bookColor = bookColor;
-        this.spawnWithBook = spawnWithBook;
+        this.isLostBook = isLostBook;
+        this.lootChance = lootChance;
+        this.chestHooks = chestHooks;
     }
 
     /**

@@ -1,14 +1,14 @@
 package amerifrance.guideapi.entries;
 
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.base.EntryBase;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.IPage;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.base.EntryBase;
 import amerifrance.guideapi.api.util.GuiHelper;
-import net.minecraft.client.gui.FontRenderer;
+import amerifrance.guideapi.gui.GuiBase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.client.gui.FontRenderer;
 
 import java.util.List;
 

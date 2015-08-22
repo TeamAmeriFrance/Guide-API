@@ -1,11 +1,11 @@
 package amerifrance.guideapi.network;
 
 import amerifrance.guideapi.api.util.NBTBookTags;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.item.ItemStack;
 
 public class PacketSyncCategory implements IMessage, IMessageHandler<PacketSyncCategory, IMessage> {
 

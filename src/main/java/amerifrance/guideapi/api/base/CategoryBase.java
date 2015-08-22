@@ -1,15 +1,16 @@
 package amerifrance.guideapi.api.base;
 
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.GuiCategory;
+import amerifrance.guideapi.gui.GuiHome;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -43,5 +44,10 @@ public class CategoryBase extends CategoryAbstract {
     @Override
     @SideOnly(Side.CLIENT)
     public void onRightClicked(Book book, int mouseX, int mouseY, EntityPlayer player, ItemStack bookStack) {
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onInit(Book book, GuiHome guiHome, EntityPlayer player, ItemStack bookStack) {
     }
 }

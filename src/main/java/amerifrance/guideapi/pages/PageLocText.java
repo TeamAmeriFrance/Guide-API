@@ -1,20 +1,19 @@
 package amerifrance.guideapi.pages;
 
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.base.PageBase;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import net.minecraft.client.gui.FontRenderer;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.base.PageBase;
+import amerifrance.guideapi.gui.GuiBase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.client.gui.FontRenderer;
 
 public class PageLocText extends PageBase {
 
     public String locText;
 
     /**
-     *
      * @param locText - Pre-localized text to draw.
      */
     public PageLocText(String locText) {

@@ -9,7 +9,7 @@ public interface IGuideLinked {
 
     /**
      * @param world  - The world where the block is
-     * @param pos    - This position in the world the block is at
+     * @param pos    - The block's position in the world
      * @param player - The player that triggered the method
      * @param stack  - The ingame book item
      * @return the unlocalized name of the entry to open

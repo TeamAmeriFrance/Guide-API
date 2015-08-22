@@ -15,9 +15,15 @@ import java.util.List;
 
 public class PageHelper {
 
+    /**
+     *
+     * @param locText   - Text
+     * @param maxLength - Amount of characters to allow before cutting
+     * @return - a list of IPages with the text cut to fit on page
+     */
     public static List<IPage> pagesForLongText(String locText, int maxLength) {
         List<IPage> pageList = new ArrayList<IPage>();
-        for (String s : WordUtils.wrap(locText, maxLength, "\n", false).split("\n")) pageList.add(new PageLocText(s));
+        for (String s : WordUtils.wrap(locText, maxLength, "/cut", false).split("/cut")) pageList.add(new PageLocText(s));
         return pageList;
     }
 
@@ -29,9 +35,15 @@ public class PageHelper {
         return pagesForLongText(locText, 450);
     }
 
+    /**
+     *
+     * @param locText - Text
+     * @param stack   - The stack to put on the first page
+     * @return - a list of IPages with the text cut to fit on page
+     */
     public static List<IPage> pagesForLongText(String locText, ItemStack stack) {
         List<IPage> pageList = new ArrayList<IPage>();
-        String[] strings = WordUtils.wrap(locText, 450, "\n", false).split("\n");
+        String[] strings = WordUtils.wrap(locText, 450, "/cut", false).split("/cut");
         for (int i = 0; i < strings.length; i++) {
             if (i == 0) pageList.add(new PageLocItemStack(strings[i], stack));
             else pageList.add(new PageLocText(strings[i]));

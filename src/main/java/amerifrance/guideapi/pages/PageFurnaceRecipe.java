@@ -1,12 +1,7 @@
 package amerifrance.guideapi.pages;
 
-import amerifrance.guideapi.ModInformation;
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.base.PageBase;
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.util.GuiHelper;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -16,9 +11,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.oredict.OreDictionary;
+import amerifrance.guideapi.ModInformation;
+import amerifrance.guideapi.api.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.base.PageBase;
+import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.gui.GuiBase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class PageFurnaceRecipe extends PageBase {
 
@@ -74,25 +76,30 @@ public class PageFurnaceRecipe extends PageBase {
 
         guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.furnace.smelting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
-        int inputX = (1 + 1) * 19 + (guiLeft + guiBase.xSize / 7);
-        int inputY = (1 + 1) * 19 + (guiTop + guiBase.ySize / 5);
-        GuiHelper.drawItemStack(input, inputX, inputY);
+        int x = guiLeft + 66;
+        int y = guiTop + 77;
+        GuiHelper.drawItemStack(input, x, y);
+        
+        List<String> tooltip = null;
+        if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15)) {
+            tooltip = GuiHelper.getTooltip(input);
+        }
 
-        if (GuiHelper.isMouseBetween(mouseX, mouseY, inputX, inputY, 15, 15))
-            guiBase.renderToolTip(input, mouseX, mouseY);
-
-        if (output == null)
-            output = new ItemStack(Blocks.stone);
-
-        int outputX = (5 * 19) + (guiLeft + guiBase.xSize / 7);
-        int outputY = (2 * 19) + (guiTop + guiBase.xSize / 5);
-        GuiHelper.drawItemStack(output, outputX, outputY);
-
-        if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15))
-            guiBase.renderToolTip(output, outputX, outputY);
-
-        if (output.getItem() == Item.getItemFromBlock(Blocks.fire))
+        if (output == null) {
+            output = new ItemStack(Blocks.fire);
+        }
+        x = guiLeft + 123;
+        GuiHelper.drawItemStack(output, x, y);
+        if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15)) {
+            tooltip = GuiHelper.getTooltip(output);
+        }
+        if (output.getItem() == Item.getItemFromBlock(Blocks.fire)) {
             guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.furnace.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
+        }
+        
+        if (tooltip != null) {
+        	guiBase.drawHoveringText(tooltip, mouseX, mouseY);
+        }
     }
 
     @Override

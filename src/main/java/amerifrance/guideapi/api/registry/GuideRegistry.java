@@ -1,8 +1,16 @@
-package amerifrance.guideapi.api;
+package amerifrance.guideapi.api.registry;
 
+import amerifrance.guideapi.GuideAPI;
+import amerifrance.guideapi.api.GuideAPIItems;
 import amerifrance.guideapi.api.base.Book;
 import com.google.gson.GsonBuilder;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +29,16 @@ public class GuideRegistry {
      */
     public static void registerBook(Book book) {
         bookList.add(book);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void registerBookModel(Book book, String resourceLocation) {
+        int meta = getIndexOf(book);
+
+        RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
+
+        ModelBakery.addVariantName(GuideAPIItems.guideBook, resourceLocation);
+        renderItem.getItemModelMesher().register(GuideAPIItems.guideBook, meta, new ModelResourceLocation(resourceLocation, "inventory"));
     }
 
     /**

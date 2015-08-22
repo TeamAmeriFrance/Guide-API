@@ -259,6 +259,10 @@ public abstract class TypeReaders<T> implements ITypeReader<T> {
         BookCreator.registerSerializer(this);
     }
 
+    public static void init() {
+        // Run those static initializers
+    }
+
     @Override
     public Class<? extends T> getType() {
         return type;
@@ -273,8 +277,4 @@ public abstract class TypeReaders<T> implements ITypeReader<T> {
     }
 
     protected abstract void addData(JsonObject jsonObject, T src, JsonSerializationContext context);
-
-    public static void init() {
-        // Run those static initializers
-    }
 }

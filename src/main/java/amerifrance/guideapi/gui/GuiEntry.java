@@ -18,7 +18,6 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +58,8 @@ public class GuiEntry extends GuiBase {
         this.buttonList.add(buttonPrev = new ButtonPrev(2, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
 
         for (IPage page : this.entry.pageList) {
-            pageWrapperList.add(new PageWrapper(book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj, bookStack));
+            page.onInit(book, category, entry, player, bookStack, this);
+            pageWrapperList.add(new PageWrapper(this, book, category, entry, page, guiLeft, guiTop, player, this.fontRendererObj, bookStack));
         }
     }
 
@@ -78,11 +78,11 @@ public class GuiEntry extends GuiBase {
         }
 
         drawCenteredString(fontRendererObj, String.valueOf(pageNumber + 1) + "/" + String.valueOf(pageWrapperList.size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
-        drawCenteredString(fontRendererObj, entry.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
+        drawCenteredStringWithShadow(fontRendererObj, entry.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = pageNumber != 0;
         buttonNext.visible = pageNumber != pageWrapperList.size() - 1;
-        
+
         super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
 
@@ -104,7 +104,7 @@ public class GuiEntry extends GuiBase {
             if (typeofClick == 1) {
                 this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack));
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

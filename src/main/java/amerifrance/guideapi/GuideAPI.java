@@ -1,17 +1,13 @@
 package amerifrance.guideapi;
 
-import amerifrance.guideapi.api.GuideRegistry;
+import amerifrance.guideapi.api.registry.GuideRegistry;
 import amerifrance.guideapi.items.ItemsRegistry;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxies.CommonProxy;
 import amerifrance.guideapi.util.EventHandler;
+import amerifrance.guideapi.util.LootGenerator;
 import amerifrance.guideapi.util.serialization.BookCreator;
 import com.google.gson.GsonBuilder;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -19,6 +15,11 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.io.File;
 
@@ -44,6 +45,10 @@ public class GuideAPI {
 
     private static File configDir;
 
+    public static File getConfigDir() {
+        return configDir;
+    }
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         instance = this;
@@ -58,7 +63,7 @@ public class GuideAPI {
         GuideRegistry.bookBuilder = new GsonBuilder();
         BookCreator.registerCustomSerializers(GuideRegistry.bookBuilder);
 
-        TestBook.registerTests(10);
+        TestBook.registerTests(ModInformation.VERSION.equals("@VERSION@") ? 5 : 0);
     }
 
     @Mod.EventHandler
@@ -70,11 +75,7 @@ public class GuideAPI {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         BookCreator.registerJsonBooks(GuideRegistry.bookBuilder);
-
-        proxy.initRenders();
-    }
-
-    public static File getConfigDir() {
-        return configDir;
+        LootGenerator.registerLoot();
+        proxy.registerRenders();
     }
 }

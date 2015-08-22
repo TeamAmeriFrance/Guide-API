@@ -48,10 +48,10 @@ public class GuiBase extends GuiScreen {
         GL11.glColor3f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F);
         Tessellator tessellator = Tessellator.getInstance();
         tessellator.getWorldRenderer().startDrawingQuads();
-        tessellator.getWorldRenderer().addVertexWithUV((double) (x + 0), (double) (y + height), (double) this.zLevel, (double) ((float) (textureX + 0) * f), (double) ((float) (textureY + height) * f1));
+        tessellator.getWorldRenderer().addVertexWithUV((double) (x), (double) (y + height), (double) this.zLevel, (double) ((float) (textureX) * f), (double) ((float) (textureY + height) * f1));
         tessellator.getWorldRenderer().addVertexWithUV((double) (x + width), (double) (y + height), (double) this.zLevel, (double) ((float) (textureX + width) * f), (double) ((float) (textureY + height) * f1));
-        tessellator.getWorldRenderer().addVertexWithUV((double) (x + width), (double) (y + 0), (double) this.zLevel, (double) ((float) (textureX + width) * f), (double) ((float) (textureY + 0) * f1));
-        tessellator.getWorldRenderer().addVertexWithUV((double) (x + 0), (double) (y + 0), (double) this.zLevel, (double) ((float) (textureX + 0) * f), (double) ((float) (textureY + 0) * f1));
+        tessellator.getWorldRenderer().addVertexWithUV((double) (x + width), (double) (y), (double) this.zLevel, (double) ((float) (textureX + width) * f), (double) ((float) (textureY) * f1));
+        tessellator.getWorldRenderer().addVertexWithUV((double) (x), (double) (y), (double) this.zLevel, (double) ((float) (textureX) * f), (double) ((float) (textureY) * f1));
         tessellator.draw();
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_BLEND);
@@ -64,8 +64,19 @@ public class GuiBase extends GuiScreen {
     }
 
     @Override
+    public void drawHoveringText(List list, int x, int y) {
+        GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
+        super.drawHoveringText(list, x, y);
+        GL11.glPopAttrib();
+    }
+
+    @Override
     public void drawCenteredString(FontRenderer fontRenderer, String string, int x, int y, int color) {
         fontRenderer.drawString(string, x - fontRenderer.getStringWidth(string) / 2, y, color);
+    }
+
+    public void drawCenteredStringWithShadow(FontRenderer fontRenderer, String string, int x, int y, int color) {
+        super.drawCenteredString(fontRenderer, string, x, y, color);
     }
 
     public void drawSplitString(String string, int x, int y, int maxLength, int color) {

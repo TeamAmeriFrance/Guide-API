@@ -1,15 +1,17 @@
 package amerifrance.guideapi.api.base;
 
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiEntry;
+import amerifrance.guideapi.api.registry.GuideRegistry;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IPage;
+import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.GuiEntry;
+import amerifrance.guideapi.items.ItemLostPage;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PageBase implements IPage {
 
@@ -24,8 +26,8 @@ public class PageBase implements IPage {
     }
 
     @Override
-    public boolean canSee(EntityPlayer player, ItemStack bookStack) {
-        return true;
+    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack, GuiEntry guiEntry) {
+        return ((bookStack.hasTagCompound() && bookStack.getTagCompound().getBoolean("CreativeBook"))) || ItemLostPage.bookHasPage(bookStack, GuideRegistry.getIndexOf(book), book.categoryList.indexOf(category), category.entryList.indexOf(entry), guiEntry.pageNumber) || !book.isLostBook;
     }
 
     @Override
@@ -36,6 +38,11 @@ public class PageBase implements IPage {
     @Override
     @SideOnly(Side.CLIENT)
     public void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry) {
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onInit(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack, GuiEntry guiEntry) {
     }
 
     @Override

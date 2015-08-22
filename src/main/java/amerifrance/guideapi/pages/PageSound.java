@@ -1,19 +1,19 @@
 package amerifrance.guideapi.pages;
 
 import amerifrance.guideapi.GuideAPI;
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiEntry;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.base.PageBase;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IPage;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.base.PageBase;
+import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.GuiEntry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PageSound extends PageBase {
 
@@ -42,8 +42,8 @@ public class PageSound extends PageBase {
     }
 
     @Override
-    public boolean canSee(EntityPlayer player, ItemStack bookStack) {
-        return pageToEmulate.canSee(player, bookStack);
+    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack, GuiEntry guiEntry) {
+        return pageToEmulate.canSee(book, category, entry, player, bookStack, guiEntry);
     }
 
     @Override

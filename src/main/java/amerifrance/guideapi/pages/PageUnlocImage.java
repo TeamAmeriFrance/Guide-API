@@ -1,17 +1,17 @@
 package amerifrance.guideapi.pages;
 
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.base.PageBase;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.base.PageBase;
 import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.gui.GuiBase;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PageUnlocImage extends PageBase {
 
@@ -21,7 +21,7 @@ public class PageUnlocImage extends PageBase {
 
     /**
      * @param unlocText - Unlocalized text to draw
-     * @param image - Image to draw
+     * @param image     - Image to draw
      * @param drawAtTop - Draw Image at top and text at bottom. False reverses this.
      */
     public PageUnlocImage(String unlocText, ResourceLocation image, boolean drawAtTop) {

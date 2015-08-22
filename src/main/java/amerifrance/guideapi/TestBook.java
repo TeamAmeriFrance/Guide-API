@@ -1,20 +1,21 @@
 package amerifrance.guideapi;
 
-import amerifrance.guideapi.api.GuideRegistry;
+import amerifrance.guideapi.api.registry.GuideRegistry;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IPage;
 import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.util.BookBuilder;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.categories.CategoryItemStack;
 import amerifrance.guideapi.entries.EntryText;
 import amerifrance.guideapi.pages.*;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -30,10 +31,9 @@ public class TestBook {
             testBook(books[j], "TestBook" + j);
     }
 
-    public static void testBook(Book book, String title){
-
+    public static void testBook(Book book, String title) {
         PageUnlocText page1 = new PageUnlocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
-        PageLocText page2 = new PageLocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
+        PageLocText page2 = new PageLocText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE. \n\nNew paragraph!");
         PageImage page3 = new PageImage(new ResourceLocation(ModInformation.GUITEXLOC + "testimage.png"));
         PageIRecipe page4 = new PageIRecipe(GameRegistry.addShapedRecipe(new ItemStack(Items.diamond), "XXX", "YYY", "ZZZ", 'X', Items.apple, 'Y', Blocks.beacon, 'Z', Items.beef));
         ShapedOreRecipe shapedOreRecipe = new ShapedOreRecipe(Items.beef, "XXX", "YYY", "ZZZ", 'X', "stairWood", 'Y', "stone", 'Z', "ingotIron");
@@ -52,6 +52,7 @@ public class TestBook {
         ArrayList<IPage> pages = new ArrayList<IPage>();
         pages.add(page1);
         pages.add(page2);
+        pages.addAll(PageHelper.pagesForLongText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE", new ItemStack(Items.diamond)));
         pages.add(page3);
         pages.add(page4);
         pages.add(page5);
@@ -71,7 +72,7 @@ public class TestBook {
         CategoryItemStack category2 = new CategoryItemStack(entries, "TestCategory2", new ItemStack(Blocks.brick_stairs));
         CategoryItemStack category3 = new CategoryItemStack(entries, "TestCategory3", new ItemStack(Blocks.dragon_egg));
         CategoryItemStack category4 = new CategoryItemStack(entries, "TestCategory4", new ItemStack(Items.skull, 1, 0));
-        CategoryItemStack category5 = new CategoryItemStack(entries, "TestCategory5", new ItemStack(Blocks.oak_fence_gate));
+        CategoryItemStack category5 = new CategoryItemStack(entries, "TestCategory5", new ItemStack(Blocks.dark_oak_fence_gate));
         ArrayList<CategoryAbstract> categories = new ArrayList<CategoryAbstract>();
         categories.add(category1);
         categories.add(category2);
@@ -79,12 +80,13 @@ public class TestBook {
         categories.add(category4);
         categories.add(category5);
 
-        book = new Book(
-                categories, "Item" + title,
-                "Hello, I am a welcome message that's just way too long and that says nothing other that I'm there for test purposes",
-                title,
-                new Color(58, 171, 122)
-        );
+        BookBuilder builder = new BookBuilder();
+        builder.setCategories(categories);
+        builder.setUnlocBookTitle(title);
+        builder.setUnlocWelcomeMessage("Welcome message here");
+        builder.setUnlocDisplayName(title);
+        builder.setBookColor(new Color(171, 80, 30));
+        book = builder.build();
 
         GuideRegistry.registerBook(book);
     }

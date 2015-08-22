@@ -18,7 +18,6 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
-import java.io.IOException;
 
 public class GuiCategory extends GuiBase {
 
@@ -60,6 +59,7 @@ public class GuiCategory extends GuiBase {
         int i = 0;
         int pageNumber = 0;
         for (EntryAbstract entry : category.entryList) {
+            entry.onInit(book, category, this, player, bookStack);
             entryWrapperMap.put(pageNumber, new EntryWrapper(this, book, category, entry, eX, eY, 4 * xSize / 6, 10, player, this.fontRendererObj, bookStack));
             eY += 13;
             i++;
@@ -90,11 +90,11 @@ public class GuiCategory extends GuiBase {
         }
 
         drawCenteredString(fontRendererObj, String.valueOf(entryPage + 1) + "/" + String.valueOf(entryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
-        drawCenteredString(fontRendererObj, category.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());	
+        drawCenteredStringWithShadow(fontRendererObj, category.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = entryPage != 0;
         buttonNext.visible = entryPage != entryWrapperMap.asMap().size() - 1;
-        
+
         super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
 
@@ -114,7 +114,7 @@ public class GuiCategory extends GuiBase {
             if (typeofClick == 1) {
                 this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
