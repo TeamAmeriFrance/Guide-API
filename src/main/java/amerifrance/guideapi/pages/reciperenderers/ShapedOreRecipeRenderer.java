@@ -1,7 +1,6 @@
 package amerifrance.guideapi.pages.reciperenderers;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.gui.FontRenderer;
@@ -14,6 +13,12 @@ import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
+/**
+ * Due to unknown reasons, passing a recipe with just a Block set in the input will fail
+ * to render the model correctly. However, if you pass that Block inside an ItemStack, it will work
+ * just fine. So do that as a temporary solution. This comment will be removed once a <i>real</i>
+ * fix is found.
+ */
 public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe> {
 
     private static final Field _width = ReflectionHelper.findField(ShapedOreRecipe.class, "width");
@@ -43,17 +48,15 @@ public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe
                 if (component != null) {
                     if (component instanceof ItemStack) {
                         GuiHelper.drawItemStack((ItemStack) component, stackX, stackY);
-                        if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
+                        if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                             tooltips = GuiHelper.getTooltip((ItemStack) component);
-                        }
                     } else if (component instanceof List<?>) {
                         List<ItemStack> list = (List<ItemStack>) component;
                         if (!list.isEmpty()) {
                             ItemStack stack = list.get(getRandomizedCycle(x + (y * width), list.size()));
                             GuiHelper.drawItemStack(stack, stackX, stackY);
-                            if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
+                            if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                                 tooltips = GuiHelper.getTooltip(stack);
-                            }
                         }
                     }
                 }

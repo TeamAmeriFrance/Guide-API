@@ -32,17 +32,15 @@ public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOre
                     if (component != null) {
                         if (component instanceof ItemStack) {
                             GuiHelper.drawItemStack((ItemStack) component, stackX, stackY);
-                            if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
+                            if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                                 tooltips = GuiHelper.getTooltip((ItemStack) component);
-                            }
                         } else {
                             List<ItemStack> list = (List<ItemStack>) component;
                             if (!list.isEmpty()) {
                                 ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
                                 GuiHelper.drawItemStack(stack, stackX, stackY);
-                                if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
+                                if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                                     tooltips = GuiHelper.getTooltip(stack);
-                                }
                             }
                         }
                     }
