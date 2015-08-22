@@ -1,5 +1,6 @@
 package amerifrance.guideapi.util;
 
+import amerifrance.guideapi.ModInformation;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
@@ -16,7 +17,7 @@ public class InventoryRenderHelper {
      * This is the base string for your resources. It will usually be
      * your modid in all lowercase with a colon at the end.
      */
-    private static final String resourceBase = "";
+    private static final String resourceBase = ModInformation.TEXLOC;
 
     /**
      * Registers a Model for the given Item and meta.
