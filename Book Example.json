@@ -1,106 +1,5839 @@
 {
-  "unlocDisplayName": "guide.Sanguimancy.book.name",
-  "unlocWelcomeMessage": "guide.Sanguimancy.welcomeMessage",
-  "unlocBookTitle": "guide.Sanguimancy.book.title",
+  "unlocDisplayName": "TestBook",
+  "unlocWelcomeMessage": "Welcome message here",
+  "unlocBookTitle": "TestBook",
   "color": {
-    "red": 190,
-    "green": 10,
-    "blue": 0,
+    "red": 171,
+    "green": 80,
+    "blue": 30,
     "alpha": 255
   },
-  "spawnWithBook": true,
+  "spawnWithBook": false,
   "isLostBook": false,
+  "lootChance": 50,
+  "chestHooks": [
+    "dungeonChest"
+  ],
   "categoryList": [
     {
       "type": "CategoryItemStack",
+      "unlocCategoryName": "TestCategory1",
       "itemStack": {
-        "isBlock": false,
-        "name": "minecraft:boat",
+        "name": "minecraft:reeds",
         "metadata": 0
       },
       "entryList": [
         {
-          "type": "EntryUniText",
-          "unlocEntryName": "guide.Sanguimancy.entryName.sacrificeMagic",
+          "type": "EntryText",
+          "unlocEntryName": "TestEntry1",
           "pageList": [
             {
-              "type": "PageLocText",
-              "locText": "guide.Sanguimancy.entry.sacrificeMagic"
+              "unlocText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE. \n\nNew paragraph!"
+            },
+            {
+              "stack": {
+                "name": "minecraft:diamond",
+                "metadata": 0
+              },
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "image": {
+                "resourceDomain": "guideapi",
+                "resourcePath": "textures/gui/testimage.png"
+              }
+            },
+            {
+              "recipe": {
+                "recipeWidth": 3,
+                "recipeHeight": 3,
+                "recipeItems": [
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  }
+                ],
+                "recipeOutput": {
+                  "name": "minecraft:diamond",
+                  "metadata": 0
+                },
+                "field_92101_f": false
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 910770699620
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeWidth": 3,
+                  "recipeHeight": 3,
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    }
+                  ],
+                  "recipeOutput": {
+                    "name": "minecraft:diamond",
+                    "metadata": 0
+                  },
+                  "field_92101_f": false
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:beef",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ]
+                ],
+                "width": 3,
+                "height": 3,
+                "mirrored": true
+              },
+              "iRecipeRenderer": {
+                "width": 3,
+                "height": 3,
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 219250798354749
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ]
+                  ],
+                  "width": 3,
+                  "height": 3,
+                  "mirrored": true
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "recipeOutput": {
+                  "name": "minecraft:blaze_rod",
+                  "metadata": 0
+                },
+                "recipeItems": [
+                  {
+                    "name": "minecraft:cauldron",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:golden_carrot",
+                    "metadata": 0
+                  }
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 122661627842100
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:baked_potato",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ]
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 273448160728222
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:baked_potato",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ]
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "pageToEmulate": {
+                "type": "PageIRecipe",
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                }
+              },
+              "sound": "mob.pig.say"
+            },
+            {
+              "input": {
+                "name": "minecraft:potato",
+                "metadata": 0
+              },
+              "output": {
+                "name": "minecraft:baked_potato",
+                "metadata": 0
+              }
+            },
+            {
+              "input": {
+                "name": "minecraft:diamond_axe",
+                "metadata": 0
+              }
             }
           ]
         },
         {
-          "type": "EntryUniText",
-          "unlocEntryName": "guide.Sanguimancy.entryName.corruption",
+          "type": "EntryText",
+          "unlocEntryName": "TestEntry2",
           "pageList": [
             {
-              "type": "PageLocText",
-              "locText": "guide.Sanguimancy.entry.corruption"
-            }
-          ]
-        },
-        {
-          "type": "EntryUniText",
-          "unlocEntryName": "guide.Sanguimancy.entryName.protection",
-          "pageList": [
-            {
-              "type": "PageLocText",
-              "locText": "guide.Sanguimancy.entry.protection.1"
+              "unlocText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
             },
             {
-              "type": "PageUnlocImage",
-              "unlocText": "protection.picture.1",
-              "image": {
-                "resourceDomain": "minecraft",
-                "resourcePath": "textures/screenshots/CompleteCrystallizerMultiblock.png"
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE. \n\nNew paragraph!"
+            },
+            {
+              "stack": {
+                "name": "minecraft:diamond",
+                "metadata": 0
               },
-              "drawAtTop": true
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
             },
             {
-              "type": "PageUnlocImage",
-              "unlocText": "protection.picture.2",
               "image": {
-                "resourceDomain": "minecraft",
-                "resourcePath": "textures/screenshots/CrystallizerMultiblock.png"
-              },
-              "drawAtTop": true
+                "resourceDomain": "guideapi",
+                "resourcePath": "textures/gui/testimage.png"
+              }
             },
             {
-              "type": "PageUnlocImage",
-              "unlocText": "protection.picture.3",
-              "image": {
-                "resourceDomain": "minecraft",
-                "resourcePath": "textures/screenshots/WaterCrystallizerMultiblock.png"
+              "recipe": {
+                "recipeWidth": 3,
+                "recipeHeight": 3,
+                "recipeItems": [
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  }
+                ],
+                "recipeOutput": {
+                  "name": "minecraft:diamond",
+                  "metadata": 0
+                },
+                "field_92101_f": false
               },
-              "drawAtTop": true
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 910770699620
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeWidth": 3,
+                  "recipeHeight": 3,
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    }
+                  ],
+                  "recipeOutput": {
+                    "name": "minecraft:diamond",
+                    "metadata": 0
+                  },
+                  "field_92101_f": false
+                },
+                "tooltips": []
+              }
             },
             {
-              "type": "PageUnlocImage",
-              "unlocText": "protection.picture.4",
-              "image": {
-                "resourceDomain": "minecraft",
-                "resourcePath": "textures/screenshots/LavaCrystallizerMultiblock.png"
+              "recipe": {
+                "output": {
+                  "name": "minecraft:beef",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ]
+                ],
+                "width": 3,
+                "height": 3,
+                "mirrored": true
               },
-              "drawAtTop": true
+              "iRecipeRenderer": {
+                "width": 3,
+                "height": 3,
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 219250798354749
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ]
+                  ],
+                  "width": 3,
+                  "height": 3,
+                  "mirrored": true
+                },
+                "tooltips": []
+              }
             },
             {
-              "type": "PageLocText",
-              "locText": "guide.Sanguimancy.entry.protection.2"
-            }
-          ]
-        },
-        {
-          "type": "EntryUniText",
-          "unlocEntryName": "guide.Sanguimancy.entryName.apllications",
-          "pageList": [
+              "recipe": {
+                "recipeOutput": {
+                  "name": "minecraft:blaze_rod",
+                  "metadata": 0
+                },
+                "recipeItems": [
+                  {
+                    "name": "minecraft:cauldron",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:golden_carrot",
+                    "metadata": 0
+                  }
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 122661627842100
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                },
+                "tooltips": []
+              }
+            },
             {
-              "type": "PageLocText",
-              "locText": "guide.Sanguimancy.entry.applications"
+              "recipe": {
+                "output": {
+                  "name": "minecraft:baked_potato",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ]
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 273448160728222
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:baked_potato",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ]
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "pageToEmulate": {
+                "type": "PageIRecipe",
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                }
+              },
+              "sound": "mob.pig.say"
+            },
+            {
+              "input": {
+                "name": "minecraft:potato",
+                "metadata": 0
+              },
+              "output": {
+                "name": "minecraft:baked_potato",
+                "metadata": 0
+              }
+            },
+            {
+              "input": {
+                "name": "minecraft:diamond_axe",
+                "metadata": 0
+              }
             }
           ]
         }
-      ],
-      "unlocCategoryName": "guide.Sanguimancy.category.lore"
+      ]
+    },
+    {
+      "type": "CategoryItemStack",
+      "unlocCategoryName": "TestCategory2",
+      "itemStack": {
+        "name": "minecraft:brick_stairs",
+        "metadata": 0
+      },
+      "entryList": [
+        {
+          "type": "EntryText",
+          "unlocEntryName": "TestEntry1",
+          "pageList": [
+            {
+              "unlocText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE. \n\nNew paragraph!"
+            },
+            {
+              "stack": {
+                "name": "minecraft:diamond",
+                "metadata": 0
+              },
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "image": {
+                "resourceDomain": "guideapi",
+                "resourcePath": "textures/gui/testimage.png"
+              }
+            },
+            {
+              "recipe": {
+                "recipeWidth": 3,
+                "recipeHeight": 3,
+                "recipeItems": [
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  }
+                ],
+                "recipeOutput": {
+                  "name": "minecraft:diamond",
+                  "metadata": 0
+                },
+                "field_92101_f": false
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 910770699620
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeWidth": 3,
+                  "recipeHeight": 3,
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    }
+                  ],
+                  "recipeOutput": {
+                    "name": "minecraft:diamond",
+                    "metadata": 0
+                  },
+                  "field_92101_f": false
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:beef",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ]
+                ],
+                "width": 3,
+                "height": 3,
+                "mirrored": true
+              },
+              "iRecipeRenderer": {
+                "width": 3,
+                "height": 3,
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 219250798354749
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ]
+                  ],
+                  "width": 3,
+                  "height": 3,
+                  "mirrored": true
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "recipeOutput": {
+                  "name": "minecraft:blaze_rod",
+                  "metadata": 0
+                },
+                "recipeItems": [
+                  {
+                    "name": "minecraft:cauldron",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:golden_carrot",
+                    "metadata": 0
+                  }
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 122661627842100
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:baked_potato",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ]
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 273448160728222
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:baked_potato",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ]
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "pageToEmulate": {
+                "type": "PageIRecipe",
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                }
+              },
+              "sound": "mob.pig.say"
+            },
+            {
+              "input": {
+                "name": "minecraft:potato",
+                "metadata": 0
+              },
+              "output": {
+                "name": "minecraft:baked_potato",
+                "metadata": 0
+              }
+            },
+            {
+              "input": {
+                "name": "minecraft:diamond_axe",
+                "metadata": 0
+              }
+            }
+          ]
+        },
+        {
+          "type": "EntryText",
+          "unlocEntryName": "TestEntry2",
+          "pageList": [
+            {
+              "unlocText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE. \n\nNew paragraph!"
+            },
+            {
+              "stack": {
+                "name": "minecraft:diamond",
+                "metadata": 0
+              },
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "image": {
+                "resourceDomain": "guideapi",
+                "resourcePath": "textures/gui/testimage.png"
+              }
+            },
+            {
+              "recipe": {
+                "recipeWidth": 3,
+                "recipeHeight": 3,
+                "recipeItems": [
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  }
+                ],
+                "recipeOutput": {
+                  "name": "minecraft:diamond",
+                  "metadata": 0
+                },
+                "field_92101_f": false
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 910770699620
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeWidth": 3,
+                  "recipeHeight": 3,
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    }
+                  ],
+                  "recipeOutput": {
+                    "name": "minecraft:diamond",
+                    "metadata": 0
+                  },
+                  "field_92101_f": false
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:beef",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ]
+                ],
+                "width": 3,
+                "height": 3,
+                "mirrored": true
+              },
+              "iRecipeRenderer": {
+                "width": 3,
+                "height": 3,
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 219250798354749
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ]
+                  ],
+                  "width": 3,
+                  "height": 3,
+                  "mirrored": true
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "recipeOutput": {
+                  "name": "minecraft:blaze_rod",
+                  "metadata": 0
+                },
+                "recipeItems": [
+                  {
+                    "name": "minecraft:cauldron",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:golden_carrot",
+                    "metadata": 0
+                  }
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 122661627842100
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:baked_potato",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ]
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 273448160728222
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:baked_potato",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ]
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "pageToEmulate": {
+                "type": "PageIRecipe",
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                }
+              },
+              "sound": "mob.pig.say"
+            },
+            {
+              "input": {
+                "name": "minecraft:potato",
+                "metadata": 0
+              },
+              "output": {
+                "name": "minecraft:baked_potato",
+                "metadata": 0
+              }
+            },
+            {
+              "input": {
+                "name": "minecraft:diamond_axe",
+                "metadata": 0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "CategoryItemStack",
+      "unlocCategoryName": "TestCategory3",
+      "itemStack": {
+        "name": "minecraft:dragon_egg",
+        "metadata": 0
+      },
+      "entryList": [
+        {
+          "type": "EntryText",
+          "unlocEntryName": "TestEntry1",
+          "pageList": [
+            {
+              "unlocText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE. \n\nNew paragraph!"
+            },
+            {
+              "stack": {
+                "name": "minecraft:diamond",
+                "metadata": 0
+              },
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "image": {
+                "resourceDomain": "guideapi",
+                "resourcePath": "textures/gui/testimage.png"
+              }
+            },
+            {
+              "recipe": {
+                "recipeWidth": 3,
+                "recipeHeight": 3,
+                "recipeItems": [
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  }
+                ],
+                "recipeOutput": {
+                  "name": "minecraft:diamond",
+                  "metadata": 0
+                },
+                "field_92101_f": false
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 910770699620
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeWidth": 3,
+                  "recipeHeight": 3,
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    }
+                  ],
+                  "recipeOutput": {
+                    "name": "minecraft:diamond",
+                    "metadata": 0
+                  },
+                  "field_92101_f": false
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:beef",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ]
+                ],
+                "width": 3,
+                "height": 3,
+                "mirrored": true
+              },
+              "iRecipeRenderer": {
+                "width": 3,
+                "height": 3,
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 219250798354749
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ]
+                  ],
+                  "width": 3,
+                  "height": 3,
+                  "mirrored": true
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "recipeOutput": {
+                  "name": "minecraft:blaze_rod",
+                  "metadata": 0
+                },
+                "recipeItems": [
+                  {
+                    "name": "minecraft:cauldron",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:golden_carrot",
+                    "metadata": 0
+                  }
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 122661627842100
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:baked_potato",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ]
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 273448160728222
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:baked_potato",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ]
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "pageToEmulate": {
+                "type": "PageIRecipe",
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                }
+              },
+              "sound": "mob.pig.say"
+            },
+            {
+              "input": {
+                "name": "minecraft:potato",
+                "metadata": 0
+              },
+              "output": {
+                "name": "minecraft:baked_potato",
+                "metadata": 0
+              }
+            },
+            {
+              "input": {
+                "name": "minecraft:diamond_axe",
+                "metadata": 0
+              }
+            }
+          ]
+        },
+        {
+          "type": "EntryText",
+          "unlocEntryName": "TestEntry2",
+          "pageList": [
+            {
+              "unlocText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE. \n\nNew paragraph!"
+            },
+            {
+              "stack": {
+                "name": "minecraft:diamond",
+                "metadata": 0
+              },
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "image": {
+                "resourceDomain": "guideapi",
+                "resourcePath": "textures/gui/testimage.png"
+              }
+            },
+            {
+              "recipe": {
+                "recipeWidth": 3,
+                "recipeHeight": 3,
+                "recipeItems": [
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  }
+                ],
+                "recipeOutput": {
+                  "name": "minecraft:diamond",
+                  "metadata": 0
+                },
+                "field_92101_f": false
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 910770699620
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeWidth": 3,
+                  "recipeHeight": 3,
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    }
+                  ],
+                  "recipeOutput": {
+                    "name": "minecraft:diamond",
+                    "metadata": 0
+                  },
+                  "field_92101_f": false
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:beef",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ]
+                ],
+                "width": 3,
+                "height": 3,
+                "mirrored": true
+              },
+              "iRecipeRenderer": {
+                "width": 3,
+                "height": 3,
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 219250798354749
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ]
+                  ],
+                  "width": 3,
+                  "height": 3,
+                  "mirrored": true
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "recipeOutput": {
+                  "name": "minecraft:blaze_rod",
+                  "metadata": 0
+                },
+                "recipeItems": [
+                  {
+                    "name": "minecraft:cauldron",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:golden_carrot",
+                    "metadata": 0
+                  }
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 122661627842100
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:baked_potato",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ]
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 273448160728222
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:baked_potato",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ]
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "pageToEmulate": {
+                "type": "PageIRecipe",
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                }
+              },
+              "sound": "mob.pig.say"
+            },
+            {
+              "input": {
+                "name": "minecraft:potato",
+                "metadata": 0
+              },
+              "output": {
+                "name": "minecraft:baked_potato",
+                "metadata": 0
+              }
+            },
+            {
+              "input": {
+                "name": "minecraft:diamond_axe",
+                "metadata": 0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "CategoryItemStack",
+      "unlocCategoryName": "TestCategory4",
+      "itemStack": {
+        "name": "minecraft:skull",
+        "metadata": 0
+      },
+      "entryList": [
+        {
+          "type": "EntryText",
+          "unlocEntryName": "TestEntry1",
+          "pageList": [
+            {
+              "unlocText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE. \n\nNew paragraph!"
+            },
+            {
+              "stack": {
+                "name": "minecraft:diamond",
+                "metadata": 0
+              },
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "image": {
+                "resourceDomain": "guideapi",
+                "resourcePath": "textures/gui/testimage.png"
+              }
+            },
+            {
+              "recipe": {
+                "recipeWidth": 3,
+                "recipeHeight": 3,
+                "recipeItems": [
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  }
+                ],
+                "recipeOutput": {
+                  "name": "minecraft:diamond",
+                  "metadata": 0
+                },
+                "field_92101_f": false
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 910770699620
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeWidth": 3,
+                  "recipeHeight": 3,
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    }
+                  ],
+                  "recipeOutput": {
+                    "name": "minecraft:diamond",
+                    "metadata": 0
+                  },
+                  "field_92101_f": false
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:beef",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ]
+                ],
+                "width": 3,
+                "height": 3,
+                "mirrored": true
+              },
+              "iRecipeRenderer": {
+                "width": 3,
+                "height": 3,
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 219250798354749
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ]
+                  ],
+                  "width": 3,
+                  "height": 3,
+                  "mirrored": true
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "recipeOutput": {
+                  "name": "minecraft:blaze_rod",
+                  "metadata": 0
+                },
+                "recipeItems": [
+                  {
+                    "name": "minecraft:cauldron",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:golden_carrot",
+                    "metadata": 0
+                  }
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 122661627842100
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:baked_potato",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ]
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 273448160728222
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:baked_potato",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ]
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "pageToEmulate": {
+                "type": "PageIRecipe",
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                }
+              },
+              "sound": "mob.pig.say"
+            },
+            {
+              "input": {
+                "name": "minecraft:potato",
+                "metadata": 0
+              },
+              "output": {
+                "name": "minecraft:baked_potato",
+                "metadata": 0
+              }
+            },
+            {
+              "input": {
+                "name": "minecraft:diamond_axe",
+                "metadata": 0
+              }
+            }
+          ]
+        },
+        {
+          "type": "EntryText",
+          "unlocEntryName": "TestEntry2",
+          "pageList": [
+            {
+              "unlocText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE. \n\nNew paragraph!"
+            },
+            {
+              "stack": {
+                "name": "minecraft:diamond",
+                "metadata": 0
+              },
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "image": {
+                "resourceDomain": "guideapi",
+                "resourcePath": "textures/gui/testimage.png"
+              }
+            },
+            {
+              "recipe": {
+                "recipeWidth": 3,
+                "recipeHeight": 3,
+                "recipeItems": [
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  }
+                ],
+                "recipeOutput": {
+                  "name": "minecraft:diamond",
+                  "metadata": 0
+                },
+                "field_92101_f": false
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 910770699620
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeWidth": 3,
+                  "recipeHeight": 3,
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    }
+                  ],
+                  "recipeOutput": {
+                    "name": "minecraft:diamond",
+                    "metadata": 0
+                  },
+                  "field_92101_f": false
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:beef",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ]
+                ],
+                "width": 3,
+                "height": 3,
+                "mirrored": true
+              },
+              "iRecipeRenderer": {
+                "width": 3,
+                "height": 3,
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 219250798354749
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ]
+                  ],
+                  "width": 3,
+                  "height": 3,
+                  "mirrored": true
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "recipeOutput": {
+                  "name": "minecraft:blaze_rod",
+                  "metadata": 0
+                },
+                "recipeItems": [
+                  {
+                    "name": "minecraft:cauldron",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:golden_carrot",
+                    "metadata": 0
+                  }
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 122661627842100
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:baked_potato",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ]
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 273448160728222
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:baked_potato",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ]
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "pageToEmulate": {
+                "type": "PageIRecipe",
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                }
+              },
+              "sound": "mob.pig.say"
+            },
+            {
+              "input": {
+                "name": "minecraft:potato",
+                "metadata": 0
+              },
+              "output": {
+                "name": "minecraft:baked_potato",
+                "metadata": 0
+              }
+            },
+            {
+              "input": {
+                "name": "minecraft:diamond_axe",
+                "metadata": 0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "CategoryItemStack",
+      "unlocCategoryName": "TestCategory5",
+      "itemStack": {
+        "name": "minecraft:fence_gate",
+        "metadata": 0
+      },
+      "entryList": [
+        {
+          "type": "EntryText",
+          "unlocEntryName": "TestEntry1",
+          "pageList": [
+            {
+              "unlocText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE. \n\nNew paragraph!"
+            },
+            {
+              "stack": {
+                "name": "minecraft:diamond",
+                "metadata": 0
+              },
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "image": {
+                "resourceDomain": "guideapi",
+                "resourcePath": "textures/gui/testimage.png"
+              }
+            },
+            {
+              "recipe": {
+                "recipeWidth": 3,
+                "recipeHeight": 3,
+                "recipeItems": [
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  }
+                ],
+                "recipeOutput": {
+                  "name": "minecraft:diamond",
+                  "metadata": 0
+                },
+                "field_92101_f": false
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 910770699620
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeWidth": 3,
+                  "recipeHeight": 3,
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    }
+                  ],
+                  "recipeOutput": {
+                    "name": "minecraft:diamond",
+                    "metadata": 0
+                  },
+                  "field_92101_f": false
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:beef",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ]
+                ],
+                "width": 3,
+                "height": 3,
+                "mirrored": true
+              },
+              "iRecipeRenderer": {
+                "width": 3,
+                "height": 3,
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 219250798354749
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ]
+                  ],
+                  "width": 3,
+                  "height": 3,
+                  "mirrored": true
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "recipeOutput": {
+                  "name": "minecraft:blaze_rod",
+                  "metadata": 0
+                },
+                "recipeItems": [
+                  {
+                    "name": "minecraft:cauldron",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:golden_carrot",
+                    "metadata": 0
+                  }
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 122661627842100
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:baked_potato",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ]
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 273448160728222
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:baked_potato",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ]
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "pageToEmulate": {
+                "type": "PageIRecipe",
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                }
+              },
+              "sound": "mob.pig.say"
+            },
+            {
+              "input": {
+                "name": "minecraft:potato",
+                "metadata": 0
+              },
+              "output": {
+                "name": "minecraft:baked_potato",
+                "metadata": 0
+              }
+            },
+            {
+              "input": {
+                "name": "minecraft:diamond_axe",
+                "metadata": 0
+              }
+            }
+          ]
+        },
+        {
+          "type": "EntryText",
+          "unlocEntryName": "TestEntry2",
+          "pageList": [
+            {
+              "unlocText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE. \n\nNew paragraph!"
+            },
+            {
+              "stack": {
+                "name": "minecraft:diamond",
+                "metadata": 0
+              },
+              "locText": "HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE"
+            },
+            {
+              "image": {
+                "resourceDomain": "guideapi",
+                "resourcePath": "textures/gui/testimage.png"
+              }
+            },
+            {
+              "recipe": {
+                "recipeWidth": 3,
+                "recipeHeight": 3,
+                "recipeItems": [
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:apple",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beacon",
+                    "metadata": 32767
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  }
+                ],
+                "recipeOutput": {
+                  "name": "minecraft:diamond",
+                  "metadata": 0
+                },
+                "field_92101_f": false
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 910770699620
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeWidth": 3,
+                  "recipeHeight": 3,
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:apple",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beacon",
+                      "metadata": 32767
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:beef",
+                      "metadata": 0
+                    }
+                  ],
+                  "recipeOutput": {
+                    "name": "minecraft:diamond",
+                    "metadata": 0
+                  },
+                  "field_92101_f": false
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:beef",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:stone",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ]
+                ],
+                "width": 3,
+                "height": 3,
+                "mirrored": true
+              },
+              "iRecipeRenderer": {
+                "width": 3,
+                "height": 3,
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 219250798354749
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:beef",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:stone",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ]
+                  ],
+                  "width": 3,
+                  "height": 3,
+                  "mirrored": true
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "recipeOutput": {
+                  "name": "minecraft:blaze_rod",
+                  "metadata": 0
+                },
+                "recipeItems": [
+                  {
+                    "name": "minecraft:cauldron",
+                    "metadata": 0
+                  },
+                  {
+                    "name": "minecraft:golden_carrot",
+                    "metadata": 0
+                  }
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 122661627842100
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "recipe": {
+                "output": {
+                  "name": "minecraft:baked_potato",
+                  "metadata": 0
+                },
+                "input": [
+                  [
+                    {
+                      "name": "minecraft:iron_ingot",
+                      "metadata": 0
+                    }
+                  ],
+                  [
+                    {
+                      "name": "minecraft:oak_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:spruce_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:birch_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:jungle_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:acacia_stairs",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:dark_oak_stairs",
+                      "metadata": 0
+                    }
+                  ]
+                ]
+              },
+              "iRecipeRenderer": {
+                "lastCycle": -1,
+                "cycleIdx": 0,
+                "rand": {
+                  "seed": {
+                    "value": 273448160728222
+                  },
+                  "nextNextGaussian": 0.0,
+                  "haveNextNextGaussian": false
+                },
+                "recipe": {
+                  "output": {
+                    "name": "minecraft:baked_potato",
+                    "metadata": 0
+                  },
+                  "input": [
+                    [
+                      {
+                        "name": "minecraft:iron_ingot",
+                        "metadata": 0
+                      }
+                    ],
+                    [
+                      {
+                        "name": "minecraft:oak_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:spruce_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:birch_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:jungle_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:acacia_stairs",
+                        "metadata": 0
+                      },
+                      {
+                        "name": "minecraft:dark_oak_stairs",
+                        "metadata": 0
+                      }
+                    ]
+                  ]
+                },
+                "tooltips": []
+              }
+            },
+            {
+              "pageToEmulate": {
+                "type": "PageIRecipe",
+                "recipe": {
+                  "recipeOutput": {
+                    "name": "minecraft:blaze_rod",
+                    "metadata": 0
+                  },
+                  "recipeItems": [
+                    {
+                      "name": "minecraft:cauldron",
+                      "metadata": 0
+                    },
+                    {
+                      "name": "minecraft:golden_carrot",
+                      "metadata": 0
+                    }
+                  ]
+                }
+              },
+              "sound": "mob.pig.say"
+            },
+            {
+              "input": {
+                "name": "minecraft:potato",
+                "metadata": 0
+              },
+              "output": {
+                "name": "minecraft:baked_potato",
+                "metadata": 0
+              }
+            },
+            {
+              "input": {
+                "name": "minecraft:diamond_axe",
+                "metadata": 0
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }
