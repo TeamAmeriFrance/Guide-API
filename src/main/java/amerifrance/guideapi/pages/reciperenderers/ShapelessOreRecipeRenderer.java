@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
@@ -49,5 +50,10 @@ public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOre
                 }
             }
         }
+    }
+    
+    @Override
+    protected String getRecipeName() {
+        return StatCollector.translateToLocal("text.shapeless.crafting");
     }
 }
