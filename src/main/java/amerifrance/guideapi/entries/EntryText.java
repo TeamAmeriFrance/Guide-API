@@ -22,7 +22,7 @@ public class EntryText extends EntryBase {
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight)) {
-            fontRenderer.drawString(getLocalizedName(), entryX, entryY - 2, 0x423EBC);
+            fontRenderer.drawString(getLocalizedName(), entryX, entryY + 1, 0x423EBC);
         } else {
             fontRenderer.drawString(getLocalizedName(), entryX, entryY, 0);
         }
