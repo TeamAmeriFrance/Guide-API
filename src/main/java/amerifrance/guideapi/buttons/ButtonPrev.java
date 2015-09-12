@@ -29,7 +29,7 @@ public class ButtonPrev extends ButtonGuideAPI {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             minecraft.getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, xPosition, yPosition, width, height)) {
-                this.drawTexturedModalRect(xPosition, yPosition - 2, 47, 214, 18, 10);
+                this.drawTexturedModalRect(xPosition, yPosition + 1, 47, 214, 18, 10);
                 guiBase.drawHoveringText(getHoveringText(), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
             } else {
                 this.drawTexturedModalRect(xPosition, yPosition, 24, 214, 18, 10);
