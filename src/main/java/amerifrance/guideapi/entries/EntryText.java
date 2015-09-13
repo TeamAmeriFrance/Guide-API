@@ -10,6 +10,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
 
+import java.awt.*;
 import java.util.List;
 
 public class EntryText extends EntryBase {
@@ -22,7 +23,8 @@ public class EntryText extends EntryBase {
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight)) {
-            fontRenderer.drawString(getLocalizedName(), entryX, entryY + 1, 0x423EBC);
+            fontRenderer.drawString(getLocalizedName(), entryX, entryY + 1, new Color(206, 206, 206).getRGB());
+            fontRenderer.drawString(getLocalizedName(), entryX, entryY, 0x423EBC);
         } else {
             fontRenderer.drawString(getLocalizedName(), entryX, entryY, 0);
         }
