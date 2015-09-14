@@ -9,17 +9,17 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 
-public class CategoryItemStack extends CategoryBase {
+public class CategoryResourceLocation extends CategoryBase {
 
-    public ItemStack stack;
+    public ResourceLocation resourceLocation;
 
-    public CategoryItemStack(List<EntryAbstract> entryList, String unlocCategoryName, ItemStack stack) {
+    public CategoryResourceLocation(List<EntryAbstract> entryList, String unlocCategoryName, ResourceLocation resourceLocation) {
         super(entryList, unlocCategoryName);
-        this.stack = stack;
+        this.resourceLocation = resourceLocation;
     }
 
     @Override
@@ -31,26 +31,27 @@ public class CategoryItemStack extends CategoryBase {
     @Override
     @SideOnly(Side.CLIENT)
     public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
-        GuiHelper.drawScaledItemStack(this.stack, categoryX, categoryY, 1.5F);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+        GuiHelper.drawSizedIconWithoutColor(categoryX, categoryY, 48, 48, 0);
         if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight))
             guiBase.drawHoveringText(this.getTooltip(), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
 
-        CategoryItemStack that = (CategoryItemStack) o;
-        if (stack != null ? !stack.isItemEqual(that.stack) : that.stack != null) return false;
-        return true;
+        CategoryResourceLocation that = (CategoryResourceLocation) object;
+
+        return !(resourceLocation != null ? !resourceLocation.equals(that.resourceLocation) : that.resourceLocation != null);
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (stack != null ? stack.hashCode() : 0);
+        result = 31 * result + (resourceLocation != null ? resourceLocation.hashCode() : 0);
         return result;
     }
 }

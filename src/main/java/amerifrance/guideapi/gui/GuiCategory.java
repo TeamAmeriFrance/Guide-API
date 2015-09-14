@@ -110,7 +110,7 @@ public class GuiCategory extends GuiBase {
         }
 
         if (typeofClick == 1) {
-            this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
+            this.mc.displayGuiScreen(new GuiHomeNew(book, player, bookStack));
         }
     }
 
@@ -118,7 +118,7 @@ public class GuiCategory extends GuiBase {
     public void keyTyped(char typedChar, int keyCode) {
         super.keyTyped(typedChar, keyCode);
         if (keyCode == Keyboard.KEY_BACK || keyCode == this.mc.gameSettings.keyBindUseItem.getKeyCode()) {
-            this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
+            this.mc.displayGuiScreen(new GuiHomeNew(book, player, bookStack));
         }
         if ((keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_RIGHT) && entryPage + 1 < entryWrapperMap.asMap().size()) {
             this.entryPage++;
@@ -131,7 +131,7 @@ public class GuiCategory extends GuiBase {
     @Override
     public void actionPerformed(GuiButton button) {
         if (button.id == 0) {
-            this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
+            this.mc.displayGuiScreen(new GuiHomeNew(book, player, bookStack));
         } else if (button.id == 1 && entryPage + 1 < entryWrapperMap.asMap().size()) {
             this.entryPage++;
         } else if (button.id == 2 && entryPage > 0) {

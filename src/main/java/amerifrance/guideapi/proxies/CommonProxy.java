@@ -8,6 +8,7 @@ import amerifrance.guideapi.api.util.NBTBookTags;
 import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiEntry;
 import amerifrance.guideapi.gui.GuiHome;
+import amerifrance.guideapi.gui.GuiHomeNew;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -43,12 +44,12 @@ public class CommonProxy implements IGuiHandler {
                 return guiCategory;
             } else {
                 int categoryNumber = tagCompound.getInteger(NBTBookTags.CATEGORY_PAGE_TAG);
-                GuiHome guiHome = new GuiHome(book, player, stack);
+                GuiHomeNew guiHome = new GuiHomeNew(book, player, stack);
                 guiHome.categoryPage = categoryNumber;
                 return guiHome;
             }
         }
-        return new GuiHome(book, player, stack);
+        return new GuiHomeNew(book, player, stack);
     }
 
     public void playSound(ResourceLocation sound) {

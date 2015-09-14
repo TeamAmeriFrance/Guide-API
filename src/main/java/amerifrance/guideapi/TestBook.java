@@ -8,6 +8,7 @@ import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.util.BookBuilder;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.categories.CategoryItemStack;
+import amerifrance.guideapi.categories.CategoryResourceLocation;
 import amerifrance.guideapi.entries.EntryText;
 import amerifrance.guideapi.pages.*;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -68,10 +69,10 @@ public class TestBook {
         entries.add(entry1);
         entries.add(entry2);
 
-        CategoryItemStack category1 = new CategoryItemStack(entries, "TestCategory1", new ItemStack(Items.reeds));
+        CategoryResourceLocation category1 = new CategoryResourceLocation(entries, "TestCategory1", new ResourceLocation(ModInformation.GUITEXLOC + "testimage.png"));
         CategoryItemStack category2 = new CategoryItemStack(entries, "TestCategory2", new ItemStack(Blocks.brick_stairs));
         CategoryItemStack category3 = new CategoryItemStack(entries, "TestCategory3", new ItemStack(Blocks.dragon_egg));
-        CategoryItemStack category4 = new CategoryItemStack(entries, "TestCategory4", new ItemStack(Items.skull, 1, 0));
+        CategoryItemStack category4 = new CategoryItemStack(entries, "TestCategory4", new ItemStack(Items.diamond));
         CategoryItemStack category5 = new CategoryItemStack(entries, "TestCategory5", new ItemStack(Blocks.fence_gate));
         ArrayList<CategoryAbstract> categories = new ArrayList<CategoryAbstract>();
         categories.add(category1);
@@ -83,7 +84,7 @@ public class TestBook {
         BookBuilder builder = new BookBuilder();
         builder.setCategories(categories);
         builder.setUnlocBookTitle(title);
-        builder.setUnlocWelcomeMessage("Welcome message here");
+        builder.setUnlocWelcomeMessage(title);
         builder.setUnlocDisplayName(title);
         builder.setBookColor(new Color(171, 80, 30));
         book = builder.build();
