@@ -1,32 +1,21 @@
 package amerifrance.guideapi.entries;
 
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.IPage;
-import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.base.EntryBase;
-import amerifrance.guideapi.api.util.GuiHelper;
-import amerifrance.guideapi.gui.GuiBase;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.FontRenderer;
 
-import java.awt.*;
 import java.util.List;
 
+/**
+ * Use {@link EntryBase} instead. It's the same thing
+ */
+@Deprecated
 public class EntryText extends EntryBase {
 
-    public EntryText(List<IPage> pageList, String unlocEntryName) {
-        super(pageList, unlocEntryName);
+    public EntryText(List<IPage> pageList, String unlocEntryName, boolean unicode) {
+        super(pageList, unlocEntryName, unicode);
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
-        if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight)) {
-            fontRenderer.drawString(getLocalizedName(), entryX, entryY + 1, new Color(206, 206, 206).getRGB());
-            fontRenderer.drawString(getLocalizedName(), entryX, entryY, 0x423EBC);
-        } else {
-            fontRenderer.drawString(getLocalizedName(), entryX, entryY, 0);
-        }
+    public EntryText(List<IPage> pageList, String unlocEntryName) {
+        this(pageList, unlocEntryName, false);
     }
 }

@@ -17,10 +17,16 @@ public abstract class EntryAbstract {
 
     public List<IPage> pageList = new ArrayList<IPage>();
     public String unlocEntryName;
+    public boolean unicode;
 
-    public EntryAbstract(List pageList, String unlocEntryName) {
+    public EntryAbstract(List pageList, String unlocEntryName, boolean unicode) {
         this.pageList = pageList;
         this.unlocEntryName = unlocEntryName;
+        this.unicode = unicode;
+    }
+
+    public EntryAbstract(List pageList, String unlocEntryName) {
+        this(pageList, unlocEntryName, false);
     }
 
     public void addPage(IPage page) {

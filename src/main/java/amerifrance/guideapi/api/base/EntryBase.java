@@ -3,6 +3,7 @@ package amerifrance.guideapi.api.base;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IPage;
+import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiEntry;
@@ -13,17 +14,37 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
+import java.awt.*;
 import java.util.List;
 
 public class EntryBase extends EntryAbstract {
 
+    public EntryBase(List<IPage> pageList, String unlocEntryName, boolean unicode) {
+        super(pageList, unlocEntryName, unicode);
+    }
+
     public EntryBase(List<IPage> pageList, String unlocEntryName) {
-        super(pageList, unlocEntryName);
+        super(pageList, unlocEntryName, false);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
+
+        boolean startFlag = fontRenderer.getUnicodeFlag();
+
+        if (unicode)
+            fontRenderer.setUnicodeFlag(true);
+
+        if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight)) {
+            fontRenderer.drawString(getLocalizedName(), entryX + 12, entryY + 1, new Color(206, 206, 206).getRGB());
+            fontRenderer.drawString(getLocalizedName(), entryX + 12, entryY, 0x423EBC);
+        } else {
+            fontRenderer.drawString(getLocalizedName(), entryX + 12, entryY, 0);
+        }
+
+        if (unicode && !startFlag)
+            fontRenderer.setUnicodeFlag(false);
     }
 
     @Override
