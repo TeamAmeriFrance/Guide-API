@@ -6,6 +6,7 @@ import amerifrance.guideapi.buttons.ButtonNext;
 import amerifrance.guideapi.buttons.ButtonPrev;
 import amerifrance.guideapi.wrappers.CategoryWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -66,10 +67,10 @@ public class GuiHomeNew extends GuiHome {
             }
             i++;
 
-            if (i >= 12) {
+            if (i >= 16) {
                 i = 0;
-                cX = guiLeft;
-                cY = guiTop + 15;
+                cX = guiLeft + 45;
+                cY = guiTop + 40;
                 pageNumber++;
             }
         }
@@ -96,5 +97,8 @@ public class GuiHomeNew extends GuiHome {
 
         buttonPrev.visible = categoryPage != 0;
         buttonNext.visible = categoryPage != categoryWrapperMap.asMap().size() - 1;
+
+        for (Object button : this.buttonList)
+            ((GuiButton) button).drawButton(this.mc, mouseX, mouseY);
     }
 }

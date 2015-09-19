@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -106,29 +107,35 @@ public class GuiEntry extends GuiBase {
     }
 
     @Override
+    public void handleMouseInput() {
+        super.handleMouseInput();
+
+        int movement = Mouse.getEventDWheel();
+        if(movement < 0)
+            nextPage();
+        else if(movement > 0)
+            prevPage();
+    }
+
+    @Override
     public void keyTyped(char typedChar, int keyCode) {
         super.keyTyped(typedChar, keyCode);
-        if (keyCode == Keyboard.KEY_BACK || keyCode == this.mc.gameSettings.keyBindUseItem.getKeyCode()) {
+        if (keyCode == Keyboard.KEY_BACK || keyCode == this.mc.gameSettings.keyBindUseItem.getKeyCode())
             this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack));
-        }
-
-        if ((keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_RIGHT) && pageNumber + 1 < pageWrapperList.size()) {
-            this.pageNumber++;
-        }
-        if ((keyCode == Keyboard.KEY_DOWN || keyCode == Keyboard.KEY_LEFT) && pageNumber > 0) {
-            this.pageNumber--;
-        }
+        if ((keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_RIGHT) && pageNumber + 1 < pageWrapperList.size())
+            nextPage();
+        if ((keyCode == Keyboard.KEY_DOWN || keyCode == Keyboard.KEY_LEFT) && pageNumber > 0)
+            prevPage();
     }
 
     @Override
     public void actionPerformed(GuiButton button) {
-        if (button.id == 0) {
+        if (button.id == 0)
             this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack));
-        } else if (button.id == 1 && pageNumber + 1 < pageWrapperList.size()) {
-            this.pageNumber++;
-        } else if (button.id == 2 && pageNumber > 0) {
-            this.pageNumber--;
-        }
+        else if (button.id == 1 && pageNumber + 1 < pageWrapperList.size())
+            nextPage();
+        else if (button.id == 2 && pageNumber > 0)
+            prevPage();
     }
 
     @Override
@@ -136,5 +143,15 @@ public class GuiEntry extends GuiBase {
         super.onGuiClosed();
 
         PacketHandler.INSTANCE.sendToServer(new PacketSyncEntry(book.categoryList.indexOf(category), category.entryList.indexOf(entry), pageNumber));
+    }
+
+    public void nextPage() {
+        if (pageNumber != pageWrapperList.size() - 1)
+            pageNumber++;
+    }
+
+    public void prevPage() {
+        if (pageNumber != 0)
+            pageNumber--;
     }
 }

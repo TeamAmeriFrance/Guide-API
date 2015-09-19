@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 
 import java.awt.*;
 
@@ -79,9 +80,9 @@ public class GuiHome extends GuiBase {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float renderPartialTicks) {
-        for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage)) {
-            if (wrapper.canPlayerSee()) wrapper.draw(mouseX, mouseY, this);
-        }
+        for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage))
+            if (wrapper.canPlayerSee())
+                wrapper.draw(mouseX, mouseY, this);
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
@@ -89,9 +90,9 @@ public class GuiHome extends GuiBase {
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.bookColor);
         drawSplitString(book.getLocalizedWelcomeMessage(), guiLeft + 37, guiTop + 12, (4 * xSize / 6) - 4, 0);
 
-        for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage)) {
-            if (wrapper.canPlayerSee()) wrapper.drawExtras(mouseX, mouseY, this);
-        }
+        for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage))
+            if (wrapper.canPlayerSee())
+                wrapper.drawExtras(mouseX, mouseY, this);
 
         drawCenteredString(fontRendererObj, String.valueOf(categoryPage + 1) + "/" + String.valueOf(categoryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
         drawCenteredStringWithShadow(fontRendererObj, book.getLocalizedBookTitle(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
@@ -108,30 +109,42 @@ public class GuiHome extends GuiBase {
 
         for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage)) {
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                if (typeofClick == 0) wrapper.category.onLeftClicked(book, mouseX, mouseY, player, bookStack);
-                else if (typeofClick == 1) wrapper.category.onRightClicked(book, mouseX, mouseY, player, bookStack);
+                if (typeofClick == 0)
+                    wrapper.category.onLeftClicked(book, mouseX, mouseY, player, bookStack);
+
+                else if (typeofClick == 1)
+                    wrapper.category.onRightClicked(book, mouseX, mouseY, player, bookStack);
             }
         }
     }
 
     @Override
+    public void handleMouseInput() {
+        super.handleMouseInput();
+
+        int movement = Mouse.getEventDWheel();
+        if(movement < 0)
+            nextPage();
+        else if(movement > 0)
+            prevPage();
+    }
+
+    @Override
     public void keyTyped(char typedChar, int keyCode) {
         super.keyTyped(typedChar, keyCode);
-        if ((keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_RIGHT) && categoryPage + 1 < categoryWrapperMap.asMap().size()) {
-            this.categoryPage++;
-        }
-        if ((keyCode == Keyboard.KEY_DOWN || keyCode == Keyboard.KEY_LEFT) && categoryPage > 0) {
-            this.categoryPage--;
-        }
+        if ((keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_RIGHT) && categoryPage + 1 < categoryWrapperMap.asMap().size())
+            nextPage();
+
+        if ((keyCode == Keyboard.KEY_DOWN || keyCode == Keyboard.KEY_LEFT) && categoryPage > 0)
+            prevPage();
     }
 
     @Override
     public void actionPerformed(GuiButton button) {
-        if (button.id == 0 && categoryPage + 1 < categoryWrapperMap.asMap().size()) {
-            this.categoryPage++;
-        } else if (button.id == 1 && categoryPage > 0) {
-            this.categoryPage--;
-        }
+        if (button.id == 0 && categoryPage + 1 < categoryWrapperMap.asMap().size())
+            nextPage();
+        else if (button.id == 1 && categoryPage > 0)
+            prevPage();
     }
 
     @Override
@@ -139,5 +152,15 @@ public class GuiHome extends GuiBase {
         super.onGuiClosed();
 
         PacketHandler.INSTANCE.sendToServer(new PacketSyncHome(categoryPage));
+    }
+
+    public void nextPage() {
+        if (categoryPage != categoryWrapperMap.asMap().size() - 1)
+            categoryPage++;
+    }
+
+    public void prevPage() {
+        if (categoryPage != 0)
+            categoryPage--;
     }
 }
