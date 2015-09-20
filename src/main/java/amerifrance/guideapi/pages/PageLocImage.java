@@ -12,6 +12,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
 
+/**
+ * Use {@link PageTextImage}
+ */
+@Deprecated
 public class PageLocImage extends PageBase {
 
     public String locText;

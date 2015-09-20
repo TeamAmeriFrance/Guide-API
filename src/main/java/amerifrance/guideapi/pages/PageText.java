@@ -4,45 +4,28 @@ import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.base.PageBase;
-import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.util.StatCollector;
 
-import java.awt.*;
+public class PageText extends PageBase {
 
-/**
- * Use {@link PageText}
- */
-@Deprecated
-public class PageLocText extends PageBase {
-
-    public String locText;
-    public boolean unicode;
+    public String draw;
     private int yOffset;
 
     /**
-     * @param locText - Pre-localized text to draw.
+     * @param draw    - Text to draw. Checks for localization.
      * @param yOffset - How many pixels to offset the text on the Y value
-     * @param unicode - Whether to enable the unicode flag or not
      */
-    public PageLocText(String locText, int yOffset, boolean unicode) {
-        this.locText = locText;
+    public PageText(String draw, int yOffset) {
+        this.draw = StatCollector.canTranslate(draw) ? StatCollector.translateToLocal(draw) : draw;
         this.yOffset = yOffset;
-        this.unicode = unicode;
     }
 
-    public PageLocText(String locText, int yOffset) {
-        this(locText, yOffset, false);
-    }
-
-    public PageLocText(String locText, boolean unicode) {
-        this(locText, 60, unicode);
-    }
-
-    public PageLocText(String locText) {
-        this(locText, false);
+    public PageText(String draw) {
+        this(draw, 0);
     }
 
     @Override
@@ -53,7 +36,7 @@ public class PageLocText extends PageBase {
         if (unicode)
             fontRenderer.setUnicodeFlag(true);
 
-        fontRenderer.drawSplitString(locText, guiLeft + 39, guiTop + 12 + yOffset, 3 * guiBase.xSize / 5, 0);
+        fontRenderer.drawSplitString(draw, guiLeft + 39, guiTop + 12 + yOffset, 3 * guiBase.xSize / 5, 0);
 
         if (unicode && !startFlag)
             fontRenderer.setUnicodeFlag(false);
@@ -65,13 +48,13 @@ public class PageLocText extends PageBase {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        PageLocText that = (PageLocText) o;
-        if (locText != null ? !locText.equals(that.locText) : that.locText != null) return false;
+        PageText that = (PageText) o;
+        if (draw != null ? !draw.equals(that.draw) : that.draw != null) return false;
         return true;
     }
 
     @Override
     public int hashCode() {
-        return locText != null ? locText.hashCode() : 0;
+        return draw != null ? draw.hashCode() : 0;
     }
 }

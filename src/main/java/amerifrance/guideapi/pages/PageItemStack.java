@@ -14,56 +14,49 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-/**
- * Use {@link PageItemStack}
- */
-@Deprecated
-public class PageUnlocItemStack extends PageUnlocText {
+public class PageItemStack extends PageText {
 
     public ItemStack stack;
 
     /**
-     * @param unlocText - Unlocalized text to draw
+     * @param draw - Unlocalized text to draw
      * @param stack     - ItemStack to render
      */
-    public PageUnlocItemStack(String unlocText, ItemStack stack) {
-        super(unlocText, 60);
+    public PageItemStack(String draw, ItemStack stack) {
+        super(draw, 60);
         this.stack = stack;
     }
 
     /**
-     * @param unlocText - Unlocalized text to draw
+     * @param draw - Unlocalized text to draw
      * @param item      - Item to render
      */
-    public PageUnlocItemStack(String unlocText, Item item) {
-        super(unlocText, 60);
-        this.stack = new ItemStack(item);
+    public PageItemStack(String draw, Item item) {
+        this(draw, new ItemStack(item));
     }
 
     /**
-     * @param unlocText - Unlocalized text to draw
+     * @param draw - Unlocalized text to draw
      * @param block     - Block to render
      */
-    public PageUnlocItemStack(String unlocText, Block block) {
-        super(unlocText, 60);
-        this.stack = new ItemStack(block);
+    public PageItemStack(String draw, Block block) {
+        this(draw, new ItemStack(block));
     }
 
     /**
-     * @param unlocText - Unlocalized text to draw
+     * @param draw - Unlocalized text to draw
      * @param entry     - OreDict entry to render
      */
-    public PageUnlocItemStack(String unlocText, String entry) {
-        super(unlocText, 60);
-
+    public PageItemStack(String draw, String entry) {
+        super(draw, 60);
         this.stack = new ItemStack(Blocks.fire);
 
-        if (!OreDictionary.getOres(entry).isEmpty())
+        if (!OreDictionary.getOres(entry).isEmpty()) {
             for (int i = 0; i < OreDictionary.getOres(entry).size(); i++) {
                 ItemStack stack = OreDictionary.getOres(entry).get(i);
-
                 this.stack = stack;
             }
+        }
     }
 
     @Override
@@ -78,7 +71,7 @@ public class PageUnlocItemStack extends PageUnlocText {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        PageUnlocItemStack that = (PageUnlocItemStack) o;
+        PageItemStack that = (PageItemStack) o;
         if (stack != null ? !stack.isItemEqual(that.stack) : that.stack != null) return false;
         return true;
     }

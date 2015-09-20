@@ -15,6 +15,8 @@ import net.minecraft.item.ItemStack;
 
 public class PageBase implements IPage {
 
+    protected boolean unicode;
+
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
@@ -43,6 +45,11 @@ public class PageBase implements IPage {
     @Override
     @SideOnly(Side.CLIENT)
     public void onInit(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack, GuiEntry guiEntry) {
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void setUnicodeFlag(boolean flag) {
+        this.unicode = flag;
     }
 
     @Override

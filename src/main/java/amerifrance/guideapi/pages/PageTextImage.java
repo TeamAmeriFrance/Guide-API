@@ -13,24 +13,20 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-/**
- * Use {@link PageTextImage} instead
- */
-@Deprecated
-public class PageUnlocImage extends PageBase {
+public class PageTextImage extends PageBase {
 
-    public String unlocText;
+    public String draw;
     public ResourceLocation image;
     public boolean drawAtTop;
 
     /**
-     * @param unlocText - Unlocalized text to draw
+     * @param draw      - Localized text to draw
      * @param image     - Image to draw
      * @param drawAtTop - Draw Image at top and text at bottom. False reverses this.
      */
-    public PageUnlocImage(String unlocText, ResourceLocation image, boolean drawAtTop) {
+    public PageTextImage(String draw, ResourceLocation image, boolean drawAtTop) {
 
-        this.unlocText = unlocText;
+        this.draw = StatCollector.canTranslate(draw) ? StatCollector.translateToLocal(draw) : draw;
         this.image = image;
         this.drawAtTop = drawAtTop;
     }
@@ -38,20 +34,16 @@ public class PageUnlocImage extends PageBase {
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
+        boolean startFlag = fontRenderer.getUnicodeFlag();
+
         Minecraft.getMinecraft().getTextureManager().bindTexture(image);
-        if (drawAtTop) {
-            GuiHelper.drawSizedIconWithoutColor(guiLeft + 50, guiTop + 12, guiBase.xSize, guiBase.ySize, 0);
+        GuiHelper.drawSizedIconWithoutColor(guiLeft + 50, guiTop + (drawAtTop ? 60 : 12), guiBase.xSize, guiBase.ySize, 0);
 
+        if (unicode)
             fontRenderer.setUnicodeFlag(true);
-            fontRenderer.drawSplitString(StatCollector.translateToLocal(unlocText), guiLeft + 39, guiTop + 112, 3 * guiBase.xSize / 5, 0);
+        fontRenderer.drawSplitString(draw, guiLeft + 39, guiTop + (drawAtTop ? 12 : 112), 3 * guiBase.xSize / 5, 0);
+        if (unicode && !startFlag)
             fontRenderer.setUnicodeFlag(false);
-        } else {
-            GuiHelper.drawSizedIconWithoutColor(guiLeft + 50, guiTop + 60, guiBase.xSize, guiBase.ySize, 0);
-
-            fontRenderer.setUnicodeFlag(true);
-            fontRenderer.drawSplitString(StatCollector.translateToLocal(unlocText), guiLeft + 39, guiTop + 12, 3 * guiBase.xSize / 5, 0);
-            fontRenderer.setUnicodeFlag(false);
-        }
     }
 
     @Override
@@ -60,16 +52,16 @@ public class PageUnlocImage extends PageBase {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        PageUnlocImage that = (PageUnlocImage) o;
+        PageLocImage that = (PageLocImage) o;
         if (drawAtTop != that.drawAtTop) return false;
         if (image != null ? !image.equals(that.image) : that.image != null) return false;
-        if (unlocText != null ? !unlocText.equals(that.unlocText) : that.unlocText != null) return false;
+        if (draw != null ? !draw.equals(that.locText) : that.locText != null) return false;
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = unlocText != null ? unlocText.hashCode() : 0;
+        int result = draw != null ? draw.hashCode() : 0;
         result = 31 * result + (image != null ? image.hashCode() : 0);
         result = 31 * result + (drawAtTop ? 1 : 0);
         return result;

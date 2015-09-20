@@ -14,6 +14,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+/**
+ * Use {@link PageItemStack}
+ */
+@Deprecated
 public class PageLocItemStack extends PageLocText {
 
     public ItemStack stack;
@@ -23,7 +27,7 @@ public class PageLocItemStack extends PageLocText {
      * @param stack   - ItemStack to render
      */
     public PageLocItemStack(String locText, ItemStack stack) {
-        super(locText);
+        super(locText, 60);
         this.stack = stack;
     }
 
@@ -32,7 +36,7 @@ public class PageLocItemStack extends PageLocText {
      * @param item    - Item to render
      */
     public PageLocItemStack(String locText, Item item) {
-        super(locText);
+        super(locText, 60);
         this.stack = new ItemStack(item);
     }
 
@@ -41,7 +45,7 @@ public class PageLocItemStack extends PageLocText {
      * @param block   - Block to render
      */
     public PageLocItemStack(String locText, Block block) {
-        super(locText);
+        super(locText, 60);
         this.stack = new ItemStack(block);
     }
 
@@ -50,7 +54,7 @@ public class PageLocItemStack extends PageLocText {
      * @param entry   - OreDict entry to render
      */
     public PageLocItemStack(String locText, String entry) {
-        super(locText);
+        super(locText, 60);
 
         this.stack = new ItemStack(Blocks.fire);
 
@@ -65,8 +69,7 @@ public class PageLocItemStack extends PageLocText {
     @Override
     @SideOnly(Side.CLIENT)
     public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
-        GuiHelper.drawScaledItemStack(stack, guiLeft - 20, guiTop + guiBase.ySize / 3, 3);
-        GuiHelper.drawScaledItemStack(stack, guiLeft + 5 * guiBase.xSize / 6, guiTop + guiBase.ySize / 3, 3);
+        GuiHelper.drawScaledItemStack(stack, guiLeft + 75, guiTop + 20, 3);
     }
 
     @Override

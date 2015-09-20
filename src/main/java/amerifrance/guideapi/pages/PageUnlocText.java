@@ -10,22 +10,44 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.StatCollector;
 
+/**
+ * Use {@link PageText}
+ */
+@Deprecated
 public class PageUnlocText extends PageBase {
 
     public String unlocText;
+    private int yOffset;
+    public boolean unicode;
 
     /**
-     * @param unlocText - Unlocalized text to draw
+     * @param unlocText - Pre-localized text to draw.
+     * @param yOffset   - How many pixels to offset the text on the Y value
+     * @param unicode   - Whether to enable the unicode flag or not
      */
-    public PageUnlocText(String unlocText) {
+    public PageUnlocText(String unlocText, int yOffset, boolean unicode) {
         this.unlocText = unlocText;
+        this.yOffset = yOffset;
+        this.unicode = unicode;
+    }
+
+    public PageUnlocText(String unlocText, int yOffset) {
+        this(unlocText, yOffset, false);
+    }
+
+    public PageUnlocText(String unlocText, boolean unicode) {
+        this(unlocText, 60, unicode);
+    }
+
+    public PageUnlocText(String unlocText) {
+        this(unlocText, false);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
         fontRenderer.setUnicodeFlag(true);
-        fontRenderer.drawSplitString(StatCollector.translateToLocal(unlocText), guiLeft + 39, guiTop + 12, 3 * guiBase.xSize / 5, 0);
+        fontRenderer.drawSplitString(StatCollector.translateToLocal(unlocText), guiLeft + 39, guiTop + 12 + yOffset, 3 * guiBase.xSize / 5, 0);
         fontRenderer.setUnicodeFlag(false);
     }
 
