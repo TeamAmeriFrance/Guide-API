@@ -48,6 +48,10 @@ public class ItemGuideBook extends Item {
 
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+
+        if (!player.isSneaking())
+            return false;
+
         if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage() && world.getBlock(x, y, z) instanceof IGuideLinked) {
             IGuideLinked guideLinked = (IGuideLinked) world.getBlock(x, y, z);
             Book book = GuideRegistry.getBook(stack.getItemDamage());
@@ -61,6 +65,7 @@ public class ItemGuideBook extends Item {
                 }
             }
         }
+
         return false;
     }
 
