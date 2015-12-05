@@ -25,14 +25,13 @@ public class CategoryResourceLocation extends CategoryBase {
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
-
+        Minecraft.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+        GuiHelper.drawSizedIconWithoutColor(categoryX, categoryY, 48, 48, 0);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(resourceLocation);
-        GuiHelper.drawSizedIconWithoutColor(categoryX, categoryY, 48, 48, 0);
         if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight))
             guiBase.drawHoveringText(this.getTooltip(), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
     }

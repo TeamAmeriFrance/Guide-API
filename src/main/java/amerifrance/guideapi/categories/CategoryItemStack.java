@@ -25,13 +25,12 @@ public class CategoryItemStack extends CategoryBase {
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
-
+        GuiHelper.drawScaledItemStack(this.stack, categoryX, categoryY, 1.5F);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
-        GuiHelper.drawScaledItemStack(this.stack, categoryX, categoryY, 1.5F);
         if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight))
             guiBase.drawHoveringText(this.getTooltip(), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
     }
