@@ -19,6 +19,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class GuiCategory extends GuiBase {
 
@@ -26,7 +27,7 @@ public class GuiCategory extends GuiBase {
     public ResourceLocation pageTexture;
     public Book book;
     public CategoryAbstract category;
-    public HashMultimap<Integer, EntryWrapper> entryWrapperMap;
+    public HashMultimap<Integer, EntryWrapper> entryWrapperMap = HashMultimap.create();
     public ButtonBack buttonBack;
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
@@ -36,13 +37,13 @@ public class GuiCategory extends GuiBase {
         super(player, bookStack);
         this.book = book;
         this.category = category;
-        this.pageTexture = book.pageTexture;
-        this.outlineTexture = book.outlineTexture;
-        this.entryWrapperMap = this.entryWrapperMap.create();
+        this.pageTexture = book.getPageTexture();
+        this.outlineTexture = book.getOutlineTexture();
         this.entryPage = 0;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void initGui() {
         super.initGui();
         this.buttonList.clear();
@@ -78,7 +79,7 @@ public class GuiCategory extends GuiBase {
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
-        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.bookColor);
+        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getBookColor());
 
         for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
             if (wrapper.canPlayerSee()) {
@@ -101,29 +102,38 @@ public class GuiCategory extends GuiBase {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int typeofClick) {
-        super.mouseClicked(mouseX, mouseY, typeofClick);
+        try {
+            super.mouseClicked(mouseX, mouseY, typeofClick);
 
-        for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                if (typeofClick == 0) wrapper.entry.onLeftClicked(book, category, mouseX, mouseY, player, this);
-                else if (typeofClick == 1) wrapper.entry.onRightClicked(book, category, mouseX, mouseY, player, this);
+            for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
+                if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
+                    if (typeofClick == 0) wrapper.entry.onLeftClicked(book, category, mouseX, mouseY, player, this);
+                    else if (typeofClick == 1)
+                        wrapper.entry.onRightClicked(book, category, mouseX, mouseY, player, this);
+                }
             }
-        }
 
-        if (typeofClick == 1) {
-            this.mc.displayGuiScreen(new GuiHomeNew(book, player, bookStack));
+            if (typeofClick == 1) {
+                this.mc.displayGuiScreen(new GuiHomeNew(book, player, bookStack));
+            }
+        } catch (IOException e) {
+            // Pokeball! Go!
         }
     }
 
     @Override
     public void handleMouseInput() {
-        super.handleMouseInput();
+        try {
+            super.handleMouseInput();
 
-        int movement = Mouse.getEventDWheel();
-        if(movement < 0)
-            nextPage();
-        else if(movement > 0)
-            prevPage();
+            int movement = Mouse.getEventDWheel();
+            if (movement < 0)
+                nextPage();
+            else if (movement > 0)
+                prevPage();
+        } catch (IOException e) {
+            // Pokeball! Go!
+        }
     }
 
     @Override
@@ -151,7 +161,7 @@ public class GuiCategory extends GuiBase {
     public void onGuiClosed() {
         super.onGuiClosed();
 
-        PacketHandler.INSTANCE.sendToServer(new PacketSyncCategory(book.categoryList.indexOf(category), entryPage));
+        PacketHandler.INSTANCE.sendToServer(new PacketSyncCategory(book.getCategoryList().indexOf(category), entryPage));
     }
 
     public void nextPage() {

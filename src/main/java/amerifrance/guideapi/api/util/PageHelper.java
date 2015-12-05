@@ -1,10 +1,9 @@
 package amerifrance.guideapi.api.util;
 
 import amerifrance.guideapi.api.abstraction.IPage;
-import amerifrance.guideapi.pages.PageLocItemStack;
-import amerifrance.guideapi.pages.PageLocText;
+import amerifrance.guideapi.pages.PageItemStack;
+import amerifrance.guideapi.pages.PageText;
 import net.minecraft.block.Block;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -17,12 +16,13 @@ public class PageHelper {
 
     public static List<IPage> pagesForLongText(String locText, int maxLength) {
         List<IPage> pageList = new ArrayList<IPage>();
-        for (String s : WordUtils.wrap(locText, maxLength, "/cut", false).split("/cut")) pageList.add(new PageLocText(s));
+        for (String s : WordUtils.wrap(locText, maxLength, "/cut", false).split("/cut")) pageList.add(new PageText(s));
         return pageList;
     }
 
     /**
      * @param locText - Text
+     *
      * @return a list of IPages with the text cut to fit on page
      */
     public static List<IPage> pagesForLongText(String locText) {
@@ -33,8 +33,8 @@ public class PageHelper {
         List<IPage> pageList = new ArrayList<IPage>();
         String[] strings = WordUtils.wrap(locText, 450, "/cut", false).split("/cut");
         for (int i = 0; i < strings.length; i++) {
-            if (i == 0) pageList.add(new PageLocItemStack(strings[i], stack));
-            else pageList.add(new PageLocText(strings[i]));
+            if (i == 0) pageList.add(new PageItemStack(strings[i], stack));
+            else pageList.add(new PageText(strings[i]));
         }
         return pageList;
     }
@@ -43,6 +43,7 @@ public class PageHelper {
     /**
      * @param locText - Text
      * @param item    - The item to put on the first page
+     *
      * @return a list of IPages with the text cut to fit on page
      */
     public static List<IPage> pagesForLongText(String locText, Item item) {
@@ -52,6 +53,7 @@ public class PageHelper {
     /**
      * @param locText - Text
      * @param block   - The block to put on the first page
+     *
      * @return a list of IPages with the text cut to fit on page
      */
     public static List<IPage> pagesForLongText(String locText, Block block) {
@@ -61,6 +63,7 @@ public class PageHelper {
     /**
      * @param recipe1 - The first IRecipe to compare
      * @param recipe2 - The second IRecipe to compare
+     *
      * @return whether or not the class, size and the output of the recipes are the same
      */
     public static boolean areIRecipesEqual(IRecipe recipe1, IRecipe recipe2) {
@@ -70,24 +73,5 @@ public class PageHelper {
         if (!recipe1.getRecipeOutput().isItemEqual(recipe2.getRecipeOutput())) return false;
         if (recipe1.getRecipeSize() != recipe2.getRecipeSize()) return false;
         return true;
-    }
-
-    @Deprecated
-    public static List<IPage> pagesForLongText(String locText, FontRenderer fontRenderer) {
-        List<IPage> pageList = new ArrayList<IPage>();
-        List<String> stringList = fontRenderer.listFormattedStringToWidth(locText, 2250);
-        for (String s : stringList) pageList.add(new PageLocText(s));
-        return pageList;
-    }
-
-    @Deprecated
-    public static List<IPage> pagesForLongText(String locText, FontRenderer fontRenderer, ItemStack stack) {
-        List<IPage> pageList = new ArrayList<IPage>();
-        List<String> stringList = fontRenderer.listFormattedStringToWidth(locText, 2250);
-        for (int i = 0; i < stringList.size(); i++) {
-            if (i == 0) pageList.add(new PageLocItemStack(stringList.get(i), stack));
-            else pageList.add(new PageLocText(stringList.get(i)));
-        }
-        return pageList;
     }
 }

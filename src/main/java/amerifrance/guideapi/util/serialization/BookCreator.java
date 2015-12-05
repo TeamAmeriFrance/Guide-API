@@ -6,15 +6,12 @@ import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IPage;
 import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.util.BookBuilder;
 import amerifrance.guideapi.interfaces.ITypeReader;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import cpw.mods.fml.common.registry.GameData;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameData;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 
 import java.awt.*;
@@ -86,7 +83,7 @@ public class BookCreator {
         @Override
         public JsonElement serialize(ItemStack src, Type typeOfSrc, JsonSerializationContext context) {
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("name", GameData.getItemRegistry().getNameForObject(src.getItem()));
+            jsonObject.addProperty("name", GameData.getItemRegistry().getNameForObject(src.getItem()).toString());
             jsonObject.addProperty("metadata", src.getItemDamage());
 
             return jsonObject;
@@ -177,34 +174,34 @@ public class BookCreator {
             List<CategoryAbstract> list = context.deserialize(json.getAsJsonObject().get("categoryList"), new TypeToken<List<CategoryAbstract>>() {
             }.getType());
 
-            BookBuilder builder = new BookBuilder();
-            builder.setCategories(list);
-            builder.setUnlocBookTitle(title);
-            builder.setUnlocWelcomeMessage(welcome);
-            builder.setUnlocDisplayName(displayName);
-            builder.setAuthor(author);
-            builder.setBookColor(color);
-            builder.setSpawnWithBook(spawnWithBook);
-            builder.setIsLostBook(isLostBook);
-            builder.setLootChance(lootChance);
-            builder.setChestHooks(chestHooks);
+            Book book = new Book();
+            book.setCategoryList(list);
+            book.setUnlocBookTitle(title);
+            book.setUnlocWelcomeMessage(welcome);
+            book.setUnlocDisplayName(displayName);
+            book.setAuthor(author);
+            book.setBookColor(color);
+            book.setSpawnWithBook(spawnWithBook);
+            book.setLostBook(isLostBook);
+            book.setLootChance(lootChance);
+            book.setChestHooks(chestHooks);
 
-            return builder.build();
+            return book;
         }
 
         @Override
         public JsonElement serialize(Book src, Type typeOfSrc, JsonSerializationContext context) {
             JsonObject jsonObject = new JsonObject();
-            jsonObject.add("unlocDisplayName", context.serialize(src.unlocDisplayName));
-            jsonObject.add("unlocWelcomeMessage", context.serialize(src.unlocWelcomeMessage));
-            jsonObject.add("unlocBookTitle", context.serialize(src.unlocBookTitle));
-            jsonObject.add("author", context.serialize(src.author));
-            jsonObject.add("color", context.serialize(src.bookColor));
-            jsonObject.add("spawnWithBook", context.serialize(src.spawnWithBook));
-            jsonObject.add("isLostBook", context.serialize(src.isLostBook));
-            jsonObject.add("lootChance", context.serialize(src.lootChance));
-            jsonObject.add("chestHooks", context.serialize(src.chestHooks));
-            jsonObject.add("categoryList", context.serialize(src.categoryList));
+            jsonObject.add("unlocDisplayName", context.serialize(src.getUnlocDisplayName()));
+            jsonObject.add("unlocWelcomeMessage", context.serialize(src.getUnlocWelcomeMessage()));
+            jsonObject.add("unlocBookTitle", context.serialize(src.getUnlocBookTitle()));
+            jsonObject.add("author", context.serialize(src.getAuthor()));
+            jsonObject.add("color", context.serialize(src.getBookColor()));
+            jsonObject.add("spawnWithBook", context.serialize(src.isSpawnWithBook()));
+            jsonObject.add("isLostBook", context.serialize(src.isLostBook()));
+            jsonObject.add("lootChance", context.serialize(src.getLootChance()));
+            jsonObject.add("chestHooks", context.serialize(src.getChestHooks()));
+            jsonObject.add("categoryList", context.serialize(src.getCategoryList()));
             return jsonObject;
         }
     }

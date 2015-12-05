@@ -7,11 +7,11 @@ import amerifrance.guideapi.api.abstraction.IPage;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiEntry;
 import amerifrance.guideapi.items.ItemLostPage;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PageBase implements IPage {
 
@@ -19,17 +19,17 @@ public class PageBase implements IPage {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
+    public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
     }
 
     @Override
     public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack, GuiEntry guiEntry) {
-        return ((bookStack.hasTagCompound() && bookStack.stackTagCompound.getBoolean("CreativeBook"))) || ItemLostPage.bookHasPage(bookStack, GuideRegistry.getIndexOf(book), book.categoryList.indexOf(category), category.entryList.indexOf(entry), guiEntry.pageNumber) || !book.isLostBook;
+        return ((bookStack.hasTagCompound() && bookStack.getTagCompound().getBoolean("CreativeBook"))) || ItemLostPage.bookHasPage(bookStack, GuideRegistry.getIndexOf(book), book.getCategoryList().indexOf(category), category.entryList.indexOf(entry), guiEntry.pageNumber) || !book.isLostBook();
     }
 
     @Override

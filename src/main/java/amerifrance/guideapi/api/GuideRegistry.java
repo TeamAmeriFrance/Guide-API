@@ -2,7 +2,12 @@ package amerifrance.guideapi.api;
 
 import amerifrance.guideapi.api.base.Book;
 import com.google.gson.GsonBuilder;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,15 +30,30 @@ public class GuideRegistry {
 
     /**
      * @param index - The index of the book
+     *
      * @return the book corresponding to the index given
      */
     public static Book getBook(int index) {
         return bookList.get(index);
     }
 
+    /**
+     * If you want to use a custom model for your book (IE: Different texture),
+     * register it here. Make sure to call this on the Client only in the
+     * postInit phase.
+     *
+     * @param book             - Book to register a custom model for.
+     * @param resourceLocation - Location for the custom model. Generally modid:MODEL
+     */
+    @SideOnly(Side.CLIENT)
+    public static void registerBookModel(Book book, String resourceLocation) {
+        ModelBakery.addVariantName(GuideAPIItems.guideBook, resourceLocation);
+        ModelLoader.setCustomModelResourceLocation(GuideAPIItems.guideBook, getIndexOf(book), new ModelResourceLocation(resourceLocation, "inventory"));
+    }
 
     /**
      * @param book - The book of which to get the index
+     *
      * @return the index of the book given
      */
     public static int getIndexOf(Book book) {
@@ -56,6 +76,7 @@ public class GuideRegistry {
 
     /**
      * @param book - The book of which to get the itemstack
+     *
      * @return an itemstack corresponding to the ingame book
      */
     public static ItemStack getItemStackForBook(Book book) {

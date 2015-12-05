@@ -5,18 +5,17 @@ import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IPage;
 import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.util.BookBuilder;
+import amerifrance.guideapi.api.base.EntryBase;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.categories.CategoryItemStack;
 import amerifrance.guideapi.categories.CategoryResourceLocation;
-import amerifrance.guideapi.entries.EntryText;
 import amerifrance.guideapi.pages.*;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -26,10 +25,8 @@ import java.util.ArrayList;
 public class TestBook {
 
     public static void registerTests(int amountOfBooks) {
-
-        Book[] books = new Book[amountOfBooks];
-        for (int j = 0; j < books.length; j++)
-            testBook(books[j], "TestBook" + j);
+        for (int i = 0; i < amountOfBooks; i++)
+            testBook(new Book(), "TestBook" + i);
     }
 
     public static void testBook(Book book, String title) {
@@ -63,8 +60,8 @@ public class TestBook {
         pages.add(page9);
         pages.add(page10);
 
-        EntryText entry1 = new EntryText(pages, "TestEntry1");
-        EntryText entry2 = new EntryText(pages, "TestEntry2");
+        EntryBase entry1 = new EntryBase(pages, "TestEntry1");
+        EntryBase entry2 = new EntryBase(pages, "TestEntry2");
         ArrayList<EntryAbstract> entries = new ArrayList<EntryAbstract>();
         entries.add(entry1);
         entries.add(entry2);
@@ -73,7 +70,7 @@ public class TestBook {
         CategoryItemStack category2 = new CategoryItemStack(entries, "TestCategory2", new ItemStack(Blocks.brick_stairs));
         CategoryItemStack category3 = new CategoryItemStack(entries, "TestCategory3", new ItemStack(Blocks.dragon_egg));
         CategoryItemStack category4 = new CategoryItemStack(entries, "TestCategory4", new ItemStack(Items.diamond));
-        CategoryItemStack category5 = new CategoryItemStack(entries, "TestCategory5", new ItemStack(Blocks.fence_gate));
+        CategoryItemStack category5 = new CategoryItemStack(entries, "TestCategory5", new ItemStack(Blocks.oak_fence));
         ArrayList<CategoryAbstract> categories = new ArrayList<CategoryAbstract>();
         categories.add(category1);
         categories.add(category2);
@@ -81,13 +78,11 @@ public class TestBook {
         categories.add(category4);
         categories.add(category5);
 
-        BookBuilder builder = new BookBuilder();
-        builder.setCategories(categories);
-        builder.setUnlocBookTitle(title);
-        builder.setUnlocWelcomeMessage(title);
-        builder.setUnlocDisplayName(title);
-        builder.setBookColor(new Color(171, 80, 30));
-        book = builder.build();
+        book.setCategoryList(categories);
+        book.setUnlocBookTitle(title);
+        book.setUnlocWelcomeMessage(title);
+        book.setUnlocDisplayName(title);
+        book.setBookColor(new Color(171, 80, 30));
 
         GuideRegistry.registerBook(book);
     }

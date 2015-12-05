@@ -14,14 +14,14 @@ public class LootGenerator {
 
     public static void registerLoot() {
         for (Book book : GuideRegistry.getBookList()) {
-            if (book.isLostBook) {
-                for (CategoryAbstract categoryAbstract : book.categoryList) {
+            if (book.isLostBook()) {
+                for (CategoryAbstract categoryAbstract : book.getCategoryList()) {
                     for (EntryAbstract entryAbstract : categoryAbstract.entryList) {
                         for (int i = 0; i < entryAbstract.pageList.size(); i++) {
                             ItemStack page = new ItemStack(GuideAPIItems.lostPage, 1, 0);
-                            ItemLostPage.setPage(page, GuideRegistry.getIndexOf(book), book.categoryList.indexOf(categoryAbstract), categoryAbstract.entryList.indexOf(entryAbstract), i);
-                            for (String hook : book.chestHooks)
-                                ChestGenHooks.addItem(hook, new WeightedRandomChestContent(page, 1, 1, book.lootChance));
+                            ItemLostPage.setPage(page, GuideRegistry.getIndexOf(book), book.getCategoryList().indexOf(categoryAbstract), categoryAbstract.entryList.indexOf(entryAbstract), i);
+                            for (String hook : book.getChestHooks())
+                                ChestGenHooks.addItem(hook, new WeightedRandomChestContent(page, 1, 1, book.getLootChance()));
                         }
                     }
                 }

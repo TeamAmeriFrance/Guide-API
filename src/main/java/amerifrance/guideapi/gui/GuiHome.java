@@ -17,13 +17,14 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class GuiHome extends GuiBase {
 
     public ResourceLocation outlineTexture;
     public ResourceLocation pageTexture;
     public Book book;
-    public HashMultimap<Integer, CategoryWrapper> categoryWrapperMap;
+    public HashMultimap<Integer, CategoryWrapper> categoryWrapperMap = HashMultimap.create();
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
     public int categoryPage;
@@ -31,13 +32,13 @@ public class GuiHome extends GuiBase {
     public GuiHome(Book book, EntityPlayer player, ItemStack bookStack) {
         super(player, bookStack);
         this.book = book;
-        this.pageTexture = book.pageTexture;
-        this.outlineTexture = book.outlineTexture;
+        this.pageTexture = book.getPageTexture();
+        this.outlineTexture = book.getOutlineTexture();
         this.categoryPage = 0;
-        this.categoryWrapperMap = this.categoryWrapperMap.create();
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void initGui() {
         super.initGui();
         this.buttonList.clear();
@@ -55,14 +56,14 @@ public class GuiHome extends GuiBase {
         int i = 0;
         int pageNumber = 0;
 
-        for (CategoryAbstract category : book.categoryList) {
+        for (CategoryAbstract category : book.getCategoryList()) {
             category.onInit(book, this, player, bookStack);
             if (drawOnLeft) {
-                categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
+                categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, true, bookStack));
                 cX = guiLeft + 180;
                 drawOnLeft = false;
             } else {
-                categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, drawOnLeft, bookStack));
+                categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, false, bookStack));
                 cY += 25;
                 cX = guiLeft;
                 drawOnLeft = true;
@@ -87,7 +88,7 @@ public class GuiHome extends GuiBase {
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
-        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.bookColor);
+        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getBookColor());
         drawSplitString(book.getLocalizedWelcomeMessage(), guiLeft + 37, guiTop + 12, (4 * xSize / 6) - 4, 0);
 
         for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage))
@@ -105,28 +106,36 @@ public class GuiHome extends GuiBase {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int typeofClick) {
-        super.mouseClicked(mouseX, mouseY, typeofClick);
+        try {
+            super.mouseClicked(mouseX, mouseY, typeofClick);
 
-        for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage)) {
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                if (typeofClick == 0)
-                    wrapper.category.onLeftClicked(book, mouseX, mouseY, player, bookStack);
+            for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage)) {
+                if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
+                    if (typeofClick == 0)
+                        wrapper.category.onLeftClicked(book, mouseX, mouseY, player, bookStack);
 
-                else if (typeofClick == 1)
-                    wrapper.category.onRightClicked(book, mouseX, mouseY, player, bookStack);
+                    else if (typeofClick == 1)
+                        wrapper.category.onRightClicked(book, mouseX, mouseY, player, bookStack);
+                }
             }
+        } catch (IOException e) {
+            // Pokeball! Go!
         }
     }
 
     @Override
     public void handleMouseInput() {
-        super.handleMouseInput();
+        try {
+            super.handleMouseInput();
 
-        int movement = Mouse.getEventDWheel();
-        if(movement < 0)
-            nextPage();
-        else if(movement > 0)
-            prevPage();
+            int movement = Mouse.getEventDWheel();
+            if (movement < 0)
+                nextPage();
+            else if (movement > 0)
+                prevPage();
+        } catch (IOException e) {
+            // Pokeball! Go!
+        }
     }
 
     @Override

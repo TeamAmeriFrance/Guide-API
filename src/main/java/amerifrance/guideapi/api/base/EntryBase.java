@@ -7,12 +7,12 @@ import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiEntry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.awt.*;
 import java.util.List;
@@ -29,27 +29,27 @@ public class EntryBase extends EntryAbstract {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
+    public void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
 
-        boolean startFlag = fontRenderer.getUnicodeFlag();
+        boolean startFlag = fontRendererObj.getUnicodeFlag();
 
         if (unicode)
-            fontRenderer.setUnicodeFlag(true);
+            fontRendererObj.setUnicodeFlag(true);
 
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight)) {
-            fontRenderer.drawString(getLocalizedName(), entryX + 12, entryY + 1, new Color(206, 206, 206).getRGB());
-            fontRenderer.drawString(getLocalizedName(), entryX + 12, entryY, 0x423EBC);
+            fontRendererObj.drawString(getLocalizedName(), entryX + 12, entryY + 1, new Color(206, 206, 206).getRGB());
+            fontRendererObj.drawString(getLocalizedName(), entryX + 12, entryY, 0x423EBC);
         } else {
-            fontRenderer.drawString(getLocalizedName(), entryX + 12, entryY, 0);
+            fontRendererObj.drawString(getLocalizedName(), entryX + 12, entryY, 0);
         }
 
         if (unicode && !startFlag)
-            fontRenderer.setUnicodeFlag(false);
+            fontRendererObj.setUnicodeFlag(false);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
+    public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
     }
 
     @Override

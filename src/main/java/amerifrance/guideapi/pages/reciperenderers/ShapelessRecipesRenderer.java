@@ -1,14 +1,14 @@
 package amerifrance.guideapi.pages.reciperenderers;
 
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraft.util.StatCollector;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.StatCollector;
 
 public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecipes> {
 
@@ -17,8 +17,8 @@ public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecip
     }
 
     @Override
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
-        super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRenderer);
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
+        super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
                 int i = 3 * y + x;
@@ -36,7 +36,7 @@ public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecip
             }
         }
     }
-    
+
     @Override
     protected String getRecipeName() {
         return StatCollector.translateToLocal("text.shapeless.crafting");

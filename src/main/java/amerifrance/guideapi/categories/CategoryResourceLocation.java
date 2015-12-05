@@ -5,14 +5,16 @@ import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.base.CategoryBase;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import lombok.EqualsAndHashCode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 public class CategoryResourceLocation extends CategoryBase {
 
     public ResourceLocation resourceLocation;
@@ -33,24 +35,6 @@ public class CategoryResourceLocation extends CategoryBase {
     @SideOnly(Side.CLIENT)
     public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
         if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight))
-            guiBase.drawHoveringText(this.getTooltip(), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
-
-        CategoryResourceLocation that = (CategoryResourceLocation) object;
-
-        return !(resourceLocation != null ? !resourceLocation.equals(that.resourceLocation) : that.resourceLocation != null);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (resourceLocation != null ? resourceLocation.hashCode() : 0);
-        return result;
+            guiBase.drawHoveringText(this.getTooltip(), mouseX, mouseY, Minecraft.getMinecraft().fontRendererObj);
     }
 }

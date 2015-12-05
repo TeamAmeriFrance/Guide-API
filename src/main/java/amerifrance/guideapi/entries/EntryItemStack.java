@@ -6,14 +6,15 @@ import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.base.EntryBase;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import lombok.EqualsAndHashCode;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.awt.*;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 public class EntryItemStack extends EntryBase {
 
     public ItemStack stack;
@@ -30,7 +31,7 @@ public class EntryItemStack extends EntryBase {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
+    public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
         if (stack != null)
             GuiHelper.drawScaledItemStack(stack, entryX + 2, entryY, 0.5F);
     }

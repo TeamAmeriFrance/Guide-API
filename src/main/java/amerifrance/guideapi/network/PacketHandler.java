@@ -1,8 +1,8 @@
 package amerifrance.guideapi.network;
 
 import amerifrance.guideapi.ModInformation;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class PacketHandler {
 

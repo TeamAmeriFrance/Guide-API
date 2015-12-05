@@ -5,8 +5,8 @@ import amerifrance.guideapi.api.abstraction.IPage;
 import amerifrance.guideapi.api.base.CategoryBase;
 import amerifrance.guideapi.api.base.EntryBase;
 import amerifrance.guideapi.categories.CategoryItemStack;
-import amerifrance.guideapi.entries.EntryText;
-import amerifrance.guideapi.entries.EntryUniText;
+import amerifrance.guideapi.entries.EntryItemStack;
+import amerifrance.guideapi.entries.EntryResourceLocation;
 import amerifrance.guideapi.interfaces.ITypeReader;
 import amerifrance.guideapi.pages.*;
 import com.google.gson.*;
@@ -47,6 +47,23 @@ public abstract class TypeReaders<T> implements ITypeReader<T> {
         }
     };
 
+    public static TypeReaders<PageTextImage> PAGE_IMAGE_TEXT = new TypeReaders<PageTextImage>(PageTextImage.class) {
+        @Override
+        public PageTextImage deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            ResourceLocation location = context.deserialize(json.getAsJsonObject().get("image"), ResourceLocation.class);
+            String text = context.deserialize(json.getAsJsonObject().get("text"), String.class);
+            boolean drawAtTop = context.deserialize(json.getAsJsonObject().get("drawAtTop"), Boolean.class);
+            return new PageTextImage(text, location, drawAtTop);
+        }
+
+        @Override
+        public void addData(JsonObject jsonObject, PageTextImage src, JsonSerializationContext context) {
+            jsonObject.add("image", context.serialize(src.image));
+            jsonObject.add("text", context.serialize(src.draw));
+            jsonObject.add("drawAtTop", context.serialize(src.drawAtTop));
+        }
+    };
+
     public static TypeReaders<PageIRecipe> PAGE_IRECIPE = new TypeReaders<PageIRecipe>(PageIRecipe.class) {
         @Override
         public PageIRecipe deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -60,49 +77,32 @@ public abstract class TypeReaders<T> implements ITypeReader<T> {
         }
     };
 
-    public static TypeReaders<PageLocImage> PAGE_IMAGE_LOC = new TypeReaders<PageLocImage>(PageLocImage.class) {
+    public static TypeReaders<PageItemStack> PAGE_ITEMSTACK = new TypeReaders<PageItemStack>(PageItemStack.class) {
         @Override
-        public PageLocImage deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            ResourceLocation location = context.deserialize(json.getAsJsonObject().get("image"), ResourceLocation.class);
-            String locText = context.deserialize(json.getAsJsonObject().get("locText"), String.class);
-            boolean drawAtTop = context.deserialize(json.getAsJsonObject().get("drawAtTop"), Boolean.class);
-            return new PageLocImage(locText, location, drawAtTop);
-        }
-
-        @Override
-        public void addData(JsonObject jsonObject, PageLocImage src, JsonSerializationContext context) {
-            jsonObject.add("image", context.serialize(src.image));
-            jsonObject.add("locText", context.serialize(src.locText));
-            jsonObject.add("drawAtTop", context.serialize(src.drawAtTop));
-        }
-    };
-
-    public static TypeReaders<PageLocItemStack> PAGE_ITEMSTACK_LOC = new TypeReaders<PageLocItemStack>(PageLocItemStack.class) {
-        @Override
-        public PageLocItemStack deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            String locText = context.deserialize(json.getAsJsonObject().get("locText"), String.class);
+        public PageItemStack deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            String text = context.deserialize(json.getAsJsonObject().get("text"), String.class);
             ItemStack stack = context.deserialize(json.getAsJsonObject().get("itemStack"), ItemStack.class);
-            return new PageLocItemStack(locText, stack);
+            return new PageItemStack(text, stack);
         }
 
         @Override
-        public void addData(JsonObject jsonObject, PageLocItemStack src, JsonSerializationContext context) {
+        public void addData(JsonObject jsonObject, PageItemStack src, JsonSerializationContext context) {
             jsonObject.add("itemStack", context.serialize(src.stack));
-            jsonObject.add("locText", context.serialize(src.locText));
+            jsonObject.add("text", context.serialize(src.draw));
 
         }
     };
 
-    public static TypeReaders<PageLocText> PAGE_TEXT_LOC = new TypeReaders<PageLocText>(PageLocText.class) {
+    public static TypeReaders<PageText> PAGE_TEXT_LOC = new TypeReaders<PageText>(PageText.class) {
         @Override
-        public PageLocText deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            String locText = context.deserialize(json.getAsJsonObject().get("locText"), String.class);
-            return new PageLocText(locText);
+        public PageText deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            String text = context.deserialize(json.getAsJsonObject().get("text"), String.class);
+            return new PageText(text);
         }
 
         @Override
-        public void addData(JsonObject jsonObject, PageLocText src, JsonSerializationContext context) {
-            jsonObject.add("locText", context.serialize(src.locText));
+        public void addData(JsonObject jsonObject, PageText src, JsonSerializationContext context) {
+            jsonObject.add("text", context.serialize(src.draw));
         }
     };
 
@@ -118,51 +118,6 @@ public abstract class TypeReaders<T> implements ITypeReader<T> {
         public void addData(JsonObject jsonObject, PageSound src, JsonSerializationContext context) {
             jsonObject.add("sound", context.serialize(src.sound));
             jsonObject.add("pageToEmulate", context.serialize(src.pageToEmulate));
-        }
-    };
-
-    public static TypeReaders<PageUnlocImage> PAGE_IMAGE_UNLOC = new TypeReaders<PageUnlocImage>(PageUnlocImage.class) {
-        @Override
-        public PageUnlocImage deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            ResourceLocation location = context.deserialize(json.getAsJsonObject().get("image"), ResourceLocation.class);
-            String unlocText = context.deserialize(json.getAsJsonObject().get("unlocText"), String.class);
-            boolean drawAtTop = context.deserialize(json.getAsJsonObject().get("drawAtTop"), Boolean.class);
-            return new PageUnlocImage(unlocText, location, drawAtTop);
-        }
-
-        @Override
-        public void addData(JsonObject jsonObject, PageUnlocImage src, JsonSerializationContext context) {
-            jsonObject.add("image", context.serialize(src.image));
-            jsonObject.add("unlocText", context.serialize(src.unlocText));
-            jsonObject.add("drawAtTop", context.serialize(src.drawAtTop));
-        }
-    };
-
-    public static TypeReaders<PageUnlocItemStack> PAGE_ITEMSTACK_UNLOC = new TypeReaders<PageUnlocItemStack>(PageUnlocItemStack.class) {
-        @Override
-        public PageUnlocItemStack deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            String unlocText = context.deserialize(json.getAsJsonObject().get("unlocText"), String.class);
-            ItemStack stack = context.deserialize(json.getAsJsonObject().get("itemStack"), ItemStack.class);
-            return new PageUnlocItemStack(unlocText, stack);
-        }
-
-        @Override
-        public void addData(JsonObject jsonObject, PageUnlocItemStack src, JsonSerializationContext context) {
-            jsonObject.add("itemStack", context.serialize(src.stack));
-            jsonObject.add("unlocText", context.serialize(src.unlocText));
-        }
-    };
-
-    public static TypeReaders<PageUnlocText> PAGE_TEXT_UNLOC = new TypeReaders<PageUnlocText>(PageUnlocText.class) {
-        @Override
-        public PageUnlocText deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            String unlocText = context.deserialize(json.getAsJsonObject().get("unlocText"), String.class);
-            return new PageUnlocText(unlocText);
-        }
-
-        @Override
-        public void addData(JsonObject jsonObject, PageUnlocText src, JsonSerializationContext context) {
-            jsonObject.add("unlocText", context.serialize(src.unlocText));
         }
     };
 
@@ -184,34 +139,54 @@ public abstract class TypeReaders<T> implements ITypeReader<T> {
         }
     };
 
-    public static TypeReaders<EntryText> ENTRY_TEXT = new TypeReaders<EntryText>(EntryText.class) {
+    public static TypeReaders<EntryBase> ENTRY_TEXT = new TypeReaders<EntryBase>(EntryBase.class) {
         @Override
-        public EntryText deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public EntryBase deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             String name = json.getAsJsonObject().get("unlocEntryName").getAsString();
             List<IPage> list = context.deserialize(json.getAsJsonObject().get("pageList"), new TypeToken<List<IPage>>() {
             }.getType());
-            return new EntryText(list, name);
+            return new EntryBase(list, name);
         }
 
         @Override
-        public void addData(JsonObject jsonObject, EntryText src, JsonSerializationContext context) {
+        public void addData(JsonObject jsonObject, EntryBase src, JsonSerializationContext context) {
             jsonObject.add("unlocEntryName", context.serialize(src.unlocEntryName));
             jsonObject.add("pageList", context.serialize(src.pageList));
         }
     };
 
-    public static TypeReaders<EntryUniText> ENTRY_UNI_TEXT = new TypeReaders<EntryUniText>(EntryUniText.class) {
+    public static TypeReaders<EntryItemStack> ENTRY_ITEMSTACK = new TypeReaders<EntryItemStack>(EntryItemStack.class) {
         @Override
-        public EntryUniText deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public EntryItemStack deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             String name = json.getAsJsonObject().get("unlocEntryName").getAsString();
+            ItemStack stack = context.deserialize(json.getAsJsonObject().get("itemStack"), ItemStack.class);
             List<IPage> list = context.deserialize(json.getAsJsonObject().get("pageList"), new TypeToken<List<IPage>>() {
             }.getType());
-            return new EntryUniText(list, name);
+            return new EntryItemStack(list, name, stack);
         }
 
         @Override
-        public void addData(JsonObject jsonObject, EntryUniText src, JsonSerializationContext context) {
+        public void addData(JsonObject jsonObject, EntryItemStack src, JsonSerializationContext context) {
             jsonObject.add("unlocEntryName", context.serialize(src.unlocEntryName));
+            jsonObject.add("itemStack", context.serialize(src.stack));
+            jsonObject.add("pageList", context.serialize(src.pageList));
+        }
+    };
+
+    public static TypeReaders<EntryResourceLocation> ENTRY_IMAGE = new TypeReaders<EntryResourceLocation>(EntryResourceLocation.class) {
+        @Override
+        public EntryResourceLocation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            String name = json.getAsJsonObject().get("unlocEntryName").getAsString();
+            String resource = json.getAsJsonObject().get("resource").getAsString();
+            List<IPage> list = context.deserialize(json.getAsJsonObject().get("pageList"), new TypeToken<List<IPage>>() {
+            }.getType());
+            return new EntryResourceLocation(list, name, new ResourceLocation(resource));
+        }
+
+        @Override
+        public void addData(JsonObject jsonObject, EntryResourceLocation src, JsonSerializationContext context) {
+            jsonObject.add("unlocEntryName", context.serialize(src.unlocEntryName));
+            jsonObject.add("resource", context.serialize(src.image.toString()));
             jsonObject.add("pageList", context.serialize(src.pageList));
         }
     };

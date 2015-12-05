@@ -1,17 +1,17 @@
 package amerifrance.guideapi.pages.reciperenderers;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import cpw.mods.fml.relauncher.ReflectionHelper;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe> {
 
@@ -32,8 +32,8 @@ public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe
 
     @SuppressWarnings("unchecked")
     @Override
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
-        super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRenderer);
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
+        super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 int stackX = (x + 1) * 17 + (guiLeft + 29);

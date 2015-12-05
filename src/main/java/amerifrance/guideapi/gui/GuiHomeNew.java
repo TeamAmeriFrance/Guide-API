@@ -36,7 +36,7 @@ public class GuiHomeNew extends GuiHome {
         int i = 0;
         int pageNumber = 0;
 
-        for (CategoryAbstract category : book.categoryList) {
+        for (CategoryAbstract category : book.getCategoryList()) {
             category.onInit(book, this, player, bookStack);
             switch (drawLoc) {
                 case 0: {
@@ -81,7 +81,7 @@ public class GuiHomeNew extends GuiHome {
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
-        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.bookColor);
+        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getBookColor());
         drawCenteredString(fontRendererObj, book.getLocalizedWelcomeMessage().replace("\\n", "\n").replace("&", "\u00a7"), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
 
         for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage))

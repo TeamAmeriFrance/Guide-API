@@ -7,13 +7,13 @@ import amerifrance.guideapi.api.GuideRegistry;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.util.NBTBookTags;
 import amerifrance.guideapi.items.ItemLostPage;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class EventHandler {
 
@@ -24,10 +24,10 @@ public class EventHandler {
             NBTTagCompound tag = getModTag(player, ModInformation.ID);
             if (ConfigHandler.canSpawnWithBooks) {
                 for (Book book : GuideRegistry.getBookList()) {
-                    if (book.spawnWithBook && !tag.getBoolean("hasInitial" + book.unlocBookTitle)) {
+                    if (book.isSpawnWithBook() && !tag.getBoolean("hasInitial" + book.getUnlocBookTitle())) {
                         player.inventory.addItemStackToInventory(GuideRegistry.getItemStackForBook(book));
                         player.inventoryContainer.detectAndSendChanges();
-                        tag.setBoolean("hasInitial" + book.unlocBookTitle, true);
+                        tag.setBoolean("hasInitial" + book.getUnlocBookTitle(), true);
                     }
                 }
             }
@@ -69,7 +69,7 @@ public class EventHandler {
                     if (!output.hasTagCompound())
                         output.setTagCompound(new NBTTagCompound());
 
-                    output.stackTagCompound.setBoolean(right.stackTagCompound.getString(NBTBookTags.KEY_TAG), true);
+                    output.getTagCompound().setBoolean(right.getTagCompound().getString(NBTBookTags.KEY_TAG), true);
                     event.output = output;
                     event.cost = 5;
                 }

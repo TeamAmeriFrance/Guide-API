@@ -7,7 +7,7 @@ import amerifrance.guideapi.api.base.Book;
 public class BookHelper {
 
     public static CategoryAbstract getCategoryFromName(Book book, String unlocName) {
-        for (CategoryAbstract category : book.categoryList) {
+        for (CategoryAbstract category : book.getCategoryList()) {
             if (category.unlocCategoryName.equals(unlocName))
                 return category;
         }

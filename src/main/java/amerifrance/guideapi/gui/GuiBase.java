@@ -34,7 +34,7 @@ public class GuiBase extends GuiScreen {
     @Override
     public void keyTyped(char typedChar, int keyCode) {
         if (keyCode == Keyboard.KEY_ESCAPE || keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
-            this.mc.displayGuiScreen((GuiScreen) null);
+            this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         }
     }
@@ -46,12 +46,12 @@ public class GuiBase extends GuiScreen {
         float f = 0.00390625F;
         float f1 = 0.00390625F;
         GL11.glColor3f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F);
-        Tessellator tessellator = Tessellator.instance;
-        tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV((double) (x + 0), (double) (y + height), (double) this.zLevel, (double) ((float) (textureX + 0) * f), (double) ((float) (textureY + height) * f1));
-        tessellator.addVertexWithUV((double) (x + width), (double) (y + height), (double) this.zLevel, (double) ((float) (textureX + width) * f), (double) ((float) (textureY + height) * f1));
-        tessellator.addVertexWithUV((double) (x + width), (double) (y + 0), (double) this.zLevel, (double) ((float) (textureX + width) * f), (double) ((float) (textureY + 0) * f1));
-        tessellator.addVertexWithUV((double) (x + 0), (double) (y + 0), (double) this.zLevel, (double) ((float) (textureX + 0) * f), (double) ((float) (textureY + 0) * f1));
+        Tessellator tessellator = Tessellator.getInstance();
+        tessellator.getWorldRenderer().startDrawingQuads();
+        tessellator.getWorldRenderer().addVertexWithUV((double) (x), (double) (y + height), (double) this.zLevel, (double) ((float) (textureX) * f), (double) ((float) (textureY + height) * f1));
+        tessellator.getWorldRenderer().addVertexWithUV((double) (x + width), (double) (y + height), (double) this.zLevel, (double) ((float) (textureX + width) * f), (double) ((float) (textureY + height) * f1));
+        tessellator.getWorldRenderer().addVertexWithUV((double) (x + width), (double) (y), (double) this.zLevel, (double) ((float) (textureX + width) * f), (double) ((float) (textureY) * f1));
+        tessellator.getWorldRenderer().addVertexWithUV((double) (x), (double) (y), (double) this.zLevel, (double) ((float) (textureX) * f), (double) ((float) (textureY) * f1));
         tessellator.draw();
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_BLEND);
@@ -66,12 +66,12 @@ public class GuiBase extends GuiScreen {
     }
 
     @Override
-    public void drawCenteredString(FontRenderer fontRenderer, String string, int x, int y, int color) {
-        fontRenderer.drawString(string, x - fontRenderer.getStringWidth(string) / 2, y, color);
+    public void drawCenteredString(FontRenderer fontRendererObj, String string, int x, int y, int color) {
+        fontRendererObj.drawString(string, x - fontRendererObj.getStringWidth(string) / 2, y, color);
     }
-    
-    public void drawCenteredStringWithShadow(FontRenderer fontRenderer, String string, int x, int y, int color) {
-        super.drawCenteredString(fontRenderer, string, x, y, color);
+
+    public void drawCenteredStringWithShadow(FontRenderer fontRendererObj, String string, int x, int y, int color) {
+        super.drawCenteredString(fontRendererObj, string, x, y, color);
     }
 
     public void drawSplitString(String string, int x, int y, int maxLength, int color) {
@@ -85,12 +85,12 @@ public class GuiBase extends GuiScreen {
         super.drawTexturedModalRect(x, y, textureX, textureY, width, height);
         GL11.glPopMatrix();
     }
-    
+
     @Override
-    public void func_146283_a(List p_146283_1_, int p_146283_2_, int p_146283_3_) {
-		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
-    	super.func_146283_a(p_146283_1_, p_146283_2_, p_146283_3_);
-		GL11.glPopAttrib();
+    public void drawHoveringText(List list, int x, int y) {
+        GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
+        super.drawHoveringText(list, x, y);
+        GL11.glPopAttrib();
     }
 
     @Override

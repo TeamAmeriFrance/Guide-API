@@ -1,16 +1,16 @@
 package amerifrance.guideapi.pages.reciperenderers;
 
-import java.util.ArrayList;
-
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import java.util.List;
 
 public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOreRecipe> {
 
@@ -20,8 +20,8 @@ public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOre
 
     @SuppressWarnings("unchecked")
     @Override
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
-        super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRenderer);
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
+        super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
                 int i = 3 * y + x;
@@ -37,7 +37,7 @@ public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOre
                                 tooltips = GuiHelper.getTooltip((ItemStack) component);
                             }
                         } else {
-                            ArrayList<ItemStack> list = (ArrayList<ItemStack>) component;
+                            List<ItemStack> list = (List<ItemStack>) component;
                             if (!list.isEmpty()) {
                                 ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
                                 GuiHelper.drawItemStack(stack, stackX, stackY);
@@ -51,7 +51,7 @@ public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOre
             }
         }
     }
-    
+
     @Override
     protected String getRecipeName() {
         return StatCollector.translateToLocal("text.shapeless.crafting");

@@ -5,11 +5,13 @@ import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.base.PageBase;
 import amerifrance.guideapi.gui.GuiBase;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import lombok.EqualsAndHashCode;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+@EqualsAndHashCode(callSuper = true)
 public class PageText extends PageBase {
 
     public String draw;
@@ -30,31 +32,15 @@ public class PageText extends PageBase {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
-        boolean startFlag = fontRenderer.getUnicodeFlag();
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
+        boolean startFlag = fontRendererObj.getUnicodeFlag();
 
         if (unicode)
-            fontRenderer.setUnicodeFlag(true);
+            fontRendererObj.setUnicodeFlag(true);
 
-        fontRenderer.drawSplitString(draw, guiLeft + 39, guiTop + 12 + yOffset, 3 * guiBase.xSize / 5, 0);
+        fontRendererObj.drawSplitString(draw, guiLeft + 39, guiTop + 12 + yOffset, 3 * guiBase.xSize / 5, 0);
 
         if (unicode && !startFlag)
-            fontRenderer.setUnicodeFlag(false);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        PageText that = (PageText) o;
-        if (draw != null ? !draw.equals(that.draw) : that.draw != null) return false;
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return draw != null ? draw.hashCode() : 0;
+            fontRendererObj.setUnicodeFlag(false);
     }
 }

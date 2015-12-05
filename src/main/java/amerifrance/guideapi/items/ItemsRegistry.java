@@ -1,7 +1,7 @@
 package amerifrance.guideapi.items;
 
 import amerifrance.guideapi.api.GuideAPIItems;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemsRegistry {
 

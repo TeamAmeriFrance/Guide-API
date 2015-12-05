@@ -19,6 +19,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,12 +41,13 @@ public class GuiEntry extends GuiBase {
         this.book = book;
         this.category = category;
         this.entry = entry;
-        this.pageTexture = book.pageTexture;
-        this.outlineTexture = book.outlineTexture;
+        this.pageTexture = book.getPageTexture();
+        this.outlineTexture = book.getOutlineTexture();
         this.pageNumber = 0;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void initGui() {
         super.initGui();
         this.buttonList.clear();
@@ -69,7 +71,7 @@ public class GuiEntry extends GuiBase {
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
-        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.bookColor);
+        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getBookColor());
 
         if (pageNumber < pageWrapperList.size()) {
             if (pageWrapperList.get(pageNumber).canPlayerSee()) {
@@ -89,32 +91,40 @@ public class GuiEntry extends GuiBase {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int typeofClick) {
-        super.mouseClicked(mouseX, mouseY, typeofClick);
-        for (PageWrapper wrapper : this.pageWrapperList) {
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                if (typeofClick == 0) {
-                    pageWrapperList.get(pageNumber).page.onLeftClicked(book, category, entry, mouseX, mouseY, player, this);
-                }
-                if (typeofClick == 1) {
-                    pageWrapperList.get(pageNumber).page.onRightClicked(book, category, entry, mouseX, mouseY, player, this);
+        try {
+            super.mouseClicked(mouseX, mouseY, typeofClick);
+            for (PageWrapper wrapper : this.pageWrapperList) {
+                if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
+                    if (typeofClick == 0) {
+                        pageWrapperList.get(pageNumber).page.onLeftClicked(book, category, entry, mouseX, mouseY, player, this);
+                    }
+                    if (typeofClick == 1) {
+                        pageWrapperList.get(pageNumber).page.onRightClicked(book, category, entry, mouseX, mouseY, player, this);
+                    }
                 }
             }
-        }
 
-        if (typeofClick == 1) {
-            this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack));
+            if (typeofClick == 1) {
+                this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack));
+            }
+        } catch (IOException e) {
+            // Pokeball! Go!
         }
     }
 
     @Override
     public void handleMouseInput() {
-        super.handleMouseInput();
+        try {
+            super.handleMouseInput();
 
-        int movement = Mouse.getEventDWheel();
-        if(movement < 0)
-            nextPage();
-        else if(movement > 0)
-            prevPage();
+            int movement = Mouse.getEventDWheel();
+            if (movement < 0)
+                nextPage();
+            else if (movement > 0)
+                prevPage();
+        } catch (IOException e) {
+            // Pokeball! Go!
+        }
     }
 
     @Override
@@ -142,7 +152,7 @@ public class GuiEntry extends GuiBase {
     public void onGuiClosed() {
         super.onGuiClosed();
 
-        PacketHandler.INSTANCE.sendToServer(new PacketSyncEntry(book.categoryList.indexOf(category), category.entryList.indexOf(entry), pageNumber));
+        PacketHandler.INSTANCE.sendToServer(new PacketSyncEntry(book.getCategoryList().indexOf(category), category.entryList.indexOf(entry), pageNumber));
     }
 
     public void nextPage() {
