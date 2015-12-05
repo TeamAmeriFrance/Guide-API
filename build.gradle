@@ -11,7 +11,7 @@ buildscript {
 }
 
 plugins {
-    id 'com.matthewprenger.cursegradle' version '1.0.1'
+    id 'com.matthewprenger.cursegradle' version '1.0.4'
     id "net.minecraftforge.gradle.forge" version "2.0.2"
     id 'net.franz-becker.gradle-lombok' version '1.5'
 }
@@ -150,13 +150,9 @@ curseforge {
         apiKey = project.curse_key
  
     project {
-        id = '228832'
+        id = "${curse_id}"
         changelog = project.hasProperty('changelog') ? project.changelog : ''
-        releaseType = 'release'
- 
-        mainArtifact(jar) {
-            displayName = "Guide-API - ${mod_version}-${build_number}"
-        }
+        releaseType = 'alpha'
  
         addArtifact deobfJar
         addArtifact sourceJar
