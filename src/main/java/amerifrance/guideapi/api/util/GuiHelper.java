@@ -4,14 +4,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.List;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL12.GL_RESCALE_NORMAL;
+import static net.minecraft.client.renderer.GlStateManager.*;
 
 public class GuiHelper {
 
@@ -39,16 +40,16 @@ public class GuiHelper {
      * @param y     - The position on the y-axis to draw the itemstack
      */
     public static void drawItemStack(ItemStack stack, int x, int y) {
-        glPushMatrix();
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        pushMatrix();
+        enableBlend();
+        blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderHelper.enableGUIStandardItemLighting();
-        glEnable(GL_RESCALE_NORMAL);
-        glEnable(GL_DEPTH_TEST);
+        enableRescaleNormal();
+        enableDepth();
         render.renderItemAndEffectIntoGUI(stack, x, y);
         RenderHelper.disableStandardItemLighting();
-        glPopMatrix();
-        glDisable(GL_LIGHTING);
+        popMatrix();
+        disableLighting();
     }
 
     /**
@@ -58,16 +59,16 @@ public class GuiHelper {
      * @param scale - The scale with which to draw the itemstack
      */
     public static void drawScaledItemStack(ItemStack stack, int x, int y, float scale) {
-        glPushMatrix();
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glScalef(scale, scale, 1.0F);
+        pushMatrix();
+        enableBlend();
+        blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        scale(scale, scale, 1.0F);
         RenderHelper.enableGUIStandardItemLighting();
-        glEnable(GL_RESCALE_NORMAL);
-        glEnable(GL_DEPTH_TEST);
+        enableRescaleNormal();
+        enableDepth();
         render.renderItemAndEffectIntoGUI(stack, (int) (x / scale), (int) (y / scale));
         RenderHelper.disableStandardItemLighting();
-        glPopMatrix();
+        popMatrix();
     }
 
     /**
@@ -78,22 +79,22 @@ public class GuiHelper {
      * @param zLevel -
      */
     public static void drawIconWithoutColor(int x, int y, int width, int height, float zLevel) {
-        glPushMatrix();
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        pushMatrix();
+        enableBlend();
+        blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderHelper.enableGUIStandardItemLighting();
-        glEnable(GL_RESCALE_NORMAL);
-        glEnable(GL_DEPTH_TEST);
+        enableRescaleNormal();
+        enableDepth();
         Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getWorldRenderer().startDrawingQuads();
-        tessellator.getWorldRenderer().addVertexWithUV(x, y + height, zLevel, 0D, 1D);
-        tessellator.getWorldRenderer().addVertexWithUV(x + width, y + height, zLevel, 1D, 1D);
-        tessellator.getWorldRenderer().addVertexWithUV(x + width, y, zLevel, 1D, 0D);
-        tessellator.getWorldRenderer().addVertexWithUV(x, y, zLevel, 0D, 0D);
+        tessellator.getWorldRenderer().begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getWorldRenderer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
+        tessellator.getWorldRenderer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
+        tessellator.getWorldRenderer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
+        tessellator.getWorldRenderer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        glDisable(GL_LIGHTING);
-        glPopMatrix();
+        disableLighting();
+        popMatrix();
     }
 
     /**
@@ -105,24 +106,24 @@ public class GuiHelper {
      * @param color  - The color the icon will have
      */
     public static void drawIconWithColor(int x, int y, int width, int height, float zLevel, Color color) {
-        glPushMatrix();
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        pushMatrix();
+        enableBlend();
+        blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderHelper.enableGUIStandardItemLighting();
-        glEnable(GL_RESCALE_NORMAL);
-        glEnable(GL_DEPTH_TEST);
-        glColor4f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
+        enableRescaleNormal();
+        enableDepth();
+        color((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
         Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getWorldRenderer().startDrawingQuads();
-        tessellator.getWorldRenderer().addVertexWithUV(x, y + height, zLevel, 0D, 1D);
-        tessellator.getWorldRenderer().addVertexWithUV(x + width, y + height, zLevel, 1D, 1D);
-        tessellator.getWorldRenderer().addVertexWithUV(x + width, y, zLevel, 1D, 0D);
-        tessellator.getWorldRenderer().addVertexWithUV(x, y, zLevel, 0D, 0D);
+        tessellator.getWorldRenderer().begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getWorldRenderer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
+        tessellator.getWorldRenderer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
+        tessellator.getWorldRenderer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
+        tessellator.getWorldRenderer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        glDisable(GL_LIGHTING);
-        glPopMatrix();
+        color(1.0F, 1.0F, 1.0F, 1.0F);
+        disableLighting();
+        popMatrix();
     }
 
     /**
@@ -133,25 +134,25 @@ public class GuiHelper {
      * @param zLevel -
      */
     public static void drawSizedIconWithoutColor(int x, int y, int width, int height, float zLevel) {
-        glPushMatrix();
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glColor4f(1F, 1F, 1F, 1F);
-        glScaled(0.5D, 0.5D, 0.5D);
-        glTranslated(x, y, zLevel);
+        pushMatrix();
+        enableBlend();
+        blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        color(1F, 1F, 1F, 1F);
+        scale(0.5D, 0.5D, 0.5D);
+        translate(x, y, zLevel);
         RenderHelper.enableGUIStandardItemLighting();
-        glEnable(GL_RESCALE_NORMAL);
-        glEnable(GL_DEPTH_TEST);
+        enableRescaleNormal();
+        enableDepth();
         Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getWorldRenderer().startDrawingQuads();
-        tessellator.getWorldRenderer().addVertexWithUV(x, y + height, zLevel, 0D, 1D);
-        tessellator.getWorldRenderer().addVertexWithUV(x + width, y + height, zLevel, 1D, 1D);
-        tessellator.getWorldRenderer().addVertexWithUV(x + width, y, zLevel, 1D, 0D);
-        tessellator.getWorldRenderer().addVertexWithUV(x, y, zLevel, 0D, 0D);
+        tessellator.getWorldRenderer().begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getWorldRenderer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
+        tessellator.getWorldRenderer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
+        tessellator.getWorldRenderer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
+        tessellator.getWorldRenderer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        glDisable(GL_LIGHTING);
-        glPopMatrix();
+        disableLighting();
+        popMatrix();
     }
 
     /**
@@ -162,25 +163,25 @@ public class GuiHelper {
      * @param color  - The color the icon will have
      */
     public static void drawSizedIconWithColor(int x, int y, int width, int height, float zLevel, Color color) {
-        glPushMatrix();
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glScaled(0.5D, 0.5D, 0.5D);
-        glColor4f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
-        glTranslated(x, y, zLevel);
+        pushMatrix();
+        enableBlend();
+        blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        scale(0.5D, 0.5D, 0.5D);
+        color((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
+        translate(x, y, zLevel);
         RenderHelper.enableGUIStandardItemLighting();
-        glEnable(GL_RESCALE_NORMAL);
-        glEnable(GL_DEPTH_TEST);
+        enableRescaleNormal();
+        enableDepth();
         Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getWorldRenderer().startDrawingQuads();
-        tessellator.getWorldRenderer().addVertexWithUV(x, y + height, zLevel, 0D, 1D);
-        tessellator.getWorldRenderer().addVertexWithUV(x + width, y + height, zLevel, 1D, 1D);
-        tessellator.getWorldRenderer().addVertexWithUV(x + width, y, zLevel, 1D, 0D);
-        tessellator.getWorldRenderer().addVertexWithUV(x, y, zLevel, 0D, 0D);
+        tessellator.getWorldRenderer().begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getWorldRenderer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
+        tessellator.getWorldRenderer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
+        tessellator.getWorldRenderer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
+        tessellator.getWorldRenderer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        glDisable(GL_LIGHTING);
-        glPopMatrix();
+        disableLighting();
+        popMatrix();
     }
 
     @SuppressWarnings("unchecked")

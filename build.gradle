@@ -5,13 +5,13 @@ buildscript {
         maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
         classpath 'org.ajoberstar:gradle-git:0.10.1'
     }
 }
 
 plugins {
-    id 'com.matthewprenger.cursegradle' version '1.0.4'
+    id 'com.matthewprenger.cursegradle' version '1.0.5'
     id "net.minecraftforge.gradle.forge" version "2.0.2"
     id 'net.franz-becker.gradle-lombok' version '1.5'
 }
@@ -109,12 +109,6 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
 }
 
-// Deobfuscated jar
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'deobf'
-}
-
 javadoc {
     source = projectDir.path + "/build/sources/delomboked/java"
 }
@@ -133,7 +127,6 @@ publishing {
             artifact jar
             artifact sourceJar
             artifact javadocJar
-            artifact deobfJar
         }
     }
     repositories {
@@ -154,7 +147,6 @@ curseforge {
         changelog = project.hasProperty('changelog') ? project.changelog : ''
         releaseType = 'alpha'
  
-        addArtifact deobfJar
         addArtifact sourceJar
         addArtifact javadocJar
     }

@@ -11,6 +11,7 @@ import com.google.common.collect.Maps;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameData;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 
@@ -77,7 +78,7 @@ public class BookCreator {
             String name = json.getAsJsonObject().get("name").getAsString();
             int meta = json.getAsJsonObject().get("metadata").getAsInt();
 
-            return new ItemStack(GameData.getItemRegistry().getObject(name), 1, meta);
+            return new ItemStack(GameData.getItemRegistry().getObject(new ResourceLocation(name)), 1, meta);
         }
 
         @Override

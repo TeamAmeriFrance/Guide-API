@@ -2,7 +2,9 @@ package amerifrance.guideapi.gui;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
@@ -10,6 +12,8 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.List;
+
+import static net.minecraft.client.renderer.GlStateManager.*;
 
 public class GuiBase extends GuiScreen {
 
@@ -40,29 +44,22 @@ public class GuiBase extends GuiScreen {
     }
 
     public void drawTexturedModalRectWithColor(int x, int y, int textureX, int textureY, int width, int height, Color color) {
-        GL11.glPushMatrix();
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        pushMatrix();
+        enableBlend();
+        blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         float f = 0.00390625F;
         float f1 = 0.00390625F;
-        GL11.glColor3f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F);
+        color((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F);
         Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getWorldRenderer().startDrawingQuads();
-        tessellator.getWorldRenderer().addVertexWithUV((double) (x), (double) (y + height), (double) this.zLevel, (double) ((float) (textureX) * f), (double) ((float) (textureY + height) * f1));
-        tessellator.getWorldRenderer().addVertexWithUV((double) (x + width), (double) (y + height), (double) this.zLevel, (double) ((float) (textureX + width) * f), (double) ((float) (textureY + height) * f1));
-        tessellator.getWorldRenderer().addVertexWithUV((double) (x + width), (double) (y), (double) this.zLevel, (double) ((float) (textureX + width) * f), (double) ((float) (textureY) * f1));
-        tessellator.getWorldRenderer().addVertexWithUV((double) (x), (double) (y), (double) this.zLevel, (double) ((float) (textureX) * f), (double) ((float) (textureY) * f1));
+        tessellator.getWorldRenderer().begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getWorldRenderer().pos((double) (x), (double) (y + height), (double) this.zLevel).tex((double) ((float) (textureX) * f), (double) ((float) (textureY + height) * f1)).endVertex();
+        tessellator.getWorldRenderer().pos((double) (x + width), (double) (y + height), (double) this.zLevel).tex((double) ((float) (textureX + width) * f), (double) ((float) (textureY + height) * f1)).endVertex();
+        tessellator.getWorldRenderer().pos((double) (x + width), (double) (y), (double) this.zLevel).tex((double) ((float) (textureX + width) * f), (double) ((float) (textureY) * f1)).endVertex();
+        tessellator.getWorldRenderer().pos((double) (x), (double) (y), (double) this.zLevel).tex((double) ((float) (textureX) * f), (double) ((float) (textureY) * f1)).endVertex();
         tessellator.draw();
-        GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glPopMatrix();
-    }
-
-    @Override
-    public void drawHoveringText(List list, int x, int y, FontRenderer font) {
-        GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
-        super.drawHoveringText(list, x, y, font);
-        GL11.glPopAttrib();
+        disableLighting();
+        disableBlend();
+        popMatrix();
     }
 
     @Override
@@ -80,17 +77,28 @@ public class GuiBase extends GuiScreen {
 
     @Override
     public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {
-        GL11.glPushMatrix();
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        pushMatrix();
+        color(1.0F, 1.0F, 1.0F, 1.0F);
         super.drawTexturedModalRect(x, y, textureX, textureY, width, height);
-        GL11.glPopMatrix();
+        popMatrix();
     }
 
     @Override
-    public void drawHoveringText(List list, int x, int y) {
-        GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
+    public void drawHoveringText(List<String> list, int x, int y, FontRenderer font) {
+        disableLighting();
+        RenderHelper.disableStandardItemLighting();
+        super.drawHoveringText(list, x, y, font);
+        RenderHelper.enableStandardItemLighting();
+        enableLighting();
+    }
+
+    @Override
+    public void drawHoveringText(List<String> list, int x, int y) {
+        disableLighting();
+        RenderHelper.disableStandardItemLighting();
         super.drawHoveringText(list, x, y);
-        GL11.glPopAttrib();
+        RenderHelper.enableStandardItemLighting();
+        enableLighting();
     }
 
     @Override

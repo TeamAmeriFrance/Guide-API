@@ -29,6 +29,6 @@ public class PageImage extends PageBase {
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
         Minecraft.getMinecraft().getTextureManager().bindTexture(image);
-        GuiHelper.drawSizedIconWithoutColor(guiLeft + 50, guiTop + 34, guiBase.xSize, guiBase.ySize, 0);
+        GuiHelper.drawSizedIconWithoutColor(guiLeft + 50, guiTop + 34, guiBase.xSize, guiBase.ySize, 1F);
     }
 }

@@ -13,6 +13,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+// TODO: Fix rendering of recipe
 public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe> {
 
     private static final Field _width = ReflectionHelper.findField(ShapedOreRecipe.class, "width");

@@ -9,6 +9,8 @@ import amerifrance.guideapi.api.base.EntryBase;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.categories.CategoryItemStack;
 import amerifrance.guideapi.categories.CategoryResourceLocation;
+import amerifrance.guideapi.entries.EntryItemStack;
+import amerifrance.guideapi.entries.EntryResourceLocation;
 import amerifrance.guideapi.pages.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -60,11 +62,15 @@ public class TestBook {
         pages.add(page9);
         pages.add(page10);
 
-        EntryBase entry1 = new EntryBase(pages, "TestEntry1");
-        EntryBase entry2 = new EntryBase(pages, "TestEntry2");
+        EntryItemStack entry1 = new EntryItemStack(pages, "TestEntry1", new ItemStack(Items.potato));
+        EntryItemStack entry2 = new EntryItemStack(pages, "TestEntry2", new ItemStack(Blocks.dirt));
+        EntryBase entry3 = new EntryBase(pages, "TestEntry3");
+        EntryResourceLocation entry4 = new EntryResourceLocation(pages, "TestEntry4", new ResourceLocation(ModInformation.GUITEXLOC + "testimage.png"));
         ArrayList<EntryAbstract> entries = new ArrayList<EntryAbstract>();
         entries.add(entry1);
         entries.add(entry2);
+        entries.add(entry3);
+        entries.add(entry4);
 
         CategoryResourceLocation category1 = new CategoryResourceLocation(entries, "TestCategory1", new ResourceLocation(ModInformation.GUITEXLOC + "testimage.png"));
         CategoryItemStack category2 = new CategoryItemStack(entries, "TestCategory2", new ItemStack(Blocks.brick_stairs));

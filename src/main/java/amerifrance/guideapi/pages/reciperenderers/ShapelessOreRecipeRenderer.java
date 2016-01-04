@@ -12,6 +12,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.List;
 
+// TODO: Fix rendering of recipe
 public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOreRecipe> {
 
     public ShapelessOreRecipeRenderer(ShapelessOreRecipe recipe) {
