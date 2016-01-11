@@ -56,4 +56,7 @@ public class CommonProxy implements IGuiHandler {
 
     public void openEntry(Book book, CategoryAbstract categoryAbstract, EntryAbstract entryAbstract, EntityPlayer player, ItemStack stack) {
     }
+
+    public void initRenders() {
+    }
 }

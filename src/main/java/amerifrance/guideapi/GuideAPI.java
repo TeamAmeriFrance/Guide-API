@@ -55,6 +55,7 @@ public class GuideAPI {
         configDir.mkdirs();
         ConfigHandler.init(new File(configDir.getPath(), ModInformation.NAME + ".cfg"));
         ItemsRegistry.registerItems();
+        proxy.initRenders();
 
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
         PacketHandler.registerPackets();
