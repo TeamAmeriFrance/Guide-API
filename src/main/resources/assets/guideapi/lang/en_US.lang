@@ -2,8 +2,8 @@
 itemGroup.guideapi.creativeTab=Guide-API
 
 #Item
-item.GuideBook.name=Guide-API Default Book
-item.LostPage.name=Lost Page
+item.guideapi.book.name=Guide-API Default Book
+item.guideapi.page.lost.name=Lost Page
 
 #Button hovering text
 button.back.name=Back

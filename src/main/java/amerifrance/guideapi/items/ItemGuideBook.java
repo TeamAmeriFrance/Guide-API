@@ -93,8 +93,7 @@ public class ItemGuideBook extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings("unchecked")
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List list) {
+    public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
         if (!GuideRegistry.isEmpty()) {
             for (Book book : GuideRegistry.getBookList()) {
                 ItemStack stack = new ItemStack(this, 1, GuideRegistry.getIndexOf(book));
@@ -110,8 +109,7 @@ public class ItemGuideBook extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings("unchecked")
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean bool) {
 
         if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() < stack.getItemDamage())
             list.add(EnumChatFormatting.RED + StatCollector.translateToLocal("text.book.warning"));

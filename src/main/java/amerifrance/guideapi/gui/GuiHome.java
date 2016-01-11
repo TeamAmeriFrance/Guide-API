@@ -38,7 +38,6 @@ public class GuiHome extends GuiBase {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void initGui() {
         super.initGui();
         this.buttonList.clear();

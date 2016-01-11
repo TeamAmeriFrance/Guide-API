@@ -43,7 +43,6 @@ public class GuiCategory extends GuiBase {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void initGui() {
         super.initGui();
         this.buttonList.clear();
@@ -91,7 +90,7 @@ public class GuiCategory extends GuiBase {
             }
         }
 
-        drawCenteredString(fontRendererObj, String.valueOf(entryPage + 1) + "/" + String.valueOf(entryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        drawCenteredString(fontRendererObj, String.format("%d/%d", entryPage + 1, entryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
         drawCenteredStringWithShadow(fontRendererObj, category.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = entryPage != 0;

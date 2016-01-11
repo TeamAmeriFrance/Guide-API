@@ -59,8 +59,7 @@ public class ItemLostPage extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings("unchecked")
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean bool) {
         if (!GuideRegistry.isEmpty() && getPageCharacteristics(stack) != null) {
             Object[] objects = getPageCharacteristics(stack);
             list.add(String.format(StatCollector.translateToLocal("text.book"), objects[0] != null ? ((Book) objects[0]).getLocalizedBookTitle() : "null"));

@@ -47,7 +47,6 @@ public class GuiEntry extends GuiBase {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void initGui() {
         super.initGui();
         this.buttonList.clear();
@@ -80,7 +79,7 @@ public class GuiEntry extends GuiBase {
             }
         }
 
-        drawCenteredString(fontRendererObj, String.valueOf(pageNumber + 1) + "/" + String.valueOf(pageWrapperList.size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        drawCenteredString(fontRendererObj, String.format("%d/%d", pageNumber + 1, pageWrapperList.size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
         drawCenteredStringWithShadow(fontRendererObj, entry.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = pageNumber != 0;

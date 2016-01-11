@@ -19,7 +19,6 @@ public class GuiHomeNew extends GuiHome {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void initGui() {
         this.buttonList.clear();
         this.categoryWrapperMap.clear();
@@ -92,13 +91,13 @@ public class GuiHomeNew extends GuiHome {
             if (wrapper.canPlayerSee())
                 wrapper.drawExtras(mouseX, mouseY, this);
 
-        drawCenteredString(fontRendererObj, String.valueOf(categoryPage + 1) + "/" + String.valueOf(categoryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        drawCenteredString(fontRendererObj, String.format("%d/%d", categoryPage + 1, categoryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
         drawCenteredStringWithShadow(fontRendererObj, book.getLocalizedBookTitle(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = categoryPage != 0;
         buttonNext.visible = categoryPage != categoryWrapperMap.asMap().size() - 1;
 
-        for (Object button : this.buttonList)
-            ((GuiButton) button).drawButton(this.mc, mouseX, mouseY);
+        for (GuiButton button : this.buttonList)
+            button.drawButton(this.mc, mouseX, mouseY);
     }
 }
