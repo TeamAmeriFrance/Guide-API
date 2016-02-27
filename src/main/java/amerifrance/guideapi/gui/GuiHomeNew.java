@@ -2,9 +2,9 @@ package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.buttons.ButtonNext;
-import amerifrance.guideapi.buttons.ButtonPrev;
-import amerifrance.guideapi.wrappers.CategoryWrapper;
+import amerifrance.guideapi.button.ButtonNext;
+import amerifrance.guideapi.button.ButtonPrev;
+import amerifrance.guideapi.wrapper.CategoryWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;

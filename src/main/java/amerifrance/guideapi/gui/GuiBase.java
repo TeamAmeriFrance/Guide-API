@@ -64,7 +64,9 @@ public class GuiBase extends GuiScreen {
 
     @Override
     public void drawCenteredString(FontRenderer fontRendererObj, String string, int x, int y, int color) {
+        RenderHelper.disableStandardItemLighting();
         fontRendererObj.drawString(string, x - fontRendererObj.getStringWidth(string) / 2, y, color);
+        RenderHelper.disableStandardItemLighting();
     }
 
     public void drawCenteredStringWithShadow(FontRenderer fontRendererObj, String string, int x, int y, int color) {

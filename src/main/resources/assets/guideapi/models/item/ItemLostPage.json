@@ -1,6 +1,0 @@
-{
-  "parent": "guideapi:item/ItemModelBase",
-  "textures": {
-    "layer0": "guideapi:items/page_lost"
-  }
-}

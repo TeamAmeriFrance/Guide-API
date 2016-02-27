@@ -6,7 +6,7 @@ import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IPage;
 import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.interfaces.ITypeReader;
+import amerifrance.guideapi.iface.ITypeReader;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -31,7 +31,7 @@ public class BookCreator {
         File folder = new File(GuideAPI.getConfigDir().getPath() + "/books");
         folder.mkdir();
         File[] files = folder.listFiles((FileFilter) FileFilterUtils.suffixFileFilter(".json"));
-        for (File file : files) GuideRegistry.registerBook(BookCreator.createBookFromJson(gsonBuilder, file));
+        for (File file : files) GuideRegistry.registerBook(BookCreator.createBookFromJson(gsonBuilder, file), null);
     }
 
     public static Book createBookFromJson(GsonBuilder gsonBuilder, File file) {
@@ -168,10 +168,6 @@ public class BookCreator {
             String author = json.getAsJsonObject().get("author").getAsString();
             Color color = context.deserialize(json.getAsJsonObject().get("color"), Color.class);
             boolean spawnWithBook = json.getAsJsonObject().get("spawnWithBook").getAsBoolean();
-            boolean isLostBook = json.getAsJsonObject().get("isLostBook").getAsBoolean();
-            int lootChance = json.getAsJsonObject().get("lootChance").getAsInt();
-            String[] chestHooks = context.deserialize(json.getAsJsonObject().get("chestHooks"), new TypeToken<String[]>() {
-            }.getType());
             List<CategoryAbstract> list = context.deserialize(json.getAsJsonObject().get("categoryList"), new TypeToken<List<CategoryAbstract>>() {
             }.getType());
 
@@ -183,9 +179,6 @@ public class BookCreator {
             book.setAuthor(author);
             book.setBookColor(color);
             book.setSpawnWithBook(spawnWithBook);
-            book.setLostBook(isLostBook);
-            book.setLootChance(lootChance);
-            book.setChestHooks(chestHooks);
 
             return book;
         }
@@ -199,9 +192,6 @@ public class BookCreator {
             jsonObject.add("author", context.serialize(src.getAuthor()));
             jsonObject.add("color", context.serialize(src.getBookColor()));
             jsonObject.add("spawnWithBook", context.serialize(src.isSpawnWithBook()));
-            jsonObject.add("isLostBook", context.serialize(src.isLostBook()));
-            jsonObject.add("lootChance", context.serialize(src.getLootChance()));
-            jsonObject.add("chestHooks", context.serialize(src.getChestHooks()));
             jsonObject.add("categoryList", context.serialize(src.getCategoryList()));
             return jsonObject;
         }

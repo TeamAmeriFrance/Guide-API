@@ -28,9 +28,6 @@ public class Book {
     private boolean customModel;
     private Color bookColor = new Color(171, 70, 30);
     private boolean spawnWithBook;
-    private boolean isLostBook;
-    private int lootChance = 50;
-    private String[] chestHooks = {};
 
     /**
      * @param category - Add this category

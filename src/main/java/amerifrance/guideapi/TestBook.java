@@ -7,16 +7,17 @@ import amerifrance.guideapi.api.abstraction.IPage;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.base.EntryBase;
 import amerifrance.guideapi.api.util.PageHelper;
-import amerifrance.guideapi.categories.CategoryItemStack;
-import amerifrance.guideapi.categories.CategoryResourceLocation;
-import amerifrance.guideapi.entries.EntryItemStack;
-import amerifrance.guideapi.entries.EntryResourceLocation;
-import amerifrance.guideapi.pages.*;
+import amerifrance.guideapi.category.CategoryItemStack;
+import amerifrance.guideapi.category.CategoryResourceLocation;
+import amerifrance.guideapi.entry.EntryItemStack;
+import amerifrance.guideapi.entry.EntryResourceLocation;
+import amerifrance.guideapi.page.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -26,12 +27,12 @@ import java.util.ArrayList;
 
 public class TestBook {
 
-    public static void registerTests(int amountOfBooks) {
+    public static void registerTests(int amountOfBooks, FMLPreInitializationEvent event) {
         for (int i = 0; i < amountOfBooks; i++)
-            testBook(new Book(), "TestBook" + i);
+            testBook(new Book(), "TestBook" + i, event);
     }
 
-    public static void testBook(Book book, String title) {
+    public static void testBook(Book book, String title, FMLPreInitializationEvent event) {
         PageText page1 = new PageText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
         PageText page2 = new PageText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE. \n\nNew paragraph!");
         PageImage page3 = new PageImage(new ResourceLocation(ModInformation.GUITEXLOC + "testimage.png"));
@@ -90,6 +91,6 @@ public class TestBook {
         book.setUnlocDisplayName(title);
         book.setBookColor(new Color(171, 80, 30));
 
-        GuideRegistry.registerBook(book);
+        GuideRegistry.registerBook(book, event);
     }
 }

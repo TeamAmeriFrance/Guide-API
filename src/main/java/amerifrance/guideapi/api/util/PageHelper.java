@@ -1,8 +1,8 @@
 package amerifrance.guideapi.api.util;
 
 import amerifrance.guideapi.api.abstraction.IPage;
-import amerifrance.guideapi.pages.PageItemStack;
-import amerifrance.guideapi.pages.PageText;
+import amerifrance.guideapi.page.PageItemStack;
+import amerifrance.guideapi.page.PageText;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

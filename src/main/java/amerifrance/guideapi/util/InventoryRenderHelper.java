@@ -86,15 +86,12 @@ public class InventoryRenderHelper
      * @param item
      *        - Item to register Model for
      */
-    public void itemRenderAll(Item item)
-    {
+    public void itemRenderAll(Item item) {
         final Item toRender = item;
 
-        ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition()
-        {
+        ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
             @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack)
-            {
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
                 return new ModelResourceLocation(domain + getClassName(toRender), "inventory");
             }
         });

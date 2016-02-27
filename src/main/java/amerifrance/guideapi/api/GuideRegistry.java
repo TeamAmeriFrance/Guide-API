@@ -1,13 +1,15 @@
 package amerifrance.guideapi.api;
 
+import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.api.base.Book;
 import com.google.gson.GsonBuilder;
-import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +24,16 @@ public class GuideRegistry {
     private static List<Book> bookList = new ArrayList<Book>();
 
     /**
-     * @param book - The book to register
+     * If the book does not have a custom model, this will also register a render for the book.
+     *
+     * @param book  - The book to register
+     * @param event - Initialization Phase to load at.
      */
-    public static void registerBook(Book book) {
+    public static void registerBook(Book book, FMLPreInitializationEvent event) {
         bookList.add(book);
+
+        if (event != null && event.getSide() == Side.CLIENT && !book.isCustomModel())
+            ModelLoader.setCustomModelResourceLocation(GuideAPIItems.guideBook, getIndexOf(book), new ModelResourceLocation(new ResourceLocation(ModInformation.TEXLOC + "ItemGuideBook"), "type=book"));
     }
 
     /**
@@ -35,20 +43,6 @@ public class GuideRegistry {
      */
     public static Book getBook(int index) {
         return bookList.get(index);
-    }
-
-    /**
-     * If you want to use a custom model for your book (IE: Different texture),
-     * register it here. Make sure to call this on the Client only in the
-     * postInit phase.
-     *
-     * @param book             - Book to register a custom model for.
-     * @param resourceLocation - Location for the custom model. Generally modid:MODEL
-     */
-    @SideOnly(Side.CLIENT)
-    public static void registerBookModel(Book book, String resourceLocation) {
-        ModelBakery.addVariantName(GuideAPIItems.guideBook, resourceLocation);
-        ModelLoader.setCustomModelResourceLocation(GuideAPIItems.guideBook, getIndexOf(book), new ModelResourceLocation(resourceLocation, "inventory"));
     }
 
     /**

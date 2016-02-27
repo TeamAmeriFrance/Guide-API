@@ -1,17 +1,13 @@
 package amerifrance.guideapi;
 
 import amerifrance.guideapi.api.GuideRegistry;
-import amerifrance.guideapi.items.ItemsRegistry;
+import amerifrance.guideapi.item.ItemsRegistry;
 import amerifrance.guideapi.network.PacketHandler;
-import amerifrance.guideapi.proxies.CommonProxy;
+import amerifrance.guideapi.proxy.CommonProxy;
 import amerifrance.guideapi.util.EventHandler;
-import amerifrance.guideapi.util.LootGenerator;
 import amerifrance.guideapi.util.serialization.BookCreator;
 import com.google.gson.GsonBuilder;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -22,20 +18,8 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import java.io.File;
 
-@Mod(modid = ModInformation.ID, name = ModInformation.NAME, version = ModInformation.VERSION, dependencies = ModInformation.DEPEND, acceptedMinecraftVersions = "[1.8.8,1.8.9]")
+@Mod(modid = ModInformation.ID, name = ModInformation.NAME, version = ModInformation.VERSION, dependencies = ModInformation.DEPEND)
 public class GuideAPI {
-
-    public static CreativeTabs tabGuide = new CreativeTabs(ModInformation.ID + ".creativeTab") {
-        @Override
-        public ItemStack getIconItemStack() {
-            return new ItemStack(Items.book);
-        }
-
-        @Override
-        public Item getTabIconItem() {
-            return Items.book;
-        }
-    };
 
     @Mod.Instance
     public static GuideAPI instance;
@@ -43,10 +27,7 @@ public class GuideAPI {
     public static CommonProxy proxy;
 
     private static File configDir;
-
-    public static File getConfigDir() {
-        return configDir;
-    }
+    private static boolean isDev = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -55,7 +36,6 @@ public class GuideAPI {
         configDir.mkdirs();
         ConfigHandler.init(new File(configDir.getPath(), ModInformation.NAME + ".cfg"));
         ItemsRegistry.registerItems();
-        proxy.initRenders();
 
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
         PacketHandler.registerPackets();
@@ -63,7 +43,8 @@ public class GuideAPI {
         GuideRegistry.bookBuilder = new GsonBuilder();
         BookCreator.registerCustomSerializers(GuideRegistry.bookBuilder);
 
-        TestBook.registerTests(ModInformation.VERSION.equals("@VERSION@") ? 5 : 0);
+        if (isDev())
+            TestBook.registerTests(5, event);
     }
 
     @Mod.EventHandler
@@ -74,6 +55,13 @@ public class GuideAPI {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         BookCreator.registerJsonBooks(GuideRegistry.bookBuilder);
-        LootGenerator.registerLoot();
+    }
+
+    public static File getConfigDir() {
+        return configDir;
+    }
+
+    public static boolean isDev() {
+        return isDev;
     }
 }
