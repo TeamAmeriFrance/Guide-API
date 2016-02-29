@@ -4,6 +4,7 @@ import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
@@ -25,7 +26,7 @@ public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecip
                 if (i < recipe.getRecipeSize()) {
                     int stackX = (x + 1) * 17 + (guiLeft + 29);
                     int stackY = (y + 1) * 17 + (guiTop + 40);
-                    ItemStack stack = (ItemStack) recipe.recipeItems.get(i);
+                    ItemStack stack = recipe.recipeItems.get(i);
                     if (stack != null) {
                         GuiHelper.drawItemStack(stack, stackX, stackY);
                         if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
@@ -39,6 +40,6 @@ public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecip
 
     @Override
     protected String getRecipeName() {
-        return StatCollector.translateToLocal("text.shapeless.crafting");
+        return TextHelper.localizeEffect("text.shapeless.crafting");
     }
 }

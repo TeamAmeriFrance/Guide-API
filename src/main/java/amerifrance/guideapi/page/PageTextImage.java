@@ -5,6 +5,7 @@ import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.base.PageBase;
 import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import lombok.EqualsAndHashCode;
 import net.minecraft.client.Minecraft;
@@ -28,7 +29,7 @@ public class PageTextImage extends PageBase {
      */
     public PageTextImage(String draw, ResourceLocation image, boolean drawAtTop) {
 
-        this.draw = StatCollector.canTranslate(draw) ? StatCollector.translateToLocal(draw) : draw;
+        this.draw = StatCollector.canTranslate(draw) ? TextHelper.localizeEffect(draw) : draw;
         this.image = image;
         this.drawAtTop = drawAtTop;
     }

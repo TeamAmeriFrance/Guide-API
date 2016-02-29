@@ -1,6 +1,7 @@
 package amerifrance.guideapi.api.base;
 
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.util.TextHelper;
 import lombok.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -59,21 +60,21 @@ public class Book {
      * @return - Localized book title
      */
     public String getLocalizedBookTitle() {
-        return StatCollector.translateToLocal(getTitle());
+        return TextHelper.localizeEffect(getTitle());
     }
 
     /**
      * @return - Localized welcome message
      */
     public String getLocalizedWelcomeMessage() {
-        return StatCollector.translateToLocal(getWelcomeMessage());
+        return TextHelper.localizeEffect(getWelcomeMessage());
     }
 
     /**
      * @return - Localized item display name
      */
     public String getLocalizedDisplayName() {
-        return StatCollector.translateToLocal(getDisplayName());
+        return TextHelper.localize(getDisplayName());
     }
 
     @Deprecated
@@ -83,12 +84,12 @@ public class Book {
 
     @Deprecated
     public String getUnlocWelcomeMessage() {
-        return welcomeMessage;
+        return getWelcomeMessage();
     }
 
     @Deprecated
     public String getUnlocDisplayName() {
-        return displayName;
+        return getDisplayName();
     }
 
     @Deprecated

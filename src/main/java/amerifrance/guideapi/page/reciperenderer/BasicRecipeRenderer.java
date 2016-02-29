@@ -6,6 +6,7 @@ import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IRecipeRenderer.RecipeRendererBase;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -56,6 +57,6 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
     }
 
     protected String getRecipeName() {
-        return StatCollector.translateToLocal("text.shaped.crafting");
+        return TextHelper.localizeEffect("text.shaped.crafting");
     }
 }

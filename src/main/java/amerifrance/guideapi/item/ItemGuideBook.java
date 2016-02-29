@@ -7,6 +7,7 @@ import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.abstraction.IGuideLinked;
 import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.util.TextHelper;
 import com.google.common.base.Strings;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -105,10 +106,10 @@ public class ItemGuideBook extends Item {
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean bool) {
 
         if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() < stack.getItemDamage())
-            list.add(EnumChatFormatting.RED + StatCollector.translateToLocal("text.book.warning"));
+            list.add(TextHelper.localizeEffect("text.book.warning"));
 
         if (!GuideRegistry.isEmpty() && !(GuideRegistry.getSize() < stack.getItemDamage()) && !Strings.isNullOrEmpty(GuideRegistry.getBook(stack.getItemDamage()).getAuthor()))
-            list.add(StatCollector.translateToLocal(GuideRegistry.getBook(stack.getItemDamage()).getAuthor()));
+            list.add(TextHelper.localizeEffect(GuideRegistry.getBook(stack.getItemDamage()).getAuthor()));
 
         if (stack.getTagCompound() == null)
             stack.setTagCompound(new NBTTagCompound());

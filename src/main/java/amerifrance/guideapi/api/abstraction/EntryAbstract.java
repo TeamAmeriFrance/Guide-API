@@ -1,6 +1,7 @@
 package amerifrance.guideapi.api.abstraction;
 
 import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
 import net.minecraft.client.gui.FontRenderer;
@@ -46,7 +47,7 @@ public abstract class EntryAbstract {
     }
 
     public String getLocalizedName() {
-        return StatCollector.translateToLocal(unlocEntryName);
+        return TextHelper.localizeEffect(unlocEntryName);
     }
 
     @SideOnly(Side.CLIENT)

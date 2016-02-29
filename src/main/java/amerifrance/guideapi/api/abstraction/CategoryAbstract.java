@@ -1,6 +1,7 @@
 package amerifrance.guideapi.api.abstraction;
 
 import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiHome;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -40,7 +41,7 @@ public abstract class CategoryAbstract {
     }
 
     public String getLocalizedName() {
-        return StatCollector.translateToLocal(unlocCategoryName);
+        return TextHelper.localizeEffect(unlocCategoryName);
     }
 
     public List<String> getTooltip() {

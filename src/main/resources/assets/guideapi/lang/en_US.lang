@@ -3,7 +3,6 @@ itemGroup.guideapi.creativeTab=Guide-API
 
 #Item
 item.guideapi.book.name=Guide-API Default Book
-item.guideapi.page.lost.name=Lost Page
 
 #Button hovering text
 button.back.name=Back
@@ -14,8 +13,8 @@ button.prev.name=Previous
 text.shaped.crafting=Shaped Crafting
 text.shapeless.crafting=Shapeless Crafting
 text.furnace.smelting=Smelting
-text.furnace.error=Error in the recipe
-text.book.warning=[WARNING] Delete this item, it has no associated book!
+text.furnace.error=&cError in the recipe
+text.book.warning=&c[WARNING] Delete this item, it has no associated book!
 text.book.creative=Creative Book
 text.book=Book: %s
 text.category=Category: %s

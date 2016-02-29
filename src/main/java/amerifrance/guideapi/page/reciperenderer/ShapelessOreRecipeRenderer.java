@@ -4,6 +4,7 @@ import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
@@ -12,7 +13,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.List;
 
-// TODO: Fix rendering of recipe
 public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOreRecipe> {
 
     public ShapelessOreRecipeRenderer(ShapelessOreRecipe recipe) {
@@ -55,6 +55,6 @@ public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOre
 
     @Override
     protected String getRecipeName() {
-        return StatCollector.translateToLocal("text.shapeless.crafting");
+        return TextHelper.localizeEffect("text.shapeless.crafting");
     }
 }

@@ -4,6 +4,7 @@ import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.base.PageBase;
+import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import lombok.EqualsAndHashCode;
 import net.minecraft.client.gui.FontRenderer;
@@ -22,7 +23,7 @@ public class PageText extends PageBase {
      * @param yOffset - How many pixels to offset the text on the Y value
      */
     public PageText(String draw, int yOffset) {
-        this.draw = StatCollector.canTranslate(draw) ? StatCollector.translateToLocal(draw) : draw;
+        this.draw = StatCollector.canTranslate(draw) ? TextHelper.localizeEffect(draw) : draw;
         this.yOffset = yOffset;
     }
 

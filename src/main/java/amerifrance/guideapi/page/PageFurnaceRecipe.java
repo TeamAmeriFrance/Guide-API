@@ -6,6 +6,7 @@ import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.base.PageBase;
 import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import lombok.EqualsAndHashCode;
 import net.minecraft.block.Block;
@@ -80,9 +81,9 @@ public class PageFurnaceRecipe extends PageBase {
         guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 65, 105, 65);
 
         List badTip = new ArrayList();
-        badTip.add(EnumChatFormatting.RED + StatCollector.translateToLocal("text.furnace.error"));
+        badTip.add(TextHelper.localizeEffect("text.furnace.error"));
 
-        guiBase.drawCenteredString(fontRendererObj, StatCollector.translateToLocal("text.furnace.smelting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
+        guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("text.furnace.smelting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
         int x = guiLeft + 66;
         int y = guiTop + 77;
@@ -101,7 +102,7 @@ public class PageFurnaceRecipe extends PageBase {
             tooltip = output.getItem() == Item.getItemFromBlock(Blocks.barrier) ? badTip : GuiHelper.getTooltip(output);
 
         if (output.getItem() == Item.getItemFromBlock(Blocks.barrier))
-            guiBase.drawCenteredString(fontRendererObj, StatCollector.translateToLocal("text.furnace.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
+            guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("text.furnace.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
 
         if (tooltip != null)
             guiBase.drawHoveringText(tooltip, mouseX, mouseY);

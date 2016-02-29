@@ -3,6 +3,7 @@ package amerifrance.guideapi.button;
 import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.api.button.ButtonGuideAPI;
 import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
@@ -41,7 +42,7 @@ public class ButtonPrev extends ButtonGuideAPI {
 
     public List<String> getHoveringText() {
         ArrayList<String> list = new ArrayList<String>();
-        list.add(StatCollector.translateToLocal("button.prev.name"));
+        list.add(TextHelper.localizeEffect("button.prev.name"));
         return list;
     }
 }
