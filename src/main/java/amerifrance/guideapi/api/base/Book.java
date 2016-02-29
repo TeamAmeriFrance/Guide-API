@@ -9,9 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Book {
@@ -19,14 +17,14 @@ public class Book {
     private final String GUITEXLOC = "guideapi:textures/gui/";
 
     private List<CategoryAbstract> categoryList = new ArrayList<CategoryAbstract>();
-    private String unlocBookTitle = "item.GuideBook.name";
-    private String unlocWelcomeMessage = unlocBookTitle;
-    private String unlocDisplayName = unlocBookTitle;
+    private String title = "item.GuideBook.name";
+    private String welcomeMessage = title;
+    private String displayName = title;
     private String author;
     private ResourceLocation pageTexture = new ResourceLocation(GUITEXLOC + "book_colored.png");
     private ResourceLocation outlineTexture = new ResourceLocation(GUITEXLOC + "book_greyscale.png");
     private boolean customModel;
-    private Color bookColor = new Color(171, 70, 30);
+    private Color color = new Color(171, 70, 30);
     private boolean spawnWithBook;
 
     /**
@@ -61,20 +59,60 @@ public class Book {
      * @return - Localized book title
      */
     public String getLocalizedBookTitle() {
-        return StatCollector.translateToLocal(unlocBookTitle);
+        return StatCollector.translateToLocal(getTitle());
     }
 
     /**
      * @return - Localized welcome message
      */
     public String getLocalizedWelcomeMessage() {
-        return StatCollector.translateToLocal(unlocWelcomeMessage);
+        return StatCollector.translateToLocal(getWelcomeMessage());
     }
 
     /**
      * @return - Localized item display name
      */
     public String getLocalizedDisplayName() {
-        return StatCollector.translateToLocal(unlocDisplayName);
+        return StatCollector.translateToLocal(getDisplayName());
+    }
+
+    @Deprecated
+    public String getUnlocBookTitle() {
+        return getTitle();
+    }
+
+    @Deprecated
+    public String getUnlocWelcomeMessage() {
+        return welcomeMessage;
+    }
+
+    @Deprecated
+    public String getUnlocDisplayName() {
+        return displayName;
+    }
+
+    @Deprecated
+    public Color getBookColor() {
+        return getColor();
+    }
+
+    @Deprecated
+    public void setUnlocBookTitle(String unlocBookTitle) {
+        setTitle(unlocBookTitle);
+    }
+
+    @Deprecated
+    public void setUnlocWelcomeMessage(String unlocWelcomeMessage) {
+        setWelcomeMessage(unlocWelcomeMessage);
+    }
+
+    @Deprecated
+    public void setUnlocDisplayName(String unlocDisplayName) {
+        setDisplayName(unlocDisplayName);
+    }
+
+    @Deprecated
+    public void setBookColor(Color color) {
+        setColor(color);
     }
 }

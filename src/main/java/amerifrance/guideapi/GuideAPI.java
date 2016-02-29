@@ -7,6 +7,7 @@ import amerifrance.guideapi.proxy.CommonProxy;
 import amerifrance.guideapi.util.EventHandler;
 import amerifrance.guideapi.util.serialization.BookCreator;
 import com.google.gson.GsonBuilder;
+import lombok.Getter;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -26,7 +27,9 @@ public class GuideAPI {
     @SidedProxy(clientSide = ModInformation.CLIENTPROXY, serverSide = ModInformation.COMMONPROXY)
     public static CommonProxy proxy;
 
+    @Getter
     private static File configDir;
+    @Getter
     private static boolean isDev = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
     @Mod.EventHandler
@@ -44,7 +47,7 @@ public class GuideAPI {
         BookCreator.registerCustomSerializers(GuideRegistry.bookBuilder);
 
         if (isDev())
-            TestBook.registerTests(5, event);
+            TestBook.registerTests(5);
     }
 
     @Mod.EventHandler
@@ -55,13 +58,5 @@ public class GuideAPI {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         BookCreator.registerJsonBooks(GuideRegistry.bookBuilder);
-    }
-
-    public static File getConfigDir() {
-        return configDir;
-    }
-
-    public static boolean isDev() {
-        return isDev;
     }
 }

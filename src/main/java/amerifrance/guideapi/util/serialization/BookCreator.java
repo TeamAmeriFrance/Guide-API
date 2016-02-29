@@ -31,7 +31,7 @@ public class BookCreator {
         File folder = new File(GuideAPI.getConfigDir().getPath() + "/books");
         folder.mkdir();
         File[] files = folder.listFiles((FileFilter) FileFilterUtils.suffixFileFilter(".json"));
-        for (File file : files) GuideRegistry.registerBook(BookCreator.createBookFromJson(gsonBuilder, file), null);
+        for (File file : files) GuideRegistry.registerBook(BookCreator.createBookFromJson(gsonBuilder, file), true);
     }
 
     public static Book createBookFromJson(GsonBuilder gsonBuilder, File file) {
@@ -162,9 +162,9 @@ public class BookCreator {
 
         @Override
         public Book deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            String displayName = json.getAsJsonObject().get("unlocDisplayName").getAsString();
-            String welcome = json.getAsJsonObject().get("unlocWelcomeMessage").getAsString();
-            String title = json.getAsJsonObject().get("unlocBookTitle").getAsString();
+            String displayName = json.getAsJsonObject().get("displayName").getAsString();
+            String welcome = json.getAsJsonObject().get("welcomeMessage").getAsString();
+            String title = json.getAsJsonObject().get("title").getAsString();
             String author = json.getAsJsonObject().get("author").getAsString();
             Color color = context.deserialize(json.getAsJsonObject().get("color"), Color.class);
             boolean spawnWithBook = json.getAsJsonObject().get("spawnWithBook").getAsBoolean();
@@ -173,11 +173,11 @@ public class BookCreator {
 
             Book book = new Book();
             book.setCategoryList(list);
-            book.setUnlocBookTitle(title);
-            book.setUnlocWelcomeMessage(welcome);
-            book.setUnlocDisplayName(displayName);
+            book.setTitle(title);
+            book.setWelcomeMessage(welcome);
+            book.setDisplayName(displayName);
             book.setAuthor(author);
-            book.setBookColor(color);
+            book.setColor(color);
             book.setSpawnWithBook(spawnWithBook);
 
             return book;
@@ -186,11 +186,11 @@ public class BookCreator {
         @Override
         public JsonElement serialize(Book src, Type typeOfSrc, JsonSerializationContext context) {
             JsonObject jsonObject = new JsonObject();
-            jsonObject.add("unlocDisplayName", context.serialize(src.getUnlocDisplayName()));
-            jsonObject.add("unlocWelcomeMessage", context.serialize(src.getUnlocWelcomeMessage()));
-            jsonObject.add("unlocBookTitle", context.serialize(src.getUnlocBookTitle()));
+            jsonObject.add("displayName", context.serialize(src.getDisplayName()));
+            jsonObject.add("welcomeMessage", context.serialize(src.getWelcomeMessage()));
+            jsonObject.add("title", context.serialize(src.getTitle()));
             jsonObject.add("author", context.serialize(src.getAuthor()));
-            jsonObject.add("color", context.serialize(src.getBookColor()));
+            jsonObject.add("color", context.serialize(src.getColor()));
             jsonObject.add("spawnWithBook", context.serialize(src.isSpawnWithBook()));
             jsonObject.add("categoryList", context.serialize(src.getCategoryList()));
             return jsonObject;

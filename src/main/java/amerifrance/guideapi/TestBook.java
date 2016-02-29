@@ -17,7 +17,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -27,12 +26,12 @@ import java.util.ArrayList;
 
 public class TestBook {
 
-    public static void registerTests(int amountOfBooks, FMLPreInitializationEvent event) {
+    public static void registerTests(int amountOfBooks) {
         for (int i = 0; i < amountOfBooks; i++)
-            testBook(new Book(), "TestBook" + i, event);
+            testBook(new Book(), "TestBook" + i);
     }
 
-    public static void testBook(Book book, String title, FMLPreInitializationEvent event) {
+    public static void testBook(Book book, String title) {
         PageText page1 = new PageText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
         PageText page2 = new PageText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE. \n\nNew paragraph!");
         PageImage page3 = new PageImage(new ResourceLocation(ModInformation.GUITEXLOC + "testimage.png"));
@@ -86,11 +85,11 @@ public class TestBook {
         categories.add(category5);
 
         book.setCategoryList(categories);
-        book.setUnlocBookTitle(title);
-        book.setUnlocWelcomeMessage(title);
-        book.setUnlocDisplayName(title);
-        book.setBookColor(new Color(171, 80, 30));
+        book.setTitle(title);
+        book.setWelcomeMessage(title);
+        book.setDisplayName(title);
+        book.setColor(new Color(171, 80, 30));
 
-        GuideRegistry.registerBook(book, event);
+        GuideRegistry.registerBook(book, true);
     }
 }

@@ -18,10 +18,10 @@ public class EventHandler {
             NBTTagCompound tag = getModTag(player, ModInformation.ID);
             if (ConfigHandler.canSpawnWithBooks) {
                 for (Book book : GuideRegistry.getBookList()) {
-                    if (book.isSpawnWithBook() && !tag.getBoolean("hasInitial" + book.getUnlocBookTitle())) {
+                    if (book.isSpawnWithBook() && !tag.getBoolean("hasInitial" + book.getTitle())) {
                         player.inventory.addItemStackToInventory(GuideRegistry.getItemStackForBook(book));
                         player.inventoryContainer.detectAndSendChanges();
-                        tag.setBoolean("hasInitial" + book.getUnlocBookTitle(), true);
+                        tag.setBoolean("hasInitial" + book.getTitle(), true);
                     }
                 }
             }
