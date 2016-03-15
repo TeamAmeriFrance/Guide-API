@@ -54,6 +54,10 @@ public class GuideRegistry {
         return bookList.isEmpty();
     }
 
+    public static boolean isValidBook(ItemStack stack) {
+        return stack.getItem() == GuideAPIItems.guideBook && !isEmpty() && stack.getItemDamage() < getSize();
+    }
+
     /**
      * @param book - The book of which to get the itemstack
      * @return an itemstack corresponding to the ingame book

@@ -1,5 +1,6 @@
 package amerifrance.guideapi.items;
 
+import com.google.common.base.Strings;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 
@@ -87,19 +88,14 @@ public class ItemGuideBook extends Item {
     @Override
     public IIcon getIcon(ItemStack stack, int pass) {
         IIcon icon = customIcons.get(stack.getItemDamage());
-        if (icon == null) {
+        if (icon == null)
             icon = pass == 0 ? itemIcon : pagesIcon;
-        }
         return icon;
     }
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage()) {
-            return GuideRegistry.getBook(stack.getItemDamage()).getLocalizedDisplayName();
-        } else {
-            return super.getItemStackDisplayName(stack);
-        }
+        return GuideRegistry.isValidBook(stack) ? GuideRegistry.getBook(stack.getItemDamage()).getLocalizedDisplayName() : super.getItemStackDisplayName(stack);
     }
 
     @Override
@@ -125,7 +121,7 @@ public class ItemGuideBook extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack stack, int pass) {
-        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage() && GuideRegistry.getBook(stack.getItemDamage()).itemTexture == null) {
+        if (GuideRegistry.isValidBook(stack) && GuideRegistry.getBook(stack.getItemDamage()).itemTexture == null) {
             if (pass == 0)
                 return GuideRegistry.getBook(stack.getItemDamage()).bookColor.getRGB();
             else
@@ -156,10 +152,10 @@ public class ItemGuideBook extends Item {
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
 
-        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() < stack.getItemDamage())
+        if (!GuideRegistry.isValidBook(stack))
             list.add(EnumChatFormatting.RED + StatCollector.translateToLocal("text.book.warning"));
 
-        if (!GuideRegistry.isEmpty() && !(GuideRegistry.getSize() < stack.getItemDamage()) && GuideRegistry.getBook(stack.getItemDamage()).author != null)
+        if (GuideRegistry.isValidBook(stack) && !Strings.isNullOrEmpty(GuideRegistry.getBook(stack.getItemDamage()).author))
             list.add(StatCollector.translateToLocal(GuideRegistry.getBook(stack.getItemDamage()).author));
 
         if (stack.stackTagCompound == null)
