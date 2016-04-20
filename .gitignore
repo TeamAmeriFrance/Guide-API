@@ -1,6 +1,7 @@
 #General use .gitignore for Minecraft modding.
 
 #Folders
+/.idea/*
 /.gradle/*
 /build/*
 /eclipse/*

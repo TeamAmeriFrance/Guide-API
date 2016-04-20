@@ -8,7 +8,7 @@ import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import lombok.EqualsAndHashCode;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -23,7 +23,7 @@ public class PageText extends PageBase {
      * @param yOffset - How many pixels to offset the text on the Y value
      */
     public PageText(String draw, int yOffset) {
-        this.draw = StatCollector.canTranslate(draw) ? TextHelper.localizeEffect(draw) : draw;
+        this.draw = I18n.canTranslate(draw) ? TextHelper.localizeEffect(draw) : draw;
         this.yOffset = yOffset;
     }
 

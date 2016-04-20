@@ -14,10 +14,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -27,24 +28,25 @@ import java.util.List;
 public class ItemGuideBook extends Item {
 
     public ItemGuideBook() {
-        setCreativeTab(CreativeTabs.tabMisc);
+        setCreativeTab(CreativeTabs.MISC);
         setUnlocalizedName(ModInformation.ID + ".book");
         setMaxStackSize(1);
         setHasSubtypes(true);
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
         if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage()) {
             if (!stack.hasTagCompound())
                 stack.setTagCompound(new NBTTagCompound());
             player.openGui(GuideAPI.instance, stack.getItemDamage(), world, (int) player.posX, (int) player.posY, (int) player.posZ);
         }
-        return stack;
+
+        return super.onItemRightClick(stack, world, player, hand);
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage() && world.getBlockState(pos) instanceof IGuideLinked) {
             IGuideLinked guideLinked = (IGuideLinked) world.getBlockState(pos);
             Book book = GuideRegistry.getBook(stack.getItemDamage());
@@ -53,12 +55,12 @@ public class ItemGuideBook extends Item {
                 for (EntryAbstract entry : category.entryList) {
                     if (entry.unlocEntryName.equals(entryName)) {
                         GuideAPI.proxy.openEntry(book, category, entry, player, stack);
-                        return true;
+                        return EnumActionResult.SUCCESS;
                     }
                 }
             }
         }
-        return false;
+        return EnumActionResult.PASS;
     }
 
     @Override
@@ -82,15 +84,6 @@ public class ItemGuideBook extends Item {
             return GuideRegistry.getBook(stack.getItemDamage()).getLocalizedDisplayName();
         else
             return super.getItemStackDisplayName(stack);
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public int getColorFromItemStack(ItemStack stack, int pass) {
-        if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage() && !GuideRegistry.getBook(stack.getItemDamage()).isCustomModel())
-            return pass == 0 ? GuideRegistry.getBook(stack.getItemDamage()).getColor().getRGB() : super.getColorFromItemStack(stack, pass);
-        else
-            return super.getColorFromItemStack(stack, pass);
     }
 
     @Override

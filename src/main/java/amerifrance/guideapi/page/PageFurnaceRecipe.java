@@ -16,9 +16,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
@@ -61,7 +59,7 @@ public class PageFurnaceRecipe extends PageBase {
      */
     public PageFurnaceRecipe(String input) {
 
-        this.input = new ItemStack(Blocks.fire);
+        this.input = new ItemStack(Blocks.FIRE);
 
         if (!OreDictionary.getOres(input).isEmpty())
             for (int i = 0; i < OreDictionary.getOres(input).size(); i++) {
@@ -94,14 +92,14 @@ public class PageFurnaceRecipe extends PageBase {
             tooltip = GuiHelper.getTooltip(input);
 
         if (output == null)
-            output = new ItemStack(Blocks.barrier);
+            output = new ItemStack(Blocks.BARRIER);
 
         x = guiLeft + 123;
         GuiHelper.drawItemStack(output, x, y);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
-            tooltip = output.getItem() == Item.getItemFromBlock(Blocks.barrier) ? badTip : GuiHelper.getTooltip(output);
+            tooltip = output.getItem() == Item.getItemFromBlock(Blocks.BARRIER) ? badTip : GuiHelper.getTooltip(output);
 
-        if (output.getItem() == Item.getItemFromBlock(Blocks.barrier))
+        if (output.getItem() == Item.getItemFromBlock(Blocks.BARRIER))
             guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("text.furnace.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
 
         if (tooltip != null)

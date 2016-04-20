@@ -35,24 +35,24 @@ public class TestBook {
         PageText page1 = new PageText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
         PageText page2 = new PageText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE.\n\nNew paragraph!");
         PageImage page3 = new PageImage(new ResourceLocation(ModInformation.GUITEXLOC + "testimage.png"));
-        PageIRecipe page4 = new PageIRecipe(GameRegistry.addShapedRecipe(new ItemStack(Items.diamond), "XXX", "YYY", "ZZZ", 'X', Items.apple, 'Y', Blocks.beacon, 'Z', Items.beef));
-        ShapedOreRecipe shapedOreRecipe = new ShapedOreRecipe(Items.beef, "XXX", "YYY", "ZZZ", 'X', "stairWood", 'Y', "stone", 'Z', "ingotIron");
+        PageIRecipe page4 = new PageIRecipe(GameRegistry.addShapedRecipe(new ItemStack(Items.DIAMOND), "XXX", "YYY", "ZZZ", 'X', Items.APPLE, 'Y', Blocks.BEACON, 'Z', Items.BEEF));
+        ShapedOreRecipe shapedOreRecipe = new ShapedOreRecipe(Items.BEEF, "XXX", "YYY", "ZZZ", 'X', "stairWood", 'Y', "stone", 'Z', "ingotIron");
         PageIRecipe page5 = new PageIRecipe(shapedOreRecipe);
         ArrayList<ItemStack> shapelessList = new ArrayList<ItemStack>();
-        shapelessList.add(new ItemStack(Items.cauldron));
-        shapelessList.add(new ItemStack(Items.golden_carrot));
-        ShapelessRecipes shapelessRecipes = new ShapelessRecipes(new ItemStack(Items.blaze_rod), shapelessList);
+        shapelessList.add(new ItemStack(Items.CAULDRON));
+        shapelessList.add(new ItemStack(Items.GOLDEN_CARROT));
+        ShapelessRecipes shapelessRecipes = new ShapelessRecipes(new ItemStack(Items.BLAZE_ROD), shapelessList);
         PageIRecipe page6 = new PageIRecipe(shapelessRecipes);
-        ShapelessOreRecipe shapelessOreRecipe = new ShapelessOreRecipe(new ItemStack(Items.baked_potato), "ingotIron", "stairWood");
+        ShapelessOreRecipe shapelessOreRecipe = new ShapelessOreRecipe(new ItemStack(Items.BAKED_POTATO), "ingotIron", "stairWood");
         PageIRecipe page7 = new PageIRecipe(shapelessOreRecipe);
         PageSound page8 = new PageSound(page6, "mob.pig.say");
-        PageFurnaceRecipe page9 = new PageFurnaceRecipe(new ItemStack(Items.potato));
-        PageFurnaceRecipe page10 = new PageFurnaceRecipe(new ItemStack(Items.diamond_axe));
+        PageFurnaceRecipe page9 = new PageFurnaceRecipe(new ItemStack(Items.POTATO));
+        PageFurnaceRecipe page10 = new PageFurnaceRecipe(new ItemStack(Items.DIAMOND_AXE));
 
         ArrayList<IPage> pages = new ArrayList<IPage>();
         pages.add(page1);
         pages.add(page2);
-        pages.addAll(PageHelper.pagesForLongText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE", new ItemStack(Items.diamond)));
+        pages.addAll(PageHelper.pagesForLongText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE", new ItemStack(Items.DIAMOND)));
         pages.add(page3);
         pages.add(page4);
         pages.add(page5);
@@ -62,8 +62,8 @@ public class TestBook {
         pages.add(page9);
         pages.add(page10);
 
-        EntryItemStack entry1 = new EntryItemStack(pages, "TestEntry1", new ItemStack(Items.potato));
-        EntryItemStack entry2 = new EntryItemStack(pages, "TestEntry2", new ItemStack(Blocks.dirt));
+        EntryItemStack entry1 = new EntryItemStack(pages, "TestEntry1", new ItemStack(Items.POTATO));
+        EntryItemStack entry2 = new EntryItemStack(pages, "TestEntry2", new ItemStack(Blocks.DIRT));
         EntryBase entry3 = new EntryBase(pages, "TestEntry3");
         EntryResourceLocation entry4 = new EntryResourceLocation(pages, "TestEntry4", new ResourceLocation(ModInformation.GUITEXLOC + "testimage.png"));
         ArrayList<EntryAbstract> entries = new ArrayList<EntryAbstract>();
@@ -73,10 +73,10 @@ public class TestBook {
         entries.add(entry4);
 
         CategoryResourceLocation category1 = new CategoryResourceLocation(entries, "TestCategory1", new ResourceLocation(ModInformation.GUITEXLOC + "testimage.png"));
-        CategoryItemStack category2 = new CategoryItemStack(entries, "TestCategory2", new ItemStack(Blocks.brick_stairs));
-        CategoryItemStack category3 = new CategoryItemStack(entries, "TestCategory3", new ItemStack(Blocks.dragon_egg));
-        CategoryItemStack category4 = new CategoryItemStack(entries, "TestCategory4", new ItemStack(Items.diamond));
-        CategoryItemStack category5 = new CategoryItemStack(entries, "TestCategory5", new ItemStack(Blocks.oak_fence));
+        CategoryItemStack category2 = new CategoryItemStack(entries, "TestCategory2", new ItemStack(Blocks.BRICK_STAIRS));
+        CategoryItemStack category3 = new CategoryItemStack(entries, "TestCategory3", new ItemStack(Blocks.DRAGON_EGG));
+        CategoryItemStack category4 = new CategoryItemStack(entries, "TestCategory4", new ItemStack(Items.DIAMOND));
+        CategoryItemStack category5 = new CategoryItemStack(entries, "TestCategory5", new ItemStack(Blocks.OAK_FENCE));
         ArrayList<CategoryAbstract> categories = new ArrayList<CategoryAbstract>();
         categories.add(category1);
         categories.add(category2);

@@ -51,7 +51,7 @@ public class PageItemStack extends PageText {
      */
     public PageItemStack(String draw, String entry) {
         super(draw, 60);
-        this.stack = new ItemStack(Blocks.fire);
+        this.stack = new ItemStack(Blocks.FIRE);
 
         if (!OreDictionary.getOres(entry).isEmpty()) {
             for (int i = 0; i < OreDictionary.getOres(entry).size(); i++) {

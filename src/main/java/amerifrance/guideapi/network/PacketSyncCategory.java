@@ -36,7 +36,7 @@ public class PacketSyncCategory implements IMessage, IMessageHandler<PacketSyncC
 
     @Override
     public IMessage onMessage(PacketSyncCategory message, MessageContext ctx) {
-        ItemStack book = ctx.getServerHandler().playerEntity.getHeldItem();
+        ItemStack book = ctx.getServerHandler().playerEntity.getActiveItemStack();
         if (book != null && message.category != -1 && message.page != -1) {
             book.getTagCompound().setInteger(NBTBookTags.CATEGORY_TAG, message.category);
             book.getTagCompound().setInteger(NBTBookTags.ENTRY_PAGE_TAG, message.page);

@@ -2,11 +2,11 @@ package amerifrance.guideapi.api.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -86,11 +86,11 @@ public class GuiHelper {
         enableRescaleNormal();
         enableDepth();
         Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getWorldRenderer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getWorldRenderer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
-        tessellator.getWorldRenderer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
-        tessellator.getWorldRenderer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
-        tessellator.getWorldRenderer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
+        tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
+        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
+        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
+        tessellator.getBuffer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
         disableLighting();
@@ -114,11 +114,11 @@ public class GuiHelper {
         enableDepth();
         color((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
         Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getWorldRenderer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getWorldRenderer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
-        tessellator.getWorldRenderer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
-        tessellator.getWorldRenderer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
-        tessellator.getWorldRenderer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
+        tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
+        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
+        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
+        tessellator.getBuffer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
         color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -144,11 +144,11 @@ public class GuiHelper {
         enableRescaleNormal();
         enableDepth();
         Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getWorldRenderer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getWorldRenderer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
-        tessellator.getWorldRenderer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
-        tessellator.getWorldRenderer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
-        tessellator.getWorldRenderer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
+        tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
+        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
+        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
+        tessellator.getBuffer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
         disableLighting();
@@ -173,11 +173,11 @@ public class GuiHelper {
         enableRescaleNormal();
         enableDepth();
         Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getWorldRenderer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getWorldRenderer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
-        tessellator.getWorldRenderer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
-        tessellator.getWorldRenderer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
-        tessellator.getWorldRenderer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
+        tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
+        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
+        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
+        tessellator.getBuffer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
         disableLighting();
@@ -191,9 +191,9 @@ public class GuiHelper {
 
         for (int k = 0; k < list.size(); ++k) {
             if (k == 0) {
-                list.set(k, stack.getRarity().rarityColor + (String) list.get(k));
+                list.set(k, stack.getRarity().rarityColor + list.get(k));
             } else {
-                list.set(k, EnumChatFormatting.GRAY + (String) list.get(k));
+                list.set(k, TextFormatting.GRAY + list.get(k));
             }
         }
 

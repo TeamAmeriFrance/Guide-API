@@ -9,7 +9,6 @@ import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraft.util.StatCollector;
 
 public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecipes> {
 

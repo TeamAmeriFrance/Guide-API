@@ -4,7 +4,6 @@ import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.util.TextHelper;
 import lombok.*;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 
 import java.awt.*;
 import java.util.ArrayList;

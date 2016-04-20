@@ -24,7 +24,7 @@ public class CommonProxy implements IGuiHandler {
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        ItemStack stack = player.getHeldItem();
+        ItemStack stack = player.getActiveItemStack();
         Book book = GuideRegistry.getBook(ID);
         if (stack != null && stack.hasTagCompound()) {
             NBTTagCompound tagCompound = stack.getTagCompound();
@@ -57,6 +57,6 @@ public class CommonProxy implements IGuiHandler {
     public void openEntry(Book book, CategoryAbstract categoryAbstract, EntryAbstract entryAbstract, EntityPlayer player, ItemStack stack) {
     }
 
-    public void initRenders() {
+    public void initColors() {
     }
 }

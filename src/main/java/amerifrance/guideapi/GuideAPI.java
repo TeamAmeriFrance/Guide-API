@@ -53,6 +53,8 @@ public class GuideAPI {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
+
+        proxy.initColors();
     }
 
     @Mod.EventHandler

@@ -7,6 +7,6 @@ public class ItemsRegistry {
 
     public static void registerItems() {
         GuideAPIItems.guideBook = new ItemGuideBook();
-        GameRegistry.registerItem(GuideAPIItems.guideBook, "ItemGuideBook");
+        GameRegistry.register(GuideAPIItems.guideBook.setRegistryName("ItemGuideBook"));
     }
 }

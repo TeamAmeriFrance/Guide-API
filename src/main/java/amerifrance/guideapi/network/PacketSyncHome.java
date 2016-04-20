@@ -31,7 +31,7 @@ public class PacketSyncHome implements IMessage, IMessageHandler<PacketSyncHome,
 
     @Override
     public IMessage onMessage(PacketSyncHome message, MessageContext ctx) {
-        ItemStack book = ctx.getServerHandler().playerEntity.getHeldItem();
+        ItemStack book = ctx.getServerHandler().playerEntity.getActiveItemStack();
         if (book != null && message.page != -1) {
             book.getTagCompound().setInteger(NBTBookTags.CATEGORY_PAGE_TAG, message.page);
             book.getTagCompound().removeTag(NBTBookTags.CATEGORY_TAG);

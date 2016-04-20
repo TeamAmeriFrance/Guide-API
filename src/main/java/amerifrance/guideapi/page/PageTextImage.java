@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -29,7 +29,7 @@ public class PageTextImage extends PageBase {
      */
     public PageTextImage(String draw, ResourceLocation image, boolean drawAtTop) {
 
-        this.draw = StatCollector.canTranslate(draw) ? TextHelper.localizeEffect(draw) : draw;
+        this.draw = I18n.canTranslate(draw) ? TextHelper.localizeEffect(draw) : draw;
         this.image = image;
         this.drawAtTop = drawAtTop;
     }
