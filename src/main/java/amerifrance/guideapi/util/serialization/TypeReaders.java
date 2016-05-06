@@ -1,9 +1,9 @@
 package amerifrance.guideapi.util.serialization;
 
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.abstraction.IPage;
-import amerifrance.guideapi.api.base.CategoryBase;
-import amerifrance.guideapi.api.base.EntryBase;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.IPage;
+import amerifrance.guideapi.api.impl.Category;
+import amerifrance.guideapi.api.impl.Entry;
 import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.entry.EntryResourceLocation;
@@ -123,33 +123,33 @@ public abstract class TypeReaders<T> implements ITypeReader<T> {
 
     // Entries
 
-    public static TypeReaders<EntryBase> ENTRY_BASE = new TypeReaders<EntryBase>(EntryBase.class) {
+    public static TypeReaders<Entry> ENTRY_BASE = new TypeReaders<Entry>(Entry.class) {
         @Override
-        public EntryBase deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public Entry deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             String name = json.getAsJsonObject().get("unlocEntryName").getAsString();
             List<IPage> list = context.deserialize(json.getAsJsonObject().get("pageList"), new TypeToken<List<IPage>>() {
             }.getType());
-            return new EntryBase(list, name);
+            return new Entry(list, name);
         }
 
         @Override
-        public void addData(JsonObject jsonObject, EntryBase src, JsonSerializationContext context) {
+        public void addData(JsonObject jsonObject, Entry src, JsonSerializationContext context) {
             jsonObject.add("unlocEntryName", context.serialize(src.unlocEntryName));
             jsonObject.add("pageList", context.serialize(src.pageList));
         }
     };
 
-    public static TypeReaders<EntryBase> ENTRY_TEXT = new TypeReaders<EntryBase>(EntryBase.class) {
+    public static TypeReaders<Entry> ENTRY_TEXT = new TypeReaders<Entry>(Entry.class) {
         @Override
-        public EntryBase deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public Entry deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             String name = json.getAsJsonObject().get("unlocEntryName").getAsString();
             List<IPage> list = context.deserialize(json.getAsJsonObject().get("pageList"), new TypeToken<List<IPage>>() {
             }.getType());
-            return new EntryBase(list, name);
+            return new Entry(list, name);
         }
 
         @Override
-        public void addData(JsonObject jsonObject, EntryBase src, JsonSerializationContext context) {
+        public void addData(JsonObject jsonObject, Entry src, JsonSerializationContext context) {
             jsonObject.add("unlocEntryName", context.serialize(src.unlocEntryName));
             jsonObject.add("pageList", context.serialize(src.pageList));
         }
@@ -193,17 +193,17 @@ public abstract class TypeReaders<T> implements ITypeReader<T> {
 
     // Categories
 
-    public static TypeReaders<CategoryBase> CATEGORY_BASE = new TypeReaders<CategoryBase>(CategoryBase.class) {
+    public static TypeReaders<Category> CATEGORY_BASE = new TypeReaders<Category>(Category.class) {
         @Override
-        public CategoryBase deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public Category deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             List<EntryAbstract> list = context.deserialize(json.getAsJsonObject().get("entryList"), new TypeToken<List<EntryAbstract>>() {
             }.getType());
             String name = json.getAsJsonObject().get("unlocCategoryName").getAsString();
-            return new CategoryBase(list, name);
+            return new Category(list, name);
         }
 
         @Override
-        public void addData(JsonObject jsonObject, CategoryBase src, JsonSerializationContext context) {
+        public void addData(JsonObject jsonObject, Category src, JsonSerializationContext context) {
             jsonObject.add("unlocCategoryName", context.serialize(src.unlocCategoryName));
             jsonObject.add("entryList", context.serialize(src.entryList));
         }

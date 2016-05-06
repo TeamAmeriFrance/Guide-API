@@ -1,9 +1,9 @@
 package amerifrance.guideapi.page;
 
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.base.PageBase;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.Page;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EqualsAndHashCode(callSuper = true)
-public class PageTextImage extends PageBase {
+public class PageTextImage extends Page {
 
     public String draw;
     public ResourceLocation image;

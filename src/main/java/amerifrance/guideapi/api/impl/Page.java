@@ -1,8 +1,8 @@
-package amerifrance.guideapi.api.base;
+package amerifrance.guideapi.api.impl;
 
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.abstraction.IPage;
+import amerifrance.guideapi.api.IPage;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiEntry;
 import net.minecraft.client.gui.FontRenderer;
@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class PageBase implements IPage {
+public class Page implements IPage {
 
     protected boolean unicode;
 

@@ -1,10 +1,10 @@
 package amerifrance.guideapi.page;
 
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.abstraction.IRecipeRenderer;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.base.PageBase;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.IRecipeRenderer;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.Page;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.page.reciperenderer.ShapedOreRecipeRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapedRecipesRenderer;
@@ -21,7 +21,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 @EqualsAndHashCode(callSuper = true)
-public class PageIRecipe extends PageBase {
+public class PageIRecipe extends Page {
 
     public IRecipe recipe;
     public IRecipeRenderer iRecipeRenderer;

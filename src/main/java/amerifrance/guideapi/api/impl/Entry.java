@@ -1,8 +1,8 @@
-package amerifrance.guideapi.api.base;
+package amerifrance.guideapi.api.impl;
 
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.abstraction.IPage;
+import amerifrance.guideapi.api.IPage;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
@@ -17,13 +17,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.awt.*;
 import java.util.List;
 
-public class EntryBase extends EntryAbstract {
+public class Entry extends EntryAbstract {
 
-    public EntryBase(List<IPage> pageList, String unlocEntryName, boolean unicode) {
+    public Entry(List<IPage> pageList, String unlocEntryName, boolean unicode) {
         super(pageList, unlocEntryName, unicode);
     }
 
-    public EntryBase(List<IPage> pageList, String unlocEntryName) {
+    public Entry(List<IPage> pageList, String unlocEntryName) {
         super(pageList, unlocEntryName, false);
     }
 

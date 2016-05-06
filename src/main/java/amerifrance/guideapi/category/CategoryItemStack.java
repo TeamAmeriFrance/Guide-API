@@ -1,8 +1,8 @@
 package amerifrance.guideapi.category;
 
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.base.CategoryBase;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.Category;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import lombok.EqualsAndHashCode;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
-public class CategoryItemStack extends CategoryBase {
+public class CategoryItemStack extends Category {
 
     public ItemStack stack;
 

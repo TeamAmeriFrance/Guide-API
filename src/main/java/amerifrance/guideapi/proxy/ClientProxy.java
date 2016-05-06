@@ -1,10 +1,10 @@
 package amerifrance.guideapi.proxy;
 
-import amerifrance.guideapi.api.GuideAPIItems;
-import amerifrance.guideapi.api.GuideRegistry;
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.api.IGuideItem;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.gui.GuiEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -31,11 +31,12 @@ public class ClientProxy extends CommonProxy {
         Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
             @Override
             public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-                if (!GuideRegistry.isEmpty() && GuideRegistry.getSize() > stack.getItemDamage() && !GuideRegistry.getBook(stack.getItemDamage()).isCustomModel() && tintIndex == 0)
-                    return GuideRegistry.getBook(stack.getItemDamage()).getColor().getRGB();
+                IGuideItem guideItem = (IGuideItem) stack.getItem();
+                if (guideItem.getBook(stack) != null && tintIndex == 0)
+                    return guideItem.getBook(stack).getColor().getRGB();
 
                 return 16777215;
             }
-        }, GuideAPIItems.guideBook);
+        }, GuideAPI.guideBook);
     }
 }

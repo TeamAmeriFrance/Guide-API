@@ -1,9 +1,9 @@
 package amerifrance.guideapi.entry;
 
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.IPage;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.base.EntryBase;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.IPage;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.Entry;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import lombok.EqualsAndHashCode;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
-public class EntryItemStack extends EntryBase {
+public class EntryItemStack extends Entry {
 
     public ItemStack stack;
 

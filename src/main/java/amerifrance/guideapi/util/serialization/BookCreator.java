@@ -1,11 +1,11 @@
 package amerifrance.guideapi.util.serialization;
 
-import amerifrance.guideapi.GuideAPI;
-import amerifrance.guideapi.api.GuideRegistry;
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.abstraction.IPage;
-import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.GuideMod;
+import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.IPage;
+import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.iface.ITypeReader;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
@@ -23,32 +23,42 @@ import java.util.Map;
 
 public class BookCreator {
 
-    @SuppressWarnings("rawtypes")
+    public static final Gson GSON = new GsonBuilder()
+            .setPrettyPrinting()
+            .serializeNulls()
+            .disableHtmlEscaping()
+            .registerTypeAdapter(ItemStack.class, new CustomItemStackJson())
+            .registerTypeAdapter(Color.class, new CustomColorJson())
+            .registerTypeAdapter(IPage.class, new CustomPageJson())
+            .registerTypeHierarchyAdapter(EntryAbstract.class, new CustomEntryJson())
+            .registerTypeHierarchyAdapter(CategoryAbstract.class, new CustomCategoryJson())
+            .registerTypeHierarchyAdapter(Book.class, new CustomBookJson())
+            .create();
+
     private static Map<Class, ITypeReader> serializers = Maps.newHashMap();
     private static Map<String, Class<?>> idents = Maps.newHashMap();
 
-    public static void registerJsonBooks(GsonBuilder gsonBuilder) {
-        File folder = new File(GuideAPI.getConfigDir().getPath() + "/books");
+    public static void registerJsonBooks() {
+        File folder = new File(GuideMod.getConfigDir(), "books");
         folder.mkdir();
         File[] files = folder.listFiles((FileFilter) FileFilterUtils.suffixFileFilter(".json"));
-        for (File file : files) GuideRegistry.registerBook(BookCreator.createBookFromJson(gsonBuilder, file), true);
+        for (File file : files)
+            GuideAPI.BOOKS.register(createBookFromJson(file));
     }
 
-    public static Book createBookFromJson(GsonBuilder gsonBuilder, File file) {
+    public static Book createBookFromJson(File file) {
         try {
-            Gson gson = gsonBuilder.setPrettyPrinting().create();
-            return gson.fromJson(new FileReader(file), Book.class);
+            return GSON.fromJson(new FileReader(file), Book.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static void createJsonFromBook(GsonBuilder gsonBuilder, Book book) {
+    public static void createJsonFromBook(Book book) {
         try {
-            Gson gson = gsonBuilder.setPrettyPrinting().create();
-            String reverse = gson.toJson(book, Book.class);
-            FileWriter fw = new FileWriter(new File(GuideAPI.getConfigDir().getPath(), book.getLocalizedDisplayName() + ".json"));
+            String reverse = GSON.toJson(book, Book.class);
+            FileWriter fw = new FileWriter(new File(GuideMod.getConfigDir().getPath(), book.getLocalizedDisplayName() + ".json"));
             fw.write(reverse);
             fw.close();
         } catch (IOException e) {
@@ -59,16 +69,6 @@ public class BookCreator {
     public static void registerSerializer(ITypeReader<?> serializer) {
         serializers.put(serializer.getType(), serializer);
         idents.put(serializer.getType().getSimpleName(), serializer.getType());
-    }
-
-    public static void registerCustomSerializers(GsonBuilder gsonBuilder) {
-        TypeReaders.init();
-        gsonBuilder.registerTypeAdapter(ItemStack.class, new CustomItemStackJson());
-        gsonBuilder.registerTypeAdapter(Color.class, new CustomColorJson());
-        gsonBuilder.registerTypeAdapter(IPage.class, new CustomPageJson());
-        gsonBuilder.registerTypeHierarchyAdapter(EntryAbstract.class, new CustomEntryJson());
-        gsonBuilder.registerTypeHierarchyAdapter(CategoryAbstract.class, new CustomCategoryJson());
-        gsonBuilder.registerTypeHierarchyAdapter(Book.class, new CustomBookJson());
     }
 
     public static class CustomItemStackJson implements JsonDeserializer<ItemStack>, JsonSerializer<ItemStack> {

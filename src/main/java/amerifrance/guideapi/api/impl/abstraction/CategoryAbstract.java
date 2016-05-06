@@ -1,6 +1,6 @@
-package amerifrance.guideapi.api.abstraction;
+package amerifrance.guideapi.api.impl.abstraction;
 
-import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiHome;

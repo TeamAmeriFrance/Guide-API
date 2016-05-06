@@ -1,4 +1,4 @@
-package amerifrance.guideapi.api.abstraction;
+package amerifrance.guideapi.api;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

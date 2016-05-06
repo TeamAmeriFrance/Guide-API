@@ -1,12 +1,12 @@
 package amerifrance.guideapi;
 
-import amerifrance.guideapi.api.GuideRegistry;
-import amerifrance.guideapi.item.ItemsRegistry;
+import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.item.ItemGuideBook;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxy.CommonProxy;
 import amerifrance.guideapi.util.EventHandler;
 import amerifrance.guideapi.util.serialization.BookCreator;
-import com.google.gson.GsonBuilder;
+import amerifrance.guideapi.util.serialization.TypeReaders;
 import lombok.Getter;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.MinecraftForge;
@@ -16,14 +16,15 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.io.File;
 
 @Mod(modid = ModInformation.ID, name = ModInformation.NAME, version = ModInformation.VERSION, dependencies = ModInformation.DEPEND)
-public class GuideAPI {
+public class GuideMod {
 
     @Mod.Instance
-    public static GuideAPI instance;
+    public static GuideMod instance;
     @SidedProxy(clientSide = ModInformation.CLIENTPROXY, serverSide = ModInformation.COMMONPROXY)
     public static CommonProxy proxy;
 
@@ -38,13 +39,14 @@ public class GuideAPI {
         configDir = new File(event.getModConfigurationDirectory(), ModInformation.NAME);
         configDir.mkdirs();
         ConfigHandler.init(new File(configDir.getPath(), ModInformation.NAME + ".cfg"));
-        ItemsRegistry.registerItems();
+
+        GuideAPI.guideBook = new ItemGuideBook();
+        GameRegistry.register(GuideAPI.guideBook.setRegistryName("ItemGuideBook"));
 
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
         PacketHandler.registerPackets();
 
-        GuideRegistry.bookBuilder = new GsonBuilder();
-        BookCreator.registerCustomSerializers(GuideRegistry.bookBuilder);
+        TypeReaders.init();
 
         if (isDev())
             TestBook.registerTests(5);
@@ -59,6 +61,6 @@ public class GuideAPI {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        BookCreator.registerJsonBooks(GuideRegistry.bookBuilder);
+        BookCreator.registerJsonBooks();
     }
 }

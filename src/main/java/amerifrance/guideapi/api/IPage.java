@@ -1,6 +1,8 @@
-package amerifrance.guideapi.api.abstraction;
+package amerifrance.guideapi.api;
 
-import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiEntry;
 import net.minecraft.client.gui.FontRenderer;

@@ -1,11 +1,11 @@
 package amerifrance.guideapi.page;
 
-import amerifrance.guideapi.GuideAPI;
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.abstraction.IPage;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.base.PageBase;
+import amerifrance.guideapi.GuideMod;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.IPage;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.Page;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiEntry;
 import lombok.EqualsAndHashCode;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EqualsAndHashCode(callSuper = true)
-public class PageSound extends PageBase {
+public class PageSound extends Page {
 
     public IPage pageToEmulate;
     public String sound;
@@ -51,7 +51,7 @@ public class PageSound extends PageBase {
     @Override
     @SideOnly(Side.CLIENT)
     public void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry) {
-        GuideAPI.proxy.playSound(new ResourceLocation(sound));
+        GuideMod.proxy.playSound(new ResourceLocation(sound));
         pageToEmulate.onLeftClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
     }
 

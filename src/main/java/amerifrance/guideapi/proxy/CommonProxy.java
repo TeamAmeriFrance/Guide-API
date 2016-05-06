@@ -1,9 +1,9 @@
 package amerifrance.guideapi.proxy;
 
-import amerifrance.guideapi.api.GuideRegistry;
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.util.NBTBookTags;
 import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiEntry;
@@ -25,7 +25,7 @@ public class CommonProxy implements IGuiHandler {
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         ItemStack stack = player.getActiveItemStack();
-        Book book = GuideRegistry.getBook(ID);
+        Book book = GuideAPI.BOOKS.getValues().get(ID);
         if (stack != null && stack.hasTagCompound()) {
             NBTTagCompound tagCompound = stack.getTagCompound();
             if (tagCompound.hasKey(NBTBookTags.ENTRY_TAG) && tagCompound.hasKey(NBTBookTags.CATEGORY_TAG)) {

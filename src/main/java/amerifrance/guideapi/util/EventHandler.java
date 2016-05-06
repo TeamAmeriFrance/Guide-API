@@ -2,8 +2,8 @@ package amerifrance.guideapi.util;
 
 import amerifrance.guideapi.ConfigHandler;
 import amerifrance.guideapi.ModInformation;
-import amerifrance.guideapi.api.GuideRegistry;
-import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.api.impl.Book;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -17,9 +17,9 @@ public class EventHandler {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             NBTTagCompound tag = getModTag(player, ModInformation.ID);
             if (ConfigHandler.canSpawnWithBooks) {
-                for (Book book : GuideRegistry.getBookList()) {
+                for (Book book : GuideAPI.BOOKS.getValues()) {
                     if (book.isSpawnWithBook() && !tag.getBoolean("hasInitial" + book.getTitle())) {
-                        player.inventory.addItemStackToInventory(GuideRegistry.getItemStackForBook(book));
+                        player.inventory.addItemStackToInventory(GuideAPI.getStackFromBook(book));
                         player.inventoryContainer.detectAndSendChanges();
                         tag.setBoolean("hasInitial" + book.getTitle(), true);
                     }

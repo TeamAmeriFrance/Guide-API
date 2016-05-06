@@ -1,7 +1,7 @@
-package amerifrance.guideapi.api.base;
+package amerifrance.guideapi.api.impl;
 
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiHome;
@@ -14,9 +14,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-public class CategoryBase extends CategoryAbstract {
+public class Category extends CategoryAbstract {
 
-    public CategoryBase(List<EntryAbstract> entryList, String unlocCategoryName) {
+    public Category(List<EntryAbstract> entryList, String unlocCategoryName) {
         super(entryList, unlocCategoryName);
     }
 

@@ -1,23 +1,27 @@
 package amerifrance.guideapi;
 
-import amerifrance.guideapi.api.GuideRegistry;
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.abstraction.IPage;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.base.EntryBase;
+import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.IPage;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.Entry;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.category.CategoryResourceLocation;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.entry.EntryResourceLocation;
 import amerifrance.guideapi.page.*;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -64,7 +68,7 @@ public class TestBook {
 
         EntryItemStack entry1 = new EntryItemStack(pages, "TestEntry1", new ItemStack(Items.POTATO));
         EntryItemStack entry2 = new EntryItemStack(pages, "TestEntry2", new ItemStack(Blocks.DIRT));
-        EntryBase entry3 = new EntryBase(pages, "TestEntry3");
+        Entry entry3 = new Entry(pages, "TestEntry3");
         EntryResourceLocation entry4 = new EntryResourceLocation(pages, "TestEntry4", new ResourceLocation(ModInformation.GUITEXLOC + "testimage.png"));
         ArrayList<EntryAbstract> entries = new ArrayList<EntryAbstract>();
         entries.add(entry1);
@@ -89,7 +93,11 @@ public class TestBook {
         book.setWelcomeMessage(title);
         book.setDisplayName(title);
         book.setColor(new Color(171, 80, 30));
+        book.setRegistryName(title);
 
-        GuideRegistry.registerBook(book, true);
+        GuideAPI.BOOKS.register(book);
+
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
+            GuideAPI.setModel(book);
     }
 }
