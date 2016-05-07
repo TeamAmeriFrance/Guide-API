@@ -83,6 +83,7 @@ public class GuiHelper {
         enableBlend();
         blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderHelper.enableGUIStandardItemLighting();
+        disableLighting();
         enableRescaleNormal();
         enableDepth();
         Tessellator tessellator = Tessellator.getInstance();
@@ -93,7 +94,6 @@ public class GuiHelper {
         tessellator.getBuffer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        disableLighting();
         popMatrix();
     }
 
@@ -110,6 +110,7 @@ public class GuiHelper {
         enableBlend();
         blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderHelper.enableGUIStandardItemLighting();
+        disableLighting();
         enableRescaleNormal();
         enableDepth();
         color((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
@@ -122,7 +123,6 @@ public class GuiHelper {
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
         color(1.0F, 1.0F, 1.0F, 1.0F);
-        disableLighting();
         popMatrix();
     }
 
@@ -141,6 +141,7 @@ public class GuiHelper {
         scale(0.5D, 0.5D, 0.5D);
         translate(x, y, zLevel);
         RenderHelper.enableGUIStandardItemLighting();
+        disableLighting();
         enableRescaleNormal();
         enableDepth();
         Tessellator tessellator = Tessellator.getInstance();
@@ -151,7 +152,6 @@ public class GuiHelper {
         tessellator.getBuffer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        disableLighting();
         popMatrix();
     }
 
@@ -170,6 +170,7 @@ public class GuiHelper {
         color((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
         translate(x, y, zLevel);
         RenderHelper.enableGUIStandardItemLighting();
+        disableLighting();
         enableRescaleNormal();
         enableDepth();
         Tessellator tessellator = Tessellator.getInstance();
@@ -180,7 +181,6 @@ public class GuiHelper {
         tessellator.getBuffer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        disableLighting();
         popMatrix();
     }
 

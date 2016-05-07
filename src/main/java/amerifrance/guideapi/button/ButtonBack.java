@@ -26,6 +26,7 @@ public class ButtonBack extends ButtonGuideAPI {
         if (this.visible) {
             RenderHelper.enableGUIStandardItemLighting();
             GlStateManager.enableBlend();
+            GlStateManager.disableLighting();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             minecraft.getTextureManager().bindTexture(new ResourceLocation(GuideMod.GUITEXLOC + "book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, xPosition, yPosition, width, height)) {

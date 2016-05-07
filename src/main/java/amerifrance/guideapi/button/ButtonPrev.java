@@ -27,6 +27,7 @@ public class ButtonPrev extends ButtonGuideAPI {
             RenderHelper.enableGUIStandardItemLighting();
             GlStateManager.enableBlend();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            GlStateManager.disableLighting();
             minecraft.getTextureManager().bindTexture(new ResourceLocation(GuideMod.GUITEXLOC + "book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, xPosition, yPosition, width, height)) {
                 this.drawTexturedModalRect(xPosition, yPosition + 1, 47, 214, 18, 10);
