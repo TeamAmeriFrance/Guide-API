@@ -9,6 +9,7 @@ import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecipes> {
 
@@ -27,6 +28,8 @@ public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecip
                     int stackY = (y + 1) * 17 + (guiTop + 40);
                     ItemStack stack = recipe.recipeItems.get(i);
                     if (stack != null) {
+                        if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
+                            stack.setItemDamage(0);
                         GuiHelper.drawItemStack(stack, stackX, stackY);
                         if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
                             tooltips = GuiHelper.getTooltip(stack);

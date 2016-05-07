@@ -8,6 +8,7 @@ import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.util.List;
@@ -32,6 +33,10 @@ public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOre
                     Object component = recipe.getInput().get(i);
                     if (component != null) {
                         if (component instanceof ItemStack) {
+                            ItemStack input = (ItemStack) component;
+                            if (input.getItemDamage() == OreDictionary.WILDCARD_VALUE)
+                                input.setItemDamage(0);
+
                             GuiHelper.drawItemStack((ItemStack) component, stackX, stackY);
                             if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
                                 tooltips = GuiHelper.getTooltip((ItemStack) component);
