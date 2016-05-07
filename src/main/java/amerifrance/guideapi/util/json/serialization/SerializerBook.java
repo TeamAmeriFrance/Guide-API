@@ -29,7 +29,8 @@ public class SerializerBook extends SerializerBase<Book> {
         book.setAuthor(JsonHelper.getString(json, AUTHOR, "JsonCreated"));
         book.setColor(JsonHelper.getColor(json, COLOR, Color.GREEN));
         book.setSpawnWithBook(JsonHelper.getBoolean(json, SPAWNWITH, false));
-        book.setCategoryList((List<CategoryAbstract>) context.deserialize(json.getAsJsonObject().get(CATEGORIES), new TypeToken<List<CategoryAbstract>>(){}.getType()));
+        book.setCategoryList((List<CategoryAbstract>) context.deserialize(json.getAsJsonObject().get(CATEGORIES), new TypeToken<List<CategoryAbstract>>() {
+        }.getType()));
         book.setRegistryName(book.getTitle().replaceAll(" ", ""));
         return book;
     }
@@ -43,7 +44,8 @@ public class SerializerBook extends SerializerBase<Book> {
         jsonObject.addProperty(AUTHOR, src.getAuthor());
         jsonObject.addProperty(COLOR, "#" + Integer.toHexString(src.getColor().getRGB()).substring(2).toUpperCase());
         jsonObject.addProperty(SPAWNWITH, src.isSpawnWithBook());
-        jsonObject.add(CATEGORIES, context.serialize(src.getCategoryList(), new TypeToken<List<CategoryAbstract>>(){}.getType()));
+        jsonObject.add(CATEGORIES, context.serialize(src.getCategoryList(), new TypeToken<List<CategoryAbstract>>() {
+        }.getType()));
         return jsonObject;
     }
 }

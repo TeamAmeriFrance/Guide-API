@@ -30,11 +30,12 @@ public class GuideMod {
     public static final String VERSION = "@VERSION@";
     public static final String DOMAIN = "guideapi:";
     public static final String GUITEXLOC = DOMAIN + "textures/gui/";
+    public static final String CLIENTPROXY = "amerifrance.guideapi.proxy.ClientProxy";
+    public static final String COMMONPROXY = "amerifrance.guideapi.proxy.CommonProxy";
 
     @Mod.Instance
     public static GuideMod instance;
-    public static final String CLIENTPROXY = "amerifrance.guideapi.proxy.ClientProxy";
-    public static final String COMMONPROXY = "amerifrance.guideapi.proxy.CommonProxy";
+
     @SidedProxy(clientSide = GuideMod.CLIENTPROXY, serverSide = GuideMod.COMMONPROXY)
     public static CommonProxy proxy;
 

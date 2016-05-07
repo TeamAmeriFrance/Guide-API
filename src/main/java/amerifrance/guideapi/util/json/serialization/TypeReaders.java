@@ -2,6 +2,7 @@ package amerifrance.guideapi.util.json.serialization;
 
 import amerifrance.guideapi.api.GuideAPI;
 import amerifrance.guideapi.api.IPage;
+import amerifrance.guideapi.api.ITypeReader;
 import amerifrance.guideapi.api.impl.Category;
 import amerifrance.guideapi.api.impl.Entry;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
@@ -9,7 +10,6 @@ import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.entry.EntryResourceLocation;
-import amerifrance.guideapi.api.ITypeReader;
 import amerifrance.guideapi.page.*;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -299,10 +299,6 @@ public abstract class TypeReaders<T> implements ITypeReader<T> {
         GuideAPI.addTypeReader(this);
     }
 
-    public static void init() {
-        // Run those static initializers
-    }
-
     @Override
     public Class<? extends T> getType() {
         return type;
@@ -317,4 +313,8 @@ public abstract class TypeReaders<T> implements ITypeReader<T> {
     }
 
     protected abstract void addData(JsonObject jsonObject, T src, JsonSerializationContext context);
+
+    public static void init() {
+        // Run those static initializers
+    }
 }

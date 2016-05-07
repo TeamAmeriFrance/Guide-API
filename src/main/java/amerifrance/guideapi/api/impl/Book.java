@@ -2,7 +2,9 @@ package amerifrance.guideapi.api.impl;
 
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.util.TextHelper;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 
@@ -83,23 +85,13 @@ public class Book extends IForgeRegistryEntry.Impl<Book> {
     }
 
     @Deprecated
-    public String getUnlocWelcomeMessage() {
-        return getWelcomeMessage();
-    }
-
-    @Deprecated
-    public String getUnlocDisplayName() {
-        return getDisplayName();
-    }
-
-    @Deprecated
-    public Color getBookColor() {
-        return getColor();
-    }
-
-    @Deprecated
     public void setUnlocBookTitle(String unlocBookTitle) {
         setTitle(unlocBookTitle);
+    }
+
+    @Deprecated
+    public String getUnlocWelcomeMessage() {
+        return getWelcomeMessage();
     }
 
     @Deprecated
@@ -108,8 +100,18 @@ public class Book extends IForgeRegistryEntry.Impl<Book> {
     }
 
     @Deprecated
+    public String getUnlocDisplayName() {
+        return getDisplayName();
+    }
+
+    @Deprecated
     public void setUnlocDisplayName(String unlocDisplayName) {
         setDisplayName(unlocDisplayName);
+    }
+
+    @Deprecated
+    public Color getBookColor() {
+        return getColor();
     }
 
     @Deprecated

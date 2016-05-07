@@ -1,14 +1,8 @@
 package amerifrance.guideapi.api;
 
 import amerifrance.guideapi.api.impl.Book;
-import com.google.gson.GsonBuilder;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +30,7 @@ public class GuideRegistry {
     /**
      * If the book does not have a custom model, this will also register a render for the book.
      *
-     * @param book  - The book to register
+     * @param book - The book to register
      */
     public static void registerBook(Book book, FMLPreInitializationEvent event) {
         registerBook(book);
@@ -44,7 +38,6 @@ public class GuideRegistry {
 
     /**
      * @param index - The index of the book
-     *
      * @return the book corresponding to the index given
      */
     public static Book getBook(int index) {
@@ -53,7 +46,6 @@ public class GuideRegistry {
 
     /**
      * @param book - The book of which to get the index
-     *
      * @return the index of the book given
      */
     public static int getIndexOf(Book book) {
@@ -76,7 +68,6 @@ public class GuideRegistry {
 
     /**
      * @param book - The book of which to get the itemstack
-     *
      * @return an itemstack corresponding to the ingame book
      */
     public static ItemStack getItemStackForBook(Book book) {

@@ -1,8 +1,8 @@
 package amerifrance.guideapi.api.util;
 
+import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.impl.Book;
 
 public class BookHelper {
 

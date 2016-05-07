@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.GL11;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.List;
 
 import static net.minecraft.client.renderer.GlStateManager.*;
@@ -25,7 +25,6 @@ public class GuiHelper {
      * @param y      - Starting y for the rectangle
      * @param width  - Width of the rectangle
      * @param height - Height of the rectangle
-     *
      * @return whether or not the mouse is in the rectangle
      */
     public static boolean isMouseBetween(int mouseX, int mouseY, int x, int y, int width, int height) {

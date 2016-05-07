@@ -1,7 +1,7 @@
 package amerifrance.guideapi.gui;
 
-import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.button.ButtonNext;
 import amerifrance.guideapi.button.ButtonPrev;
 import amerifrance.guideapi.wrapper.CategoryWrapper;

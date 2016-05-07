@@ -46,23 +46,20 @@ public class GuideAPI {
                 }
             }
     );
-
+    private static final List<ITypeReader> TYPE_READERS = new ArrayList<ITypeReader>();
     /**
      * The item corresponding to the Guide-API books. Access it after the Pre-Init event.
      */
     public static Item guideBook;
 
-    private static final List<ITypeReader> TYPE_READERS = new ArrayList<ITypeReader>();
-
     /**
      * Adds a new {@link ITypeReader} to be used when creating JSON books. If you wish for modpack developers to
      * be able to use your Category, Entry, or Page in their book, you must register one of these.
-     *
+     * <p>
      * Add your TypeReader during FMLPreInitializationEvent. The list will be queried for the only time during FMLInitializationEvent.
      *
-     * @see amerifrance.guideapi.util.json.serialization.TypeReaders
-     *
      * @param typeReader - ITypeReader to register.
+     * @see amerifrance.guideapi.util.json.serialization.TypeReaders
      */
     public static void addTypeReader(ITypeReader typeReader) {
         if (!TYPE_READERS.contains(typeReader))
@@ -88,9 +85,9 @@ public class GuideAPI {
 
     /**
      * Helper method for setting a model for your book.
-     *
+     * <p>
      * Use if you wish to use a custom model.
-     *
+     * <p>
      * Only call <b>AFTER</b> you have registered your book.
      *
      * @param book        - Book to set model for
@@ -108,9 +105,9 @@ public class GuideAPI {
 
     /**
      * Helper method for setting a model for your book.
-     *
+     * <p>
      * Use if you wish to use the default model with color.
-     *
+     * <p>
      * Only call <b>AFTER</b> you have registered your book.
      *
      * @param book - Book to set model for
