@@ -89,8 +89,13 @@ public class ItemGuideBook extends Item implements IGuideItem {
         if (book == null)
             list.add(TextHelper.localizeEffect("text.book.warning"));
 
-        if (book != null && !Strings.isNullOrEmpty(book.getAuthor()))
-            list.add(TextHelper.localizeEffect(book.getAuthor()));
+        if (book != null) {
+            if (!Strings.isNullOrEmpty(book.getAuthor()))
+                list.add(TextHelper.localizeEffect(book.getAuthor()));
+
+            if (Strings.isNullOrEmpty(book.getAuthor()) && advanced)
+                list.add(book.getRegistryName().getResourceDomain());
+        }
     }
 
     // IGuideItem
