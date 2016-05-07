@@ -25,7 +25,7 @@ public class GuideAPI {
             Book.class,
             new ResourceLocation("guideapi", "invalid_book"),
             0,
-            Short.MAX_VALUE - 1,
+            1024,
             false,
             new IForgeRegistry.AddCallback<Book>() {
                 @Override
