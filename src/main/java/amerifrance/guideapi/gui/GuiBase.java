@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.List;
 
 import static net.minecraft.client.renderer.GlStateManager.*;
@@ -49,6 +49,7 @@ public class GuiBase extends GuiScreen {
         blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         float f = 0.00390625F;
         float f1 = 0.00390625F;
+        disableLighting();
         color((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F);
         Tessellator tessellator = Tessellator.getInstance();
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -57,7 +58,6 @@ public class GuiBase extends GuiScreen {
         tessellator.getBuffer().pos((double) (x + width), (double) (y), (double) this.zLevel).tex((double) ((float) (textureX + width) * f), (double) ((float) (textureY) * f1)).endVertex();
         tessellator.getBuffer().pos((double) (x), (double) (y), (double) this.zLevel).tex((double) ((float) (textureX) * f), (double) ((float) (textureY) * f1)).endVertex();
         tessellator.draw();
-        disableLighting();
         disableBlend();
         popMatrix();
     }
