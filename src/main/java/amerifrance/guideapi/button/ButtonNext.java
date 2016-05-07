@@ -6,9 +6,9 @@ import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +25,8 @@ public class ButtonNext extends ButtonGuideAPI {
     public void drawButton(Minecraft minecraft, int mouseX, int mouseY) {
         if (this.visible) {
             RenderHelper.enableGUIStandardItemLighting();
-            GL11.glEnable(GL11.GL_BLEND);
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GlStateManager.enableBlend();
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             minecraft.getTextureManager().bindTexture(new ResourceLocation(GuideMod.GUITEXLOC + "book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, xPosition, yPosition, width, height)) {
                 this.drawTexturedModalRect(xPosition, yPosition + 1, 47, 201, 18, 10);
@@ -34,7 +34,7 @@ public class ButtonNext extends ButtonGuideAPI {
             } else {
                 this.drawTexturedModalRect(xPosition, yPosition, 24, 201, 18, 10);
             }
-            GL11.glDisable(GL11.GL_BLEND);
+            GlStateManager.disableBlend();
             RenderHelper.disableStandardItemLighting();
         }
     }
