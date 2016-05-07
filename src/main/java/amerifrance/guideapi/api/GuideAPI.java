@@ -11,6 +11,8 @@ import net.minecraftforge.fml.common.registry.PersistentRegistryManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class GuideAPI {
@@ -49,6 +51,27 @@ public class GuideAPI {
      * The item corresponding to the Guide-API books. Access it after the Pre-Init event.
      */
     public static Item guideBook;
+
+    private static final List<ITypeReader> TYPE_READERS = new ArrayList<ITypeReader>();
+
+    /**
+     * Adds a new {@link ITypeReader} to be used when creating JSON books. If you wish for modpack developers to
+     * be able to use your Category, Entry, or Page in their book, you must register one of these.
+     *
+     * Add your TypeReader during FMLPreInitializationEvent. The list will be queried for the only time during FMLInitializationEvent.
+     *
+     * @see amerifrance.guideapi.util.json.serialization.TypeReaders
+     *
+     * @param typeReader - ITypeReader to register.
+     */
+    public static void addTypeReader(ITypeReader typeReader) {
+        if (!TYPE_READERS.contains(typeReader))
+            TYPE_READERS.add(typeReader);
+    }
+
+    public static List<ITypeReader> getTypeReaders() {
+        return new ArrayList<ITypeReader>(TYPE_READERS);
+    }
 
     /**
      * Obtains a new ItemStack associated with the provided book.

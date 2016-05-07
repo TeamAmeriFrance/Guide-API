@@ -1,4 +1,4 @@
-package amerifrance.guideapi.iface;
+package amerifrance.guideapi.api;
 
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonSerializer;

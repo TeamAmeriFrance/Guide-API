@@ -5,8 +5,8 @@ import amerifrance.guideapi.item.ItemGuideBook;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxy.CommonProxy;
 import amerifrance.guideapi.util.EventHandler;
-import amerifrance.guideapi.util.serialization.BookCreator;
-import amerifrance.guideapi.util.serialization.TypeReaders;
+import amerifrance.guideapi.util.json.JsonBookCreator;
+import amerifrance.guideapi.util.json.serialization.TypeReaders;
 import lombok.Getter;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.MinecraftForge;
@@ -54,9 +54,11 @@ public class GuideMod {
         GameRegistry.register(GuideAPI.guideBook.setRegistryName("ItemGuideBook"));
 
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
+        MinecraftForge.EVENT_BUS.register(new EventHandler());
         PacketHandler.registerPackets();
 
         TypeReaders.init();
+        JsonBookCreator.buildGson();
 
         if (isDev())
             TestBook.registerTests(5);
@@ -64,13 +66,14 @@ public class GuideMod {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(new EventHandler());
+        TypeReaders.init();
+        JsonBookCreator.buildGson();
 
         proxy.initColors();
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        BookCreator.registerJsonBooks();
+        JsonBookCreator.buildBooks();
     }
 }
