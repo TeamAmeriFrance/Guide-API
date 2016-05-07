@@ -39,7 +39,6 @@ public class GuiHome extends GuiBase {
 
     @Override
     public void initGui() {
-        super.initGui();
         this.buttonList.clear();
         this.categoryWrapperMap.clear();
 
@@ -49,30 +48,47 @@ public class GuiHome extends GuiBase {
         this.buttonList.add(buttonNext = new ButtonNext(0, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
         this.buttonList.add(buttonPrev = new ButtonPrev(1, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
 
-        int cX = guiLeft;
-        int cY = guiTop + 15;
-        boolean drawOnLeft = true;
+        int cX = guiLeft + 45;
+        int cY = guiTop + 40;
+        int drawLoc = 0;
         int i = 0;
         int pageNumber = 0;
 
         for (CategoryAbstract category : book.getCategoryList()) {
             category.onInit(book, this, player, bookStack);
-            if (drawOnLeft) {
-                categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, true, bookStack));
-                cX = guiLeft + 180;
-                drawOnLeft = false;
-            } else {
-                categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 15, 15, player, this.fontRendererObj, this.itemRender, false, bookStack));
-                cY += 25;
-                cX = guiLeft;
-                drawOnLeft = true;
+            switch (drawLoc) {
+                case 0: {
+                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRendererObj, itemRender, false, bookStack));
+                    cX += 27;
+                    drawLoc = 1;
+                    break;
+                }
+                case 1: {
+                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRendererObj, itemRender, false, bookStack));
+                    cX += 27;
+                    drawLoc = 2;
+                    break;
+                }
+                case 2: {
+                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRendererObj, itemRender, false, bookStack));
+                    cX += 27;
+                    drawLoc = 3;
+                    break;
+                }
+                case 3: {
+                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRendererObj, itemRender, false, bookStack));
+                    drawLoc = 0;
+                    cX = guiLeft + 45;
+                    cY += 30;
+                    break;
+                }
             }
             i++;
 
-            if (i >= 12) {
+            if (i >= 16) {
                 i = 0;
-                cX = guiLeft;
-                cY = guiTop + 15;
+                cX = guiLeft + 45;
+                cY = guiTop + 40;
                 pageNumber++;
             }
         }
@@ -80,27 +96,28 @@ public class GuiHome extends GuiBase {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float renderPartialTicks) {
-        for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage))
-            if (wrapper.canPlayerSee())
-                wrapper.draw(mouseX, mouseY, this);
-
         Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
-        drawSplitString(book.getLocalizedWelcomeMessage(), guiLeft + 37, guiTop + 12, (4 * xSize / 6) - 4, 0);
+        drawCenteredString(fontRendererObj, book.getLocalizedWelcomeMessage().replace("\\n", "\n").replace("&", "\u00a7"), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
+
+        for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage))
+            if (wrapper.canPlayerSee())
+                wrapper.draw(mouseX, mouseY, this);
 
         for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage))
             if (wrapper.canPlayerSee())
                 wrapper.drawExtras(mouseX, mouseY, this);
 
-        drawCenteredString(fontRendererObj, String.valueOf(categoryPage + 1) + "/" + String.valueOf(categoryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        drawCenteredString(fontRendererObj, String.format("%d/%d", categoryPage + 1, categoryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
         drawCenteredStringWithShadow(fontRendererObj, book.getLocalizedBookTitle(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = categoryPage != 0;
         buttonNext.visible = categoryPage != categoryWrapperMap.asMap().size() - 1;
 
-        super.drawScreen(mouseX, mouseY, renderPartialTicks);
+        for (GuiButton button : this.buttonList)
+            button.drawButton(this.mc, mouseX, mouseY);
     }
 
     @Override
