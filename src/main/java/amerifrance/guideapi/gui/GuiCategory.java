@@ -10,6 +10,7 @@ import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.network.PacketSyncCategory;
 import amerifrance.guideapi.wrapper.EntryWrapper;
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +21,8 @@ import org.lwjgl.input.Mouse;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 public class GuiCategory extends GuiBase {
 
@@ -59,7 +62,9 @@ public class GuiCategory extends GuiBase {
         int eY = guiTop + 15;
         int i = 0;
         int pageNumber = 0;
-        for (EntryAbstract entry : category.entries.values()) {
+        List<EntryAbstract> entries = Lists.newArrayList(category.entries.values());
+        Collections.reverse(entries);
+        for (EntryAbstract entry : entries) {
             entry.onInit(book, category, this, player, bookStack);
             entryWrapperMap.put(pageNumber, new EntryWrapper(this, book, category, entry, eX, eY, 4 * xSize / 6, 10, player, this.fontRendererObj, bookStack));
             eY += 13;
