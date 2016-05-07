@@ -21,7 +21,7 @@ public class GuideAPI {
     public static final IForgeRegistry<Book> BOOKS = PersistentRegistryManager.createRegistry(
             new ResourceLocation("guideapi", "books"),
             Book.class,
-            null,
+            new ResourceLocation("guideapi", "invalid_book"),
             0,
             Short.MAX_VALUE - 1,
             false,
