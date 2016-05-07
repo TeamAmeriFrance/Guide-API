@@ -1,7 +1,6 @@
 package amerifrance.guideapi.item;
 
 import amerifrance.guideapi.GuideMod;
-import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.api.GuideAPI;
 import amerifrance.guideapi.api.IGuideItem;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
@@ -30,7 +29,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
 
     public ItemGuideBook() {
         setCreativeTab(CreativeTabs.MISC);
-        setUnlocalizedName(ModInformation.ID + ".book");
+        setUnlocalizedName(GuideMod.ID + ".book");
         setMaxStackSize(1);
         setHasSubtypes(true);
     }

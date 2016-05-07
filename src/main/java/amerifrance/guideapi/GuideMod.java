@@ -20,12 +20,22 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.io.File;
 
-@Mod(modid = ModInformation.ID, name = ModInformation.NAME, version = ModInformation.VERSION, dependencies = ModInformation.DEPEND)
+@Mod(modid = GuideMod.ID, name = GuideMod.NAME, version = GuideMod.VERSION, dependencies = GuideMod.DEPEND)
 public class GuideMod {
+
+    public static final String NAME = "Guide-API";
+    public static final String ID = "guideapi";
+    public static final String CHANNEL = "GuideAPI";
+    public static final String DEPEND = "";
+    public static final String VERSION = "@VERSION@";
+    public static final String DOMAIN = "guideapi:";
+    public static final String GUITEXLOC = DOMAIN + "textures/gui/";
 
     @Mod.Instance
     public static GuideMod instance;
-    @SidedProxy(clientSide = ModInformation.CLIENTPROXY, serverSide = ModInformation.COMMONPROXY)
+    public static final String CLIENTPROXY = "amerifrance.guideapi.proxy.ClientProxy";
+    public static final String COMMONPROXY = "amerifrance.guideapi.proxy.CommonProxy";
+    @SidedProxy(clientSide = GuideMod.CLIENTPROXY, serverSide = GuideMod.COMMONPROXY)
     public static CommonProxy proxy;
 
     @Getter
@@ -36,9 +46,9 @@ public class GuideMod {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         instance = this;
-        configDir = new File(event.getModConfigurationDirectory(), ModInformation.NAME);
+        configDir = new File(event.getModConfigurationDirectory(), NAME);
         configDir.mkdirs();
-        ConfigHandler.init(new File(configDir.getPath(), ModInformation.NAME + ".cfg"));
+        ConfigHandler.init(new File(configDir.getPath(), NAME + ".cfg"));
 
         GuideAPI.guideBook = new ItemGuideBook();
         GameRegistry.register(GuideAPI.guideBook.setRegistryName("ItemGuideBook"));

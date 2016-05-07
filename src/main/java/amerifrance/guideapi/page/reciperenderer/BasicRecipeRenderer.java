@@ -1,6 +1,6 @@
 package amerifrance.guideapi.page.reciperenderer;
 
-import amerifrance.guideapi.ModInformation;
+import amerifrance.guideapi.GuideMod;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.IRecipeRenderer.RecipeRendererBase;
@@ -38,7 +38,7 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
             lastCycle = mc.theWorld.getTotalWorldTime();
         }
 
-        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "recipe_elements.png"));
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(GuideMod.GUITEXLOC + "recipe_elements.png"));
         guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 0, 105, 65);
         guiBase.drawCenteredString(fontRendererObj, getRecipeName(), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 

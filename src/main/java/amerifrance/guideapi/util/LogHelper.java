@@ -1,13 +1,13 @@
 package amerifrance.guideapi.util;
 
 import amerifrance.guideapi.ConfigHandler;
-import amerifrance.guideapi.ModInformation;
+import amerifrance.guideapi.GuideMod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class LogHelper {
 
-    private static Logger logger = LogManager.getLogger(ModInformation.NAME);
+    private static Logger logger = LogManager.getLogger(GuideMod.NAME);
 
     /**
      * @param info - String to log to the info level

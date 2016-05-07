@@ -1,6 +1,6 @@
 package amerifrance.guideapi.button;
 
-import amerifrance.guideapi.ModInformation;
+import amerifrance.guideapi.GuideMod;
 import amerifrance.guideapi.api.button.ButtonGuideAPI;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.api.util.TextHelper;
@@ -27,7 +27,7 @@ public class ButtonNext extends ButtonGuideAPI {
             RenderHelper.enableGUIStandardItemLighting();
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            minecraft.getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "book_colored.png"));
+            minecraft.getTextureManager().bindTexture(new ResourceLocation(GuideMod.GUITEXLOC + "book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, xPosition, yPosition, width, height)) {
                 this.drawTexturedModalRect(xPosition, yPosition + 1, 47, 201, 18, 10);
                 guiBase.drawHoveringText(getHoveringText(), mouseX, mouseY, Minecraft.getMinecraft().fontRendererObj);
