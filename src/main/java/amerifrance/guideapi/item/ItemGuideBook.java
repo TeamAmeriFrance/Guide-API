@@ -14,10 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -50,13 +47,11 @@ public class ItemGuideBook extends Item implements IGuideItem {
         if (getBook(stack) != null && world.getBlockState(pos) instanceof IGuideLinked) {
             IGuideLinked guideLinked = (IGuideLinked) world.getBlockState(pos);
             Book book = getBook(stack);
-            String entryName = guideLinked.getLinkedEntryUnlocName(world, pos, player, stack);
+            ResourceLocation entryKey = guideLinked.getLinkedEntry(world, pos, player, stack);
             for (CategoryAbstract category : book.getCategoryList()) {
-                for (EntryAbstract entry : category.entryList) {
-                    if (entry.unlocEntryName.equals(entryName)) {
-                        GuideMod.proxy.openEntry(book, category, entry, player, stack);
-                        return EnumActionResult.SUCCESS;
-                    }
+                if (category.entries.containsKey(entryKey)) {
+                    GuideMod.proxy.openEntry(book, category, category.entries.get(entryKey), player, stack);
+                    return EnumActionResult.SUCCESS;
                 }
             }
         }

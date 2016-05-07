@@ -2,6 +2,7 @@ package amerifrance.guideapi.api;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -15,5 +16,5 @@ public interface IGuideLinked {
      *
      * @return the unlocalized name of the entry to open
      */
-    String getLinkedEntryUnlocName(World world, BlockPos pos, EntityPlayer player, ItemStack stack);
+    ResourceLocation getLinkedEntry(World world, BlockPos pos, EntityPlayer player, ItemStack stack);
 }

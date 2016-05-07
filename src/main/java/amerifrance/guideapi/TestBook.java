@@ -25,6 +25,8 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TestBook {
 
@@ -68,11 +70,11 @@ public class TestBook {
         EntryItemStack entry2 = new EntryItemStack(pages, "TestEntry2", new ItemStack(Blocks.DIRT));
         Entry entry3 = new Entry(pages, "TestEntry3");
         EntryResourceLocation entry4 = new EntryResourceLocation(pages, "TestEntry4", new ResourceLocation(GuideMod.GUITEXLOC + "testimage.png"));
-        ArrayList<EntryAbstract> entries = new ArrayList<EntryAbstract>();
-        entries.add(entry1);
-        entries.add(entry2);
-        entries.add(entry3);
-        entries.add(entry4);
+        Map<ResourceLocation, EntryAbstract> entries = new HashMap<ResourceLocation, EntryAbstract>();
+        entries.put(new ResourceLocation("guideapi", "testEntry1"), entry1);
+        entries.put(new ResourceLocation("guideapi", "testEntry2"), entry2);
+        entries.put(new ResourceLocation("guideapi", "testEntry3"), entry3);
+        entries.put(new ResourceLocation("guideapi", "testEntry4"), entry4);
 
         CategoryResourceLocation category1 = new CategoryResourceLocation(entries, "TestCategory1", new ResourceLocation(GuideMod.GUITEXLOC + "testimage.png"));
         CategoryItemStack category2 = new CategoryItemStack(entries, "TestCategory2", new ItemStack(Blocks.BRICK_STAIRS));

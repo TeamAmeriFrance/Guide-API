@@ -59,7 +59,7 @@ public class GuiCategory extends GuiBase {
         int eY = guiTop + 15;
         int i = 0;
         int pageNumber = 0;
-        for (EntryAbstract entry : category.entryList) {
+        for (EntryAbstract entry : category.entries.values()) {
             entry.onInit(book, category, this, player, bookStack);
             entryWrapperMap.put(pageNumber, new EntryWrapper(this, book, category, entry, eX, eY, 4 * xSize / 6, 10, player, this.fontRendererObj, bookStack));
             eY += 13;

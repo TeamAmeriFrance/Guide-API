@@ -17,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 public abstract class TypeReaders<T> implements ITypeReader<T> {
 
@@ -196,34 +197,34 @@ public abstract class TypeReaders<T> implements ITypeReader<T> {
     public static TypeReaders<Category> CATEGORY_BASE = new TypeReaders<Category>(Category.class) {
         @Override
         public Category deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            List<EntryAbstract> list = context.deserialize(json.getAsJsonObject().get("entryList"), new TypeToken<List<EntryAbstract>>() {
+            Map<ResourceLocation, EntryAbstract> entries = context.deserialize(json.getAsJsonObject().get("entries"), new TypeToken<Map<ResourceLocation, EntryAbstract>>() {
             }.getType());
             String name = json.getAsJsonObject().get("unlocCategoryName").getAsString();
-            return new Category(list, name);
+            return new Category(entries, name);
         }
 
         @Override
         public void addData(JsonObject jsonObject, Category src, JsonSerializationContext context) {
             jsonObject.add("unlocCategoryName", context.serialize(src.unlocCategoryName));
-            jsonObject.add("entryList", context.serialize(src.entryList));
+            jsonObject.add("entries", context.serialize(src.entries));
         }
     };
 
     public static TypeReaders<CategoryItemStack> CATEGORY_ITEMSTACK = new TypeReaders<CategoryItemStack>(CategoryItemStack.class) {
         @Override
         public CategoryItemStack deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            List<EntryAbstract> list = context.deserialize(json.getAsJsonObject().get("entryList"), new TypeToken<List<EntryAbstract>>() {
+            Map<ResourceLocation, EntryAbstract> entries = context.deserialize(json.getAsJsonObject().get("entries"), new TypeToken<Map<ResourceLocation, EntryAbstract>>() {
             }.getType());
             String name = json.getAsJsonObject().get("unlocCategoryName").getAsString();
             ItemStack stack = context.deserialize(json.getAsJsonObject().get("itemStack"), ItemStack.class);
-            return new CategoryItemStack(list, name, stack);
+            return new CategoryItemStack(entries, name, stack);
         }
 
         @Override
         public void addData(JsonObject jsonObject, CategoryItemStack src, JsonSerializationContext context) {
             jsonObject.add("unlocCategoryName", context.serialize(src.unlocCategoryName));
             jsonObject.add("itemStack", context.serialize(src.stack));
-            jsonObject.add("entryList", context.serialize(src.entryList));
+            jsonObject.add("entries", context.serialize(src.entries));
         }
     };
 

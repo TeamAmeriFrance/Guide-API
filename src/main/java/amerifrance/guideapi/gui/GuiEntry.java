@@ -22,6 +22,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GuiEntry extends GuiBase {
 
@@ -151,7 +152,13 @@ public class GuiEntry extends GuiBase {
     public void onGuiClosed() {
         super.onGuiClosed();
 
-        PacketHandler.INSTANCE.sendToServer(new PacketSyncEntry(book.getCategoryList().indexOf(category), category.entryList.indexOf(entry), pageNumber));
+        ResourceLocation key = null;
+        for (Map.Entry<ResourceLocation, EntryAbstract> mapEntry : category.entries.entrySet())
+            if (mapEntry.getValue().equals(entry))
+                key = mapEntry.getKey();
+
+        if (key != null)
+            PacketHandler.INSTANCE.sendToServer(new PacketSyncEntry(book.getCategoryList().indexOf(category), key, pageNumber));
     }
 
     public void nextPage() {

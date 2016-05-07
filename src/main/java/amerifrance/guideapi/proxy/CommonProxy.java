@@ -1,6 +1,7 @@
 package amerifrance.guideapi.proxy;
 
 import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.api.IGuideItem;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.impl.Book;
@@ -24,31 +25,39 @@ public class CommonProxy implements IGuiHandler {
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        ItemStack stack = player.getActiveItemStack();
-        Book book = GuideAPI.BOOKS.getValues().get(ID);
-        if (stack != null && stack.hasTagCompound()) {
-            NBTTagCompound tagCompound = stack.getTagCompound();
-            if (tagCompound.hasKey(NBTBookTags.ENTRY_TAG) && tagCompound.hasKey(NBTBookTags.CATEGORY_TAG)) {
-                CategoryAbstract category = book.getCategoryList().get(tagCompound.getInteger(NBTBookTags.CATEGORY_TAG));
-                EntryAbstract entry = category.entryList.get(tagCompound.getInteger(NBTBookTags.ENTRY_TAG));
-                int pageNumber = tagCompound.getInteger(NBTBookTags.PAGE_TAG);
-                GuiEntry guiEntry = new GuiEntry(book, category, entry, player, stack);
-                guiEntry.pageNumber = pageNumber;
-                return guiEntry;
-            } else if (tagCompound.hasKey(NBTBookTags.CATEGORY_TAG)) {
-                CategoryAbstract category = book.getCategoryList().get(tagCompound.getInteger(NBTBookTags.CATEGORY_TAG));
-                int entryPage = tagCompound.getInteger(NBTBookTags.ENTRY_PAGE_TAG);
-                GuiCategory guiCategory = new GuiCategory(book, category, player, stack);
-                guiCategory.entryPage = entryPage;
-                return guiCategory;
-            } else {
-                int categoryNumber = tagCompound.getInteger(NBTBookTags.CATEGORY_PAGE_TAG);
-                GuiHomeNew guiHome = new GuiHomeNew(book, player, stack);
-                guiHome.categoryPage = categoryNumber;
-                return guiHome;
+        ItemStack stack = player.getHeldItemOffhand();
+        if (stack == null || !(stack.getItem() instanceof IGuideItem))
+            stack = player.getHeldItemMainhand();
+
+        if (stack != null && stack.getItem() instanceof IGuideItem) {
+            Book book = GuideAPI.BOOKS.getValues().get(ID);
+            if (stack.hasTagCompound()) {
+                NBTTagCompound tagCompound = stack.getTagCompound();
+                if (tagCompound.hasKey(NBTBookTags.ENTRY_TAG) && tagCompound.hasKey(NBTBookTags.CATEGORY_TAG)) {
+                    CategoryAbstract category = book.getCategoryList().get(tagCompound.getInteger(NBTBookTags.CATEGORY_TAG));
+                    EntryAbstract entry = category.entries.get(new ResourceLocation(tagCompound.getString(NBTBookTags.ENTRY_TAG)));
+                    int pageNumber = tagCompound.getInteger(NBTBookTags.PAGE_TAG);
+                    GuiEntry guiEntry = new GuiEntry(book, category, entry, player, stack);
+                    guiEntry.pageNumber = pageNumber;
+                    return guiEntry;
+                } else if (tagCompound.hasKey(NBTBookTags.CATEGORY_TAG)) {
+                    CategoryAbstract category = book.getCategoryList().get(tagCompound.getInteger(NBTBookTags.CATEGORY_TAG));
+                    int entryPage = tagCompound.getInteger(NBTBookTags.ENTRY_PAGE_TAG);
+                    GuiCategory guiCategory = new GuiCategory(book, category, player, stack);
+                    guiCategory.entryPage = entryPage;
+                    return guiCategory;
+                } else {
+                    int categoryNumber = tagCompound.getInteger(NBTBookTags.CATEGORY_PAGE_TAG);
+                    GuiHomeNew guiHome = new GuiHomeNew(book, player, stack);
+                    guiHome.categoryPage = categoryNumber;
+                    return guiHome;
+                }
             }
+
+            return new GuiHomeNew(book, player, stack);
         }
-        return new GuiHomeNew(book, player, stack);
+
+        return null;
     }
 
     public void playSound(ResourceLocation sound) {

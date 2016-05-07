@@ -7,36 +7,41 @@ import amerifrance.guideapi.gui.GuiHome;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class CategoryAbstract {
 
-    public List<EntryAbstract> entryList = new ArrayList<EntryAbstract>();
+    public Map<ResourceLocation, EntryAbstract> entries = new HashMap<ResourceLocation, EntryAbstract>();
     public String unlocCategoryName;
 
-    public CategoryAbstract(List<EntryAbstract> entryList, String unlocCategoryName) {
-        this.entryList = entryList;
+    public CategoryAbstract(Map<ResourceLocation, EntryAbstract> entries, String unlocCategoryName) {
+        this.entries = entries;
         this.unlocCategoryName = unlocCategoryName;
     }
 
-    public void addEntry(EntryAbstract entry) {
-        this.entryList.add(entry);
+    public void addEntry(ResourceLocation key, EntryAbstract entry) {
+        entries.put(key, entry);
     }
 
-    public void removeEntry(EntryAbstract entry) {
-        this.entryList.remove(entry);
+    public void removeEntry(ResourceLocation key) {
+        entries.remove(key);
     }
 
-    public void addEntryList(List<EntryAbstract> entries) {
-        this.entryList.addAll(entries);
+    public void addEntries(Map<ResourceLocation, EntryAbstract> entries) {
+        this.entries.putAll(entries);
     }
 
-    public void removeEntryList(List<EntryAbstract> entries) {
-        this.entryList.removeAll(entries);
+    public void removeEntries(List<ResourceLocation> keys) {
+        for (ResourceLocation key : keys)
+            if (entries.containsKey(key))
+                entries.remove(key);
     }
 
     public String getLocalizedName() {
@@ -72,7 +77,7 @@ public abstract class CategoryAbstract {
         if (o == null || getClass() != o.getClass()) return false;
 
         CategoryAbstract that = (CategoryAbstract) o;
-        if (entryList != null ? !entryList.equals(that.entryList) : that.entryList != null) return false;
+        if (entries != null ? !entries.equals(that.entries) : that.entries != null) return false;
         if (unlocCategoryName != null ? !unlocCategoryName.equals(that.unlocCategoryName) : that.unlocCategoryName != null)
             return false;
 
@@ -81,7 +86,7 @@ public abstract class CategoryAbstract {
 
     @Override
     public int hashCode() {
-        int result = entryList != null ? entryList.hashCode() : 0;
+        int result = entries != null ? entries.hashCode() : 0;
         result = 31 * result + (unlocCategoryName != null ? unlocCategoryName.hashCode() : 0);
         return result;
     }

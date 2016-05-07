@@ -12,15 +12,15 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
+import java.util.Map;
 
 @EqualsAndHashCode(callSuper = true)
 public class CategoryResourceLocation extends Category {
 
     public ResourceLocation resourceLocation;
 
-    public CategoryResourceLocation(List<EntryAbstract> entryList, String unlocCategoryName, ResourceLocation resourceLocation) {
-        super(entryList, unlocCategoryName);
+    public CategoryResourceLocation(Map<ResourceLocation, EntryAbstract> entries, String unlocCategoryName, ResourceLocation resourceLocation) {
+        super(entries, unlocCategoryName);
         this.resourceLocation = resourceLocation;
     }
 

@@ -9,18 +9,19 @@ import lombok.EqualsAndHashCode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
+import java.util.Map;
 
 @EqualsAndHashCode(callSuper = true)
 public class CategoryItemStack extends Category {
 
     public ItemStack stack;
 
-    public CategoryItemStack(List<EntryAbstract> entryList, String unlocCategoryName, ItemStack stack) {
-        super(entryList, unlocCategoryName);
+    public CategoryItemStack(Map<ResourceLocation, EntryAbstract> entries, String unlocCategoryName, ItemStack stack) {
+        super(entries, unlocCategoryName);
         this.stack = stack;
     }
 

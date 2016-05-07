@@ -9,14 +9,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
+import java.util.Map;
 
 public class Category extends CategoryAbstract {
 
-    public Category(List<EntryAbstract> entryList, String unlocCategoryName) {
+    public Category(Map<ResourceLocation, EntryAbstract> entryList, String unlocCategoryName) {
         super(entryList, unlocCategoryName);
     }
 
