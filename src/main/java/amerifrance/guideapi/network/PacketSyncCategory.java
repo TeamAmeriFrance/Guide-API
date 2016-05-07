@@ -1,5 +1,6 @@
 package amerifrance.guideapi.network;
 
+import amerifrance.guideapi.api.IGuideItem;
 import amerifrance.guideapi.api.util.NBTBookTags;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
@@ -36,11 +37,16 @@ public class PacketSyncCategory implements IMessage, IMessageHandler<PacketSyncC
 
     @Override
     public IMessage onMessage(PacketSyncCategory message, MessageContext ctx) {
-        ItemStack book = ctx.getServerHandler().playerEntity.getActiveItemStack();
-        if (book != null && message.category != -1 && message.page != -1) {
-            book.getTagCompound().setInteger(NBTBookTags.CATEGORY_TAG, message.category);
-            book.getTagCompound().setInteger(NBTBookTags.ENTRY_PAGE_TAG, message.page);
-            book.getTagCompound().removeTag(NBTBookTags.ENTRY_TAG);
+        ItemStack book = ctx.getServerHandler().playerEntity.getHeldItemOffhand();
+        if (book == null || !(book.getItem() instanceof IGuideItem))
+            book = ctx.getServerHandler().playerEntity.getHeldItemMainhand();
+
+        if (book != null && book.getItem() instanceof IGuideItem) {
+            if (message.category != -1 && message.page != -1) {
+                book.getTagCompound().setInteger(NBTBookTags.CATEGORY_TAG, message.category);
+                book.getTagCompound().setInteger(NBTBookTags.ENTRY_PAGE_TAG, message.page);
+                book.getTagCompound().removeTag(NBTBookTags.ENTRY_TAG);
+            }
         }
         return null;
     }

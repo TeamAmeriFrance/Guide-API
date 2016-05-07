@@ -27,6 +27,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class TestBook {
 
@@ -92,7 +93,7 @@ public class TestBook {
         book.setTitle(title);
         book.setWelcomeMessage(title);
         book.setDisplayName(title);
-        book.setColor(new Color(171, 80, 30));
+        book.setColor(new Color(new Random().nextInt(0xFFFFFF)));
         book.setRegistryName(title);
 
         GuideAPI.BOOKS.register(book);
