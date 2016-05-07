@@ -5,17 +5,9 @@ Guide-API is a simple and easy to use system for creating and registering a cust
 
 ##Useful Links
 * [Jenkins](http://tehnut.info/jenkins/job/Guide-API/)
-* [CurseForge](http://minecraft.curseforge.com/mc-mods/228832-guide-api)
+* [CurseForge](http://minecraft.curseforge.com/projects/guide-api)
 * [Javadocs](http://tehnut.info/jenkins/job/Guide-API/javadoc/)
 * [Github](https://github.com/TeamAmeriFrance/Guide-API/)
-
-##Mods that support Guide-API
-The ones we know of at least
-
-* [Sanguimancy](http://minecraft.curseforge.com/mc-mods/223722-sanguimancy)
-* [Creative Concoctions](https://github.com/TeamAmeriFrance/CreativeConcoctions)
-* [Blood Magic](http://minecraft.curseforge.com/mc-mods/224791-blood-magic) (*In progress*)
-* [Adventurer's Amulets](http://minecraft.curseforge.com/mc-mods/222637-adventurers-amulets)
 
 ##Issue Reporting
 Please include the following:
