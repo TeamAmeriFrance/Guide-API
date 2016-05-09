@@ -14,11 +14,11 @@ repositories {
 }
 
 dependencies {
-  deobfCompile "info.amerifrance.guideapi:Guide-API:1.9-2.0.0-30"
+  deobfCompile "info.amerifrance.guideapi:Guide-API:1.9-2.0.0-31"
 }
 ```
 
-This will tell the buildscript to grab Guide-API version `2.0.0` build `30` for Minecraft `1.9` that is de-obfuscated at compile time from our [Maven](http://tehnut.info/maven/) repository.
+This will tell the buildscript to grab Guide-API version `2.0.0` build `31` for Minecraft `1.9` that is de-obfuscated at compile time from our [Maven](http://tehnut.info/maven/) repository.
 
 If you want to use just the API instead of including the full mod in your workspace, append the `deobfCompile` line with `:api`.
 
