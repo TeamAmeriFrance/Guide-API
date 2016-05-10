@@ -96,7 +96,7 @@ public class TestBook {
         book.setColor(new Color(new Random().nextInt(0xFFFFFF)));
         book.setRegistryName(title);
 
-        GuideAPI.BOOKS.register(book);
+        GameRegistry.register(book);
 
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
             GuideAPI.setModel(book);

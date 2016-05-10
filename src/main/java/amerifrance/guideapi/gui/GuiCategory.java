@@ -23,6 +23,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class GuiCategory extends GuiBase {
 
@@ -63,7 +64,6 @@ public class GuiCategory extends GuiBase {
         int i = 0;
         int pageNumber = 0;
         List<EntryAbstract> entries = Lists.newArrayList(category.entries.values());
-        Collections.reverse(entries);
         for (EntryAbstract entry : entries) {
             entry.onInit(book, category, this, player, bookStack);
             entryWrapperMap.put(pageNumber, new EntryWrapper(this, book, category, entry, eX, eY, 4 * xSize / 6, 10, player, this.fontRendererObj, bookStack));
