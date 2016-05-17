@@ -84,7 +84,7 @@ public class GuiEntry extends GuiBase {
         drawCenteredStringWithShadow(fontRendererObj, entry.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = pageNumber != 0;
-        buttonNext.visible = pageNumber != pageWrapperList.size() - 1;
+        buttonNext.visible = pageNumber != pageWrapperList.size() - 1 && !pageWrapperList.isEmpty();
 
         super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
@@ -162,7 +162,7 @@ public class GuiEntry extends GuiBase {
     }
 
     public void nextPage() {
-        if (pageNumber != pageWrapperList.size() - 1)
+        if (pageNumber != pageWrapperList.size() - 1 && !pageWrapperList.isEmpty())
             pageNumber++;
     }
 

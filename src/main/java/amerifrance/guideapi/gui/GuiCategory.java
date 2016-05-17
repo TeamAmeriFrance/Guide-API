@@ -99,7 +99,7 @@ public class GuiCategory extends GuiBase {
         drawCenteredStringWithShadow(fontRendererObj, category.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = entryPage != 0;
-        buttonNext.visible = entryPage != entryWrapperMap.asMap().size() - 1;
+        buttonNext.visible = entryPage != entryWrapperMap.asMap().size() - 1 && !entryWrapperMap.asMap().isEmpty();
 
         super.drawScreen(mouseX, mouseY, renderPartialTicks);
     }
@@ -169,7 +169,7 @@ public class GuiCategory extends GuiBase {
     }
 
     public void nextPage() {
-        if (entryPage != entryWrapperMap.asMap().size() - 1)
+        if (entryPage != entryWrapperMap.asMap().size() - 1 && !entryWrapperMap.asMap().isEmpty())
             entryPage++;
     }
 

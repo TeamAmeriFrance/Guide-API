@@ -114,7 +114,7 @@ public class GuiHome extends GuiBase {
         drawCenteredStringWithShadow(fontRendererObj, book.getLocalizedBookTitle(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = categoryPage != 0;
-        buttonNext.visible = categoryPage != categoryWrapperMap.asMap().size() - 1;
+        buttonNext.visible = categoryPage != categoryWrapperMap.asMap().size() - 1 && !categoryWrapperMap.asMap().isEmpty();
 
         for (GuiButton button : this.buttonList)
             button.drawButton(this.mc, mouseX, mouseY);
@@ -180,7 +180,7 @@ public class GuiHome extends GuiBase {
     }
 
     public void nextPage() {
-        if (categoryPage != categoryWrapperMap.asMap().size() - 1)
+        if (categoryPage != categoryWrapperMap.asMap().size() - 1 && !categoryWrapperMap.asMap().isEmpty())
             categoryPage++;
     }
 
