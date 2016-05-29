@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.io.File;
 
-@Mod(modid = GuideMod.ID, name = GuideMod.NAME, version = GuideMod.VERSION, dependencies = GuideMod.DEPEND)
+@Mod(modid = GuideMod.ID, name = GuideMod.NAME, version = GuideMod.VERSION, dependencies = GuideMod.DEPEND, acceptedMinecraftVersions = "[1.9,1.9.4]")
 public class GuideMod {
 
     public static final String NAME = "Guide-API";
@@ -75,6 +75,6 @@ public class GuideMod {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        JsonBookCreator.buildBooks();
+//        JsonBookCreator.buildBooks();
     }
 }
