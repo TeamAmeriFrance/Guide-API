@@ -33,7 +33,7 @@ public class GuideMod {
     public static final String CLIENTPROXY = "amerifrance.guideapi.proxy.ClientProxy";
     public static final String COMMONPROXY = "amerifrance.guideapi.proxy.CommonProxy";
 
-    @Mod.Instance
+    @Mod.Instance(ID)
     public static GuideMod instance;
 
     @SidedProxy(clientSide = GuideMod.CLIENTPROXY, serverSide = GuideMod.COMMONPROXY)

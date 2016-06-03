@@ -2,9 +2,7 @@ package amerifrance.guideapi.api.impl;
 
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.util.TextHelper;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 
@@ -12,12 +10,14 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Book extends IForgeRegistryEntry.Impl<Book> {
 
-    private final String GUITEXLOC = "guideapi:textures/gui/";
+    private static final String GUITEXLOC = "guideapi:textures/gui/";
 
     private List<CategoryAbstract> categoryList = new ArrayList<CategoryAbstract>();
     private String title = "item.GuideBook.name";

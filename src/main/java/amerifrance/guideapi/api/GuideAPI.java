@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
+import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 import net.minecraftforge.fml.common.registry.PersistentRegistryManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -19,6 +20,8 @@ public class GuideAPI {
 
     /**
      * The new Book registry. Handles world persistence to avoid de-sync issues.
+     *
+     * Register a book with {@link net.minecraftforge.fml.common.registry.GameRegistry#register(IForgeRegistryEntry)}
      */
     public static final IForgeRegistry<Book> BOOKS = PersistentRegistryManager.createRegistry(
             new ResourceLocation("guideapi", "books"),
@@ -27,24 +30,9 @@ public class GuideAPI {
             0,
             1024,
             false,
-            new IForgeRegistry.AddCallback<Book>() {
-                @Override
-                public void onAdd(Book obj, int id, Map<ResourceLocation, ?> slaveset) {
-                    // No-op
-                }
-            },
-            new IForgeRegistry.ClearCallback<Book>() {
-                @Override
-                public void onClear(Map<ResourceLocation, ?> slaveset) {
-                    // No-op
-                }
-            },
-            new IForgeRegistry.CreateCallback<Book>() {
-                @Override
-                public void onCreate(Map<ResourceLocation, ?> slaveset) {
-                    // No-op
-                }
-            }
+            null,
+            null,
+            null
     );
     private static final List<ITypeReader> TYPE_READERS = new ArrayList<ITypeReader>();
     /**
