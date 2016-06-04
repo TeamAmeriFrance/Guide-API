@@ -7,6 +7,7 @@ import amerifrance.guideapi.api.impl.Entry;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
+import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.category.CategoryResourceLocation;
 import amerifrance.guideapi.entry.EntryItemStack;
@@ -55,11 +56,12 @@ public class TestBook {
         PageFurnaceRecipe page9 = new PageFurnaceRecipe(new ItemStack(Items.POTATO));
         PageFurnaceRecipe page10 = new PageFurnaceRecipe(new ItemStack(Items.DIAMOND_AXE));
         PageTextImage page11 = new PageTextImage("\tHere's a\ntest image w\n\tith some formattng.", new ResourceLocation(GuideMod.GUITEXLOC + "testimage.png"), false);
+        PageText page12 = new PageText("test.guide.format");
 
         ArrayList<IPage> pages = new ArrayList<IPage>();
         pages.add(page1);
         pages.add(page2);
-        pages.addAll(PageHelper.pagesForLongText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE", new ItemStack(Items.DIAMOND)));
+        pages.addAll(PageHelper.pagesForLongText("HERE IS SOME\nTEXT FOR YOU T\nO DRAW LEWL. I \n\tAM VERY LONG FOR NOTHING MATE", new ItemStack(Items.DIAMOND)));
         pages.add(page3);
         pages.add(page4);
         pages.add(page5);
@@ -69,6 +71,9 @@ public class TestBook {
         pages.add(page9);
         pages.add(page10);
         pages.add(page11);
+        pages.add(page12);
+
+        System.out.println(TextHelper.localize("test.guide.format"));
 
         EntryItemStack entry1 = new EntryItemStack(pages, "TestEntry1", new ItemStack(Items.POTATO));
         EntryItemStack entry2 = new EntryItemStack(pages, "TestEntry2", new ItemStack(Blocks.DIRT));

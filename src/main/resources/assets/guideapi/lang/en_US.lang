@@ -20,3 +20,6 @@ text.book=Book: %s
 text.category=Category: %s
 text.entry=Entry: %s
 text.page=Page: %s
+
+#Test
+test.guide.format=This i\ns a formatting\n\ttest

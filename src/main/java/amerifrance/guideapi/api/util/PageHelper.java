@@ -10,6 +10,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class PageHelper {
 
     public static void drawFormattedText(int x, int y, GuiBase guiBase, String toDraw) {
         FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
-        toDraw = toDraw.replaceAll("\\n", "\n").replaceAll("\\t", "     ");
+        toDraw = StringEscapeUtils.unescapeJava(toDraw).replaceAll("\\t", "     ");
         String[] lines = toDraw.split("\n");
         for (String line : lines) {
             List<String> cutLines = fontRenderer.listFormattedStringToWidth(line, 3 * guiBase.xSize / 5);
