@@ -37,15 +37,11 @@ public class PageTextImage extends Page {
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
-        boolean startFlag = fontRendererObj.getUnicodeFlag();
-
         Minecraft.getMinecraft().getTextureManager().bindTexture(image);
         GuiHelper.drawSizedIconWithoutColor(guiLeft + 50, guiTop + (drawAtTop ? 60 : 12), guiBase.xSize, guiBase.ySize, 0);
 
-        if (unicode)
-            fontRendererObj.setUnicodeFlag(true);
-        fontRendererObj.drawSplitString(draw, guiLeft + 39, guiTop + (drawAtTop ? 12 : 112), 3 * guiBase.xSize / 5, 0);
-        if (unicode && !startFlag)
-            fontRendererObj.setUnicodeFlag(false);
+        PageText text = new PageText(draw, drawAtTop ? 0 : 100);
+        text.setUnicodeFlag(unicode);
+        text.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
     }
 }

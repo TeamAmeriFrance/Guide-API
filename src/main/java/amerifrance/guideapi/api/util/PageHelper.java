@@ -1,9 +1,12 @@
 package amerifrance.guideapi.api.util;
 
 import amerifrance.guideapi.api.IPage;
+import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.page.PageItemStack;
 import amerifrance.guideapi.page.PageText;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -38,6 +41,18 @@ public class PageHelper {
         return pageList;
     }
 
+    public static void drawFormattedText(int x, int y, GuiBase guiBase, String toDraw) {
+        FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
+        toDraw = toDraw.replaceAll("\\n", "\n").replaceAll("\\t", "     ");
+        String[] lines = toDraw.split("\n");
+        for (String line : lines) {
+            List<String> cutLines = fontRenderer.listFormattedStringToWidth(line, 3 * guiBase.xSize / 5);
+            for (String cut : cutLines) {
+                fontRenderer.drawString(cut, x, y, 0);
+                y += 12;
+            }
+        }
+    }
 
     /**
      * @param locText - Text

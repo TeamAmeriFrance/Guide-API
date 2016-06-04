@@ -4,6 +4,7 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.Page;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import lombok.EqualsAndHashCode;
@@ -11,6 +12,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 public class PageText extends Page {
@@ -39,7 +42,7 @@ public class PageText extends Page {
         if (unicode)
             fontRendererObj.setUnicodeFlag(true);
 
-        fontRendererObj.drawSplitString(draw, guiLeft + 39, guiTop + 12 + yOffset, 3 * guiBase.xSize / 5, 0);
+        PageHelper.drawFormattedText(guiLeft + 39, guiTop + 12 + yOffset, guiBase, draw);
 
         if (unicode && !startFlag)
             fontRendererObj.setUnicodeFlag(false);
