@@ -49,7 +49,7 @@ public class PageHelper {
             List<String> cutLines = fontRenderer.listFormattedStringToWidth(line, 3 * guiBase.xSize / 5);
             for (String cut : cutLines) {
                 fontRenderer.drawString(cut, x, y, 0);
-                y += 12;
+                y += 10;
             }
         }
     }
