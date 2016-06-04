@@ -16,6 +16,8 @@ import com.google.gson.reflect.TypeToken;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -280,14 +282,14 @@ public abstract class TypeReaders<T> implements ITypeReader<T> {
     public static TypeReaders<PageSound> PAGE_SOUND = new TypeReaders<PageSound>(PageSound.class) {
         @Override
         public PageSound deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            String sound = context.deserialize(json.getAsJsonObject().get("sound"), String.class);
+            SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(json.getAsJsonObject().get("sound").getAsString()));
             IPage pageToEmulate = context.deserialize(json.getAsJsonObject().get("pageToEmulate"), IPage.class);
             return new PageSound(pageToEmulate, sound);
         }
 
         @Override
         public void addData(JsonObject jsonObject, PageSound src, JsonSerializationContext context) {
-            jsonObject.add("sound", context.serialize(src.sound));
+            jsonObject.addProperty("sound", src.sound.getRegistryName().toString());
             jsonObject.add("pageToEmulate", context.serialize(src.pageToEmulate));
         }
     };

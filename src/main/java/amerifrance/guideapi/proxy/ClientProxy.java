@@ -11,14 +11,13 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraft.util.SoundEvent;
 
 public class ClientProxy extends CommonProxy {
 
     @Override
-    public void playSound(ResourceLocation sound) {
-        Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(ForgeRegistries.SOUND_EVENTS.getValue(sound), 1.0F));
+    public void playSound(SoundEvent sound) {
+        Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(sound, 1.0F));
     }
 
     @Override

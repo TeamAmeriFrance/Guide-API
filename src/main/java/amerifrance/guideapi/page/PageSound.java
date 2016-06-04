@@ -13,6 +13,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -20,13 +21,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class PageSound extends Page {
 
     public IPage pageToEmulate;
-    public String sound;
+    public SoundEvent sound;
 
     /**
      * @param pageToEmulate - Which page to use as a base
      * @param sound         - Sound to play
      */
-    public PageSound(IPage pageToEmulate, String sound) {
+    public PageSound(IPage pageToEmulate, SoundEvent sound) {
         this.pageToEmulate = pageToEmulate;
         this.sound = sound;
     }
@@ -51,7 +52,7 @@ public class PageSound extends Page {
     @Override
     @SideOnly(Side.CLIENT)
     public void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry) {
-        GuideMod.proxy.playSound(new ResourceLocation(sound));
+        GuideMod.proxy.playSound(sound);
         pageToEmulate.onLeftClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
     }
 

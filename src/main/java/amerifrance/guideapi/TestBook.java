@@ -14,6 +14,7 @@ import amerifrance.guideapi.entry.EntryResourceLocation;
 import amerifrance.guideapi.page.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
@@ -37,7 +38,7 @@ public class TestBook {
     }
 
     public static void testBook(Book book, String title) {
-        PageText page1 = new PageText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE");
+        PageText page1 = new PageText("\tHERE IS SOME TEXT FOR YOU TO DRAW LEWL.\n\tI AM VE\nRY LONG FOR NOTHING MATE");
         PageText page2 = new PageText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE.\n\nNew paragraph!");
         PageImage page3 = new PageImage(new ResourceLocation(GuideMod.GUITEXLOC + "testimage.png"));
         PageIRecipe page4 = new PageIRecipe(GameRegistry.addShapedRecipe(new ItemStack(Items.DIAMOND), "XXX", "YYY", "ZZZ", 'X', Items.APPLE, 'Y', Blocks.BEACON, 'Z', Items.BEEF));
@@ -50,9 +51,10 @@ public class TestBook {
         PageIRecipe page6 = new PageIRecipe(shapelessRecipes);
         ShapelessOreRecipe shapelessOreRecipe = new ShapelessOreRecipe(new ItemStack(Items.BAKED_POTATO), "ingotIron", "stairWood");
         PageIRecipe page7 = new PageIRecipe(shapelessOreRecipe);
-        PageSound page8 = new PageSound(page6, "mob.pig.say");
+        PageSound page8 = new PageSound(page6, SoundEvents.ENTITY_PIG_AMBIENT);
         PageFurnaceRecipe page9 = new PageFurnaceRecipe(new ItemStack(Items.POTATO));
         PageFurnaceRecipe page10 = new PageFurnaceRecipe(new ItemStack(Items.DIAMOND_AXE));
+        PageTextImage page11 = new PageTextImage("\tHere's a\ntest image w\n\tith some formattng.", new ResourceLocation(GuideMod.GUITEXLOC + "testimage.png"), false);
 
         ArrayList<IPage> pages = new ArrayList<IPage>();
         pages.add(page1);
@@ -66,6 +68,7 @@ public class TestBook {
         pages.add(page8);
         pages.add(page9);
         pages.add(page10);
+        pages.add(page11);
 
         EntryItemStack entry1 = new EntryItemStack(pages, "TestEntry1", new ItemStack(Items.POTATO));
         EntryItemStack entry2 = new EntryItemStack(pages, "TestEntry2", new ItemStack(Blocks.DIRT));
