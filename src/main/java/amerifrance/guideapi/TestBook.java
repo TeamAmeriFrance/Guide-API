@@ -26,10 +26,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class TestBook {
 
@@ -77,7 +74,7 @@ public class TestBook {
         EntryItemStack entry2 = new EntryItemStack(pages, "HEY THIS IS ALSO SOME REALLY LONG TEXT", new ItemStack(Blocks.DIRT), true);
         Entry entry3 = new Entry(pages, "THIS IS SOME REALLY LONG TEXT");
         EntryResourceLocation entry4 = new EntryResourceLocation(pages, "TestEntry4", new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"));
-        Map<ResourceLocation, EntryAbstract> entries = new HashMap<ResourceLocation, EntryAbstract>();
+        Map<ResourceLocation, EntryAbstract> entries = new LinkedHashMap<ResourceLocation, EntryAbstract>();
         entries.put(new ResourceLocation("guideapi", "testEntry1"), entry1);
         entries.put(new ResourceLocation("guideapi", "testEntry2"), entry2);
         entries.put(new ResourceLocation("guideapi", "testEntry3"), entry3);

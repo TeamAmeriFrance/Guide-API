@@ -34,5 +34,7 @@ public class EntryItemStack extends Entry {
     public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
         if (stack != null)
             GuiHelper.drawScaledItemStack(stack, entryX + 2, entryY, 0.5F);
+
+        super.drawExtras(book, category, entryX, entryY, entryWidth, entryHeight, mouseX, mouseY, guiBase, fontRendererObj);
     }
 }

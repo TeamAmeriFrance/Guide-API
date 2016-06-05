@@ -35,5 +35,7 @@ public class EntryResourceLocation extends Entry {
     public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
         Minecraft.getMinecraft().getTextureManager().bindTexture(image);
         GuiHelper.drawSizedIconWithoutColor(entryX + 2, entryY, 16, 16, 1F);
+
+        super.drawExtras(book, category, entryX, entryY, entryWidth, entryHeight, mouseX, mouseY, guiBase, fontRendererObj);
     }
 }
