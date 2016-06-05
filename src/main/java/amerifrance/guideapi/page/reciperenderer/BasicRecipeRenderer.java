@@ -38,7 +38,7 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
             lastCycle = mc.theWorld.getTotalWorldTime();
         }
 
-        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(GuideMod.GUITEXLOC + "recipe_elements.png"));
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/recipe_elements.png"));
         guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 0, 105, 65);
         guiBase.drawCenteredString(fontRendererObj, getRecipeName(), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 

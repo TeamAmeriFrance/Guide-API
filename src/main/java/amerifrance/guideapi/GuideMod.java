@@ -20,23 +20,18 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.io.File;
 
-@Mod(modid = GuideMod.ID, name = GuideMod.NAME, version = GuideMod.VERSION, dependencies = GuideMod.DEPEND, acceptedMinecraftVersions = "[1.9,1.9.4]")
+@Mod(modid = GuideMod.ID, name = GuideMod.NAME, version = GuideMod.VERSION, acceptedMinecraftVersions = "[1.9,1.9.4]")
 public class GuideMod {
 
     public static final String NAME = "Guide-API";
     public static final String ID = "guideapi";
     public static final String CHANNEL = "GuideAPI";
-    public static final String DEPEND = "";
     public static final String VERSION = "@VERSION@";
-    public static final String DOMAIN = "guideapi:";
-    public static final String GUITEXLOC = DOMAIN + "textures/gui/";
-    public static final String CLIENTPROXY = "amerifrance.guideapi.proxy.ClientProxy";
-    public static final String COMMONPROXY = "amerifrance.guideapi.proxy.CommonProxy";
 
     @Mod.Instance(ID)
     public static GuideMod instance;
 
-    @SidedProxy(clientSide = GuideMod.CLIENTPROXY, serverSide = GuideMod.COMMONPROXY)
+    @SidedProxy(clientSide = "amerifrance.guideapi.proxy.ClientProxy", serverSide = "amerifrance.guideapi.proxy.CommonProxy")
     public static CommonProxy proxy;
 
     @Getter
@@ -46,10 +41,9 @@ public class GuideMod {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        instance = this;
         configDir = new File(event.getModConfigurationDirectory(), NAME);
         configDir.mkdirs();
-        ConfigHandler.init(new File(configDir.getPath(), NAME + ".cfg"));
+        ConfigHandler.init(new File(configDir, NAME + ".cfg"));
 
         GuideAPI.guideBook = new ItemGuideBook();
         GameRegistry.register(GuideAPI.guideBook.setRegistryName("ItemGuideBook"));
@@ -58,17 +52,14 @@ public class GuideMod {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         PacketHandler.registerPackets();
 
-        TypeReaders.init();
-        JsonBookCreator.buildGson();
-
         if (isDev())
             TestBook.registerTests(5);
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        TypeReaders.init();
-        JsonBookCreator.buildGson();
+//        TypeReaders.init();
+//        JsonBookCreator.buildGson();
 
         proxy.initColors();
     }

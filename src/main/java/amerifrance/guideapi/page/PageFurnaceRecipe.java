@@ -75,7 +75,7 @@ public class PageFurnaceRecipe extends Page {
     @SuppressWarnings("unchecked")
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
 
-        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(GuideMod.GUITEXLOC + "recipe_elements.png"));
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/recipe_elements.png"));
         guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 65, 105, 65);
 
         List badTip = new ArrayList();

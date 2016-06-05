@@ -28,7 +28,7 @@ public class ButtonNext extends ButtonGuideAPI {
             GlStateManager.enableBlend();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.disableLighting();
-            minecraft.getTextureManager().bindTexture(new ResourceLocation(GuideMod.GUITEXLOC + "book_colored.png"));
+            minecraft.getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, xPosition, yPosition, width, height)) {
                 this.drawTexturedModalRect(xPosition, yPosition + 1, 47, 201, 18, 10);
                 guiBase.drawHoveringText(getHoveringText(), mouseX, mouseY, Minecraft.getMinecraft().fontRendererObj);

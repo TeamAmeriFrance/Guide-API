@@ -41,7 +41,7 @@ public class TestBook {
     public static void testBook(Book book, String title) {
         PageText page1 = new PageText("\tHERE IS SOME TEXT FOR YOU TO DRAW LEWL.\n\tI AM VE\nRY LONG FOR NOTHING MATE");
         PageText page2 = new PageText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE.\n\nNew paragraph!");
-        PageImage page3 = new PageImage(new ResourceLocation(GuideMod.GUITEXLOC + "testimage.png"));
+        PageImage page3 = new PageImage(new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"));
         PageIRecipe page4 = new PageIRecipe(GameRegistry.addShapedRecipe(new ItemStack(Items.DIAMOND), "XXX", "YYY", "ZZZ", 'X', Items.APPLE, 'Y', Blocks.BEACON, 'Z', Items.BEEF));
         ShapedOreRecipe shapedOreRecipe = new ShapedOreRecipe(Items.BEEF, "XXX", "YYY", "ZZZ", 'X', "stairWood", 'Y', "stone", 'Z', "ingotIron");
         PageIRecipe page5 = new PageIRecipe(shapedOreRecipe);
@@ -55,7 +55,7 @@ public class TestBook {
         PageSound page8 = new PageSound(page6, SoundEvents.ENTITY_PIG_AMBIENT);
         PageFurnaceRecipe page9 = new PageFurnaceRecipe(new ItemStack(Items.POTATO));
         PageFurnaceRecipe page10 = new PageFurnaceRecipe(new ItemStack(Items.DIAMOND_AXE));
-        PageTextImage page11 = new PageTextImage("\tHere's a\ntest image w\n\tith some formattng.", new ResourceLocation(GuideMod.GUITEXLOC + "testimage.png"), false);
+        PageTextImage page11 = new PageTextImage("\tHere's a\ntest image w\n\tith some formattng.", new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"), false);
         PageText page12 = new PageText("test.guide.format");
 
         ArrayList<IPage> pages = new ArrayList<IPage>();
@@ -73,19 +73,17 @@ public class TestBook {
         pages.add(page11);
         pages.add(page12);
 
-        System.out.println(TextHelper.localize("test.guide.format"));
-
         EntryItemStack entry1 = new EntryItemStack(pages, "TestEntry1", new ItemStack(Items.POTATO));
         EntryItemStack entry2 = new EntryItemStack(pages, "TestEntry2", new ItemStack(Blocks.DIRT));
         Entry entry3 = new Entry(pages, "TestEntry3");
-        EntryResourceLocation entry4 = new EntryResourceLocation(pages, "TestEntry4", new ResourceLocation(GuideMod.GUITEXLOC + "testimage.png"));
+        EntryResourceLocation entry4 = new EntryResourceLocation(pages, "TestEntry4", new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"));
         Map<ResourceLocation, EntryAbstract> entries = new HashMap<ResourceLocation, EntryAbstract>();
         entries.put(new ResourceLocation("guideapi", "testEntry1"), entry1);
         entries.put(new ResourceLocation("guideapi", "testEntry2"), entry2);
         entries.put(new ResourceLocation("guideapi", "testEntry3"), entry3);
         entries.put(new ResourceLocation("guideapi", "testEntry4"), entry4);
 
-        CategoryResourceLocation category1 = new CategoryResourceLocation(entries, "TestCategory1", new ResourceLocation(GuideMod.GUITEXLOC + "testimage.png"));
+        CategoryResourceLocation category1 = new CategoryResourceLocation(entries, "TestCategory1", new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"));
         CategoryItemStack category2 = new CategoryItemStack(entries, "TestCategory2", new ItemStack(Blocks.BRICK_STAIRS));
         CategoryItemStack category3 = new CategoryItemStack(entries, "TestCategory3", new ItemStack(Blocks.DRAGON_EGG));
         CategoryItemStack category4 = new CategoryItemStack(entries, "TestCategory4", new ItemStack(Items.DIAMOND));
