@@ -67,5 +67,6 @@ public class GuideMod {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
 //        JsonBookCreator.buildBooks();
+        ConfigHandler.handleBookConfigs();
     }
 }
