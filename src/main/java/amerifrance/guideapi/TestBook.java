@@ -74,8 +74,8 @@ public class TestBook {
         pages.add(page12);
 
         EntryItemStack entry1 = new EntryItemStack(pages, "TestEntry1", new ItemStack(Items.POTATO));
-        EntryItemStack entry2 = new EntryItemStack(pages, "TestEntry2", new ItemStack(Blocks.DIRT));
-        Entry entry3 = new Entry(pages, "TestEntry3");
+        EntryItemStack entry2 = new EntryItemStack(pages, "HEY THIS IS ALSO SOME REALLY LONG TEXT", new ItemStack(Blocks.DIRT), true);
+        Entry entry3 = new Entry(pages, "THIS IS SOME REALLY LONG TEXT");
         EntryResourceLocation entry4 = new EntryResourceLocation(pages, "TestEntry4", new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"));
         Map<ResourceLocation, EntryAbstract> entries = new HashMap<ResourceLocation, EntryAbstract>();
         entries.put(new ResourceLocation("guideapi", "testEntry1"), entry1);

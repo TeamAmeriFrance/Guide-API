@@ -36,11 +36,19 @@ public class Entry extends EntryAbstract {
         if (unicode)
             fontRendererObj.setUnicodeFlag(true);
 
+        // Cutting code ripped from GuiButtonExt#drawButton(...)
+        String entryName = getLocalizedName();
+        int strWidth = fontRendererObj.getStringWidth(entryName);
+        int ellipsisWidth = fontRendererObj.getStringWidth("...");
+
+        if (strWidth > guiBase.xSize - 80 && strWidth > ellipsisWidth)
+            entryName = fontRendererObj.trimStringToWidth(entryName, guiBase.xSize - 80 - ellipsisWidth).trim() + "...";
+
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight)) {
-            fontRendererObj.drawString(getLocalizedName(), entryX + 12, entryY + 1, new Color(206, 206, 206).getRGB());
-            fontRendererObj.drawString(getLocalizedName(), entryX + 12, entryY, 0x423EBC);
+            fontRendererObj.drawString(entryName, entryX + 12, entryY + 1, new Color(206, 206, 206).getRGB());
+            fontRendererObj.drawString(entryName, entryX + 12, entryY, 0x423EBC);
         } else {
-            fontRendererObj.drawString(getLocalizedName(), entryX + 12, entryY, 0);
+            fontRendererObj.drawString(entryName, entryX + 12, entryY, 0);
         }
 
         if (unicode && !startFlag)
