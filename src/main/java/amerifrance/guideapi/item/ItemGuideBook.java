@@ -43,8 +43,8 @@ public class ItemGuideBook extends Item implements IGuideItem {
 
     @Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (getBook(stack) != null && world.getBlockState(pos) instanceof IGuideLinked) {
-            IGuideLinked guideLinked = (IGuideLinked) world.getBlockState(pos);
+        if (getBook(stack) != null && world.getBlockState(pos).getBlock() instanceof IGuideLinked) {
+            IGuideLinked guideLinked = (IGuideLinked) world.getBlockState(pos).getBlock();
             Book book = getBook(stack);
             ResourceLocation entryKey = guideLinked.getLinkedEntry(world, pos, player, stack);
             for (CategoryAbstract category : book.getCategoryList()) {
