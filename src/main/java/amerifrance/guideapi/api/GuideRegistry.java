@@ -3,6 +3,7 @@ package amerifrance.guideapi.api;
 import amerifrance.guideapi.api.impl.Book;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class GuideRegistry {
      * @param createModel - If a model should be created or not. Still adheres to {@link Book#isCustomModel()}
      */
     public static void registerBook(Book book, boolean createModel) {
-        GuideAPI.BOOKS.register(book);
+        GameRegistry.register(book);
     }
 
     public static void registerBook(Book book) {
