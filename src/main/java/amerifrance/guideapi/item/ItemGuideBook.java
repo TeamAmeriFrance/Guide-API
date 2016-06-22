@@ -36,6 +36,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
             if (!stack.hasTagCompound())
                 stack.setTagCompound(new NBTTagCompound());
             player.openGui(GuideMod.instance, stack.getItemDamage(), world, (int) player.posX, (int) player.posY, (int) player.posZ);
+            return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
         }
 
         return super.onItemRightClick(stack, world, player, hand);
@@ -54,7 +55,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
                 }
             }
         }
-        return EnumActionResult.PASS;
+        return super.onItemUse(stack, player, world, pos, hand, facing, hitX, hitY, hitZ);
     }
 
     @Override
