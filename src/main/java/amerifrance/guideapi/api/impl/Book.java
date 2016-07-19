@@ -29,7 +29,6 @@ public class Book extends IForgeRegistryEntry.Impl<Book> {
     private boolean customModel;
     private Color color = new Color(171, 70, 30);
     private boolean spawnWithBook;
-	private float textScale = 1.0F;
 
     /**
      * @param category - Add this category

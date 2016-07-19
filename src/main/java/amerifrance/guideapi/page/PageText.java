@@ -9,7 +9,6 @@ import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import lombok.EqualsAndHashCode;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -43,11 +42,7 @@ public class PageText extends Page {
         if (unicode)
             fontRendererObj.setUnicodeFlag(true);
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(guiLeft + 39, guiTop + 12 + yOffset, 0);
-		GlStateManager.scale(book.getTextScale(), book.getTextScale(), 0);
-        PageHelper.drawFormattedText(0, 0, guiBase, draw, book.getTextScale());
-		GlStateManager.popMatrix();
+        PageHelper.drawFormattedText(guiLeft + 39, guiTop + 12 + yOffset, guiBase, draw);
 
         if (unicode && !startFlag)
             fontRendererObj.setUnicodeFlag(false);
