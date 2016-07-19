@@ -95,6 +95,7 @@ public class TestBook {
         book.setCategoryList(categories);
         book.setTitle(title);
         book.setWelcomeMessage(title);
+		book.setTextScale(0.7F);
         book.setDisplayName(title);
         book.setColor(new Color(new Random().nextInt(0xFFFFFF)));
         book.setRegistryName(title);

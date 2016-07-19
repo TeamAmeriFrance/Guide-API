@@ -10,6 +10,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -54,6 +55,19 @@ public class PageHelper {
             }
         }
     }
+
+	public static void drawFormattedText(int x, int y, GuiBase guiBase, String toDraw, float widthMulti) {
+		FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
+		toDraw = StringEscapeUtils.unescapeJava(toDraw).replaceAll("\\t", "     ");
+		String[] lines = toDraw.split("\n");
+		for (String line : lines) {
+			List<String> cutLines = fontRenderer.listFormattedStringToWidth(line, (int) ((3 * guiBase.xSize / 5) / widthMulti));
+			for (String cut : cutLines) {
+				fontRenderer.drawString(cut, x, y, 0);
+				y += 10;
+			}
+		}
+	}
 
     /**
      * @param locText - Text
