@@ -1,6 +1,7 @@
 package amerifrance.guideapi.api.util;
 
 import amerifrance.guideapi.api.IPage;
+import amerifrance.guideapi.api.impl.Page;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.page.PageItemStack;
 import amerifrance.guideapi.page.PageText;
@@ -17,6 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PageHelper {
+
+	public static List<IPage> setPagesToUnicode(List<IPage> pages) {
+		for (IPage page : pages)
+			if (page instanceof Page)
+				((Page) page).setUnicodeFlag(true);
+
+		return pages;
+	}
 
     public static List<IPage> pagesForLongText(String locText, int maxLength) {
         List<IPage> pageList = new ArrayList<IPage>();
