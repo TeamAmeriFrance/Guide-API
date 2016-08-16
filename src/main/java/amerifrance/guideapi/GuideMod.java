@@ -5,8 +5,6 @@ import amerifrance.guideapi.item.ItemGuideBook;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxy.CommonProxy;
 import amerifrance.guideapi.util.EventHandler;
-import amerifrance.guideapi.util.json.JsonBookCreator;
-import amerifrance.guideapi.util.json.serialization.TypeReaders;
 import lombok.Getter;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.MinecraftForge;
@@ -38,6 +36,11 @@ public class GuideMod {
     private static File configDir;
     @Getter
     private static boolean isDev = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
+
+    public GuideMod() {
+        // Initialize the API fields as soon as the mod is constructed.
+        GuideAPI.initialize();
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {

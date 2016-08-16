@@ -6,6 +6,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 import net.minecraftforge.fml.common.registry.PersistentRegistryManager;
@@ -30,7 +34,14 @@ public class GuideAPI {
             0,
             1024,
             false,
-            null,
+            new IForgeRegistry.AddCallback<Book>() {
+                @Override
+                public void onAdd(Book obj, int id, Map<ResourceLocation, ?> slaveset) {
+                    LoaderState state = Loader.instance().getLoaderState();
+                    if (state == LoaderState.INITIALIZATION || state == LoaderState.POSTINITIALIZATION)
+                        throw new RuntimeException(String.format("[Guide-API] Guides must be registered during %s. Please report this to %s.", LoaderState.PREINITIALIZATION.toString(), Loader.instance().activeModContainer().getModId()));
+                }
+            },
             null,
             null
     );
@@ -103,5 +114,9 @@ public class GuideAPI {
     @SideOnly(Side.CLIENT)
     public static void setModel(Book book) {
         setModel(book, new ResourceLocation("guideapi", "ItemGuideBook"), "inventory");
+    }
+
+    public static void initialize() {
+        // No-op. Just here to initialize fields.
     }
 }
