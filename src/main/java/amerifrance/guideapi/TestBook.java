@@ -22,6 +22,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -39,8 +40,8 @@ public class TestBook {
         PageText page1 = new PageText("\tHERE IS SOME TEXT FOR YOU TO DRAW LEWL.\n\tI AM VE\nRY LONG FOR NOTHING MATE");
         PageText page2 = new PageText("HERE IS SOME TEXT FOR YOU TO DRAW LEWL. I AM VERY LONG FOR NOTHING MATE.\n\nNew paragraph!");
         PageImage page3 = new PageImage(new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"));
-        PageIRecipe page4 = new PageIRecipe(GameRegistry.addShapedRecipe(new ItemStack(Items.DIAMOND), "XXX", "YYY", "ZZZ", 'X', Items.APPLE, 'Y', Blocks.BEACON, 'Z', Items.BEEF));
-        ShapedOreRecipe shapedOreRecipe = new ShapedOreRecipe(Items.BEEF, "XXX", "YYY", "ZZZ", 'X', "stairWood", 'Y', "stone", 'Z', "ingotIron");
+        PageIRecipe page4 = new PageIRecipe(GameRegistry.addShapedRecipe(new ItemStack(Items.DIAMOND, 10), "XXX", "YYY", "ZZZ", 'X', Items.APPLE, 'Y', Blocks.BEACON, 'Z', Items.BEEF));
+        ShapedOreRecipe shapedOreRecipe = new ShapedOreRecipe(Items.BEEF, "XXX", "YYY", "ZZZ", 'X', new ItemStack(Blocks.WOODEN_SLAB, 5, OreDictionary.WILDCARD_VALUE), 'Y', "stone", 'Z', "ingotIron");
         PageIRecipe page5 = new PageIRecipe(shapedOreRecipe);
         ArrayList<ItemStack> shapelessList = new ArrayList<ItemStack>();
         shapelessList.add(new ItemStack(Items.CAULDRON));

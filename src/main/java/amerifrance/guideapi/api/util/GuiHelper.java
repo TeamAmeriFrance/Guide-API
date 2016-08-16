@@ -46,6 +46,7 @@ public class GuiHelper {
         enableRescaleNormal();
         enableDepth();
         render.renderItemAndEffectIntoGUI(stack, x, y);
+        render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRendererObj, stack, x, y, null);
         RenderHelper.disableStandardItemLighting();
         popMatrix();
         disableLighting();
