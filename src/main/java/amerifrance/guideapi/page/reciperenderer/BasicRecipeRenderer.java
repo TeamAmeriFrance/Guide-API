@@ -10,9 +10,13 @@ import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T> {
@@ -44,7 +48,16 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
 
         int outputX = (5 * 18) + (guiLeft + guiBase.xSize / 7);
         int outputY = (2 * 18) + (guiTop + guiBase.xSize / 5);
-        GuiHelper.drawItemStack(recipe.getRecipeOutput(), outputX, outputY);
+
+        ItemStack stack = recipe.getRecipeOutput();
+
+        if (stack != null && stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
+            List<ItemStack> subItems = new ArrayList<ItemStack>();
+            stack.getItem().getSubItems(stack.getItem(), stack.getItem().getCreativeTab(), subItems);
+            stack = subItems.get(getRandomizedCycle(0, subItems.size()));
+        }
+
+        GuiHelper.drawItemStack(stack, outputX, outputY);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15)) {
             tooltips = GuiHelper.getTooltip(recipe.getRecipeOutput());
         }

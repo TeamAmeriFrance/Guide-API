@@ -10,6 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipes> {
 
     public ShapedRecipesRenderer(ShapedRecipes recipe) {
@@ -25,8 +28,11 @@ public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipes> {
                 int stackY = (y + 1) * 17 + (guiTop + 40);
                 ItemStack stack = recipe.recipeItems[y * recipe.recipeWidth + x];
                 if (stack != null) {
-                    if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
-                        stack.setItemDamage(0);
+                    if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
+                        List<ItemStack> subItems = new ArrayList<ItemStack>();
+                        stack.getItem().getSubItems(stack.getItem(), stack.getItem().getCreativeTab(), subItems);
+                        stack = subItems.get(getRandomizedCycle(x, subItems.size()));
+                    }
 
                     GuiHelper.drawItemStack(stack, stackX, stackY);
                     if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {

@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOreRecipe> {
@@ -45,6 +46,11 @@ public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOre
                             List<ItemStack> list = (List<ItemStack>) component;
                             if (!list.isEmpty()) {
                                 ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
+                                if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
+                                    List<ItemStack> subItems = new ArrayList<ItemStack>();
+                                    stack.getItem().getSubItems(stack.getItem(), stack.getItem().getCreativeTab(), subItems);
+                                    stack = subItems.get(getRandomizedCycle(x, subItems.size()));
+                                }
                                 GuiHelper.drawItemStack(stack, stackX, stackY);
                                 if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
                                     tooltips = GuiHelper.getTooltip(stack);
