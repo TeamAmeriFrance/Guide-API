@@ -37,17 +37,13 @@ public class GuideMod {
     @Getter
     private static boolean isDev = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
-    public GuideMod() {
-        // Initialize the API fields as soon as the mod is constructed.
-        GuideAPI.initialize();
-    }
-
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         configDir = new File(event.getModConfigurationDirectory(), NAME);
         configDir.mkdirs();
         ConfigHandler.init(new File(configDir, NAME + ".cfg"));
 
+        GuideAPI.initialize();
         GuideAPI.guideBook = new ItemGuideBook();
         GameRegistry.register(GuideAPI.guideBook.setRegistryName("ItemGuideBook"));
 
