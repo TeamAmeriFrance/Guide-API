@@ -1,6 +1,7 @@
 package amerifrance.guideapi;
 
 import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.item.ItemGuideBook;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxy.CommonProxy;
@@ -11,6 +12,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLModIdMappingEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -67,5 +69,12 @@ public class GuideMod {
     public void postInit(FMLPostInitializationEvent event) {
 //        JsonBookCreator.buildBooks();
         ConfigHandler.handleBookConfigs();
+    }
+
+    @Mod.EventHandler
+    public void onMapping(FMLModIdMappingEvent event) {
+        for (Book book : GuideAPI.BOOKS.getValues())
+            if (book.getMappingFunction() != null)
+                book.getMappingFunction().apply(book);
     }
 }

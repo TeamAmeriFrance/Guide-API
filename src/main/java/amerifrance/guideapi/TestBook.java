@@ -13,6 +13,7 @@ import amerifrance.guideapi.category.CategoryResourceLocation;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.entry.EntryResourceLocation;
 import amerifrance.guideapi.page.*;
+import com.google.common.base.Function;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -26,6 +27,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.*;
 
@@ -99,6 +101,13 @@ public class TestBook {
         book.setDisplayName(title);
         book.setColor(new Color(new Random().nextInt(0xFFFFFF)));
         book.setRegistryName(title);
+        book.setMappingFunction(new Function<Book, Void>() {
+            @Nullable
+            @Override
+            public Void apply(@Nullable Book input) {
+                return null;
+            }
+        });
 
         GameRegistry.register(book);
 
