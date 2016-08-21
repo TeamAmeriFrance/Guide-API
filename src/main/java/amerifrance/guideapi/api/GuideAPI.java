@@ -34,14 +34,7 @@ public class GuideAPI {
             0,
             1024,
             false,
-            new IForgeRegistry.AddCallback<Book>() {
-                @Override
-                public void onAdd(Book obj, int id, Map<ResourceLocation, ?> slaveset) {
-                    LoaderState state = Loader.instance().getLoaderState();
-                    if (state == LoaderState.INITIALIZATION || state == LoaderState.POSTINITIALIZATION)
-                        throw new RuntimeException(String.format("[Guide-API] Guides must be registered during %s. Please report this to %s.", LoaderState.PREINITIALIZATION.toString(), Loader.instance().activeModContainer().getModId()));
-                }
-            },
+            null,
             null,
             null
     );
