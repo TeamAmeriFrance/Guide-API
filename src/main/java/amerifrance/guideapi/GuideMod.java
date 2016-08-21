@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.io.File;
 
-@Mod(modid = GuideMod.ID, name = GuideMod.NAME, version = GuideMod.VERSION, acceptedMinecraftVersions = "[1.9,1.9.4]")
+@Mod(modid = GuideMod.ID, name = GuideMod.NAME, version = GuideMod.VERSION)
 public class GuideMod {
 
     public static final String NAME = "Guide-API";

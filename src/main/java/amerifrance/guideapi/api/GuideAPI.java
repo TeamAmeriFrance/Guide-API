@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 import net.minecraftforge.fml.common.registry.PersistentRegistryManager;
+import net.minecraftforge.fml.common.registry.RegistryBuilder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -27,24 +28,19 @@ public class GuideAPI {
      *
      * Register a book with {@link net.minecraftforge.fml.common.registry.GameRegistry#register(IForgeRegistryEntry)}
      */
-    public static final IForgeRegistry<Book> BOOKS = PersistentRegistryManager.createRegistry(
-            new ResourceLocation("guideapi", "books"),
-            Book.class,
-            new ResourceLocation("guideapi", "invalid_book"),
-            0,
-            1024,
-            false,
-            new IForgeRegistry.AddCallback<Book>() {
+    public static final IForgeRegistry<Book> BOOKS = new RegistryBuilder<Book>()
+            .setName(new ResourceLocation("guideapi", "books"))
+            .setType(Book.class)
+            .setIDRange(0, 1024)
+            .add(new IForgeRegistry.AddCallback<Book>() {
                 @Override
                 public void onAdd(Book obj, int id, Map<ResourceLocation, ?> slaveset) {
                     LoaderState state = Loader.instance().getLoaderState();
                     if (state == LoaderState.INITIALIZATION || state == LoaderState.POSTINITIALIZATION)
                         throw new RuntimeException(String.format("[Guide-API] Guides must be registered during %s. Please report this to %s.", LoaderState.PREINITIALIZATION.toString(), Loader.instance().activeModContainer().getModId()));
                 }
-            },
-            null,
-            null
-    );
+            })
+            .create();
     private static final List<ITypeReader> TYPE_READERS = new ArrayList<ITypeReader>();
     /**
      * The item corresponding to the Guide-API books. Access it after the Pre-Init event.
