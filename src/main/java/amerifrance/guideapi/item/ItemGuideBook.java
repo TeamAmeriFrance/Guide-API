@@ -31,19 +31,20 @@ public class ItemGuideBook extends Item implements IGuideItem {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
         if (getBook(stack) != null) {
             if (!stack.hasTagCompound())
                 stack.setTagCompound(new NBTTagCompound());
             player.openGui(GuideMod.instance, stack.getItemDamage(), world, (int) player.posX, (int) player.posY, (int) player.posZ);
             return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
         }
-
-        return super.onItemRightClick(stack, world, player, hand);
+        return super.onItemRightClick(world, player, hand);
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        ItemStack stack = player.getHeldItem(hand);
         if (getBook(stack) != null && world.getBlockState(pos).getBlock() instanceof IGuideLinked) {
             IGuideLinked guideLinked = (IGuideLinked) world.getBlockState(pos).getBlock();
             Book book = getBook(stack);
@@ -55,7 +56,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
                 }
             }
         }
-        return super.onItemUse(stack, player, world, pos, hand, facing, hitX, hitY, hitZ);
+        return super.onItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
     }
 
     @Override
@@ -75,7 +76,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
+    public void getSubItems(Item item, CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
         if (!GuideAPI.BOOKS.getValues().isEmpty())
             for (Book book : GuideAPI.BOOKS.getValues())
                 list.add(new ItemStack(this, 1, GuideAPI.BOOKS.getValues().indexOf(book)));

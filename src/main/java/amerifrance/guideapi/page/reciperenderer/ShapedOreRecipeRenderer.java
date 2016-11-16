@@ -7,6 +7,7 @@ import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -57,7 +58,7 @@ public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe
                         if (!list.isEmpty()) {
                             ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
                             if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
-                                List<ItemStack> subItems = new ArrayList<ItemStack>();
+                                NonNullList<ItemStack> subItems = NonNullList.func_191196_a();
                                 stack.getItem().getSubItems(stack.getItem(), stack.getItem().getCreativeTab(), subItems);
                                 stack = subItems.get(getRandomizedCycle(x, subItems.size()));
                             }
