@@ -187,7 +187,7 @@ public class GuiHelper {
     @SuppressWarnings("unchecked")
     public static List<String> getTooltip(ItemStack stack) {
         Minecraft mc = Minecraft.getMinecraft();
-        List<String> list = stack.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips);
+        List<String> list = stack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips);
 
         for (int k = 0; k < list.size(); ++k) {
             if (k == 0) {

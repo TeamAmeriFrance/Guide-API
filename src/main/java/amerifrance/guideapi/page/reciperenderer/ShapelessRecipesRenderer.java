@@ -9,6 +9,7 @@ import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecip
                     ItemStack stack = recipe.recipeItems.get(i);
                     if (stack != null) {
                         if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
-                            List<ItemStack> subItems = new ArrayList<ItemStack>();
+                            NonNullList<ItemStack> subItems = NonNullList.func_191196_a();
                             stack.getItem().getSubItems(stack.getItem(), stack.getItem().getCreativeTab(), subItems);
                             stack = subItems.get(getRandomizedCycle(x, subItems.size()));
                         }

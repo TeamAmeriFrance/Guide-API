@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -33,13 +34,13 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
         Minecraft mc = Minecraft.getMinecraft();
 
-        long time = mc.theWorld.getTotalWorldTime();
+        long time = mc.world.getTotalWorldTime();
         if (lastCycle < 0 || lastCycle < time - 20) {
             if (lastCycle > 0) {
                 cycleIdx++;
                 cycleIdx = Math.max(0, cycleIdx);
             }
-            lastCycle = mc.theWorld.getTotalWorldTime();
+            lastCycle = mc.world.getTotalWorldTime();
         }
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/recipe_elements.png"));
@@ -52,7 +53,8 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
         ItemStack stack = recipe.getRecipeOutput();
 
         if (stack != null && stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
-            List<ItemStack> subItems = new ArrayList<ItemStack>();
+            //List<ItemStack> subItems = new ArrayList<ItemStack>();
+            NonNullList<ItemStack> subItems = NonNullList.func_191196_a();
             stack.getItem().getSubItems(stack.getItem(), stack.getItem().getCreativeTab(), subItems);
             stack = subItems.get(getRandomizedCycle(0, subItems.size()));
         }
