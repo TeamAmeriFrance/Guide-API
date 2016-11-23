@@ -17,7 +17,7 @@ public class EventHandler {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             NBTTagCompound tag = getModTag(player, GuideMod.ID);
             if (ConfigHandler.canSpawnWithBooks) {
-                for (Book book : GuideAPI.BOOKS.getValues()) {
+                for (Book book : GuideAPI.BOOKS) {
                     if (book.isSpawnWithBook() && !tag.getBoolean("hasInitial" + book.getTitle())) {
                         player.inventory.addItemStackToInventory(GuideAPI.getStackFromBook(book));
                         player.inventoryContainer.detectAndSendChanges();

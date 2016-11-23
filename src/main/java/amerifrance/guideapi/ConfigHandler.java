@@ -34,7 +34,7 @@ public class ConfigHandler {
     }
 
     public static void handleBookConfigs() {
-        for (Book book : GuideAPI.BOOKS.getValues())
+        for (Book book : GuideAPI.BOOKS)
             book.setSpawnWithBook(config.get("Books.Spawn", book.getRegistryName().toString(), book.isSpawnWithBook()).getBoolean());
 
         config.setCategoryComment("Books.Spawn", "If true, the user will spawn with the book.\nThis defaults to the value the book owner has set and is overridden by this config.");

@@ -54,7 +54,7 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
 
         if (stack != null && stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
             //List<ItemStack> subItems = new ArrayList<ItemStack>();
-            NonNullList<ItemStack> subItems = NonNullList.func_191196_a();
+            NonNullList<ItemStack> subItems = NonNullList.create();
             stack.getItem().getSubItems(stack.getItem(), stack.getItem().getCreativeTab(), subItems);
             stack = subItems.get(getRandomizedCycle(0, subItems.size()));
         }

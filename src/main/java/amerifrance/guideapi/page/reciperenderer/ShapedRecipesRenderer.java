@@ -30,7 +30,7 @@ public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipes> {
                 ItemStack stack = recipe.recipeItems[y * recipe.recipeWidth + x];
                 if (stack != null) {
                     if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
-                        NonNullList<ItemStack> subItems = NonNullList.func_191196_a();
+                        NonNullList<ItemStack> subItems = NonNullList.create();
                         stack.getItem().getSubItems(stack.getItem(), stack.getItem().getCreativeTab(), subItems);
                         stack = subItems.get(getRandomizedCycle(x, subItems.size()));
                     }

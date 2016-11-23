@@ -1,19 +1,31 @@
 package amerifrance.guideapi.proxy;
 
 import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.api.IGuideBook;
 import amerifrance.guideapi.api.IGuideItem;
 import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.Entry;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.gui.GuiEntry;
+import amerifrance.guideapi.util.AnnotationHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundEvent;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.Map;
 
 public class ClientProxy extends CommonProxy {
+
+    @Override
+    public void handleModels() {
+        for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES)
+            guide.getRight().handleModel(GuideAPI.getStackFromBook(guide.getLeft()));
+    }
 
     @Override
     public void playSound(SoundEvent sound) {
@@ -27,15 +39,17 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void initColors() {
-        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
-            @Override
-            public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-                IGuideItem guideItem = (IGuideItem) stack.getItem();
-                if (guideItem.getBook(stack) != null && tintIndex == 0)
-                    return guideItem.getBook(stack).getColor().getRGB();
+        for (ItemStack bookStack : GuideAPI.BOOK_TO_STACK.values()) {
+            Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
+                @Override
+                public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+                    IGuideItem guideItem = (IGuideItem) stack.getItem();
+                    if (guideItem.getBook(stack) != null && tintIndex == 0)
+                        return guideItem.getBook(stack).getColor().getRGB();
 
-                return 16777215;
-            }
-        }, GuideAPI.guideBook);
+                    return 16777215;
+                }
+            }, bookStack.getItem());
+        }
     }
 }

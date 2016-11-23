@@ -2,10 +2,8 @@ package amerifrance.guideapi.api.impl;
 
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.util.TextHelper;
-import com.google.common.base.Function;
 import lombok.*;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Book extends IForgeRegistryEntry.Impl<Book> {
+public class Book {
 
     private static final String GUITEXLOC = "guideapi:textures/gui/";
 
@@ -40,11 +38,8 @@ public class Book extends IForgeRegistryEntry.Impl<Book> {
     private Color color = new Color(171, 70, 30);
     /** Whether or not player's should spawn with this book when they first join the world. */
     private boolean spawnWithBook;
-    /**
-     * A series of code to run during the {@link net.minecraftforge.fml.common.event.FMLModIdMappingEvent} <br>
-     * Use this to register a recipe or remap your model.
-     * */
-    private Function<Book, Void> mappingFunction;
+    /** A registry name for this book. Used internally. */
+    private ResourceLocation registryName;
 
     /**
      * @param category - Add this category
@@ -93,46 +88,6 @@ public class Book extends IForgeRegistryEntry.Impl<Book> {
      */
     public String getLocalizedDisplayName() {
         return TextHelper.localize(getDisplayName());
-    }
-
-    @Deprecated
-    public String getUnlocBookTitle() {
-        return getTitle();
-    }
-
-    @Deprecated
-    public void setUnlocBookTitle(String unlocBookTitle) {
-        setTitle(unlocBookTitle);
-    }
-
-    @Deprecated
-    public String getUnlocWelcomeMessage() {
-        return getWelcomeMessage();
-    }
-
-    @Deprecated
-    public void setUnlocWelcomeMessage(String unlocWelcomeMessage) {
-        setWelcomeMessage(unlocWelcomeMessage);
-    }
-
-    @Deprecated
-    public String getUnlocDisplayName() {
-        return getDisplayName();
-    }
-
-    @Deprecated
-    public void setUnlocDisplayName(String unlocDisplayName) {
-        setDisplayName(unlocDisplayName);
-    }
-
-    @Deprecated
-    public Color getBookColor() {
-        return getColor();
-    }
-
-    @Deprecated
-    public void setBookColor(Color color) {
-        setColor(color);
     }
 
     @Override

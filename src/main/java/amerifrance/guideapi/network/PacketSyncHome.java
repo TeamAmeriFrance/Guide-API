@@ -4,6 +4,7 @@ import amerifrance.guideapi.api.IGuideItem;
 import amerifrance.guideapi.api.util.NBTBookTags;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -33,15 +34,15 @@ public class PacketSyncHome implements IMessage, IMessageHandler<PacketSyncHome,
     @Override
     public IMessage onMessage(PacketSyncHome message, MessageContext ctx) {
         ItemStack book = ctx.getServerHandler().playerEntity.getHeldItemOffhand();
-        if (book == null || !(book.getItem() instanceof IGuideItem))
+        if (book.isEmpty() || !(book.getItem() instanceof IGuideItem))
             book = ctx.getServerHandler().playerEntity.getHeldItemMainhand();
 
-        if (book != null && book.getItem() instanceof IGuideItem) {
-            if (message.page != -1) {
-                book.getTagCompound().setInteger(NBTBookTags.CATEGORY_PAGE_TAG, message.page);
-                book.getTagCompound().removeTag(NBTBookTags.CATEGORY_TAG);
-                book.getTagCompound().removeTag(NBTBookTags.ENTRY_TAG);
-            }
+        if (!book.isEmpty() && book.getItem() instanceof IGuideItem && message.page != -1) {
+            if (!book.hasTagCompound())
+                book.setTagCompound(new NBTTagCompound());
+            book.getTagCompound().setInteger(NBTBookTags.CATEGORY_PAGE_TAG, message.page);
+            book.getTagCompound().removeTag(NBTBookTags.CATEGORY_TAG);
+            book.getTagCompound().removeTag(NBTBookTags.ENTRY_TAG);
         }
         return null;
     }

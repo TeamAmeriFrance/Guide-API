@@ -8,7 +8,7 @@ public class BookHelper {
 
     public static CategoryAbstract getCategoryFromName(Book book, String unlocName) {
         for (CategoryAbstract category : book.getCategoryList()) {
-            if (category.unlocCategoryName.equals(unlocName))
+            if (category.name.equals(unlocName))
                 return category;
         }
         return null;

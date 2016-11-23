@@ -48,7 +48,7 @@ public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOre
                             if (!list.isEmpty()) {
                                 ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
                                 if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
-                                    NonNullList<ItemStack> subItems = NonNullList.func_191196_a();
+                                    NonNullList<ItemStack> subItems = NonNullList.create();
                                     stack.getItem().getSubItems(stack.getItem(), stack.getItem().getCreativeTab(), subItems);
                                     stack = subItems.get(getRandomizedCycle(x, subItems.size()));
                                 }

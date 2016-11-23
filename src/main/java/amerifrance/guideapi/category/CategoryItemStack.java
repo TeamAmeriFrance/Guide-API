@@ -20,8 +20,8 @@ public class CategoryItemStack extends Category {
 
     public ItemStack stack;
 
-    public CategoryItemStack(Map<ResourceLocation, EntryAbstract> entries, String unlocCategoryName, ItemStack stack) {
-        super(entries, unlocCategoryName);
+    public CategoryItemStack(Map<ResourceLocation, EntryAbstract> entries, String name, ItemStack stack) {
+        super(entries, name);
         this.stack = stack;
     }
 

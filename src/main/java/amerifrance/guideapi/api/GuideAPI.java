@@ -1,19 +1,11 @@
 package amerifrance.guideapi.api;
 
 import amerifrance.guideapi.api.impl.Book;
+import com.google.common.collect.Maps;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.LoaderState;
-import net.minecraftforge.fml.common.registry.IForgeRegistry;
-import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
-import net.minecraftforge.fml.common.registry.PersistentRegistryManager;
-import net.minecraftforge.fml.common.registry.RegistryBuilder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -23,47 +15,8 @@ import java.util.Map;
 
 public class GuideAPI {
 
-    /**
-     * The new Book registry. Handles world persistence to avoid de-sync issues.
-     *
-     * Register a book with {@link net.minecraftforge.fml.common.registry.GameRegistry#register(IForgeRegistryEntry)}
-     */
-    public static final IForgeRegistry<Book> BOOKS = new RegistryBuilder<Book>()
-            .setName(new ResourceLocation("guideapi", "books"))
-            .setType(Book.class)
-            .setIDRange(0, 1024)
-            .add(new IForgeRegistry.AddCallback<Book>() {
-                @Override
-                public void onAdd(Book obj, int id, Map<ResourceLocation, ?> slaveset) {
-                    LoaderState state = Loader.instance().getLoaderState();
-                    if (state == LoaderState.INITIALIZATION || state == LoaderState.POSTINITIALIZATION)
-                        throw new RuntimeException(String.format("[Guide-API] Guides must be registered during %s. Please report this to %s.", LoaderState.PREINITIALIZATION.toString(), Loader.instance().activeModContainer().getModId()));
-                }
-            })
-            .create();
-    private static final List<ITypeReader> TYPE_READERS = new ArrayList<ITypeReader>();
-    /**
-     * The item corresponding to the Guide-API books. Access it after the Pre-Init event.
-     */
-    public static Item guideBook;
-
-    /**
-     * Adds a new {@link ITypeReader} to be used when creating JSON books. If you wish for modpack developers to
-     * be able to use your Category, Entry, or Page in their book, you must register one of these.
-     * <p>
-     * Add your TypeReader during FMLPreInitializationEvent. The list will be queried for the only time during FMLInitializationEvent.
-     *
-     * @param typeReader - ITypeReader to register.
-     * @see amerifrance.guideapi.util.json.serialization.TypeReaders
-     */
-    public static void addTypeReader(ITypeReader typeReader) {
-        if (!TYPE_READERS.contains(typeReader))
-            TYPE_READERS.add(typeReader);
-    }
-
-    public static List<ITypeReader> getTypeReaders() {
-        return new ArrayList<ITypeReader>(TYPE_READERS);
-    }
+    public static final List<Book> BOOKS = new ArrayList<Book>();
+    public static final Map<Book, ItemStack> BOOK_TO_STACK = Maps.newHashMap();
 
     /**
      * Obtains a new ItemStack associated with the provided book.
@@ -72,10 +25,7 @@ public class GuideAPI {
      * @return - The ItemStack associated with the provided book.
      */
     public static ItemStack getStackFromBook(Book book) {
-        if (BOOKS.containsValue(book))
-            return new ItemStack(guideBook, 1, BOOKS.getValues().indexOf(book));
-
-        return null;
+        return BOOK_TO_STACK.get(book);
     }
 
     /**
@@ -92,8 +42,8 @@ public class GuideAPI {
     @SideOnly(Side.CLIENT)
     public static void setModel(Book book, ResourceLocation modelLoc, String variantName) {
         ModelLoader.setCustomModelResourceLocation(
-                guideBook,
-                BOOKS.getValues().indexOf(book),
+                getStackFromBook(book).getItem(),
+                0,
                 new ModelResourceLocation(modelLoc, variantName)
         );
     }

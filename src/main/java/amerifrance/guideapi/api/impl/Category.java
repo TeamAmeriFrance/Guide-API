@@ -17,8 +17,8 @@ import java.util.Map;
 
 public class Category extends CategoryAbstract {
 
-    public Category(Map<ResourceLocation, EntryAbstract> entryList, String unlocCategoryName) {
-        super(entryList, unlocCategoryName);
+    public Category(Map<ResourceLocation, EntryAbstract> entryList, String name) {
+        super(entryList, name);
     }
 
     @Override

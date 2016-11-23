@@ -19,11 +19,11 @@ import java.util.Map;
 public abstract class CategoryAbstract {
 
     public Map<ResourceLocation, EntryAbstract> entries = new HashMap<ResourceLocation, EntryAbstract>();
-    public String unlocCategoryName;
+    public String name;
 
-    public CategoryAbstract(Map<ResourceLocation, EntryAbstract> entries, String unlocCategoryName) {
+    public CategoryAbstract(Map<ResourceLocation, EntryAbstract> entries, String name) {
         this.entries = entries;
-        this.unlocCategoryName = unlocCategoryName;
+        this.name = name;
     }
 
     public void addEntry(ResourceLocation key, EntryAbstract entry) {
@@ -45,7 +45,7 @@ public abstract class CategoryAbstract {
     }
 
     public String getLocalizedName() {
-        return TextHelper.localizeEffect(unlocCategoryName);
+        return TextHelper.localizeEffect(name);
     }
 
     public List<String> getTooltip() {
@@ -78,7 +78,7 @@ public abstract class CategoryAbstract {
 
         CategoryAbstract that = (CategoryAbstract) o;
         if (entries != null ? !entries.equals(that.entries) : that.entries != null) return false;
-        if (unlocCategoryName != null ? !unlocCategoryName.equals(that.unlocCategoryName) : that.unlocCategoryName != null)
+        if (name != null ? !name.equals(that.name) : that.name != null)
             return false;
 
         return true;
@@ -87,7 +87,7 @@ public abstract class CategoryAbstract {
     @Override
     public int hashCode() {
         int result = entries != null ? entries.hashCode() : 0;
-        result = 31 * result + (unlocCategoryName != null ? unlocCategoryName.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 }
