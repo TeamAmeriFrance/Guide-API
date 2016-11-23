@@ -62,11 +62,6 @@ public class ItemGuideBook extends Item implements IGuideItem {
     }
 
     @Override
-    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return slotChanged;
-    }
-
-    @Override
     public String getItemStackDisplayName(ItemStack stack) {
         return !Strings.isNullOrEmpty(book.getDisplayName()) ? getBook(stack).getLocalizedDisplayName() : super.getItemStackDisplayName(stack);
     }
