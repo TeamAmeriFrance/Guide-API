@@ -93,6 +93,7 @@ jar {
             "Implementation-Version": project.version,
             "Git-Hash": gitHash
     )
+    exclude 'amerifrance/guideapi/test/**/*'
 }
 
 // API jar
