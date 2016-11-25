@@ -17,17 +17,17 @@ import java.util.List;
 public abstract class EntryAbstract {
 
     public List<IPage> pageList = new ArrayList<IPage>();
-    public String unlocEntryName;
+    public String name;
     public boolean unicode;
 
-    public EntryAbstract(List pageList, String unlocEntryName, boolean unicode) {
+    public EntryAbstract(List pageList, String name, boolean unicode) {
         this.pageList = pageList;
-        this.unlocEntryName = unlocEntryName;
+        this.name = name;
         this.unicode = unicode;
     }
 
-    public EntryAbstract(List pageList, String unlocEntryName) {
-        this(pageList, unlocEntryName, false);
+    public EntryAbstract(List pageList, String name) {
+        this(pageList, name, false);
     }
 
     public void addPage(IPage page) {
@@ -47,7 +47,7 @@ public abstract class EntryAbstract {
     }
 
     public String getLocalizedName() {
-        return TextHelper.localizeEffect(unlocEntryName);
+        return TextHelper.localizeEffect(name);
     }
 
     @SideOnly(Side.CLIENT)
@@ -74,7 +74,7 @@ public abstract class EntryAbstract {
 
         EntryAbstract that = (EntryAbstract) o;
         if (pageList != null ? !pageList.equals(that.pageList) : that.pageList != null) return false;
-        if (unlocEntryName != null ? !unlocEntryName.equals(that.unlocEntryName) : that.unlocEntryName != null)
+        if (name != null ? !name.equals(that.name) : that.name != null)
             return false;
 
         return true;
@@ -83,7 +83,7 @@ public abstract class EntryAbstract {
     @Override
     public int hashCode() {
         int result = pageList != null ? pageList.hashCode() : 0;
-        result = 31 * result + (unlocEntryName != null ? unlocEntryName.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 }

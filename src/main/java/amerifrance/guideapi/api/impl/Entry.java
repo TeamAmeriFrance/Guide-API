@@ -20,12 +20,12 @@ import java.util.List;
 
 public class Entry extends EntryAbstract {
 
-    public Entry(List<IPage> pageList, String unlocEntryName, boolean unicode) {
-        super(pageList, unlocEntryName, unicode);
+    public Entry(List<IPage> pageList, String name, boolean unicode) {
+        super(pageList, name, unicode);
     }
 
-    public Entry(List<IPage> pageList, String unlocEntryName) {
-        super(pageList, unlocEntryName, false);
+    public Entry(List<IPage> pageList, String name) {
+        super(pageList, name, false);
     }
 
     @Override

@@ -19,14 +19,14 @@ public class EntryItemStack extends Entry {
 
     public ItemStack stack;
 
-    public EntryItemStack(List<IPage> pageList, String unlocEntryName, ItemStack stack, boolean unicode) {
-        super(pageList, unlocEntryName, unicode);
+    public EntryItemStack(List<IPage> pageList, String name, ItemStack stack, boolean unicode) {
+        super(pageList, name, unicode);
 
         this.stack = stack;
     }
 
-    public EntryItemStack(List<IPage> pageList, String unlocEntryName, ItemStack stack) {
-        this(pageList, unlocEntryName, stack, false);
+    public EntryItemStack(List<IPage> pageList, String name, ItemStack stack) {
+        this(pageList, name, stack, false);
     }
 
     @Override

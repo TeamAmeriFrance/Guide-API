@@ -16,7 +16,7 @@ public class BookHelper {
 
     public static EntryAbstract getEntryFromName(CategoryAbstract category, String unlocName) {
         for (EntryAbstract entry : category.entries.values()) {
-            if (entry.unlocEntryName.equals(unlocName))
+            if (entry.name.equals(unlocName))
                 return entry;
         }
         return null;

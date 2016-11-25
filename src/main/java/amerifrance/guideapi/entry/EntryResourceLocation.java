@@ -20,14 +20,14 @@ public class EntryResourceLocation extends Entry {
 
     public ResourceLocation image;
 
-    public EntryResourceLocation(List<IPage> pageList, String unlocEntryName, ResourceLocation resourceLocation, boolean unicode) {
-        super(pageList, unlocEntryName, unicode);
+    public EntryResourceLocation(List<IPage> pageList, String name, ResourceLocation resourceLocation, boolean unicode) {
+        super(pageList, name, unicode);
 
         this.image = resourceLocation;
     }
 
-    public EntryResourceLocation(List<IPage> pageList, String unlocEntryName, ResourceLocation resourceLocation) {
-        this(pageList, unlocEntryName, resourceLocation, false);
+    public EntryResourceLocation(List<IPage> pageList, String name, ResourceLocation resourceLocation) {
+        this(pageList, name, resourceLocation, false);
     }
 
     @Override
