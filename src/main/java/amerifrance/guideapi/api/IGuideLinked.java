@@ -13,7 +13,7 @@ public interface IGuideLinked {
      * @param pos    - The block's location in the world
      * @param player - The player that triggered the method
      * @param stack  - The ingame book item
-     * @return the unlocalized name of the entry to open
+     * @return the key of the entry to open
      */
     ResourceLocation getLinkedEntry(World world, BlockPos pos, EntityPlayer player, ItemStack stack);
 }

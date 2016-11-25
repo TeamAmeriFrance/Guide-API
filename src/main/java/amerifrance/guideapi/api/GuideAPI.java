@@ -1,7 +1,11 @@
 package amerifrance.guideapi.api;
 
 import amerifrance.guideapi.api.impl.Book;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -9,14 +13,14 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class GuideAPI {
 
-    public static final List<Book> BOOKS = new ArrayList<Book>();
+    public static final List<Book> BOOKS = Lists.newArrayList();
     public static final Map<Book, ItemStack> BOOK_TO_STACK = Maps.newHashMap();
+    public static final Map<Book, Multimap<Class<? extends Block>, IInfoRenderer>> INFO_RENDERERS = Maps.newHashMap();
 
     /**
      * Obtains a new ItemStack associated with the provided book.
@@ -26,6 +30,20 @@ public class GuideAPI {
      */
     public static ItemStack getStackFromBook(Book book) {
         return BOOK_TO_STACK.get(book);
+    }
+
+    /**
+     * Registers an IInfoRenderer
+     *
+     * @param infoRenderer - The renderer to register
+     * @param blockClasses - The block classes that this should draw for
+     */
+    public static void registerInfoRenderer(Book book, IInfoRenderer infoRenderer, Class<? extends Block>... blockClasses) {
+        if (!INFO_RENDERERS.containsKey(book))
+            INFO_RENDERERS.put(book, ArrayListMultimap.<Class<? extends Block>, IInfoRenderer>create());
+
+        for (Class<? extends Block> blockClass : blockClasses)
+            INFO_RENDERERS.get(book).put(blockClass, infoRenderer);
     }
 
     /**
