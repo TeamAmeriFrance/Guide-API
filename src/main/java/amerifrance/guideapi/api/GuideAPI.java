@@ -1,10 +1,7 @@
 package amerifrance.guideapi.api;
 
 import amerifrance.guideapi.api.impl.Book;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
+import com.google.common.collect.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
@@ -18,9 +15,10 @@ import java.util.Map;
 
 public class GuideAPI {
 
-    public static final List<Book> BOOKS = Lists.newArrayList();
-    public static final Map<Book, ItemStack> BOOK_TO_STACK = Maps.newHashMap();
-    public static final Map<Book, Multimap<Class<? extends Block>, IInfoRenderer>> INFO_RENDERERS = Maps.newHashMap();
+    private static final Map<ResourceLocation, Book> BOOKS = Maps.newHashMap();
+    private static final Map<Book, ItemStack> BOOK_TO_STACK = Maps.newHashMap();
+    private static final Map<Book, Multimap<Class<? extends Block>, IInfoRenderer>> INFO_RENDERERS = Maps.newHashMap();
+    private static List<Book> indexedBooks = Lists.newArrayList();
 
     /**
      * Obtains a new ItemStack associated with the provided book.
@@ -59,10 +57,11 @@ public class GuideAPI {
      */
     @SideOnly(Side.CLIENT)
     public static void setModel(Book book, ResourceLocation modelLoc, String variantName) {
+        ModelResourceLocation mrl = new ModelResourceLocation(modelLoc, variantName);
         ModelLoader.setCustomModelResourceLocation(
                 getStackFromBook(book).getItem(),
                 0,
-                new ModelResourceLocation(modelLoc, variantName)
+                mrl
         );
     }
 
@@ -82,5 +81,21 @@ public class GuideAPI {
 
     public static void initialize() {
         // No-op. Just here to initialize fields.
+    }
+
+    public static Map<ResourceLocation, Book> getBooks() {
+        return ImmutableMap.copyOf(BOOKS);
+    }
+
+    public static Map<Book, ItemStack> getBookToStack() {
+        return ImmutableMap.copyOf(BOOK_TO_STACK);
+    }
+
+    public static Map<Book, Multimap<Class<? extends Block>, IInfoRenderer>> getInfoRenderers() {
+        return ImmutableMap.copyOf(INFO_RENDERERS);
+    }
+
+    public static List<Book> getIndexedBooks() {
+        return ImmutableList.copyOf(indexedBooks);
     }
 }

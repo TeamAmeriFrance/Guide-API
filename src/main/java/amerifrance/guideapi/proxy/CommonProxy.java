@@ -30,7 +30,7 @@ public class CommonProxy implements IGuiHandler {
         ItemStack bookStack = player.getHeldItem(EnumHand.values()[x]);
 
         if (!bookStack.isEmpty() && bookStack.getItem() instanceof IGuideItem) {
-            Book book = GuideAPI.BOOKS.get(ID);
+            Book book = GuideAPI.getIndexedBooks().get(ID);
             try {
                 if (bookStack.hasTagCompound()) {
                     NBTTagCompound tagCompound = bookStack.getTagCompound();

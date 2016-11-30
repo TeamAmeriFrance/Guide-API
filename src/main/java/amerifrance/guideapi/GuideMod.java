@@ -6,6 +6,7 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.item.ItemGuideBook;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxy.CommonProxy;
+import amerifrance.guideapi.util.APISetter;
 import amerifrance.guideapi.util.AnnotationHandler;
 import amerifrance.guideapi.util.EventHandler;
 import lombok.Getter;
@@ -52,11 +53,11 @@ public class GuideMod {
         GuideAPI.initialize();
         AnnotationHandler.registerBooks(event.getAsmData());
 
-        for (Book book : GuideAPI.BOOKS) {
+        for (Book book : GuideAPI.getBooks().values()) {
             Item guideBook = new ItemGuideBook(book);
             guideBook.setRegistryName(book.getRegistryName().toString().replace(":", "-"));
             GameRegistry.register(guideBook);
-            GuideAPI.BOOK_TO_STACK.put(book, new ItemStack(guideBook));
+            APISetter.setBookForStack(book, new ItemStack(guideBook));
         }
 
         proxy.handleModels();

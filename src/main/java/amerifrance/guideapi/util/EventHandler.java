@@ -32,7 +32,7 @@ public class EventHandler {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             NBTTagCompound tag = getModTag(player, GuideMod.ID);
             if (ConfigHandler.canSpawnWithBooks) {
-                for (Book book : GuideAPI.BOOKS) {
+                for (Book book : GuideAPI.getBooks().values()) {
                     if (book.isSpawnWithBook() && !tag.getBoolean("hasInitial" + book.getTitle())) {
                         player.inventory.addItemStackToInventory(GuideAPI.getStackFromBook(book));
                         player.inventoryContainer.detectAndSendChanges();
@@ -74,7 +74,7 @@ public class EventHandler {
                 infoRenderer.drawInformation(book, world, rayTrace.getBlockPos(), state, rayTrace, player);
         }
 
-        Multimap<Class<? extends Block>, IInfoRenderer> bookRenderers = GuideAPI.INFO_RENDERERS.get(book);
+        Multimap<Class<? extends Block>, IInfoRenderer> bookRenderers = GuideAPI.getInfoRenderers().get(book);
         if (bookRenderers == null)
             return;
 

@@ -39,7 +39,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void initColors() {
-        for (ItemStack bookStack : GuideAPI.BOOK_TO_STACK.values()) {
+        for (ItemStack bookStack : GuideAPI.getBookToStack().values()) {
             Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
                 @Override
                 public int getColorFromItemstack(ItemStack stack, int tintIndex) {

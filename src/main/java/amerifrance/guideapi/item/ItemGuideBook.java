@@ -35,7 +35,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-        player.openGui(GuideMod.INSTANCE, GuideAPI.BOOKS.indexOf(book), world, hand.ordinal(), 0, 0);
+        player.openGui(GuideMod.INSTANCE, GuideAPI.getIndexedBooks().indexOf(book), world, hand.ordinal(), 0, 0);
         return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
     }
 

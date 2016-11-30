@@ -23,11 +23,15 @@ public class AnnotationHandler {
 
                 IGuideBook guideBook = (IGuideBook) genericClass.newInstance();
                 Book book = guideBook.buildBook();
-                GuideAPI.BOOKS.add(book);
+                if (book == null)
+                    continue;
+                APISetter.registerBook(book);
                 BOOK_CLASSES.add(Pair.of(book, guideBook));
             } catch (Exception e) {
                 LogHelper.error("Error registering book for class " + data.getClassName());
             }
         }
+
+        APISetter.setIndexedBooks(Lists.newArrayList(GuideAPI.getBooks().values()));
     }
 }
