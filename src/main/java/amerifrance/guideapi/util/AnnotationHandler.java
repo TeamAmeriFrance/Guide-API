@@ -19,7 +19,7 @@ public class AnnotationHandler {
             try {
                 Class<?> genericClass = Class.forName(data.getClassName());
                 if (!IGuideBook.class.isAssignableFrom(genericClass))
-                    return;
+                    continue;
 
                 IGuideBook guideBook = (IGuideBook) genericClass.newInstance();
                 Book book = guideBook.buildBook();
@@ -29,6 +29,7 @@ public class AnnotationHandler {
                 BOOK_CLASSES.add(Pair.of(book, guideBook));
             } catch (Exception e) {
                 LogHelper.error("Error registering book for class " + data.getClassName());
+                e.printStackTrace();
             }
         }
 
