@@ -50,6 +50,7 @@ public class GuiEntry extends GuiBase {
     @Override
     public void initGui() {
         super.initGui();
+        entry.onInit(book, category, null, player, bookStack);
         this.buttonList.clear();
         this.pageWrapperList.clear();
 
