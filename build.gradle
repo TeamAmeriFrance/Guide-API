@@ -48,7 +48,7 @@ minecraft {
     runDir = "run"
 
     replace "@VERSION@", project.version
-    replaceIn "ModInformation.java"
+    replaceIn "GuideMod.java"
     replaceIn "package-info.java"
 
     if (project.hasProperty('mappings_version'))
