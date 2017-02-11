@@ -50,7 +50,7 @@ public class EventHandler {
             return;
 
         RayTraceResult rayTrace = Minecraft.getMinecraft().objectMouseOver;
-        if (rayTrace.typeOfHit != RayTraceResult.Type.BLOCK)
+        if (rayTrace == null || rayTrace.typeOfHit != RayTraceResult.Type.BLOCK)
             return;
 
         EntityPlayer player = Minecraft.getMinecraft().player;
