@@ -27,7 +27,7 @@ public class GuideAPI {
      * @return - The ItemStack associated with the provided book.
      */
     public static ItemStack getStackFromBook(Book book) {
-        return BOOK_TO_STACK.get(book);
+        return BOOK_TO_STACK.get(book) == null ? ItemStack.EMPTY : BOOK_TO_STACK.get(book);
     }
 
     /**
