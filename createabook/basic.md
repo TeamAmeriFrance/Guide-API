@@ -95,4 +95,6 @@ public class ExampleBook implements IGuideBook {
 
 **Note:** Registration is now automatic. The annotation (`@GuideBook`) is searched for during `FMLPreInitializationEvent`. All classes annotated with this will be checked if they implement `IGuideBook` and marked for registration. `handleModel(...)` is called just after registration during `FMLPreInitializationEvent`. `handlePost(...)` is called during `FMLPostInitializationEvent`.
 
+If your Guide references items from your mod, they must be initialized or it will crash. Make sure to add `before:guideapi` to your `@Mod` dependencies field.
+
 You should end up with something similar to [this](http://tehnut.info/files/examplebook.mp4).
