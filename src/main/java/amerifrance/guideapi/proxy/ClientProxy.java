@@ -47,7 +47,7 @@ public class ClientProxy extends CommonProxy {
                     if (guideItem.getBook(stack) != null && tintIndex == 0)
                         return guideItem.getBook(stack).getColor().getRGB();
 
-                    return 16777215;
+                    return -1;
                 }
             }, bookStack.getItem());
         }
