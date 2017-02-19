@@ -22,12 +22,21 @@ public class EntryResourceLocation extends Entry {
 
     public EntryResourceLocation(List<IPage> pageList, String name, ResourceLocation resourceLocation, boolean unicode) {
         super(pageList, name, unicode);
-
         this.image = resourceLocation;
     }
 
     public EntryResourceLocation(List<IPage> pageList, String name, ResourceLocation resourceLocation) {
         this(pageList, name, resourceLocation, false);
+    }
+
+    public EntryResourceLocation(String name, boolean unicode, ResourceLocation image) {
+        super(name, unicode);
+        this.image = image;
+    }
+
+    public EntryResourceLocation(String name, ResourceLocation image) {
+        super(name);
+        this.image = image;
     }
 
     @Override

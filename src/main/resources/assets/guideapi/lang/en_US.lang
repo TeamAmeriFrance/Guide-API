@@ -23,3 +23,5 @@ text.page=Page: %s
 
 #Test
 test.guide.format=This i\ns a formatting\n\ttest
+test.category.name=Test Category
+test.entry.name=Test Entry

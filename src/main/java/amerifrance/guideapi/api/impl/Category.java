@@ -21,6 +21,10 @@ public class Category extends CategoryAbstract {
         super(entryList, name);
     }
 
+    public Category(String name) {
+        super(name);
+    }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {

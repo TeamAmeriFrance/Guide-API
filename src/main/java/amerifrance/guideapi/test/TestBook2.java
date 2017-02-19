@@ -3,18 +3,13 @@ package amerifrance.guideapi.test;
 import amerifrance.guideapi.api.GuideAPI;
 import amerifrance.guideapi.api.GuideBook;
 import amerifrance.guideapi.api.IGuideBook;
-import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.Book;
-import amerifrance.guideapi.api.impl.Entry;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.PageFurnaceRecipe;
 import amerifrance.guideapi.page.PageIRecipe;
 import amerifrance.guideapi.page.PageText;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -26,8 +21,6 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.util.List;
-import java.util.Map;
 
 @GuideBook
 public class TestBook2 implements IGuideBook {
@@ -44,18 +37,13 @@ public class TestBook2 implements IGuideBook {
         book.setTitle("Title message");
         book.setWelcomeMessage("Is this still a thing?");
 
-        List<CategoryAbstract> categories = Lists.newArrayList();
-        Map<ResourceLocation, EntryAbstract> entries = Maps.newHashMap();
+        CategoryAbstract testCategory = new CategoryItemStack("test.category.name", new ItemStack(Items.BANNER)).withKeyBase("guideapi");
+        testCategory.addEntry("entry", new EntryItemStack("test.entry.name", new ItemStack(Items.POTATO)));
+        testCategory.getEntry("entry").addPage(new PageText("Hello, this is\nsome text"));
+        testCategory.getEntry("entry").addPage(new PageFurnaceRecipe(Blocks.COBBLESTONE));
+        testCategory.getEntry("entry").addPage(new PageIRecipe(new ShapedOreRecipe(Items.ACACIA_BOAT, "X X", "XXX", 'X', "plankWood")));
+        book.addCategory(testCategory);
 
-        List<IPage> pages = Lists.newArrayList();
-        pages.add(new PageText("Hello, this is\nsome text"));
-        pages.add(new PageFurnaceRecipe(Blocks.COBBLESTONE));
-        pages.add(new PageIRecipe(new ShapedOreRecipe(Items.ACACIA_BOAT, "X X", "XXX", 'X', "plankWood")));
-        Entry entry = new EntryItemStack(pages, "test.entry.name", new ItemStack(Items.POTATO));
-        entries.put(new ResourceLocation("guideapi", "entry"), entry);
-
-        categories.add(new CategoryItemStack(entries, "test.category.name", new ItemStack(Items.BANNER)));
-        book.setCategoryList(categories);
         book.setRegistryName(new ResourceLocation("guideapi", "test_book2"));
         return book;
     }

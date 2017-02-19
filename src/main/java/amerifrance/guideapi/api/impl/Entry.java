@@ -28,6 +28,14 @@ public class Entry extends EntryAbstract {
         super(pageList, name, false);
     }
 
+    public Entry(String name, boolean unicode) {
+        super(name, unicode);
+    }
+
+    public Entry(String name) {
+        super(name);
+    }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {

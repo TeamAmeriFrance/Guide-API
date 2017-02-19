@@ -25,6 +25,11 @@ public class CategoryItemStack extends Category {
         this.stack = stack;
     }
 
+    public CategoryItemStack(String name, ItemStack stack) {
+        super(name);
+        this.stack = stack;
+    }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {

@@ -5,6 +5,7 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
+import com.google.common.collect.Lists;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -16,18 +17,26 @@ import java.util.List;
 
 public abstract class EntryAbstract {
 
-    public List<IPage> pageList = new ArrayList<IPage>();
-    public String name;
+    public final List<IPage> pageList;
+    public final String name;
     public boolean unicode;
 
-    public EntryAbstract(List pageList, String name, boolean unicode) {
+    public EntryAbstract(List<IPage> pageList, String name, boolean unicode) {
         this.pageList = pageList;
         this.name = name;
         this.unicode = unicode;
     }
 
-    public EntryAbstract(List pageList, String name) {
+    public EntryAbstract(List<IPage> pageList, String name) {
         this(pageList, name, false);
+    }
+
+    public EntryAbstract(String name, boolean unicode) {
+        this(Lists.<IPage>newArrayList(), name, unicode);
+    }
+
+    public EntryAbstract(String name) {
+        this(name, false);
     }
 
     public void addPage(IPage page) {

@@ -24,6 +24,11 @@ public class CategoryResourceLocation extends Category {
         this.resourceLocation = resourceLocation;
     }
 
+    public CategoryResourceLocation(String name, ResourceLocation resourceLocation) {
+        super(name);
+        this.resourceLocation = resourceLocation;
+    }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
