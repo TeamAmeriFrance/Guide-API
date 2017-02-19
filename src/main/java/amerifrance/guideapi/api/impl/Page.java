@@ -45,7 +45,6 @@ public class Page implements IPage {
     public void onInit(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack, GuiEntry guiEntry) {
     }
 
-    @SideOnly(Side.CLIENT)
     public void setUnicodeFlag(boolean flag) {
         this.unicode = flag;
     }
