@@ -33,13 +33,13 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
         Minecraft mc = Minecraft.getMinecraft();
 
-        long time = mc.theWorld.getTotalWorldTime();
+        long time = mc.world.getTotalWorldTime();
         if (lastCycle < 0 || lastCycle < time - 20) {
             if (lastCycle > 0) {
                 cycleIdx++;
                 cycleIdx = Math.max(0, cycleIdx);
             }
-            lastCycle = mc.theWorld.getTotalWorldTime();
+            lastCycle = mc.world.getTotalWorldTime();
         }
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/recipe_elements.png"));

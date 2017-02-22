@@ -18,7 +18,7 @@ public class SerializerItemStack extends SerializerBase<ItemStack> {
     @Override
     public ItemStack deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         ResourceLocation name = new ResourceLocation(JsonHelper.getString(json, NAME, "minecraft:air"));
-        int amount = MathHelper.clamp_int(JsonHelper.getInteger(json, AMOUNT, 1), 1, 64);
+        int amount = MathHelper.clamp(JsonHelper.getInteger(json, AMOUNT, 1), 1, 64);
         int meta = JsonHelper.getInteger(json, META, 0);
 
         return new ItemStack(ForgeRegistries.ITEMS.getValue(name), amount, meta);

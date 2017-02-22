@@ -13,7 +13,7 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onPlayerJoinWorld(EntityJoinWorldEvent event) {
-        if (!event.getEntity().worldObj.isRemote && event.getEntity() instanceof EntityPlayer) {
+        if (!event.getEntity().world.isRemote && event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             NBTTagCompound tag = getModTag(player, GuideMod.ID);
             if (ConfigHandler.canSpawnWithBooks) {
