@@ -21,6 +21,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.Collection;
 
@@ -34,8 +35,7 @@ public class EventHandler {
             if (ConfigHandler.canSpawnWithBooks) {
                 for (Book book : GuideAPI.getBooks().values()) {
                     if (book.isSpawnWithBook() && !tag.getBoolean("hasInitial" + book.getTitle())) {
-                        player.inventory.addItemStackToInventory(GuideAPI.getStackFromBook(book));
-                        player.inventoryContainer.detectAndSendChanges();
+                        ItemHandlerHelper.giveItemToPlayer(player, GuideAPI.getStackFromBook(book));
                         tag.setBoolean("hasInitial" + book.getTitle(), true);
                     }
                 }
