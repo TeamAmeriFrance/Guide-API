@@ -8,6 +8,7 @@ item.guideapi.book.name=Guide-API Default Book
 button.back.name=Back
 button.next.name=Next
 button.prev.name=Previous
+button.search.name=Search
 
 #Text to draw
 text.shaped.crafting=Shaped Crafting

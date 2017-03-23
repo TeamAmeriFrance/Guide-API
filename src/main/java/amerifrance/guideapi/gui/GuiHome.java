@@ -4,12 +4,14 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.button.ButtonNext;
 import amerifrance.guideapi.button.ButtonPrev;
+import amerifrance.guideapi.button.ButtonSearch;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.network.PacketSyncHome;
 import amerifrance.guideapi.wrapper.CategoryWrapper;
 import com.google.common.collect.HashMultimap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -27,6 +29,7 @@ public class GuiHome extends GuiBase {
     public HashMultimap<Integer, CategoryWrapper> categoryWrapperMap = HashMultimap.create();
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
+    public ButtonSearch buttonSearch;
     public int categoryPage;
 
     public GuiHome(Book book, EntityPlayer player, ItemStack bookStack) {
@@ -45,8 +48,9 @@ public class GuiHome extends GuiBase {
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
-        this.buttonList.add(buttonNext = new ButtonNext(0, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
-        this.buttonList.add(buttonPrev = new ButtonPrev(1, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
+        addButton(buttonNext = new ButtonNext(0, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
+        addButton(buttonPrev = new ButtonPrev(1, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
+        addButton(buttonSearch = new ButtonSearch(2, guiLeft + xSize / 6, guiTop, this));
 
         int cX = guiLeft + 45;
         int cY = guiTop + 40;
@@ -121,37 +125,29 @@ public class GuiHome extends GuiBase {
     }
 
     @Override
-    public void mouseClicked(int mouseX, int mouseY, int typeofClick) {
-        try {
-            super.mouseClicked(mouseX, mouseY, typeofClick);
+    public void mouseClicked(int mouseX, int mouseY, int typeofClick) throws IOException {
+        super.mouseClicked(mouseX, mouseY, typeofClick);
 
-            for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage)) {
-                if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                    if (typeofClick == 0)
-                        wrapper.category.onLeftClicked(book, mouseX, mouseY, player, bookStack);
+        for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage)) {
+            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
+                if (typeofClick == 0)
+                    wrapper.category.onLeftClicked(book, mouseX, mouseY, player, bookStack);
 
-                    else if (typeofClick == 1)
-                        wrapper.category.onRightClicked(book, mouseX, mouseY, player, bookStack);
-                }
+                else if (typeofClick == 1)
+                    wrapper.category.onRightClicked(book, mouseX, mouseY, player, bookStack);
             }
-        } catch (IOException e) {
-            // Pokeball! Go!
         }
     }
 
     @Override
-    public void handleMouseInput() {
-        try {
-            super.handleMouseInput();
+    public void handleMouseInput() throws IOException {
+        super.handleMouseInput();
 
-            int movement = Mouse.getEventDWheel();
-            if (movement < 0)
-                nextPage();
-            else if (movement > 0)
-                prevPage();
-        } catch (IOException e) {
-            // Pokeball! Go!
-        }
+        int movement = Mouse.getEventDWheel();
+        if (movement < 0)
+            nextPage();
+        else if (movement > 0)
+            prevPage();
     }
 
     @Override
@@ -170,6 +166,23 @@ public class GuiHome extends GuiBase {
             nextPage();
         else if (button.id == 1 && categoryPage > 0)
             prevPage();
+
+        switch (button.id) {
+            case 0: {
+                if (categoryPage + 1 < categoryWrapperMap.asMap().size())
+                    nextPage();
+                break;
+            }
+            case 1: {
+                if (categoryPage > 0)
+                    nextPage();
+                break;
+            }
+            case 2: {
+                mc.displayGuiScreen(new GuiSearch(book, player, bookStack, this));
+                break;
+            }
+        }
     }
 
     @Override

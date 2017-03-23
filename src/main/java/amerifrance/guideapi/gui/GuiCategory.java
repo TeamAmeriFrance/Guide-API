@@ -21,9 +21,7 @@ import org.lwjgl.input.Mouse;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class GuiCategory extends GuiBase {
 
@@ -105,39 +103,30 @@ public class GuiCategory extends GuiBase {
     }
 
     @Override
-    public void mouseClicked(int mouseX, int mouseY, int typeofClick) {
-        try {
-            super.mouseClicked(mouseX, mouseY, typeofClick);
+    public void mouseClicked(int mouseX, int mouseY, int typeofClick) throws IOException {
+        super.mouseClicked(mouseX, mouseY, typeofClick);
 
-            for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
-                if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                    if (typeofClick == 0) wrapper.entry.onLeftClicked(book, category, mouseX, mouseY, player, this);
-                    else if (typeofClick == 1)
-                        wrapper.entry.onRightClicked(book, category, mouseX, mouseY, player, this);
-                }
+        for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
+            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
+                if (typeofClick == 0) wrapper.entry.onLeftClicked(book, category, mouseX, mouseY, player, this);
+                else if (typeofClick == 1)
+                    wrapper.entry.onRightClicked(book, category, mouseX, mouseY, player, this);
             }
-
-            if (typeofClick == 1) {
-                this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
-            }
-        } catch (IOException e) {
-            // Pokeball! Go!
         }
+
+        if (typeofClick == 1)
+            this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
     }
 
     @Override
-    public void handleMouseInput() {
-        try {
-            super.handleMouseInput();
+    public void handleMouseInput() throws IOException {
+        super.handleMouseInput();
 
-            int movement = Mouse.getEventDWheel();
-            if (movement < 0)
-                nextPage();
-            else if (movement > 0)
-                prevPage();
-        } catch (IOException e) {
-            // Pokeball! Go!
-        }
+        int movement = Mouse.getEventDWheel();
+        if (movement < 0)
+            nextPage();
+        else if (movement > 0)
+            prevPage();
     }
 
     @Override
