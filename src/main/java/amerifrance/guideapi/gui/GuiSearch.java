@@ -14,6 +14,7 @@ import net.minecraft.client.gui.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.config.GuiUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -61,6 +62,7 @@ public class GuiSearch extends GuiBase {
 
         searchField = new GuiTextField(3, mc.fontRendererObj, guiLeft + 43, guiTop + 12, 100, 10);
         searchField.setEnableBackgroundDrawing(false);
+        searchResults = getMatches(book, null, player, bookStack);
     }
 
     @Override
@@ -70,6 +72,10 @@ public class GuiSearch extends GuiBase {
         mc.getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
+        drawRect(searchField.xPosition - 1, searchField.yPosition - 1, searchField.xPosition + searchField.width + 1, searchField.yPosition + searchField.height + 1, new Color(166, 166, 166, 128).getRGB());
+        drawRect(searchField.xPosition, searchField.yPosition, searchField.xPosition + searchField.width, searchField.yPosition + searchField.height, new Color(58, 58, 58, 128).getRGB());
+        searchField.drawTextBox();
+
         int entryX = guiLeft + 37;
         int entryY = guiTop + 30;
 
@@ -78,9 +84,15 @@ public class GuiSearch extends GuiBase {
             for (Pair<EntryAbstract, CategoryAbstract> entry : pageResults) {
                 entry.getLeft().draw(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, fontRendererObj);
                 entry.getLeft().drawExtras(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, fontRendererObj);
-                if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, 4 * xSize / 6, 10) && Mouse.isButtonDown(0)) {
-                    GuideMod.proxy.openEntry(book, entry.getRight(), entry.getLeft(), player, bookStack);
-                    return;
+
+                if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, 4 * xSize / 6, 10)) {
+                    if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+                        GuiUtils.drawHoveringText(Lists.newArrayList(entry.getRight().getLocalizedName()), mouseX, mouseY, width, height, 300, fontRendererObj);
+
+                    if (Mouse.isButtonDown(0)) {
+                        GuideMod.proxy.openEntry(book, entry.getRight(), entry.getLeft(), player, bookStack);
+                        return;
+                    }
                 }
 
                 entryY += 13;
@@ -90,9 +102,6 @@ public class GuiSearch extends GuiBase {
         buttonPrev.visible = currentPage != 0;
         buttonNext.visible = currentPage != searchResults.size() - 1 && !searchResults.isEmpty();
 
-        drawRect(searchField.xPosition - 1, searchField.yPosition - 1, searchField.xPosition + searchField.width + 1, searchField.yPosition + searchField.height + 1, new Color(166, 166, 166, 128).getRGB());
-        drawRect(searchField.xPosition, searchField.yPosition, searchField.xPosition + searchField.width, searchField.yPosition + searchField.height, new Color(58, 58, 58, 128).getRGB());
-        searchField.drawTextBox();
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
@@ -136,6 +145,8 @@ public class GuiSearch extends GuiBase {
         if (!searchField.getText().equalsIgnoreCase(lastQuery)) {
             lastQuery = searchField.getText();
             searchResults = getMatches(book, searchField.getText(), player, bookStack);
+            if (currentPage > searchResults.size())
+                currentPage = searchResults.size() - 1;
         }
     }
 
