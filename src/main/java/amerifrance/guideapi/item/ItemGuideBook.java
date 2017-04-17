@@ -29,7 +29,11 @@ public class ItemGuideBook extends Item implements IGuideItem {
         this.book = book;
 
         setMaxStackSize(1);
-        setCreativeTab(CreativeTabs.MISC);
+        if (book.getCreativeTab() != null) {
+        	setCreativeTab(book.getCreativeTab());
+        } else {
+        	setCreativeTab(CreativeTabs.MISC);
+        }
         setUnlocalizedName(GuideMod.ID + ".book." + book.getRegistryName().getResourceDomain() + "." + book.getRegistryName().getResourcePath());
     }
 
