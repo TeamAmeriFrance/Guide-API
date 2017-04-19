@@ -3,6 +3,7 @@ package amerifrance.guideapi.api.impl;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.util.TextHelper;
 import lombok.*;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
@@ -40,6 +41,8 @@ public class Book {
     private boolean spawnWithBook;
     /** A registry name for this book. Used internally. */
     private ResourceLocation registryName;
+    /** Optionally set this to have the item appear in your creative tab rather than the misc creative tab */
+    private CreativeTabs creativeTab = CreativeTabs.MISC;
 
     /**
      * @param category - Add this category

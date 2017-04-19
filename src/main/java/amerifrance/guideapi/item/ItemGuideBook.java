@@ -9,7 +9,6 @@ import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.util.TextHelper;
 import com.google.common.base.Strings;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,7 +28,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
         this.book = book;
 
         setMaxStackSize(1);
-        setCreativeTab(CreativeTabs.MISC);
+        setCreativeTab(book.getCreativeTab());
         setUnlocalizedName(GuideMod.ID + ".book." + book.getRegistryName().getResourceDomain() + "." + book.getRegistryName().getResourcePath());
     }
 
