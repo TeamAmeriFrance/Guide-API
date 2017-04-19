@@ -42,7 +42,7 @@ public class Book {
     /** A registry name for this book. Used internally. */
     private ResourceLocation registryName;
     /** Optionally set this to have the item appear in your creative tab rather than the misc creative tab */
-    private CreativeTabs creativeTab;
+    private CreativeTabs creativeTab = CreativeTabs.MISC;
 
     /**
      * @param category - Add this category
