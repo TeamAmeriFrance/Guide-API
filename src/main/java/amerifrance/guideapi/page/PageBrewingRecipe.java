@@ -90,7 +90,7 @@ public class PageBrewingRecipe extends Page {
           tooltip = GuiHelper.getTooltip(input);
         
         
-        if (output == null || output.isEmpty())
+        if (output.isEmpty())
             output = new ItemStack(Blocks.BARRIER);
 
         //start output
