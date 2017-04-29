@@ -1,6 +1,6 @@
 package amerifrance.guideapi.page;
 
-import amerifrance.guideapi.GuideMod;
+import amerifrance.guideapi.api.SubTexture;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.Page;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
@@ -10,13 +10,11 @@ import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import lombok.EqualsAndHashCode;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
@@ -74,9 +72,7 @@ public class PageFurnaceRecipe extends Page {
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
-
-        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/recipe_elements.png"));
-        guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 65, 105, 65);
+        SubTexture.FURNACE_GRID.draw(guiLeft + 65, guiTop + 70);
 
         List badTip = new ArrayList();
         badTip.add(TextHelper.localizeEffect("text.furnace.error"));
@@ -91,10 +87,10 @@ public class PageFurnaceRecipe extends Page {
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
             tooltip = GuiHelper.getTooltip(input);
 
-        if (output == null)
+        if (output.isEmpty())
             output = new ItemStack(Blocks.BARRIER);
 
-        x = guiLeft + 123;
+        x = guiLeft + 109;
         GuiHelper.drawItemStack(output, x, y);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
             tooltip = output.getItem() == Item.getItemFromBlock(Blocks.BARRIER) ? badTip : GuiHelper.getTooltip(output);

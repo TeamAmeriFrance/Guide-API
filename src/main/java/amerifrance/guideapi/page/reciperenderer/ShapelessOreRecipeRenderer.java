@@ -30,8 +30,8 @@ public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOre
                 int i = 3 * y + x;
                 if (i >= recipe.getRecipeSize()) {
                 } else {
-                    int stackX = (x + 1) * 17 + (guiLeft + 29);
-                    int stackY = (y + 1) * 17 + (guiTop + 40);
+                    int stackX = (x + 1) * 17 + (guiLeft + 26) + x;
+                    int stackY = (y + 1) * 17 + (guiTop + 37) + y;
                     Object component = recipe.getInput().get(i);
                     if (component instanceof ItemStack) {
                         ItemStack input = (ItemStack) component;
