@@ -74,7 +74,7 @@ public class GuiBase extends GuiScreen {
     }
 
     public void drawSplitString(String string, int x, int y, int maxLength, int color) {
-        fontRendererObj.drawSplitString(string, x, y, maxLength, color);
+        fontRenderer.drawSplitString(string, x, y, maxLength, color);
     }
 
     @Override

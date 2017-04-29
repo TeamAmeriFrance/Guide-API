@@ -45,9 +45,9 @@ public class PacketSyncEntry implements IMessage, IMessageHandler<PacketSyncEntr
 
     @Override
     public IMessage onMessage(PacketSyncEntry message, MessageContext ctx) {
-        ItemStack book = ctx.getServerHandler().playerEntity.getHeldItemOffhand();
+        ItemStack book = ctx.getServerHandler().player.getHeldItemOffhand();
         if (book.isEmpty() || !(book.getItem() instanceof IGuideItem))
-            book = ctx.getServerHandler().playerEntity.getHeldItemMainhand();
+            book = ctx.getServerHandler().player.getHeldItemMainhand();
 
         if (!book.isEmpty() && book.getItem() instanceof IGuideItem) {
             if (message.category != -1 && !message.entry.equals(new ResourceLocation("guideapi", "none")) && message.page != -1) {

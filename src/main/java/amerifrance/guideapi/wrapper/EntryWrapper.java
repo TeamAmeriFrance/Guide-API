@@ -47,12 +47,12 @@ public class EntryWrapper extends AbstractWrapper {
 
     @Override
     public void draw(int mouseX, int mouseY, GuiBase gui) {
-        entry.draw(book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getMinecraft().fontRendererObj);
+        entry.draw(book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getMinecraft().fontRenderer);
     }
 
     @Override
     public void drawExtras(int mouseX, int mouseY, GuiBase gui) {
-        entry.drawExtras(book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getMinecraft().fontRendererObj);
+        entry.drawExtras(book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getMinecraft().fontRenderer);
     }
 
     @Override
