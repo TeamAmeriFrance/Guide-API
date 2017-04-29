@@ -1,6 +1,6 @@
 package amerifrance.guideapi.page;
 
-import amerifrance.guideapi.GuideMod;
+import amerifrance.guideapi.api.SubTexture;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.Page;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
@@ -9,12 +9,10 @@ import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import lombok.EqualsAndHashCode;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -55,17 +53,19 @@ public class PageBrewingRecipe extends Page {
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
 
-        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/recipe_elements.png"));
-        guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 65, 105, 65);
-
+      int xStart = guiLeft+ 68;
+      int yStart = guiTop+ 52;
+      
+      SubTexture.POTION_GRID.draw(xStart, yStart);
+ 
         List<String> badTip = new ArrayList<String>();
         badTip.add(TextHelper.localizeEffect("text.brewing.error"));
 
         guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("text.brewing.brew"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
-        int xmiddle =  guiLeft + guiBase.xSize / 2 - 6;
-        int x = xmiddle;//since item stack is approx 16 wide
-        int y = guiTop + 32;
+        //int xmiddle =  guiLeft + guiBase.xSize / 2 - 6;
+        int x = xStart + 24;//since item stack is approx 16 wide
+        int y = yStart + 1;
         //start input
         GuiHelper.drawItemStack(ingredient, x, y);
 
@@ -74,13 +74,13 @@ public class PageBrewingRecipe extends Page {
             tooltip = GuiHelper.getTooltip(input);
         
         //the three bottles
-        int hSpacing = 38;
-        y += 70;
+        y += 36;
         GuiHelper.drawItemStack(input, x, y);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
           tooltip = GuiHelper.getTooltip(input);
+        int hSpacing = 23;
         x -= hSpacing;
-        y -= 20;
+        y -= 7;
         GuiHelper.drawItemStack(input, x, y);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
           tooltip = GuiHelper.getTooltip(input);
@@ -90,18 +90,18 @@ public class PageBrewingRecipe extends Page {
           tooltip = GuiHelper.getTooltip(input);
         
         
-        if (output == null)
+        if (output == null || output.isEmpty())
             output = new ItemStack(Blocks.BARRIER);
 
         //start output
-        x = xmiddle;
-        y += 52;
+        x = xStart + 24;
+        y += 30;
         GuiHelper.drawItemStack(output, x, y);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
           tooltip = output.getItem() == Item.getItemFromBlock(Blocks.BARRIER) ? badTip : GuiHelper.getTooltip(output);
 
         if (output.getItem() == Item.getItemFromBlock(Blocks.BARRIER))
-            guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("text.furnace.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
+            guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("text.brewing.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
 
         if (tooltip != null)
             guiBase.drawHoveringText(tooltip, mouseX, mouseY);
