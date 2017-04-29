@@ -62,25 +62,25 @@ public class GuiHome extends GuiBase {
             category.onInit(book, this, player, bookStack);
             switch (drawLoc) {
                 case 0: {
-                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRendererObj, itemRender, false, bookStack));
+                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRenderer, itemRender, false, bookStack));
                     cX += 27;
                     drawLoc = 1;
                     break;
                 }
                 case 1: {
-                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRendererObj, itemRender, false, bookStack));
+                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRenderer, itemRender, false, bookStack));
                     cX += 27;
                     drawLoc = 2;
                     break;
                 }
                 case 2: {
-                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRendererObj, itemRender, false, bookStack));
+                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRenderer, itemRender, false, bookStack));
                     cX += 27;
                     drawLoc = 3;
                     break;
                 }
                 case 3: {
-                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRendererObj, itemRender, false, bookStack));
+                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRenderer, itemRender, false, bookStack));
                     drawLoc = 0;
                     cX = guiLeft + 45;
                     cY += 30;
@@ -104,7 +104,7 @@ public class GuiHome extends GuiBase {
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
-        drawCenteredString(fontRendererObj, book.getLocalizedWelcomeMessage().replace("\\n", "\n").replace("&", "\u00a7"), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
+        drawCenteredString(fontRenderer, book.getLocalizedWelcomeMessage().replace("\\n", "\n").replace("&", "\u00a7"), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
 
         for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage))
             if (wrapper.canPlayerSee())
@@ -114,8 +114,8 @@ public class GuiHome extends GuiBase {
             if (wrapper.canPlayerSee())
                 wrapper.drawExtras(mouseX, mouseY, this);
 
-        drawCenteredString(fontRendererObj, String.format("%d/%d", categoryPage + 1, categoryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
-        drawCenteredStringWithShadow(fontRendererObj, book.getLocalizedBookTitle(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
+        drawCenteredString(fontRenderer, String.format("%d/%d", categoryPage + 1, categoryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        drawCenteredStringWithShadow(fontRenderer, book.getLocalizedBookTitle(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = categoryPage != 0;
         buttonNext.visible = categoryPage != categoryWrapperMap.asMap().size() - 1 && !categoryWrapperMap.asMap().isEmpty();

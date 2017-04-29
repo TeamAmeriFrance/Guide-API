@@ -33,9 +33,9 @@ public class PacketSyncHome implements IMessage, IMessageHandler<PacketSyncHome,
 
     @Override
     public IMessage onMessage(PacketSyncHome message, MessageContext ctx) {
-        ItemStack book = ctx.getServerHandler().playerEntity.getHeldItemOffhand();
+        ItemStack book = ctx.getServerHandler().player.getHeldItemOffhand();
         if (book.isEmpty() || !(book.getItem() instanceof IGuideItem))
-            book = ctx.getServerHandler().playerEntity.getHeldItemMainhand();
+            book = ctx.getServerHandler().player.getHeldItemMainhand();
 
         if (!book.isEmpty() && book.getItem() instanceof IGuideItem && message.page != -1) {
             if (!book.hasTagCompound())

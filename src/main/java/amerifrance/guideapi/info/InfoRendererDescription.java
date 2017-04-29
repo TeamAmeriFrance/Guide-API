@@ -38,7 +38,7 @@ public class InfoRendererDescription implements IInfoRenderer {
             GlStateManager.scale(0.5F, 0.5F, 0.5F);
         }
         ScaledResolution resolution = new ScaledResolution(Minecraft.getMinecraft());
-        FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
+        FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
         int scaleMulti = tiny ? 2 : 1;
 
         GuiHelper.drawItemStack(stack, (resolution.getScaledWidth() / 2 + 55) * scaleMulti, ((resolution.getScaledHeight() / 2 - (tiny ? 20 : 30)) + yOffset) * scaleMulti);

@@ -28,19 +28,15 @@ public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecip
             for (int x = 0; x < 3; x++) {
                 int i = 3 * y + x;
                 if (i < recipe.getRecipeSize()) {
-                    int stackX = (x + 1) * 17 + (guiLeft + 29);
-                    int stackY = (y + 1) * 17 + (guiTop + 40);
+                    int stackX = (x + 1) * 17 + (guiLeft + 26) + x;
+                    int stackY = (y + 1) * 17 + (guiTop + 37) + y;
                     ItemStack stack = recipe.recipeItems.get(i);
-                    if (stack != null) {
-                        if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
-                            NonNullList<ItemStack> subItems = NonNullList.create();
-                            stack.getItem().getSubItems(stack.getItem(), stack.getItem().getCreativeTab(), subItems);
-                            stack = subItems.get(getRandomizedCycle(x, subItems.size()));
-                        }
+                    if (!stack.isEmpty()) {
+                        if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
+                            stack = getNextItem(stack, x);
                         GuiHelper.drawItemStack(stack, stackX, stackY);
-                        if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
+                        if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                             tooltips = GuiHelper.getTooltip(stack);
-                        }
                     }
                 }
             }

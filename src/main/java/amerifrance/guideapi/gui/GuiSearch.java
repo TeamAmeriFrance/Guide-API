@@ -60,7 +60,7 @@ public class GuiSearch extends GuiBase {
         addButton(buttonNext = new ButtonNext(1, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
         addButton(buttonPrev = new ButtonPrev(2, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
 
-        searchField = new GuiTextField(3, mc.fontRendererObj, guiLeft + 43, guiTop + 12, 100, 10);
+        searchField = new GuiTextField(3, fontRenderer, guiLeft + 43, guiTop + 12, 100, 10);
         searchField.setEnableBackgroundDrawing(false);
         searchResults = getMatches(book, null, player, bookStack);
     }
@@ -82,12 +82,12 @@ public class GuiSearch extends GuiBase {
         if (searchResults.size() != 0 && currentPage >= 0 && currentPage < searchResults.size()) {
             List<Pair<EntryAbstract, CategoryAbstract>> pageResults = searchResults.get(currentPage);
             for (Pair<EntryAbstract, CategoryAbstract> entry : pageResults) {
-                entry.getLeft().draw(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, fontRendererObj);
-                entry.getLeft().drawExtras(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, fontRendererObj);
+                entry.getLeft().draw(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, fontRenderer);
+                entry.getLeft().drawExtras(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, fontRenderer);
 
                 if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, 4 * xSize / 6, 10)) {
                     if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
-                        GuiUtils.drawHoveringText(Lists.newArrayList(entry.getRight().getLocalizedName()), mouseX, mouseY, width, height, 300, fontRendererObj);
+                        GuiUtils.drawHoveringText(Lists.newArrayList(entry.getRight().getLocalizedName()), mouseX, mouseY, width, height, 300, fontRenderer);
 
                     if (Mouse.isButtonDown(0)) {
                         GuideMod.proxy.openEntry(book, entry.getRight(), entry.getLeft(), player, bookStack);

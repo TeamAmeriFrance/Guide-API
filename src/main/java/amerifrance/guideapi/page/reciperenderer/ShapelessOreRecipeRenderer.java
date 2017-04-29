@@ -30,33 +30,26 @@ public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOre
                 int i = 3 * y + x;
                 if (i >= recipe.getRecipeSize()) {
                 } else {
-                    int stackX = (x + 1) * 17 + (guiLeft + 29);
-                    int stackY = (y + 1) * 17 + (guiTop + 40);
+                    int stackX = (x + 1) * 17 + (guiLeft + 26) + x;
+                    int stackY = (y + 1) * 17 + (guiTop + 37) + y;
                     Object component = recipe.getInput().get(i);
-                    if (component != null) {
-                        if (component instanceof ItemStack) {
-                            ItemStack input = (ItemStack) component;
-                            if (input.getItemDamage() == OreDictionary.WILDCARD_VALUE)
-                                input.setItemDamage(0);
+                    if (component instanceof ItemStack) {
+                        ItemStack input = (ItemStack) component;
+                        if (input.getItemDamage() == OreDictionary.WILDCARD_VALUE)
+                            input = getNextItem(input, x);
 
-                            GuiHelper.drawItemStack((ItemStack) component, stackX, stackY);
-                            if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
-                                tooltips = GuiHelper.getTooltip((ItemStack) component);
-                            }
-                        } else {
-                            List<ItemStack> list = (List<ItemStack>) component;
-                            if (!list.isEmpty()) {
-                                ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
-                                if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
-                                    NonNullList<ItemStack> subItems = NonNullList.create();
-                                    stack.getItem().getSubItems(stack.getItem(), stack.getItem().getCreativeTab(), subItems);
-                                    stack = subItems.get(getRandomizedCycle(x, subItems.size()));
-                                }
-                                GuiHelper.drawItemStack(stack, stackX, stackY);
-                                if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
-                                    tooltips = GuiHelper.getTooltip(stack);
-                                }
-                            }
+                        GuiHelper.drawItemStack(input, stackX, stackY);
+                        if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
+                            tooltips = GuiHelper.getTooltip(input);
+                    } else {
+                        List<ItemStack> list = (List<ItemStack>) component;
+                        if (!list.isEmpty()) {
+                            ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
+                            if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
+                                stack = getNextItem(stack, x);
+                            GuiHelper.drawItemStack(stack, stackX, stackY);
+                            if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
+                                tooltips = GuiHelper.getTooltip(stack);
                         }
                     }
                 }
