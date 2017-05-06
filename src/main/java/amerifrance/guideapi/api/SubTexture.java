@@ -13,12 +13,12 @@ public class SubTexture {
 
     private static final ResourceLocation RECIPE_ELEMENTS = new ResourceLocation("guideapi", "textures/gui/recipe_elements.png");
     // Grids
-    public static final SubTexture CRAFTING_GRID = new SubTexture(RECIPE_ELEMENTS, 0, 46, 100, 54);
-    public static final SubTexture FURNACE_GRID = new SubTexture(RECIPE_ELEMENTS, 0, 100, 66, 28);
-    public static final SubTexture POTION_GRID = new SubTexture(RECIPE_ELEMENTS, 0, 128, 64, 77);
+    public static final SubTexture CRAFTING_GRID = new SubTexture(RECIPE_ELEMENTS, 0, 48, 102, 56);
+    public static final SubTexture FURNACE_GRID = new SubTexture(RECIPE_ELEMENTS, 0, 104, 68, 28);
+    public static final SubTexture POTION_GRID = new SubTexture(RECIPE_ELEMENTS, 0, 132, 68, 81);
 
     // Singletons
-    public static final SubTexture SINGLE_SLOT = new SubTexture(RECIPE_ELEMENTS, 0, 28, 18, 18);
+    public static final SubTexture SINGLE_SLOT = new SubTexture(RECIPE_ELEMENTS, 0, 28, 20, 20);
 
     // Large buttons
     public static final SubTexture LARGE_BUTTON = new SubTexture(RECIPE_ELEMENTS, 0, 0, 55, 18);
@@ -55,15 +55,17 @@ public class SubTexture {
 
     @SideOnly(Side.CLIENT)
     public void draw(int drawX, int drawY, double zLevel) {
+        final float someMagicValueFromMojang = 0.00390625F;
+
         Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         Tessellator tessellator = Tessellator.getInstance();
         VertexBuffer vertexbuffer = tessellator.getBuffer();
         vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        vertexbuffer.pos((double)(drawX), (double)(drawY + height), zLevel).tex((double)((float)(xPos) * 0.00390625F), (double)((float)(yPos + height) * 0.00390625F)).endVertex();
-        vertexbuffer.pos((double)(drawX + width), (double)(drawY + height), zLevel).tex((double)((float)(xPos + width) * 0.00390625F), (double)((float)(yPos + height) * 0.00390625F)).endVertex();
-        vertexbuffer.pos((double)(drawX + width), (double)(drawY), zLevel).tex((double)((float)(xPos + width) * 0.00390625F), (double)((float)(yPos) * 0.00390625F)).endVertex();
-        vertexbuffer.pos((double)(drawX), (double)(drawY), zLevel).tex((double)((float)(xPos) * 0.00390625F), (double)((float)(yPos) * 0.00390625F)).endVertex();
+        vertexbuffer.pos((double) drawX, (double)(drawY + height), zLevel).tex((double)((float) xPos * someMagicValueFromMojang), (double)((float)(yPos + height) * someMagicValueFromMojang)).endVertex();
+        vertexbuffer.pos((double)(drawX + width), (double)(drawY + height), zLevel).tex((double)((float)(xPos + width) * someMagicValueFromMojang), (double)((float)(yPos + height) * someMagicValueFromMojang)).endVertex();
+        vertexbuffer.pos((double)(drawX + width), (double) drawY, zLevel).tex((double)((float)(xPos + width) * someMagicValueFromMojang), (double)((float) yPos * someMagicValueFromMojang)).endVertex();
+        vertexbuffer.pos((double)drawX, (double) drawY, zLevel).tex((double)((float) xPos * someMagicValueFromMojang), (double)((float) yPos * someMagicValueFromMojang)).endVertex();
         tessellator.draw();
     }
 

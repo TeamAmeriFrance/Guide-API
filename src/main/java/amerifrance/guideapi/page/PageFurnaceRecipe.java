@@ -72,7 +72,7 @@ public class PageFurnaceRecipe extends Page {
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
-        SubTexture.FURNACE_GRID.draw(guiLeft + 65, guiTop + 70);
+        SubTexture.FURNACE_GRID.draw(guiLeft + 64, guiTop + 71);
 
         List badTip = new ArrayList();
         badTip.add(TextHelper.localizeEffect("text.furnace.error"));

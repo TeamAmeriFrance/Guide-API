@@ -25,8 +25,8 @@ public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipes> {
         super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
         for (int y = 0; y < recipe.recipeHeight; y++) {
             for (int x = 0; x < recipe.recipeWidth; x++) {
-                int stackX = (x + 1) * 17 + (guiLeft + 26) + x;
-                int stackY = (y + 1) * 17 + (guiTop + 37) + y;
+                int stackX = (x + 1) * 17 + (guiLeft + 27) + x;
+                int stackY = (y + 1) * 17 + (guiTop + 38) + y;
                 ItemStack stack = recipe.recipeItems[y * recipe.recipeWidth + x];
                 if (!stack.isEmpty()) {
                     if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
