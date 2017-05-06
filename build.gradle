@@ -49,6 +49,7 @@ minecraft {
 
     replace "@VERSION@", project.version
     replaceIn "GuideMod.java"
+    replace "@API_VERSION@", "${api_version}"
     replaceIn "package-info.java"
 
     if (project.hasProperty('mappings_version'))
