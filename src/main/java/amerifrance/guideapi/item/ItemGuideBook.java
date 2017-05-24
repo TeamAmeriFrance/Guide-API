@@ -49,6 +49,9 @@ public class ItemGuideBook extends Item implements IGuideItem {
         if (state.getBlock() instanceof IGuideLinked) {
             IGuideLinked guideLinked = (IGuideLinked) state.getBlock();
             ResourceLocation entryKey = guideLinked.getLinkedEntry(world, pos, player, stack);
+            if (entryKey == null)
+                return EnumActionResult.FAIL;
+
             for (CategoryAbstract category : book.getCategoryList()) {
                 if (category.entries.containsKey(entryKey)) {
                     GuideMod.proxy.openEntry(book, category, category.entries.get(entryKey), player, stack);

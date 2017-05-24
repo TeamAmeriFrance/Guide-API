@@ -4,17 +4,26 @@ import amerifrance.guideapi.ConfigHandler;
 import amerifrance.guideapi.GuideMod;
 import amerifrance.guideapi.api.GuideAPI;
 import amerifrance.guideapi.api.IGuideItem;
+import amerifrance.guideapi.api.IGuideLinked;
 import amerifrance.guideapi.api.IInfoRenderer;
 import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.util.TextHelper;
+import com.google.common.base.Strings;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -55,10 +64,12 @@ public class EventHandler {
 
         EntityPlayer player = Minecraft.getMinecraft().player;
         World world = Minecraft.getMinecraft().world;
+        ItemStack held = ItemStack.EMPTY;
         Book book = null;
         for (EnumHand hand : EnumHand.values()) {
             ItemStack heldStack = player.getHeldItem(hand);
             if (heldStack.getItem() instanceof IGuideItem) {
+                held = heldStack;
                 book = ((IGuideItem) heldStack.getItem()).getBook(heldStack);
                 break;
             }
@@ -68,6 +79,34 @@ public class EventHandler {
             return;
 
         IBlockState state = world.getBlockState(rayTrace.getBlockPos());
+        String linkedEntry = null;
+        if (state.getBlock() instanceof IGuideLinked) {
+            IGuideLinked linked = (IGuideLinked) state.getBlock();
+            ResourceLocation entryKey = linked.getLinkedEntry(world, rayTrace.getBlockPos(), player, held);
+            if (entryKey != null) {
+                for (CategoryAbstract category : book.getCategoryList()) {
+                    if (category.entries.containsKey(entryKey)) {
+                        linkedEntry = category.getEntry(entryKey).getLocalizedName();
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (!Strings.isNullOrEmpty(linkedEntry)) {
+            FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
+            ScaledResolution scaledResolution = new ScaledResolution(Minecraft.getMinecraft());
+            int drawX = scaledResolution.getScaledWidth() / 2 + 10;
+            int drawY = scaledResolution.getScaledHeight() / 2 - 8;
+
+            Minecraft.getMinecraft().getRenderItem().renderItemIntoGUI(held, drawX, drawY);
+
+            drawY -= 2;
+            drawX += 20;
+            fontRenderer.drawStringWithShadow(TextFormatting.WHITE + linkedEntry, drawX, drawY, 0);
+            fontRenderer.drawStringWithShadow(TextFormatting.WHITE.toString() + TextFormatting.ITALIC.toString() + TextHelper.localize("text.linked.open"), drawX, drawY + 12, 0);
+        }
+
         if (state.getBlock() instanceof IInfoRenderer.Block) {
             IInfoRenderer infoRenderer = ((IInfoRenderer.Block) state.getBlock()).getInfoRenderer(book, world, rayTrace.getBlockPos(), state, rayTrace, player);
             if (book == ((IInfoRenderer.Block) state.getBlock()).getBook() && infoRenderer != null)
@@ -86,12 +125,14 @@ public class EventHandler {
     public NBTTagCompound getModTag(EntityPlayer player, String modName) {
         NBTTagCompound tag = player.getEntityData();
         NBTTagCompound persistTag;
+
         if (tag.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
             persistTag = tag.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
         else {
             persistTag = new NBTTagCompound();
             tag.setTag(EntityPlayer.PERSISTED_NBT_TAG, persistTag);
         }
+
         NBTTagCompound modTag;
         if (persistTag.hasKey(modName)) {
             modTag = persistTag.getCompoundTag(modName);
