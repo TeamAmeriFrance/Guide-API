@@ -8,6 +8,7 @@ import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
+import com.google.common.base.Strings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
@@ -23,6 +24,7 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
     private long lastCycle = -1;
     private int cycleIdx = 0;
     private Random rand = new Random();
+    private String customDisplay;
 
     public BasicRecipeRenderer(T recipe) {
         super(recipe);
@@ -42,7 +44,9 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
         }
 
         SubTexture.CRAFTING_GRID.draw(guiLeft + 42, guiTop + 53);
-        guiBase.drawCenteredString(fontRendererObj, getRecipeName(), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
+
+        String recipeName = Strings.isNullOrEmpty(customDisplay) ? getRecipeName() : customDisplay;
+        guiBase.drawCenteredString(fontRendererObj, recipeName, guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
         int outputX = (5 * 18) + (guiLeft + guiBase.xSize / 7) + 5;
         int outputY = (2 * 18) + (guiTop + guiBase.xSize / 5);
@@ -71,5 +75,9 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
 
     protected String getRecipeName() {
         return TextHelper.localizeEffect("text.shaped.crafting");
+    }
+
+    public void setCustomTitle(String customDisplay) {
+        this.customDisplay = customDisplay;
     }
 }
