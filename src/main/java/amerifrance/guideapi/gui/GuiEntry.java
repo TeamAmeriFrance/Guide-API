@@ -15,6 +15,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -74,6 +75,8 @@ public class GuiEntry extends GuiBase {
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
+        pageNumber = MathHelper.clamp(pageNumber, 0, pageWrapperList.size() - 1);
+
         if (pageNumber < pageWrapperList.size()) {
             if (pageWrapperList.get(pageNumber).canPlayerSee()) {
                 pageWrapperList.get(pageNumber).draw(mouseX, mouseY, this);
@@ -91,41 +94,33 @@ public class GuiEntry extends GuiBase {
     }
 
     @Override
-    public void mouseClicked(int mouseX, int mouseY, int typeofClick) {
-        try {
-            super.mouseClicked(mouseX, mouseY, typeofClick);
-            for (PageWrapper wrapper : this.pageWrapperList) {
-                if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                    if (typeofClick == 0) {
-                        pageWrapperList.get(pageNumber).page.onLeftClicked(book, category, entry, mouseX, mouseY, player, this);
-                    }
-                    if (typeofClick == 1) {
-                        pageWrapperList.get(pageNumber).page.onRightClicked(book, category, entry, mouseX, mouseY, player, this);
-                    }
+    public void mouseClicked(int mouseX, int mouseY, int typeofClick) throws IOException {
+        super.mouseClicked(mouseX, mouseY, typeofClick);
+        for (PageWrapper wrapper : this.pageWrapperList) {
+            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
+                if (typeofClick == 0) {
+                    pageWrapperList.get(pageNumber).page.onLeftClicked(book, category, entry, mouseX, mouseY, player, this);
+                }
+                if (typeofClick == 1) {
+                    pageWrapperList.get(pageNumber).page.onRightClicked(book, category, entry, mouseX, mouseY, player, this);
                 }
             }
+        }
 
-            if (typeofClick == 1) {
-                this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack));
-            }
-        } catch (IOException e) {
-            // Pokeball! Go!
+        if (typeofClick == 1) {
+            this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack));
         }
     }
 
     @Override
-    public void handleMouseInput() {
-        try {
-            super.handleMouseInput();
+    public void handleMouseInput() throws IOException {
+        super.handleMouseInput();
 
-            int movement = Mouse.getEventDWheel();
-            if (movement < 0)
-                nextPage();
-            else if (movement > 0)
-                prevPage();
-        } catch (IOException e) {
-            // Pokeball! Go!
-        }
+        int movement = Mouse.getEventDWheel();
+        if (movement < 0)
+            nextPage();
+        else if (movement > 0)
+            prevPage();
     }
 
     @Override
