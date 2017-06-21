@@ -38,11 +38,14 @@ public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe
     @Override
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
         super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
+        
+      
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 int stackX = (x + 1) * 17 + (guiLeft + 27) + x;
                 int stackY = (y + 1) * 17 + (guiTop + 38) + y; 
-                Object component = recipe.getInput()[y * width + x];
+                
+                Object component = recipe.getIngredients().get(y * width + x);
                 if (component != null) {
                     if (component instanceof ItemStack) {
                         ItemStack input = (ItemStack) component;

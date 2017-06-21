@@ -45,7 +45,8 @@ public class TestBook2 implements IGuideBook {
         testCategory.addEntry("entry", new EntryItemStack("test.entry.name", new ItemStack(Items.POTATO)));
         testCategory.getEntry("entry").addPage(new PageText("Hello, this is\nsome text"));
         testCategory.getEntry("entry").addPage(new PageFurnaceRecipe(Blocks.COBBLESTONE));
-        testCategory.getEntry("entry").addPage(new PageIRecipe(new ShapedOreRecipe(Items.ACACIA_BOAT, "X X", "XXX", 'X', "plankWood")));
+        //TODO add recipe test
+     //   testCategory.getEntry("entry").addPage(new PageIRecipe(new ShapedOreRecipe(Items.ACACIA_BOAT, "X X", "XXX", 'X', "plankWood")));
         testCategory.getEntry("entry").addPage(new PageBrewingRecipe(new BrewingRecipe(
             PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.AWKWARD),
             new ItemStack(Items.SPECKLED_MELON),
@@ -64,6 +65,6 @@ public class TestBook2 implements IGuideBook {
 
     @Override
     public void handlePost(ItemStack bookStack) {
-        GameRegistry.addRecipe(new ShapedOreRecipe(bookStack, "X X", " X ", "X X", 'X', "ingotIron"));
+      //  GameRegistry.addRecipe(new ShapedOreRecipe(bookStack, "X X", " X ", "X X", 'X', "ingotIron"));
     }
 }

@@ -47,7 +47,8 @@ public class TestBook implements IGuideBook {
         List<IPage> pages = Lists.newArrayList();
         pages.add(new PageText("Hello, this is\nsome text"));
         pages.add(new PageFurnaceRecipe(Blocks.COBBLESTONE));
-        pages.add(new PageIRecipe(new ShapedOreRecipe(Items.ACACIA_BOAT, "X X", "XXX", 'X', "plankWood")));
+        //TODO add recipe test
+     //   pages.add(new PageIRecipe(new ShapedOreRecipe(Items.ACACIA_BOAT, "X X", "XXX", 'X', "plankWood")));
         Entry entry = new EntryItemStack(pages, "test.entry.name", new ItemStack(Items.POTATO));
         entries.put(new ResourceLocation("guideapi", "entry"), entry);
 
@@ -65,6 +66,6 @@ public class TestBook implements IGuideBook {
 
     @Override
     public void handlePost(ItemStack bookStack) {
-        GameRegistry.addRecipe(new ShapedOreRecipe(bookStack, "X X", " X ", "X X", 'X', "ingotIron"));
+        GameRegistry.addShapedRecipe(new ResourceLocation("guideapi","testbook1"),bookStack, "X X", " X ", "X X", 'X', "ingotIron");
     }
 }

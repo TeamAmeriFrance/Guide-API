@@ -28,11 +28,13 @@ public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOre
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
                 int i = 3 * y + x;
-                if (i >= recipe.getRecipeSize()) {
-                } else {
+//                if (i >= recipe.getRecipeSize()) {
+//                } else {
                     int stackX = (x + 1) * 17 + (guiLeft + 27) + x;
                     int stackY = (y + 1) * 17 + (guiTop + 38) + y;
-                    Object component = recipe.getInput().get(i);
+                    
+                    
+                    Object component = recipe.getIngredients().get(i);
                     if (component instanceof ItemStack) {
                         ItemStack input = (ItemStack) component;
                         if (input.getItemDamage() == OreDictionary.WILDCARD_VALUE)
@@ -52,7 +54,7 @@ public class ShapelessOreRecipeRenderer extends BasicRecipeRenderer<ShapelessOre
                                 tooltips = GuiHelper.getTooltip(stack);
                         }
                     }
-                }
+               // }
             }
         }
     }

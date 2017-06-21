@@ -7,6 +7,7 @@ import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
@@ -27,11 +28,13 @@ public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipes> {
             for (int x = 0; x < recipe.recipeWidth; x++) {
                 int stackX = (x + 1) * 17 + (guiLeft + 27) + x;
                 int stackY = (y + 1) * 17 + (guiTop + 38) + y;
-                ItemStack stack = recipe.recipeItems[y * recipe.recipeWidth + x];
+                Ingredient ing =  recipe.recipeItems.get(y * recipe.recipeWidth + x);
+                if(ing.getMatchingStacks().length==0){continue;}
+                ItemStack stack = ing.getMatchingStacks()[0];
                 if (!stack.isEmpty()) {
                     if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
                         NonNullList<ItemStack> subItems = NonNullList.create();
-                        stack.getItem().getSubItems(stack.getItem(), stack.getItem().getCreativeTab(), subItems);
+                        stack.getItem().getSubItems( stack.getItem().getCreativeTab(), subItems);
                         stack = subItems.get(getRandomizedCycle(x, subItems.size()));
                     }
 
