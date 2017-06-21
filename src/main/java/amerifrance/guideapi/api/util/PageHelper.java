@@ -92,7 +92,7 @@ public class PageHelper {
         if (recipe1 == null || recipe2 == null || recipe1.getClass() != recipe2.getClass()) return false;
         if (recipe1.equals(recipe2)) return true;
         if (!recipe1.getRecipeOutput().isItemEqual(recipe2.getRecipeOutput())) return false;
-        if (recipe1.getRecipeSize() != recipe2.getRecipeSize()) return false;
+//        if (recipe1.getRecipeSize() != recipe2.getRecipeSize()) return false;//FN was removed, there is no size now
         return true;
     }
 }

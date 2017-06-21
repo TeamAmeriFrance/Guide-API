@@ -124,7 +124,7 @@ public class GuiHome extends GuiBase {
         buttonNext.visible = categoryPage != categoryWrapperMap.asMap().size() - 1 && !categoryWrapperMap.asMap().isEmpty();
 
         for (GuiButton button : this.buttonList)
-            button.drawButton(this.mc, mouseX, mouseY);
+            button.drawButton(this.mc, mouseX, mouseY, renderPartialTicks);
     }
 
     @Override

@@ -3,7 +3,7 @@ package amerifrance.guideapi.api;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -60,7 +60,7 @@ public class SubTexture {
         Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer vertexbuffer = tessellator.getBuffer();
+        BufferBuilder vertexbuffer = tessellator.getBuffer();
         vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
         vertexbuffer.pos((double) drawX, (double)(drawY + height), zLevel).tex((double)((float) xPos * someMagicValueFromMojang), (double)((float)(yPos + height) * someMagicValueFromMojang)).endVertex();
         vertexbuffer.pos((double)(drawX + width), (double)(drawY + height), zLevel).tex((double)((float)(xPos + width) * someMagicValueFromMojang), (double)((float)(yPos + height) * someMagicValueFromMojang)).endVertex();

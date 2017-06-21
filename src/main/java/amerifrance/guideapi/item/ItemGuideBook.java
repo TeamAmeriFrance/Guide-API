@@ -9,6 +9,8 @@ import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.util.TextHelper;
 import com.google.common.base.Strings;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -69,10 +71,10 @@ public class ItemGuideBook extends Item implements IGuideItem {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, World playerIn, List<String> tooltip, ITooltipFlag advanced) {
         if (!Strings.isNullOrEmpty(book.getAuthor()))
             tooltip.add(TextHelper.localizeEffect(book.getAuthor()));
-        if (!Strings.isNullOrEmpty(book.getAuthor()) && advanced)
+        if (!Strings.isNullOrEmpty(book.getAuthor()) && (advanced == TooltipFlags.ADVANCED))
             tooltip.add(book.getRegistryName().toString());
     }
 

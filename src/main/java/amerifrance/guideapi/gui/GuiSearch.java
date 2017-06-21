@@ -72,8 +72,8 @@ public class GuiSearch extends GuiBase {
         mc.getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
-        drawRect(searchField.xPosition - 1, searchField.yPosition - 1, searchField.xPosition + searchField.width + 1, searchField.yPosition + searchField.height + 1, new Color(166, 166, 166, 128).getRGB());
-        drawRect(searchField.xPosition, searchField.yPosition, searchField.xPosition + searchField.width, searchField.yPosition + searchField.height, new Color(58, 58, 58, 128).getRGB());
+        drawRect(searchField.x - 1, searchField.y - 1, searchField.x + searchField.width + 1, searchField.y + searchField.height + 1, new Color(166, 166, 166, 128).getRGB());
+        drawRect(searchField.x, searchField.y, searchField.x + searchField.width, searchField.y + searchField.height, new Color(58, 58, 58, 128).getRGB());
         searchField.drawTextBox();
 
         int entryX = guiLeft + 37;
@@ -110,7 +110,7 @@ public class GuiSearch extends GuiBase {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
         if (mouseButton == 1) {
-            if (GuiHelper.isMouseBetween(mouseX, mouseY, searchField.xPosition, searchField.yPosition, searchField.width, searchField.height)) {
+            if (GuiHelper.isMouseBetween(mouseX, mouseY, searchField.x, searchField.y, searchField.width, searchField.height)) {
                 searchField.setText("");
                 lastQuery = "";
                 searchResults = getMatches(book, "", player, bookStack);

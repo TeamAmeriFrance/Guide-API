@@ -22,18 +22,18 @@ public class ButtonNext extends ButtonGuideAPI {
     }
 
     @Override
-    public void drawButton(Minecraft minecraft, int mouseX, int mouseY) {
+    public void drawButton(Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
             RenderHelper.enableGUIStandardItemLighting();
             GlStateManager.enableBlend();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.disableLighting();
             minecraft.getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png"));
-            if (GuiHelper.isMouseBetween(mouseX, mouseY, xPosition, yPosition, width, height)) {
-                this.drawTexturedModalRect(xPosition, yPosition + 1, 47, 201, 18, 10);
+            if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) {
+                this.drawTexturedModalRect(x, y + 1, 47, 201, 18, 10);
                 guiBase.drawHoveringText(getHoveringText(), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
             } else {
-                this.drawTexturedModalRect(xPosition, yPosition, 24, 201, 18, 10);
+                this.drawTexturedModalRect(x, y, 24, 201, 18, 10);
             }
             GlStateManager.disableBlend();
             RenderHelper.disableStandardItemLighting();

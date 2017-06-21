@@ -41,7 +41,7 @@ public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 int stackX = (x + 1) * 17 + (guiLeft + 27) + x;
-                int stackY = (y + 1) * 17 + (guiTop + 38) + y;
+                int stackY = (y + 1) * 17 + (guiTop + 38) + y; 
                 Object component = recipe.getInput()[y * width + x];
                 if (component != null) {
                     if (component instanceof ItemStack) {
