@@ -66,6 +66,6 @@ public class TestBook implements IGuideBook {
 
     @Override
     public void handlePost(ItemStack bookStack) {
-        GameRegistry.addShapedRecipe(new ResourceLocation("guideapi","testbook1"),bookStack, "X X", " X ", "X X", 'X', "ingotIron");
+      //  GameRegistry.addShapedRecipe(new ResourceLocation("guideapi","testbook1"),bookStack, "X X", " X ", "X X", 'X', "ingotIron");
     }
 }
