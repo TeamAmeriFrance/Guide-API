@@ -10,10 +10,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.OreIngredient;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 // TODO: Fix rendering of recipe
@@ -55,8 +57,10 @@ public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe
                         GuiHelper.drawItemStack(input, stackX, stackY);
                         if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                             tooltips = GuiHelper.getTooltip(input);
-                    } else {
-                        List<ItemStack> list = (List<ItemStack>) component;
+                    }
+                    else if(component instanceof  OreIngredient){
+                      OreIngredient ing = ( OreIngredient) component;
+                      List<ItemStack> list = Arrays.asList(    ing.getMatchingStacks());
                         if (!list.isEmpty()) {
                             ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
                             if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
@@ -65,6 +69,7 @@ public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe
                             if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                                 tooltips = GuiHelper.getTooltip(stack);
                         }
+                   
                     }
                 }
             }
