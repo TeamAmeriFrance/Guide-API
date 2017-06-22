@@ -15,7 +15,9 @@ import com.google.common.collect.Maps;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -47,7 +49,7 @@ public class TestBook implements IGuideBook {
         List<IPage> pages = Lists.newArrayList();
         pages.add(new PageText("Hello, this is\nsome text"));
         pages.add(new PageFurnaceRecipe(Blocks.COBBLESTONE));
-        pages.add(new PageIRecipe(new ShapedOreRecipe(Items.ACACIA_BOAT, "X X", "XXX", 'X', "plankWood")));
+        pages.add(new PageIRecipe(new ShapedOreRecipe(new ResourceLocation("gi","test1"),Items.ACACIA_BOAT, "X X", "XXX", 'X', "plankWood")));
         Entry entry = new EntryItemStack(pages, "test.entry.name", new ItemStack(Items.POTATO));
         entries.put(new ResourceLocation("guideapi", "entry"), entry);
 
@@ -65,6 +67,9 @@ public class TestBook implements IGuideBook {
 
     @Override
     public void handlePost(ItemStack bookStack) {
-        GameRegistry.addRecipe(new ShapedOreRecipe(bookStack, "X X", " X ", "X X", 'X', "ingotIron"));
+      CraftingHelper.ShapedPrimer primer = CraftingHelper.parseShaped("X X", " X ", "X X", 'X', "ingotIron");
+      ShapedRecipes recipe = new ShapedRecipes(bookStack.getItem().getRegistryName().toString(), primer.width, primer.height, primer.input, bookStack);
+      recipe.setRegistryName(new ResourceLocation("guideapi","testbook1"));
+      GameRegistry.register(recipe);
     }
 }

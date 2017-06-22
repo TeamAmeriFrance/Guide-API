@@ -10,10 +10,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.OreIngredient;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 // TODO: Fix rendering of recipe
@@ -38,11 +40,14 @@ public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe
     @Override
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
         super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
+        
+      
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 int stackX = (x + 1) * 17 + (guiLeft + 27) + x;
-                int stackY = (y + 1) * 17 + (guiTop + 38) + y;
-                Object component = recipe.getInput()[y * width + x];
+                int stackY = (y + 1) * 17 + (guiTop + 38) + y; 
+                
+                Object component = recipe.getIngredients().get(y * width + x);
                 if (component != null) {
                     if (component instanceof ItemStack) {
                         ItemStack input = (ItemStack) component;
@@ -52,8 +57,9 @@ public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe
                         GuiHelper.drawItemStack(input, stackX, stackY);
                         if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                             tooltips = GuiHelper.getTooltip(input);
-                    } else {
-                        List<ItemStack> list = (List<ItemStack>) component;
+                    } else if(component instanceof OreIngredient) {
+                      OreIngredient ing = (OreIngredient) component;
+                      List<ItemStack> list = Arrays.asList(ing.getMatchingStacks());
                         if (!list.isEmpty()) {
                             ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
                             if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
@@ -62,6 +68,7 @@ public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe
                             if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                                 tooltips = GuiHelper.getTooltip(stack);
                         }
+                   
                     }
                 }
             }
