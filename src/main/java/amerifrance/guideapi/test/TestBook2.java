@@ -15,9 +15,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.brewing.BrewingRecipe;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -64,6 +66,9 @@ public class TestBook2 implements IGuideBook {
 
     @Override
     public void handlePost(ItemStack bookStack) {
-      //  GameRegistry.addRecipe(new ShapedOreRecipe(bookStack, "X X", " X ", "X X", 'X', "ingotIron"));
+      CraftingHelper.ShapedPrimer primer = CraftingHelper.parseShaped("X X", " X ", "X X", 'X', "ingotIron");
+      ShapedRecipes recipe = new ShapedRecipes(bookStack.getItem().getRegistryName().toString(), primer.width, primer.height, primer.input, bookStack);
+      recipe.setRegistryName(new ResourceLocation("guideapi","testbook2"));
+      GameRegistry.register(recipe);
     }
 }

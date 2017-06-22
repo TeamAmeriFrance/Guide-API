@@ -15,7 +15,9 @@ import com.google.common.collect.Maps;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -65,6 +67,9 @@ public class TestBook implements IGuideBook {
 
     @Override
     public void handlePost(ItemStack bookStack) {
-       // GameRegistry.addShapedRecipe(new ResourceLocation("guideapi","testbook1"),bookStack, "X X", " X ", "X X", 'X', "ingotIron");
+      CraftingHelper.ShapedPrimer primer = CraftingHelper.parseShaped("X X", " X ", "X X", 'X', "ingotIron");
+      ShapedRecipes recipe = new ShapedRecipes(bookStack.getItem().getRegistryName().toString(), primer.width, primer.height, primer.input, bookStack);
+      recipe.setRegistryName(new ResourceLocation("guideapi","testbook1"));
+      GameRegistry.register(recipe);
     }
 }
