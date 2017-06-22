@@ -57,10 +57,9 @@ public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe
                         GuiHelper.drawItemStack(input, stackX, stackY);
                         if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                             tooltips = GuiHelper.getTooltip(input);
-                    }
-                    else if(component instanceof  OreIngredient){
-                      OreIngredient ing = ( OreIngredient) component;
-                      List<ItemStack> list = Arrays.asList(    ing.getMatchingStacks());
+                    } else if(component instanceof OreIngredient) {
+                      OreIngredient ing = (OreIngredient) component;
+                      List<ItemStack> list = Arrays.asList(ing.getMatchingStacks());
                         if (!list.isEmpty()) {
                             ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
                             if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
