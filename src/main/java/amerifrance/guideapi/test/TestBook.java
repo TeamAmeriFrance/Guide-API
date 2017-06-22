@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.util.List;
@@ -50,6 +50,14 @@ public class TestBook implements IGuideBook {
         pages.add(PageIRecipe.newShaped(new ItemStack(Items.ACACIA_BOAT), "X X", "XXX", 'X', "plankWood"));
         Entry entry = new EntryItemStack(pages, "test.entry.name", new ItemStack(Items.POTATO));
         entries.put(new ResourceLocation("guideapi", "entry"), entry);
+        
+        pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.IRON_BLOCK), 
+                        "ingotIron", "ingotIron", "ingotIron",
+                        "ingotIron", "ingotIron", "ingotIron",
+                       "ingotIron", "ingotIron", "ingotIron"));
+
+        pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.LOG), 
+                        new ItemStack(Blocks.PLANKS, 4)));
 
         categories.add(new CategoryItemStack(entries, "test.category.name", new ItemStack(Items.BANNER)));
         book.setCategoryList(categories);
