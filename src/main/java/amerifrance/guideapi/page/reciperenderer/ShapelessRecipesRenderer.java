@@ -10,10 +10,9 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecipes> {
@@ -28,24 +27,20 @@ public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecip
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
                 int i = 3 * y + x;
-                
-                
-               // if (i < recipe.getRecipeSize()) {
-                    int stackX = (x + 1) * 17 + (guiLeft + 27) + x;
-                    int stackY = (y + 1) * 17 + (guiTop + 38) + y;
-                    Ingredient ing =   recipe.recipeItems.get(i);
-                    if(ing.getMatchingStacks().length==0){continue;}
-                    ItemStack stack = ing.getMatchingStacks()[0];
-                    
-                    //ItemStack stack = recipe.recipeItems.get(i);
-                    if (!stack.isEmpty()) {
-                        if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
-                            stack = getNextItem(stack, x);
-                        GuiHelper.drawItemStack(stack, stackX, stackY);
-                        if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
-                            tooltips = GuiHelper.getTooltip(stack);
-                    }
-               // }
+                int stackX = (x + 1) * 17 + (guiLeft + 27) + x;
+                int stackY = (y + 1) * 17 + (guiTop + 38) + y;
+
+                Ingredient ingredient = recipe.getIngredients().get(i);
+                List<ItemStack> list = Arrays.asList(ingredient.getMatchingStacks());
+                if (!list.isEmpty()) {
+                    ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
+                    if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
+                        stack = getNextItem(stack, x);
+
+                    GuiHelper.drawItemStack(stack, stackX, stackY);
+                    if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
+                        tooltips = GuiHelper.getTooltip(stack);
+                }
             }
         }
     }

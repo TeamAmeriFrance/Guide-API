@@ -12,6 +12,7 @@ import amerifrance.guideapi.page.reciperenderer.ShapelessOreRecipeRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapelessRecipesRenderer;
 import lombok.EqualsAndHashCode;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
@@ -63,6 +64,14 @@ public class PageIRecipe extends Page {
     public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
         super.drawExtras(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
         iRecipeRenderer.drawExtras(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
+    }
+
+    public static PageIRecipe newShaped(ItemStack output, Object... input) {
+        return new PageIRecipe(new ShapedOreRecipe(null, output, input));
+    }
+
+    public static PageIRecipe newShapeless(ItemStack output, Object... input) {
+        return new PageIRecipe(new ShapelessOreRecipe(null, output, input));
     }
 
     private static IRecipeRenderer getRenderer(IRecipe recipe) {

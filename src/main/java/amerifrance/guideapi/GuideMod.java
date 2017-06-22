@@ -51,7 +51,7 @@ public class GuideMod {
         ConfigHandler.init(new File(configDir, NAME + ".cfg"));
 
         GuideAPI.initialize();
-        AnnotationHandler.registerBooks(event.getAsmData());
+        AnnotationHandler.gatherBooks(event.getAsmData());
 
         for (Book book : GuideAPI.getBooks().values()) {
             Item guideBook = new ItemGuideBook(book);

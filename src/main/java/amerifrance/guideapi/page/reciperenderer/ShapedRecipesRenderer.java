@@ -12,7 +12,7 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipes> {
@@ -28,20 +28,16 @@ public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipes> {
             for (int x = 0; x < recipe.recipeWidth; x++) {
                 int stackX = (x + 1) * 17 + (guiLeft + 27) + x;
                 int stackY = (y + 1) * 17 + (guiTop + 38) + y;
-                Ingredient ing =  recipe.recipeItems.get(y * recipe.recipeWidth + x);
-                if(ing.getMatchingStacks().length==0){continue;}
-                ItemStack stack = ing.getMatchingStacks()[0];
-                if (!stack.isEmpty()) {
-                    if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
-                        NonNullList<ItemStack> subItems = NonNullList.create();
-                        stack.getItem().getSubItems(stack.getItem().getCreativeTab(), subItems);
-                        stack = subItems.get(getRandomizedCycle(x, subItems.size()));
-                    }
 
+                Ingredient ingredient = recipe.getIngredients().get(y * recipe.recipeWidth + x);
+                List<ItemStack> list = Arrays.asList(ingredient.getMatchingStacks());
+                if (!list.isEmpty()) {
+                    ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
+                    if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
+                        stack = getNextItem(stack, x);
                     GuiHelper.drawItemStack(stack, stackX, stackY);
-                    if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15)) {
+                    if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                         tooltips = GuiHelper.getTooltip(stack);
-                    }
                 }
             }
         }

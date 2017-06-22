@@ -15,11 +15,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.brewing.BrewingRecipe;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -47,7 +45,7 @@ public class TestBook2 implements IGuideBook {
         testCategory.addEntry("entry", new EntryItemStack("test.entry.name", new ItemStack(Items.POTATO)));
         testCategory.getEntry("entry").addPage(new PageText("Hello, this is\nsome text"));
         testCategory.getEntry("entry").addPage(new PageFurnaceRecipe(Blocks.COBBLESTONE));
-        testCategory.getEntry("entry").addPage(new PageIRecipe(new ShapedOreRecipe(new ResourceLocation("gi","test2"),Items.ACACIA_BOAT, "X X", "XXX", 'X', "plankWood")));
+        testCategory.getEntry("entry").addPage(PageIRecipe.newShaped(new ItemStack(Items.ACACIA_BOAT), "X X", "XXX", 'X', new ItemStack(Blocks.PLANKS, 1, 4)));
         testCategory.getEntry("entry").addPage(new PageBrewingRecipe(new BrewingRecipe(
             PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.AWKWARD),
             new ItemStack(Items.SPECKLED_MELON),
@@ -66,9 +64,6 @@ public class TestBook2 implements IGuideBook {
 
     @Override
     public void handlePost(ItemStack bookStack) {
-      CraftingHelper.ShapedPrimer primer = CraftingHelper.parseShaped("X X", " X ", "X X", 'X', "ingotIron");
-      ShapedRecipes recipe = new ShapedRecipes(bookStack.getItem().getRegistryName().toString(), primer.width, primer.height, primer.input, bookStack);
-      recipe.setRegistryName(new ResourceLocation("guideapi","testbook2"));
-      GameRegistry.register(recipe);
+      GameRegistry.register(new ShapedOreRecipe(null, bookStack, "X X", " X ", "X X", 'X', "ingotIron").setRegistryName(book.getRegistryName()));
     }
 }

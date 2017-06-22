@@ -64,7 +64,7 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
     protected ItemStack getNextItem(ItemStack stack, int position) {
         NonNullList<ItemStack> subItems = NonNullList.create();
         Item item = stack.getItem();
-         
+
         item.getSubItems(item.getCreativeTab(), subItems);
         return subItems.get(getRandomizedCycle(position, subItems.size()));
     }

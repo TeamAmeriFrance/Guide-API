@@ -14,7 +14,7 @@ public class AnnotationHandler {
 
     public static final List<Pair<Book, IGuideBook>> BOOK_CLASSES = Lists.newArrayList();
 
-    public static void registerBooks(ASMDataTable dataTable) {
+    public static void gatherBooks(ASMDataTable dataTable) {
         for (ASMDataTable.ASMData data : dataTable.getAll(GuideBook.class.getCanonicalName())) {
             try {
                 Class<?> genericClass = Class.forName(data.getClassName());
