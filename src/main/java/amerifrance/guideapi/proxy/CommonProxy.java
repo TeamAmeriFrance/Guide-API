@@ -64,9 +64,6 @@ public class CommonProxy implements IGuiHandler {
         return null;
     }
 
-    public void handleModels() {
-    }
-
     public void playSound(SoundEvent sound) {
     }
 

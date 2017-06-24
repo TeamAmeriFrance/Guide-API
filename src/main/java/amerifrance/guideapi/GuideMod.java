@@ -3,15 +3,11 @@ package amerifrance.guideapi;
 import amerifrance.guideapi.api.GuideAPI;
 import amerifrance.guideapi.api.IGuideBook;
 import amerifrance.guideapi.api.impl.Book;
-import amerifrance.guideapi.item.ItemGuideBook;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxy.CommonProxy;
-import amerifrance.guideapi.util.APISetter;
 import amerifrance.guideapi.util.AnnotationHandler;
 import amerifrance.guideapi.util.EventHandler;
 import lombok.Getter;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -20,7 +16,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.File;
@@ -52,15 +47,6 @@ public class GuideMod {
 
         GuideAPI.initialize();
         AnnotationHandler.gatherBooks(event.getAsmData());
-
-        for (Book book : GuideAPI.getBooks().values()) {
-            Item guideBook = new ItemGuideBook(book);
-            guideBook.setRegistryName(book.getRegistryName().toString().replace(":", "-"));
-            GameRegistry.register(guideBook);
-            APISetter.setBookForStack(book, new ItemStack(guideBook));
-        }
-
-        proxy.handleModels();
 
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
         MinecraftForge.EVENT_BUS.register(new EventHandler());
