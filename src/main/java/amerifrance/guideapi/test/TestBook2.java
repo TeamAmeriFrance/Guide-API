@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.brewing.BrewingRecipe;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -64,6 +64,6 @@ public class TestBook2 implements IGuideBook {
 
     @Override
     public void handlePost(ItemStack bookStack) {
-      GameRegistry.register(new ShapedOreRecipe(null, bookStack, "X X", " X ", "X X", 'X', "ingotIron").setRegistryName(book.getRegistryName()));
+        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, bookStack, "X X", " X ", "X X", 'X', "ingotIron").setRegistryName(book.getRegistryName()));
     }
 }
