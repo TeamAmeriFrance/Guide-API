@@ -57,21 +57,6 @@ public class PageIRecipe extends Page {
         this.iRecipeRenderer = iRecipeRenderer;
     }
 
-    /**
-     * Use this if you are creating a page for a standard recipe from a recipe json.
-     *
-     * @param recipeResourceLocation - Recipe to draw
-     */
-    @Nullable
-    public static PageIRecipe fromJson(ResourceLocation recipeResourceLocation) {
-        IRecipe recipe = CraftingManager.getRecipe(recipeResourceLocation);
-        if(recipe == null){
-            LogHelper.error("Recipe for ResourceLocation "+recipeResourceLocation.toString()+" was null!");
-            return null;
-        }
-        return new PageIRecipe(recipe, getRenderer(recipe));
-    }
-
     @Override
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
@@ -92,6 +77,21 @@ public class PageIRecipe extends Page {
 
     public static PageIRecipe newShapeless(ItemStack output, Object... input) {
         return new PageIRecipe(new ShapelessOreRecipe(null, output, input));
+    }
+
+    /**
+     * Use this if you are creating a page for a standard recipe from a recipe json.
+     *
+     * @param recipeResourceLocation - Recipe to draw
+     */
+    @Nullable
+    public static PageIRecipe fromJson(ResourceLocation recipeResourceLocation) {
+        IRecipe recipe = CraftingManager.getRecipe(recipeResourceLocation);
+        if(recipe == null){
+            LogHelper.error("Recipe for ResourceLocation "+recipeResourceLocation.toString()+" was null!");
+            return null;
+        }
+        return new PageIRecipe(recipe, getRenderer(recipe));
     }
 
     private static IRecipeRenderer getRenderer(IRecipe recipe) {
