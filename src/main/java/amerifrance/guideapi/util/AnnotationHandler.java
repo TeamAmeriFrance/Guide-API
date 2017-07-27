@@ -10,8 +10,6 @@ import net.minecraftforge.fml.common.discovery.asm.ModAnnotation;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.util.List;
 
 public class AnnotationHandler {
