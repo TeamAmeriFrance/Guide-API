@@ -6,6 +6,7 @@ import amerifrance.guideapi.api.IGuideBook;
 import amerifrance.guideapi.api.impl.Book;
 import com.google.common.collect.Lists;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
+import net.minecraftforge.fml.common.discovery.asm.ModAnnotation;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -26,15 +27,9 @@ public class AnnotationHandler {
                         continue;
 
                     IGuideBook guideBook = (IGuideBook) genericClass.newInstance();
-                    boolean wrongPriority = false;
-                    for (Annotation f: genericClass.getAnnotations()) {
-                        if(f.annotationType() != GuideBook.class)
-                            continue;
-                        GuideBook gb = (GuideBook)f;
-                        if(gb.priority() != priority)
-                            wrongPriority = true;
-                    }
-                    if(wrongPriority)
+                    ModAnnotation.EnumHolder holder = (ModAnnotation.EnumHolder) data.getAnnotationInfo().get("priority");
+                    EventPriority bookPriority = holder == null ? EventPriority.NORMAL : EventPriority.valueOf(holder.getValue());
+                    if(priority != bookPriority)
                         continue;
                     Book book = guideBook.buildBook();
                     if (book == null)
