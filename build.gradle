@@ -116,7 +116,7 @@ javadoc {
 }
 
 tasks.javadoc.dependsOn delombok
-tasks.build.dependsOn javadoc, javadocJar, apiJar
+tasks.build.dependsOn apiJar
 
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
