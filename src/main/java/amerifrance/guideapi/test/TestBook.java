@@ -15,11 +15,12 @@ import com.google.common.collect.Maps;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.util.List;
@@ -50,13 +51,9 @@ public class TestBook implements IGuideBook {
         Entry entry = new EntryItemStack(pages, "test.entry.name", new ItemStack(Items.POTATO));
         entries.put(new ResourceLocation("guideapi", "entry"), entry);
         
-        pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.IRON_BLOCK), 
-                        "ingotIron", "ingotIron", "ingotIron",
-                        "ingotIron", "ingotIron", "ingotIron",
-                       "ingotIron", "ingotIron", "ingotIron"));
-
-        pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.PLANKS, 4), 
-                        new ItemStack(Blocks.LOG)));
+        pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.IRON_BLOCK), "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron"));
+        pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.PLANKS, 4), new ItemStack(Blocks.LOG)));
+        pages.add(PageIRecipe.fromJson(new ResourceLocation("diamond_sword")));
 
         categories.add(new CategoryItemStack(entries, "test.category.name", new ItemStack(Items.BANNER)));
         book.setCategoryList(categories);
@@ -64,14 +61,8 @@ public class TestBook implements IGuideBook {
         return book;
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
-    public void handleModel(ItemStack bookStack) {
-        GuideAPI.setModel(book);
-    }
-
-    @Override
-    public void handlePost(ItemStack bookStack) {
-        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, bookStack, " X ", "X X", " X ", 'X', "ingotIron").setRegistryName(book.getRegistryName()));
+    public IRecipe getRecipe(@Nonnull ItemStack bookStack) {
+        return new ShapedOreRecipe(null, bookStack, " X ", "X X", " X ", 'X', "ingotIron").setRegistryName(book.getRegistryName());
     }
 }

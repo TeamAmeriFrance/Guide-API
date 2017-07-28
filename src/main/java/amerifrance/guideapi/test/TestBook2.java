@@ -1,6 +1,5 @@
 package amerifrance.guideapi.test;
 
-import amerifrance.guideapi.api.GuideAPI;
 import amerifrance.guideapi.api.GuideBook;
 import amerifrance.guideapi.api.IGuideBook;
 import amerifrance.guideapi.api.impl.Book;
@@ -15,14 +14,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.brewing.BrewingRecipe;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
 
@@ -49,21 +47,18 @@ public class TestBook2 implements IGuideBook {
         testCategory.getEntry("entry").addPage(new PageBrewingRecipe(new BrewingRecipe(
             PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.AWKWARD),
             new ItemStack(Items.SPECKLED_MELON),
-            PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.HEALING))));
+            PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.HEALING)))
+        );
+        testCategory.getEntry("entry").addPage(PageIRecipe.fromJson(new ResourceLocation("bread")));
         book.addCategory(testCategory);
 
         book.setRegistryName(new ResourceLocation("guideapi", "test_book2"));
         return book;
     }
 
-    @SideOnly(Side.CLIENT)
+    @Nullable
     @Override
-    public void handleModel(ItemStack bookStack) {
-        GuideAPI.setModel(book);
-    }
-
-    @Override
-    public void handlePost(ItemStack bookStack) {
-        ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, bookStack, "X X", " X ", "X X", 'X', "ingotIron").setRegistryName(book.getRegistryName()));
+    public IRecipe getRecipe(@Nonnull ItemStack bookStack) {
+        return new ShapedOreRecipe(null, bookStack, "X X", " X ", "X X", 'X', "ingotIron").setRegistryName(book.getRegistryName());
     }
 }
