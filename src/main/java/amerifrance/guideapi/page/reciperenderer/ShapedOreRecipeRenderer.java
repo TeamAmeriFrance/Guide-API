@@ -45,7 +45,7 @@ public class ShapedOreRecipeRenderer extends BasicRecipeRenderer<ShapedOreRecipe
                 if (component != null) {
                     if (component instanceof ItemStack) {
                         ItemStack input = (ItemStack) component;
-                        if (input.getItemDamage() == OreDictionary.WILDCARD_VALUE)
+                        if (input.getItem() != null && input.getItemDamage() == OreDictionary.WILDCARD_VALUE)
                             input.setItemDamage(0);
 
                         GuiHelper.drawItemStack((ItemStack) component, stackX, stackY);
