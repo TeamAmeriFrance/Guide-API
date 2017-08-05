@@ -11,9 +11,11 @@ Library mod for easy creation of guide books. Also allows book creation via JSON
 ## Mods that support Guide-API
 The ones we know of at least
 
-* [Sanguimancy](http://minecraft.curseforge.com/mc-mods/223722-sanguimancy)
+* [Sanguimancy](https://minecraft.curseforge.com/projects/sanguimancy)
 * [Creative Concoctions](https://github.com/TeamAmeriFrance/CreativeConcoctions)
-* [Blood Magic](http://minecraft.curseforge.com/mc-mods/224791-blood-magic) (*In progress*)
+* [Overlord](https://minecraft.curseforge.com/projects/overlord)
+* [Mechanical Soldiers](https://minecraft.curseforge.com/projects/mechanical-soldiers)
+* [Blood Magic](https://minecraft.curseforge.com/projects/blood-magic) (*In progress*)
 
 ## Issue Reporting
 
