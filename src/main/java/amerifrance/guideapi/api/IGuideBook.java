@@ -2,9 +2,11 @@ package amerifrance.guideapi.api;
 
 import amerifrance.guideapi.api.impl.Book;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public interface IGuideBook {
@@ -23,10 +25,24 @@ public interface IGuideBook {
      * @param bookStack - The ItemStack assigned to your book.
      */
     @SideOnly(Side.CLIENT)
-    void handleModel(ItemStack bookStack);
+    default void handleModel(@Nonnull ItemStack bookStack) {
+        GuideAPI.setModel(((IGuideItem) bookStack.getItem()).getBook(bookStack));
+    }
 
     /**
-     * Called during Post Initialization. Use this to register recipes and the like.
+     * An IRecipe to use for your book. Called from {@link net.minecraftforge.event.RegistryEvent.Register<IRecipe>}
+     *
+     * @return an IRecipe to register for your book or null to not include one.
      */
-    void handlePost(ItemStack bookStack);
+    @Nullable
+    default IRecipe getRecipe(@Nonnull ItemStack bookStack) {
+        return null;
+    }
+
+    /**
+     * Called during Post Initialization.
+     */
+    default void handlePost(@Nonnull ItemStack bookStack) {
+        // No-op
+    }
 }

@@ -12,6 +12,7 @@ import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.discovery.ASMDataTable;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -39,6 +40,8 @@ public class GuideMod {
     private static File configDir;
     @Getter
     private static boolean isDev = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
+    @Getter
+    private static ASMDataTable dataTable;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -47,7 +50,7 @@ public class GuideMod {
         ConfigHandler.init(new File(configDir, NAME + ".cfg"));
 
         GuideAPI.initialize();
-        AnnotationHandler.gatherBooks(event.getAsmData());
+        dataTable = event.getAsmData();
 
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
         MinecraftForge.EVENT_BUS.register(new EventHandler());
@@ -66,6 +69,7 @@ public class GuideMod {
     public void postInit(FMLPostInitializationEvent event) {
 //        JsonBookCreator.buildBooks();
         ConfigHandler.handleBookConfigs();
+
         for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES)
             guide.getRight().handlePost(GuideAPI.getStackFromBook(guide.getLeft()));
     }
