@@ -13,8 +13,6 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
-
 @EqualsAndHashCode(callSuper = true)
 public class PageText extends Page {
 

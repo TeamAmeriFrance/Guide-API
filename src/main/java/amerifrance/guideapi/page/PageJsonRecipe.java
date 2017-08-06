@@ -1,6 +1,5 @@
 package amerifrance.guideapi.page;
 
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
