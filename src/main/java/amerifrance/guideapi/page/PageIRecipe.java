@@ -74,7 +74,7 @@ public class PageIRecipe extends Page {
         return new PageIRecipe(new ShapelessOreRecipe(null, output, input));
     }
 
-    private static IRecipeRenderer getRenderer(IRecipe recipe) {
+    static IRecipeRenderer getRenderer(IRecipe recipe) {
         if (recipe == null) {
             return null;
         } else if (recipe.getClass() == ShapedRecipes.class) {

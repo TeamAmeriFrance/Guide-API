@@ -9,6 +9,7 @@ import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.PageFurnaceRecipe;
 import amerifrance.guideapi.page.PageIRecipe;
+import amerifrance.guideapi.page.PageJsonRecipe;
 import amerifrance.guideapi.page.PageText;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -35,7 +36,7 @@ public class TestBook implements IGuideBook {
     public Book buildBook() {
         book = new Book();
         book.setAuthor("TehNut");
-        book.setColor(Color.BLUE);
+        book.setColor(Color.GRAY);
         book.setDisplayName("Display Name");
         book.setTitle("Title message");
         book.setWelcomeMessage("Is this still a thing?");
@@ -47,6 +48,7 @@ public class TestBook implements IGuideBook {
         pages.add(new PageText("Hello, this is\nsome text"));
         pages.add(new PageFurnaceRecipe(Blocks.COBBLESTONE));
         pages.add(PageIRecipe.newShaped(new ItemStack(Items.ACACIA_BOAT), "X X", "XXX", 'X', "plankWood"));
+        pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "acacia_fence")));
         Entry entry = new EntryItemStack(pages, "test.entry.name", new ItemStack(Items.POTATO));
         entries.put(new ResourceLocation("guideapi", "entry"), entry);
         
