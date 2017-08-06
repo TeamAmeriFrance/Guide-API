@@ -55,7 +55,6 @@ public class TestBook implements IGuideBook {
         
         pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.IRON_BLOCK), "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron"));
         pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.PLANKS, 4), new ItemStack(Blocks.LOG)));
-        pages.add(PageIRecipe.fromJson(new ResourceLocation("diamond_sword")));
 
         categories.add(new CategoryItemStack(entries, "test.category.name", new ItemStack(Items.BANNER)));
         book.setCategoryList(categories);
