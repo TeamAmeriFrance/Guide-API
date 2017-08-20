@@ -7,7 +7,6 @@ import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxy.CommonProxy;
 import amerifrance.guideapi.util.AnnotationHandler;
 import amerifrance.guideapi.util.EventHandler;
-import lombok.Getter;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -28,19 +27,16 @@ public class GuideMod {
     public static final String ID = "guideapi";
     public static final String CHANNEL = "GuideAPI";
     public static final String VERSION = "@VERSION@";
+    public static final boolean IS_DEV = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
     @Mod.Instance(ID)
     public static GuideMod INSTANCE;
 
     @SidedProxy(clientSide = "amerifrance.guideapi.proxy.ClientProxy", serverSide = "amerifrance.guideapi.proxy.CommonProxy")
-    public static CommonProxy proxy;
+    public static CommonProxy PROXY;
 
-    @Getter
-    private static File configDir;
-    @Getter
-    private static boolean isDev = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
-    @Getter
-    private static ASMDataTable dataTable;
+    public static File configDir;
+    public static ASMDataTable dataTable;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -51,22 +47,18 @@ public class GuideMod {
         GuideAPI.initialize();
         dataTable = event.getAsmData();
 
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, PROXY);
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         PacketHandler.registerPackets();
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-//        TypeReaders.init();
-//        JsonBookCreator.buildGson();
-
-        proxy.initColors();
+        PROXY.initColors();
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-//        JsonBookCreator.buildBooks();
         ConfigHandler.handleBookConfigs();
 
         for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES)

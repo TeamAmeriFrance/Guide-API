@@ -10,7 +10,6 @@ import amerifrance.guideapi.page.reciperenderer.ShapedOreRecipeRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapedRecipesRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapelessOreRecipeRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapelessRecipesRenderer;
-import lombok.EqualsAndHashCode;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -21,7 +20,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-@EqualsAndHashCode(callSuper = true)
 public class PageIRecipe extends Page {
 
     public IRecipe recipe;
@@ -88,5 +86,25 @@ public class PageIRecipe extends Page {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PageIRecipe)) return false;
+        if (!super.equals(o)) return false;
+
+        PageIRecipe that = (PageIRecipe) o;
+
+        if (recipe != null ? !recipe.equals(that.recipe) : that.recipe != null) return false;
+        return iRecipeRenderer != null ? iRecipeRenderer.equals(that.iRecipeRenderer) : that.iRecipeRenderer == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (recipe != null ? recipe.hashCode() : 0);
+        result = 31 * result + (iRecipeRenderer != null ? iRecipeRenderer.hashCode() : 0);
+        return result;
     }
 }

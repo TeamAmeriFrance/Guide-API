@@ -8,7 +8,6 @@ import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import lombok.EqualsAndHashCode;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.init.Blocks;
@@ -22,7 +21,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import java.util.ArrayList;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 public class PageFurnaceRecipe extends Page {
 
     public ItemStack input;
@@ -100,5 +98,24 @@ public class PageFurnaceRecipe extends Page {
 
         if (tooltip != null)
             guiBase.drawHoveringText(tooltip, mouseX, mouseY);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PageFurnaceRecipe)) return false;
+        if (!super.equals(o)) return false;
+
+        PageFurnaceRecipe that = (PageFurnaceRecipe) o;
+
+        if (input != null ? !input.equals(that.input) : that.input != null) return false;
+        return output != null ? output.equals(that.output) : that.output == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = input != null ? input.hashCode() : 0;
+        result = 31 * result + (output != null ? output.hashCode() : 0);
+        return result;
     }
 }

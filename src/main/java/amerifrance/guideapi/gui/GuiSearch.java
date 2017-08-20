@@ -92,7 +92,7 @@ public class GuiSearch extends GuiBase {
                         GuiUtils.drawHoveringText(Lists.newArrayList(entry.getRight().getLocalizedName()), mouseX, mouseY, width, height, 300, fontRenderer);
 
                     if (Mouse.isButtonDown(0)) {
-                        GuideMod.proxy.openEntry(book, entry.getRight(), entry.getLeft(), player, bookStack);
+                        GuideMod.PROXY.openEntry(book, entry.getRight(), entry.getLeft(), player, bookStack);
                         return;
                     }
                 }

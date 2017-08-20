@@ -5,7 +5,6 @@ import amerifrance.guideapi.api.impl.Category;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import lombok.EqualsAndHashCode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.util.ResourceLocation;
@@ -14,7 +13,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Map;
 
-@EqualsAndHashCode(callSuper = true)
 public class CategoryResourceLocation extends Category {
 
     public ResourceLocation resourceLocation;
@@ -41,5 +39,23 @@ public class CategoryResourceLocation extends Category {
     public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
         if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight))
             guiBase.drawHoveringText(this.getTooltip(), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CategoryResourceLocation)) return false;
+        if (!super.equals(o)) return false;
+
+        CategoryResourceLocation that = (CategoryResourceLocation) o;
+
+        return resourceLocation != null ? resourceLocation.equals(that.resourceLocation) : that.resourceLocation == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (resourceLocation != null ? resourceLocation.hashCode() : 0);
+        return result;
     }
 }

@@ -5,7 +5,6 @@ import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import lombok.EqualsAndHashCode;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.init.Blocks;
@@ -15,7 +14,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
-@EqualsAndHashCode(callSuper = true)
 public class PageItemStack extends PageText {
 
     public ItemStack stack;
@@ -65,5 +63,23 @@ public class PageItemStack extends PageText {
     @SideOnly(Side.CLIENT)
     public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
         GuiHelper.drawScaledItemStack(stack, guiLeft + 75, guiTop + 20, 3);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PageItemStack)) return false;
+        if (!super.equals(o)) return false;
+
+        PageItemStack that = (PageItemStack) o;
+
+        return stack != null ? stack.equals(that.stack) : that.stack == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (stack != null ? stack.hashCode() : 0);
+        return result;
     }
 }

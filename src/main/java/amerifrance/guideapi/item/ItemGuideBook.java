@@ -56,7 +56,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
 
             for (CategoryAbstract category : book.getCategoryList()) {
                 if (category.entries.containsKey(entryKey)) {
-                    GuideMod.proxy.openEntry(book, category, category.entries.get(entryKey), player, stack);
+                    GuideMod.PROXY.openEntry(book, category, category.entries.get(entryKey), player, stack);
                     return EnumActionResult.SUCCESS;
                 }
             }

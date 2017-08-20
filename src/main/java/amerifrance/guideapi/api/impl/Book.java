@@ -2,7 +2,6 @@ package amerifrance.guideapi.api.impl;
 
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.util.TextHelper;
-import lombok.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.ResourceLocation;
 
@@ -10,11 +9,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
 public class Book {
 
     private static final String GUITEXLOC = "guideapi:textures/gui/";
@@ -67,6 +61,24 @@ public class Book {
      * Optionally set this to have the item appear in your creative tab rather than the misc creative tab
      */
     private CreativeTabs creativeTab = CreativeTabs.MISC;
+
+    public Book(List<CategoryAbstract> categoryList, String title, String welcomeMessage, String displayName, String author, ResourceLocation pageTexture, ResourceLocation outlineTexture, boolean customModel, Color color, boolean spawnWithBook, ResourceLocation registryName, CreativeTabs creativeTab) {
+        this.categoryList = categoryList;
+        this.title = title;
+        this.welcomeMessage = welcomeMessage;
+        this.displayName = displayName;
+        this.author = author;
+        this.pageTexture = pageTexture;
+        this.outlineTexture = outlineTexture;
+        this.customModel = customModel;
+        this.color = color;
+        this.spawnWithBook = spawnWithBook;
+        this.registryName = registryName;
+        this.creativeTab = creativeTab;
+    }
+
+    public Book() {
+    }
 
     /**
      * @param category - Add this category
@@ -131,5 +143,105 @@ public class Book {
     @Override
     public int hashCode() {
         return getRegistryName().hashCode();
+    }
+
+    public List<CategoryAbstract> getCategoryList() {
+        return this.categoryList;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getWelcomeMessage() {
+        return this.welcomeMessage;
+    }
+
+    public String getDisplayName() {
+        return this.displayName;
+    }
+
+    public String getAuthor() {
+        return this.author;
+    }
+
+    public ResourceLocation getPageTexture() {
+        return this.pageTexture;
+    }
+
+    public ResourceLocation getOutlineTexture() {
+        return this.outlineTexture;
+    }
+
+    public boolean isCustomModel() {
+        return this.customModel;
+    }
+
+    public Color getColor() {
+        return this.color;
+    }
+
+    public boolean isSpawnWithBook() {
+        return this.spawnWithBook;
+    }
+
+    public ResourceLocation getRegistryName() {
+        return this.registryName;
+    }
+
+    public CreativeTabs getCreativeTab() {
+        return this.creativeTab;
+    }
+
+    public void setCategoryList(List<CategoryAbstract> categoryList) {
+        this.categoryList = categoryList;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setWelcomeMessage(String welcomeMessage) {
+        this.welcomeMessage = welcomeMessage;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPageTexture(ResourceLocation pageTexture) {
+        this.pageTexture = pageTexture;
+    }
+
+    public void setOutlineTexture(ResourceLocation outlineTexture) {
+        this.outlineTexture = outlineTexture;
+    }
+
+    public void setCustomModel(boolean customModel) {
+        this.customModel = customModel;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public void setSpawnWithBook(boolean spawnWithBook) {
+        this.spawnWithBook = spawnWithBook;
+    }
+
+    public void setRegistryName(ResourceLocation registryName) {
+        this.registryName = registryName;
+    }
+
+    public void setCreativeTab(CreativeTabs creativeTab) {
+        this.creativeTab = creativeTab;
+    }
+
+    public String toString() {
+        return "amerifrance.guideapi.api.impl.Book(categoryList=" + this.getCategoryList() + ", title=" + this.getTitle() + ", welcomeMessage=" + this.getWelcomeMessage() + ", displayName=" + this.getDisplayName() + ", author=" + this.getAuthor() + ", pageTexture=" + this.getPageTexture() + ", outlineTexture=" + this.getOutlineTexture() + ", customModel=" + this.isCustomModel() + ", color=" + this.getColor() + ", spawnWithBook=" + this.isSpawnWithBook() + ", registryName=" + this.getRegistryName() + ", creativeTab=" + this.getCreativeTab() + ")";
     }
 }

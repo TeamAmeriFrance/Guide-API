@@ -34,7 +34,7 @@ public class RegistrarGuideAPI {
      */
     @SubscribeEvent
     public static void registerItemsInADifferentRegistryEventBecauseLoadOrderingAndObjectHoldersAreImportant(RegistryEvent.Register<Biome> event) {
-        AnnotationHandler.gatherBooks(GuideMod.getDataTable());
+        AnnotationHandler.gatherBooks(GuideMod.dataTable);
 
         for (Book book : GuideAPI.getBooks().values()) {
             Item guideBook = new ItemGuideBook(book);

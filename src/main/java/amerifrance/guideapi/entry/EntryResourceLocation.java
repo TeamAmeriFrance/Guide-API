@@ -6,7 +6,6 @@ import amerifrance.guideapi.api.impl.Entry;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import lombok.EqualsAndHashCode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -15,7 +14,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 public class EntryResourceLocation extends Entry {
 
     public ResourceLocation image;
@@ -46,5 +44,23 @@ public class EntryResourceLocation extends Entry {
         GuiHelper.drawSizedIconWithoutColor(entryX + 2, entryY, 16, 16, 1F);
 
         super.drawExtras(book, category, entryX, entryY, entryWidth, entryHeight, mouseX, mouseY, guiBase, fontRendererObj);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EntryResourceLocation)) return false;
+        if (!super.equals(o)) return false;
+
+        EntryResourceLocation that = (EntryResourceLocation) o;
+
+        return image != null ? image.equals(that.image) : that.image == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (image != null ? image.hashCode() : 0);
+        return result;
     }
 }

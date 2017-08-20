@@ -8,7 +8,6 @@ import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import lombok.EqualsAndHashCode;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -20,7 +19,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 public class PageBrewingRecipe extends Page {
 
     public BrewingRecipe recipe;
@@ -107,4 +105,5 @@ public class PageBrewingRecipe extends Page {
         if (tooltip != null)
             guiBase.drawHoveringText(tooltip, mouseX, mouseY);
     }
+
 }

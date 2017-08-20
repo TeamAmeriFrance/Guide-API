@@ -7,13 +7,11 @@ import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import lombok.EqualsAndHashCode;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@EqualsAndHashCode(callSuper = true)
 public class PageText extends Page {
 
     public String draw;
@@ -44,5 +42,24 @@ public class PageText extends Page {
 
         if (unicode && !startFlag)
             fontRendererObj.setUnicodeFlag(false);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PageText)) return false;
+        if (!super.equals(o)) return false;
+
+        PageText pageText = (PageText) o;
+
+        if (yOffset != pageText.yOffset) return false;
+        return draw != null ? draw.equals(pageText.draw) : pageText.draw == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = draw != null ? draw.hashCode() : 0;
+        result = 31 * result + yOffset;
+        return result;
     }
 }

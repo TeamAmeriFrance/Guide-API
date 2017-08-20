@@ -6,14 +6,12 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath 'org.ajoberstar:gradle-git:0.10.1'
     }
 }
 
 plugins {
     id 'com.matthewprenger.cursegradle' version '1.0.9'
     id "net.minecraftforge.gradle.forge" version "2.0.2"
-    id 'net.franz-becker.gradle-lombok' version '1.5'
 }
 
 apply plugin: 'maven-publish'
@@ -26,14 +24,6 @@ if (System.getenv('BUILD_NUMBER') != null)
 group = package_group
 archivesBaseName = mod_name
 version = "${mc_version}-${mod_version}-${build_number}"
-
-import org.ajoberstar.grgit.Grgit
-
-def gitHash = 'unknown'
-if (new File(projectDir, '.git').exists()) {
-    def repo = Grgit.open(project.file('.'))
-    gitHash = repo.log().find().abbreviatedId
-}
 
 repositories {
     maven { url = "http://dvs1.progwml6.com/files/maven" }
@@ -72,27 +62,13 @@ processResources {
     }
 }
 
-lombok {
-    version = "1.16.6"
-    sha256 = "e0a471be03e1e6b02bf019480cec7a3ac9801702bf7bf62f15d077ad4df8dd5d"
-}
-
-import net.franz_becker.gradle.lombok.task.DelombokTask
-
-task delombok(type: DelombokTask) {
-    args("src/main/java", "-d", "build/sources/delomboked/java")
-}
-
-tasks.eclipse.dependsOn installLombok
-
 jar {
     classifier = ''
     manifest.mainAttributes(
             "Built-By": System.getProperty('user.name'),
             "Created-By": "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})",
             "Implementation-Title": project.name,
-            "Implementation-Version": project.version,
-            "Git-Hash": gitHash
+            "Implementation-Version": project.version
     )
     exclude 'amerifrance/guideapi/test/**/*'
 }

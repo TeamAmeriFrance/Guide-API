@@ -8,7 +8,6 @@ import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiEntry;
-import lombok.EqualsAndHashCode;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -16,7 +15,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@EqualsAndHashCode(callSuper = true)
 public class PageSound extends Page {
 
     public IPage pageToEmulate;
@@ -51,7 +49,7 @@ public class PageSound extends Page {
     @Override
     @SideOnly(Side.CLIENT)
     public void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry) {
-        GuideMod.proxy.playSound(sound);
+        GuideMod.PROXY.playSound(sound);
         pageToEmulate.onLeftClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
     }
 
@@ -59,5 +57,25 @@ public class PageSound extends Page {
     @SideOnly(Side.CLIENT)
     public void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry) {
         pageToEmulate.onRightClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PageSound)) return false;
+        if (!super.equals(o)) return false;
+
+        PageSound pageSound = (PageSound) o;
+
+        if (pageToEmulate != null ? !pageToEmulate.equals(pageSound.pageToEmulate) : pageSound.pageToEmulate != null)
+            return false;
+        return sound != null ? sound.equals(pageSound.sound) : pageSound.sound == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = pageToEmulate != null ? pageToEmulate.hashCode() : 0;
+        result = 31 * result + (sound != null ? sound.hashCode() : 0);
+        return result;
     }
 }

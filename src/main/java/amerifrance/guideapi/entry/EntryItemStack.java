@@ -6,7 +6,6 @@ import amerifrance.guideapi.api.impl.Entry;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import lombok.EqualsAndHashCode;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
@@ -14,7 +13,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 public class EntryItemStack extends Entry {
 
     public ItemStack stack;
@@ -45,5 +43,23 @@ public class EntryItemStack extends Entry {
             GuiHelper.drawScaledItemStack(stack, entryX + 2, entryY, 0.5F);
 
         super.drawExtras(book, category, entryX, entryY, entryWidth, entryHeight, mouseX, mouseY, guiBase, fontRendererObj);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EntryItemStack)) return false;
+        if (!super.equals(o)) return false;
+
+        EntryItemStack that = (EntryItemStack) o;
+
+        return stack != null ? stack.equals(that.stack) : that.stack == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (stack != null ? stack.hashCode() : 0);
+        return result;
     }
 }
