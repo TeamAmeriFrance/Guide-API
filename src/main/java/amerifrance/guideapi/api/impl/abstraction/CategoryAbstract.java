@@ -14,7 +14,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 public abstract class CategoryAbstract {
 
@@ -34,7 +35,7 @@ public abstract class CategoryAbstract {
     /**
      * Adds an entry to this category.
      *
-     * @param key - The key of the entry to add.
+     * @param key   - The key of the entry to add.
      * @param entry - The entry to add.
      */
     public void addEntry(ResourceLocation key, EntryAbstract entry) {
@@ -43,10 +44,10 @@ public abstract class CategoryAbstract {
 
     /**
      * Adds an entry to this category.
-     *
+     * <p>
      * Shorthand of {@link #addEntry(ResourceLocation, EntryAbstract)}. Requires {@link #withKeyBase(String)} to have been called.
      *
-     * @param key - The key of the entry to add.
+     * @param key   - The key of the entry to add.
      * @param entry - The entry to add.
      */
     public void addEntry(String key, EntryAbstract entry) {
@@ -72,10 +73,10 @@ public abstract class CategoryAbstract {
 
     /**
      * Obtains an entry from this category.
-     *
+     * <p>
      * This <i>can</i> be null, however it is not marked as nullable to avoid annoying IDE warnings. I am making the
      * assumption that this will only be called while creating the book and thus the caller knows it exists.
-     *
+     * <p>
      * If you are calling at any other time, make sure to nullcheck this.
      *
      * @param key - The key of the entry to obtain.
@@ -87,12 +88,12 @@ public abstract class CategoryAbstract {
 
     /**
      * Obtains an entry from this category.
-     *
+     * <p>
      * Shorthand of {@link #getEntry(ResourceLocation)}. Requires {@link #withKeyBase(String)} to have been called.
-     *
+     * <p>
      * This <i>can</i> be null, however it is not marked as nullable to avoid annoying IDE warnings. I am making the
      * assumption that this will only be called while creating the book and thus the caller knows it exists.
-     *
+     * <p>
      * If you are calling at any other time, make sure to nullcheck this.
      *
      * @param key - The key of the entry to obtain.
@@ -108,7 +109,7 @@ public abstract class CategoryAbstract {
     /**
      * Sets the domain to use for all ResourceLocation keys passed through {@link #getEntry(String)} and
      * {@link #addEntry(String, EntryAbstract)}
-     *
+     * <p>
      * Required in order to use those.
      *
      * @param keyBase - The base domain for this entry.

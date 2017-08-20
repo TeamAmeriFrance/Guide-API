@@ -19,13 +19,13 @@ import java.util.List;
 
 public class PageHelper {
 
-	public static List<IPage> setPagesToUnicode(List<IPage> pages) {
-		for (IPage page : pages)
-			if (page instanceof Page)
-				((Page) page).setUnicodeFlag(true);
+    public static List<IPage> setPagesToUnicode(List<IPage> pages) {
+        for (IPage page : pages)
+            if (page instanceof Page)
+                ((Page) page).setUnicodeFlag(true);
 
-		return pages;
-	}
+        return pages;
+    }
 
     public static List<IPage> pagesForLongText(String locText, int maxLength) {
         List<IPage> pageList = new ArrayList<IPage>();

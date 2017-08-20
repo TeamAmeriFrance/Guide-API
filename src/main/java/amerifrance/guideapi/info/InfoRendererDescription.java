@@ -16,7 +16,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.List;
 
 public class InfoRendererDescription implements IInfoRenderer {

@@ -1,6 +1,8 @@
 package amerifrance.guideapi.test;
 
-import amerifrance.guideapi.api.*;
+import amerifrance.guideapi.api.GuideBook;
+import amerifrance.guideapi.api.IGuideBook;
+import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.Entry;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
@@ -51,7 +53,7 @@ public class TestBook implements IGuideBook {
         pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "acacia_fence")));
         Entry entry = new EntryItemStack(pages, "test.entry.name", new ItemStack(Items.POTATO));
         entries.put(new ResourceLocation("guideapi", "entry"), entry);
-        
+
         pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.IRON_BLOCK), "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron"));
         pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.PLANKS, 4), new ItemStack(Blocks.LOG)));
 

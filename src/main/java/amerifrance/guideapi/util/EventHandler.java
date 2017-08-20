@@ -2,12 +2,13 @@ package amerifrance.guideapi.util;
 
 import amerifrance.guideapi.ConfigHandler;
 import amerifrance.guideapi.GuideMod;
-import amerifrance.guideapi.api.*;
+import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.api.IGuideItem;
+import amerifrance.guideapi.api.IGuideLinked;
+import amerifrance.guideapi.api.IInfoRenderer;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.TextHelper;
-import amerifrance.guideapi.page.PageJsonRecipe;
 import com.google.common.base.Strings;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
@@ -17,7 +18,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -25,9 +25,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -121,16 +119,6 @@ public class EventHandler {
         Collection<IInfoRenderer> renderers = bookRenderers.get(state.getBlock().getClass());
         for (IInfoRenderer renderer : renderers)
             renderer.drawInformation(book, world, rayTrace.getBlockPos(), state, rayTrace, player);
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)//This should be called after all recipes are registered
-    public void recipes(RegistryEvent.Register<IRecipe> event) {
-        for(Book book:GuideAPI.getBooks().values())
-            for(CategoryAbstract cat : book.getCategoryList())
-                for(EntryAbstract entry:cat.entries.values())
-                    for(IPage page : entry.pageList)
-                        if(page instanceof PageJsonRecipe)
-                            ((PageJsonRecipe) page).init();
     }
 
     public NBTTagCompound getModTag(EntityPlayer player, String modName) {

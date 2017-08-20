@@ -20,7 +20,7 @@ import net.minecraft.util.math.MathHelper;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 import java.util.List;
 
@@ -161,14 +161,14 @@ public class GuiCategory extends GuiBase {
     }
 
     public void nextPage() {
-        if(entryPage >= entryWrapperMap.asMap().size())
+        if (entryPage >= entryWrapperMap.asMap().size())
             entryPage = entryWrapperMap.asMap().size() - 1;
         if (entryPage != entryWrapperMap.asMap().size() - 1 && !entryWrapperMap.asMap().isEmpty())
             entryPage++;
     }
 
     public void prevPage() {
-        if(entryPage >= entryWrapperMap.asMap().size())
+        if (entryPage >= entryWrapperMap.asMap().size())
             entryPage = entryWrapperMap.asMap().size() - 1;
         if (entryPage != 0)
             entryPage--;

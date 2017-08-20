@@ -5,16 +5,16 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class PageJsonRecipe extends PageIRecipe {
 
-	private final ResourceLocation recipeId;
+    private final ResourceLocation recipeId;
 
-	public PageJsonRecipe(ResourceLocation recipeId) {
-		super(null);
+    public PageJsonRecipe(ResourceLocation recipeId) {
+        super(null);
 
-		this.recipeId = recipeId;
-	}
+        this.recipeId = recipeId;
+    }
 
-	public void init() {
-		this.recipe = ForgeRegistries.RECIPES.getValue(recipeId);
-		this.iRecipeRenderer = getRenderer(recipe);
-	}
+    public void init() {
+        this.recipe = ForgeRegistries.RECIPES.getValue(recipeId);
+        this.iRecipeRenderer = getRenderer(recipe);
+    }
 }

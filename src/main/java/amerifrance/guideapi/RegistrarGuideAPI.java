@@ -2,8 +2,12 @@ package amerifrance.guideapi;
 
 import amerifrance.guideapi.api.GuideAPI;
 import amerifrance.guideapi.api.IGuideBook;
+import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.item.ItemGuideBook;
+import amerifrance.guideapi.page.PageJsonRecipe;
 import amerifrance.guideapi.util.APISetter;
 import amerifrance.guideapi.util.AnnotationHandler;
 import net.minecraft.item.Item;
@@ -13,6 +17,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
@@ -39,13 +44,20 @@ public class RegistrarGuideAPI {
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES) {
             IRecipe recipe = guide.getRight().getRecipe(GuideAPI.getStackFromBook(guide.getLeft()));
             if (recipe != null)
                 event.getRegistry().register(recipe);
         }
+
+        for (Book book : GuideAPI.getBooks().values())
+            for (CategoryAbstract cat : book.getCategoryList())
+                for (EntryAbstract entry : cat.entries.values())
+                    for (IPage page : entry.pageList)
+                        if (page instanceof PageJsonRecipe)
+                            ((PageJsonRecipe) page).init();
     }
 
     @SubscribeEvent

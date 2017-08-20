@@ -17,7 +17,7 @@ public class AnnotationHandler {
     public static final List<Pair<Book, IGuideBook>> BOOK_CLASSES = Lists.newArrayList();
 
     public static void gatherBooks(ASMDataTable dataTable) {
-        for(EventPriority priority : EventPriority.values())
+        for (EventPriority priority : EventPriority.values())
             for (ASMDataTable.ASMData data : dataTable.getAll(GuideBook.class.getCanonicalName())) {
                 try {
                     Class<?> genericClass = Class.forName(data.getClassName());
@@ -27,7 +27,7 @@ public class AnnotationHandler {
                     IGuideBook guideBook = (IGuideBook) genericClass.newInstance();
                     ModAnnotation.EnumHolder holder = (ModAnnotation.EnumHolder) data.getAnnotationInfo().get("priority");
                     EventPriority bookPriority = holder == null ? EventPriority.NORMAL : EventPriority.valueOf(holder.getValue());
-                    if(priority != bookPriority)
+                    if (priority != bookPriority)
                         continue;
                     Book book = guideBook.buildBook();
                     if (book == null)

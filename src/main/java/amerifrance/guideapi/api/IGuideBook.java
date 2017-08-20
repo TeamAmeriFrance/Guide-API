@@ -14,6 +14,7 @@ public interface IGuideBook {
     /**
      * Build your guide book here. The returned book will be registered for you. The book created here can be modified
      * later, so make sure to keep a reference for yourself.
+     *
      * @return a built book to be registered.
      */
     @Nullable
