@@ -6,10 +6,7 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
-import amerifrance.guideapi.page.PageBrewingRecipe;
-import amerifrance.guideapi.page.PageFurnaceRecipe;
-import amerifrance.guideapi.page.PageIRecipe;
-import amerifrance.guideapi.page.PageText;
+import amerifrance.guideapi.page.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
@@ -49,7 +46,7 @@ public class TestBook2 implements IGuideBook {
             new ItemStack(Items.SPECKLED_MELON),
             PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.HEALING)))
         );
-        testCategory.getEntry("entry").addPage(PageIRecipe.fromJson(new ResourceLocation("bread")));
+        testCategory.getEntry("entry").addPage(new PageJsonRecipe(new ResourceLocation("bread")));
         book.addCategory(testCategory);
 
         book.setRegistryName(new ResourceLocation("guideapi", "test_book2"));

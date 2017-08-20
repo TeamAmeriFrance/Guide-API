@@ -10,21 +10,16 @@ import amerifrance.guideapi.page.reciperenderer.ShapedOreRecipeRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapedRecipesRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapelessOreRecipeRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapelessRecipesRenderer;
-import amerifrance.guideapi.util.LogHelper;
 import lombok.EqualsAndHashCode;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-
-import javax.annotation.Nullable;
 
 @EqualsAndHashCode(callSuper = true)
 public class PageIRecipe extends Page {
@@ -79,22 +74,7 @@ public class PageIRecipe extends Page {
         return new PageIRecipe(new ShapelessOreRecipe(null, output, input));
     }
 
-    /**
-     * Use this if you are creating a page for a standard recipe from a recipe json.
-     *
-     * @param recipeResourceLocation - Recipe to draw
-     */
-    @Nullable
-    public static PageIRecipe fromJson(ResourceLocation recipeResourceLocation) {
-        IRecipe recipe = CraftingManager.getRecipe(recipeResourceLocation);
-        if(recipe == null){
-            LogHelper.error("Recipe for ResourceLocation "+recipeResourceLocation.toString()+" was null!");
-            return null;
-        }
-        return new PageIRecipe(recipe, getRenderer(recipe));
-    }
-
-    private static IRecipeRenderer getRenderer(IRecipe recipe) {
+    static IRecipeRenderer getRenderer(IRecipe recipe) {
         if (recipe == null) {
             return null;
         } else if (recipe.getClass() == ShapedRecipes.class) {
