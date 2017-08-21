@@ -21,6 +21,7 @@ public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecip
         super(recipe);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
         super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
@@ -32,6 +33,9 @@ public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecip
                 if (i < recipe.getIngredients().size()) {
                     Ingredient ingredient = recipe.getIngredients().get(i);
                     List<ItemStack> list = Arrays.asList(ingredient.getMatchingStacks());
+                    for(ItemStack testStack:list)
+                        if(testStack == null || testStack.getItem() == null)
+                            list.remove(testStack);
                     if (!list.isEmpty()) {
                         ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
                         if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)

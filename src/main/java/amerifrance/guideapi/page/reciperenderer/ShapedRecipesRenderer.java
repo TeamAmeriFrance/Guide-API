@@ -5,6 +5,7 @@ import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.util.LogHelper;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -20,6 +21,7 @@ public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipes> {
         super(recipe);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
         super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
@@ -30,6 +32,9 @@ public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipes> {
 
                 Ingredient ingredient = recipe.getIngredients().get(y * recipe.recipeWidth + x);
                 List<ItemStack> list = Arrays.asList(ingredient.getMatchingStacks());
+                for(ItemStack testStack:list)
+                    if(testStack == null || testStack.getItem() == null)
+                        list.remove(testStack);
                 if (!list.isEmpty()) {
                     ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
                     if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
