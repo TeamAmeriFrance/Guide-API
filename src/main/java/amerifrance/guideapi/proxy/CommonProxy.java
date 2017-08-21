@@ -36,7 +36,7 @@ public class CommonProxy implements IGuiHandler {
                     NBTTagCompound tagCompound = bookStack.getTagCompound();
                     if (tagCompound.hasKey(NBTBookTags.ENTRY_TAG) && tagCompound.hasKey(NBTBookTags.CATEGORY_TAG)) {
                         CategoryAbstract category = book.getCategoryList().get(tagCompound.getInteger(NBTBookTags.CATEGORY_TAG));
-                        EntryAbstract entry = category.entries.get(new ResourceLocation(tagCompound.getString(NBTBookTags.ENTRY_TAG)));
+                        EntryAbstract entry = category.getEntries().get(new ResourceLocation(tagCompound.getString(NBTBookTags.ENTRY_TAG)));
                         int pageNumber = tagCompound.getInteger(NBTBookTags.PAGE_TAG);
                         GuiEntry guiEntry = new GuiEntry(book, category, entry, player, bookStack);
                         guiEntry.pageNumber = pageNumber;

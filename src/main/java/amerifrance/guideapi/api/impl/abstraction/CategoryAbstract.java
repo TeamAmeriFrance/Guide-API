@@ -4,6 +4,7 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiHome;
+import amerifrance.guideapi.util.LogHelper;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -14,16 +15,25 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 public abstract class CategoryAbstract {
 
-    public final Map<ResourceLocation, EntryAbstract> entries;
+    public final Map<ResourceLocation, EntryAbstract> entries;//TODO: Make this private. This will be a breaking change.
     public final String name;
     private String keyBase;
 
     public CategoryAbstract(Map<ResourceLocation, EntryAbstract> entries, String name) {
+        if(entries.containsKey(null)){
+            entries.remove(null);
+            LogHelper.error("A resource location in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+        }
+        if(entries.containsValue(null)){
+            entries.values().removeAll(Collections.singleton(null));
+            LogHelper.error("An entry in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+        }
         this.entries = entries;
         this.name = name;
     }
@@ -39,6 +49,14 @@ public abstract class CategoryAbstract {
      * @param entry - The entry to add.
      */
     public void addEntry(ResourceLocation key, EntryAbstract entry) {
+        if(key == null){
+            LogHelper.error("A resource location in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+            return;
+        }
+        if(entry == null){
+            LogHelper.error("An entry in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+            return;
+        }
         entries.put(key, entry);
     }
 
@@ -53,6 +71,14 @@ public abstract class CategoryAbstract {
     public void addEntry(String key, EntryAbstract entry) {
         if (Strings.isNullOrEmpty(keyBase))
             throw new RuntimeException("keyBase in category with name '" + name + "' must be set.");
+        if(Strings.isNullOrEmpty(key)){
+            LogHelper.error("A resource location string in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+            return;
+        }
+        if(entry == null){
+            LogHelper.error("An entry in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+            return;
+        }
 
         addEntry(new ResourceLocation(keyBase, key), entry);
     }
@@ -62,6 +88,14 @@ public abstract class CategoryAbstract {
     }
 
     public void addEntries(Map<ResourceLocation, EntryAbstract> entries) {
+        if(entries.containsKey(null)){
+            entries.remove(null);
+            LogHelper.error("A resource location in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+        }
+        if(entries.containsValue(null)){
+            entries.values().removeAll(Collections.singleton(null));
+            LogHelper.error("An entry in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+        }
         this.entries.putAll(entries);
     }
 
@@ -69,6 +103,18 @@ public abstract class CategoryAbstract {
         for (ResourceLocation key : keys)
             if (entries.containsKey(key))
                 entries.remove(key);
+    }
+
+    public Map<ResourceLocation, EntryAbstract> getEntries() {
+        if(entries.containsKey(null)){
+            entries.remove(null);
+            LogHelper.error("A resource location in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+        }
+        if(entries.containsValue(null)){
+            entries.values().removeAll(Collections.singleton(null));
+            LogHelper.error("An entry in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+        }
+        return entries;
     }
 
     /**

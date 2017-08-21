@@ -84,7 +84,7 @@ public class EventHandler {
             ResourceLocation entryKey = linked.getLinkedEntry(world, rayTrace.getBlockPos(), player, held);
             if (entryKey != null) {
                 for (CategoryAbstract category : book.getCategoryList()) {
-                    if (category.entries.containsKey(entryKey)) {
+                    if (category.getEntries().containsKey(entryKey)) {
                         linkedEntry = category.getEntry(entryKey).getLocalizedName();
                         break;
                     }

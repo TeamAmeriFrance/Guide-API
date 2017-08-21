@@ -62,7 +62,7 @@ public class GuiEntry extends GuiBase {
         this.buttonList.add(buttonNext = new ButtonNext(1, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
         this.buttonList.add(buttonPrev = new ButtonPrev(2, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
 
-        for (IPage page : this.entry.pageList) {
+        for (IPage page : this.entry.getPageList()) {
             page.onInit(book, category, entry, player, bookStack, this);
             pageWrapperList.add(new PageWrapper(this, book, category, entry, page, guiLeft, guiTop, player, this.fontRenderer, bookStack));
         }
@@ -149,7 +149,7 @@ public class GuiEntry extends GuiBase {
         super.onGuiClosed();
 
         ResourceLocation key = null;
-        for (Map.Entry<ResourceLocation, EntryAbstract> mapEntry : category.entries.entrySet())
+        for (Map.Entry<ResourceLocation, EntryAbstract> mapEntry : category.getEntries().entrySet())
             if (mapEntry.getValue().equals(entry))
                 key = mapEntry.getKey();
 
