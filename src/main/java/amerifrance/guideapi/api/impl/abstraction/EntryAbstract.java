@@ -6,6 +6,7 @@ import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.util.LogHelper;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,13 +14,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Arrays;
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 
 public abstract class EntryAbstract {
 
-    public final List<IPage> pageList;//TODO: Make this private. This will be a breaking change.
+    public final List<IPage> pageList;//TODO: Make this a private NonNullList. This will be a breaking change.
     public final String name;
     public boolean unicode;
 
@@ -56,7 +57,8 @@ public abstract class EntryAbstract {
         this.pageList.remove(page);
     }
 
-    public void addPageList(List<IPage> pages) {
+    public void addPageList(@Nonnull List<IPage> pages) {
+        Preconditions.checkNotNull(pages, "Pages cannot be null!");
         if(pages.removeAll(Collections.singleton(null))){
             LogHelper.error("A page in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
         }

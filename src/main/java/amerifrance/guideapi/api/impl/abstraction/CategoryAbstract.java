@@ -5,6 +5,7 @@ import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiHome;
 import amerifrance.guideapi.util.LogHelper;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -15,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -48,15 +50,9 @@ public abstract class CategoryAbstract {
      * @param key   - The key of the entry to add.
      * @param entry - The entry to add.
      */
-    public void addEntry(ResourceLocation key, EntryAbstract entry) {
-        if(key == null){
-            LogHelper.error("A resource location in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
-            return;
-        }
-        if(entry == null){
-            LogHelper.error("An entry in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
-            return;
-        }
+    public void addEntry(@Nonnull ResourceLocation key, @Nonnull EntryAbstract entry) {
+        Preconditions.checkNotNull(key, "Entry key cannot be null!");
+        Preconditions.checkNotNull(entry, "Entry cannot be null!");
         entries.put(key, entry);
     }
 
@@ -68,17 +64,15 @@ public abstract class CategoryAbstract {
      * @param key   - The key of the entry to add.
      * @param entry - The entry to add.
      */
-    public void addEntry(String key, EntryAbstract entry) {
+    public void addEntry(@Nonnull String key, @Nonnull EntryAbstract entry) {
         if (Strings.isNullOrEmpty(keyBase))
             throw new RuntimeException("keyBase in category with name '" + name + "' must be set.");
-        if(Strings.isNullOrEmpty(key)){
-            LogHelper.error("A resource location string in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+        Preconditions.checkNotNull(key, "ResourceLocation key cannot be null!");
+        if(key.isEmpty()){
+            LogHelper.error("A resource location string in list "+name+" was empty. Please report this to the appropriate mod's issue tracker(Not Guide API).");
             return;
         }
-        if(entry == null){
-            LogHelper.error("An entry in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
-            return;
-        }
+        Preconditions.checkNotNull(entry, "Entry cannot be null!");
 
         addEntry(new ResourceLocation(keyBase, key), entry);
     }
@@ -87,7 +81,8 @@ public abstract class CategoryAbstract {
         entries.remove(key);
     }
 
-    public void addEntries(Map<ResourceLocation, EntryAbstract> entries) {
+    public void addEntries(@Nonnull Map<ResourceLocation, EntryAbstract> entries) {
+        Preconditions.checkNotNull(entries, "Entries cannot be null!");
         if(entries.containsKey(null)){
             entries.remove(null);
             LogHelper.error("A resource location in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
@@ -105,6 +100,7 @@ public abstract class CategoryAbstract {
                 entries.remove(key);
     }
 
+    @Nonnull
     public Map<ResourceLocation, EntryAbstract> getEntries() {
         if(entries.containsKey(null)){
             entries.remove(null);
