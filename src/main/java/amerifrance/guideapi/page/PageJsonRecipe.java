@@ -16,5 +16,6 @@ public class PageJsonRecipe extends PageIRecipe {
     public void init() {
         this.recipe = ForgeRegistries.RECIPES.getValue(recipeId);
         this.iRecipeRenderer = getRenderer(recipe);
+        this.isValid = recipe != null && iRecipeRenderer != null;
     }
 }
