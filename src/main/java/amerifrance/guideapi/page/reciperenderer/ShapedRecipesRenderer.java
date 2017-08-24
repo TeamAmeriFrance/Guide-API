@@ -6,6 +6,7 @@ import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.util.LogHelper;
+import com.google.common.collect.Lists;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -32,9 +33,11 @@ public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipes> {
 
                 Ingredient ingredient = recipe.getIngredients().get(y * recipe.recipeWidth + x);
                 List<ItemStack> list = Arrays.asList(ingredient.getMatchingStacks());
+                List<ItemStack> removeList = Lists.newArrayList();
                 for(ItemStack testStack:list)
                     if(testStack == null || testStack.getItem() == null)
-                        list.remove(testStack);
+                        removeList.add(testStack);
+                list.removeAll(removeList);
                 if (!list.isEmpty()) {
                     ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
                     if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
