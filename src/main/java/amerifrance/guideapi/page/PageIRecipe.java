@@ -75,13 +75,13 @@ public class PageIRecipe extends Page {
     static IRecipeRenderer getRenderer(IRecipe recipe) {
         if (recipe == null) {
             return null;
-        } else if (recipe.getClass() == ShapedRecipes.class) {
+        } else if (recipe instanceof ShapedRecipes) {
             return new ShapedRecipesRenderer((ShapedRecipes) recipe);
-        } else if (recipe.getClass() == ShapelessRecipes.class) {
+        } else if (recipe instanceof ShapelessRecipes) {
             return new ShapelessRecipesRenderer((ShapelessRecipes) recipe);
-        } else if (recipe.getClass() == ShapedOreRecipe.class) {
+        } else if (recipe instanceof ShapedOreRecipe) {
             return new ShapedOreRecipeRenderer((ShapedOreRecipe) recipe);
-        } else if (recipe.getClass() == ShapelessOreRecipe.class) {
+        } else if (recipe instanceof ShapelessOreRecipe) {
             return new ShapelessOreRecipeRenderer((ShapelessOreRecipe) recipe);
         } else {
             return null;
