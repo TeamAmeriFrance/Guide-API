@@ -19,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemGuideBook extends Item implements IGuideItem {
@@ -76,6 +77,12 @@ public class ItemGuideBook extends Item implements IGuideItem {
             tooltip.add(TextHelper.localizeEffect(book.getAuthor()));
         if (!Strings.isNullOrEmpty(book.getAuthor()) && (advanced == TooltipFlags.ADVANCED))
             tooltip.add(book.getRegistryName().toString());
+    }
+
+    @Nullable
+//    @Override TODO - Soft override because this hasn't been merged into Forge yet. https://github.com/MinecraftForge/MinecraftForge/pull/4330
+    public String getCreatorModId(ItemStack stack) {
+        return book.getRegistryName().getResourceDomain();
     }
 
     // IGuideItem
