@@ -11,7 +11,7 @@ import amerifrance.guideapi.gui.GuiBase;
 import com.google.common.base.Strings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.Item;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
@@ -63,9 +63,7 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
 
     protected ItemStack getNextItem(ItemStack stack, int position) {
         NonNullList<ItemStack> subItems = NonNullList.create();
-        Item item = stack.getItem();
-
-        item.getSubItems(item.getCreativeTab(), subItems);
+        stack.getItem().getSubItems(CreativeTabs.SEARCH, subItems);
         return subItems.get(getRandomizedCycle(position, subItems.size()));
     }
 
