@@ -54,8 +54,8 @@ public class RegistrarGuideAPI {
 
         for (Book book : GuideAPI.getBooks().values())
             for (CategoryAbstract cat : book.getCategoryList())
-                for (EntryAbstract entry : cat.entries.values())
-                    for (IPage page : entry.pageList)
+                for (EntryAbstract entry : cat.getEntries().values())
+                    for (IPage page : entry.getPageList())
                         if (page instanceof PageJsonRecipe)
                             ((PageJsonRecipe) page).init();
     }

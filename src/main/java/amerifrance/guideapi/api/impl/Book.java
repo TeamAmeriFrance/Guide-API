@@ -2,11 +2,13 @@ package amerifrance.guideapi.api.impl;
 
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.util.TextHelper;
+import amerifrance.guideapi.util.LogHelper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Book {
@@ -63,6 +65,9 @@ public class Book {
     private CreativeTabs creativeTab = CreativeTabs.MISC;
 
     public Book(List<CategoryAbstract> categoryList, String title, String welcomeMessage, String displayName, String author, ResourceLocation pageTexture, ResourceLocation outlineTexture, boolean customModel, Color color, boolean spawnWithBook, ResourceLocation registryName, CreativeTabs creativeTab) {
+        if(categoryList.removeAll(Collections.singleton(null))){
+            LogHelper.error("A category in book "+displayName+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+        }
         this.categoryList = categoryList;
         this.title = title;
         this.welcomeMessage = welcomeMessage;
@@ -84,6 +89,10 @@ public class Book {
      * @param category - Add this category
      */
     public void addCategory(CategoryAbstract category) {
+        if(category == null){
+            LogHelper.error("A category in book "+toString()+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+            return;
+        }
         this.categoryList.add(category);
     }
 
@@ -98,6 +107,9 @@ public class Book {
      * @param categories - Add these categories
      */
     public void addCategoryList(List<CategoryAbstract> categories) {
+        if(categories.removeAll(Collections.singleton(null))){
+            LogHelper.error("A category in book "+toString()+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+        }
         this.categoryList.addAll(categories);
     }
 
@@ -146,6 +158,9 @@ public class Book {
     }
 
     public List<CategoryAbstract> getCategoryList() {
+        if(categoryList.removeAll(Collections.singleton(null))){
+            LogHelper.error("A category in book "+toString()+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+        }
         return this.categoryList;
     }
 
@@ -194,6 +209,9 @@ public class Book {
     }
 
     public void setCategoryList(List<CategoryAbstract> categoryList) {
+        if(categoryList.removeAll(Collections.singleton(null))){
+            LogHelper.error("A category in book "+toString()+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+        }
         this.categoryList = categoryList;
     }
 

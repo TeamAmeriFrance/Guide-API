@@ -5,6 +5,8 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
+import amerifrance.guideapi.util.LogHelper;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,15 +14,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class EntryAbstract {
 
-    public final List<IPage> pageList;
+    public final List<IPage> pageList;//TODO: Make this a private NonNullList. This will be a breaking change.
     public final String name;
     public boolean unicode;
 
     public EntryAbstract(List<IPage> pageList, String name, boolean unicode) {
+        if(pageList.removeAll(Collections.singleton(null))){
+            LogHelper.error("A page in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+        }
         this.pageList = pageList;
         this.name = name;
         this.unicode = unicode;
@@ -39,6 +46,10 @@ public abstract class EntryAbstract {
     }
 
     public void addPage(IPage page) {
+        if(page == null){
+            LogHelper.error("A page in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+            return;
+        }
         this.pageList.add(page);
     }
 
@@ -46,12 +57,23 @@ public abstract class EntryAbstract {
         this.pageList.remove(page);
     }
 
-    public void addPageList(List<IPage> pages) {
+    public void addPageList(@Nonnull List<IPage> pages) {
+        Preconditions.checkNotNull(pages, "Pages cannot be null!");
+        if(pages.removeAll(Collections.singleton(null))){
+            LogHelper.error("A page in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+        }
         this.pageList.addAll(pages);
     }
 
     public void removePageList(List<IPage> pages) {
         this.pageList.removeAll(pages);
+    }
+
+    public List<IPage> getPageList() {
+        if(pageList.removeAll(Collections.singleton(null))){
+            LogHelper.error("A page in list "+name+" was null. Please report this to the appropriate mod's issue tracker(Not Guide API).");
+        }
+        return pageList;
     }
 
     public String getLocalizedName() {

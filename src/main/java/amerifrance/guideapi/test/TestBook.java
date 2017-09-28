@@ -1,5 +1,6 @@
 package amerifrance.guideapi.test;
 
+import amerifrance.guideapi.GuideMod;
 import amerifrance.guideapi.api.GuideBook;
 import amerifrance.guideapi.api.IGuideBook;
 import amerifrance.guideapi.api.IPage;
@@ -15,6 +16,7 @@ import amerifrance.guideapi.page.PageJsonRecipe;
 import amerifrance.guideapi.page.PageText;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -51,8 +53,15 @@ public class TestBook implements IGuideBook {
         pages.add(new PageFurnaceRecipe(Blocks.COBBLESTONE));
         pages.add(PageIRecipe.newShaped(new ItemStack(Items.ACACIA_BOAT), "X X", "XXX", 'X', "plankWood"));
         pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "acacia_fence")));
+
         Entry entry = new EntryItemStack(pages, "test.entry.name", new ItemStack(Items.POTATO));
         entries.put(new ResourceLocation("guideapi", "entry"), entry);
+        if(GuideMod.IS_DEV){//Test all the null handling in dev environment, but don't test it on the released mod.
+            pages.add(null);
+            entries.put(new ResourceLocation("guideapi", "null_entry"), null);
+            entries.put(null, null);
+            categories.add(null);
+        }
 
         pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.IRON_BLOCK), "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron"));
         pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.PLANKS, 4), new ItemStack(Blocks.LOG)));

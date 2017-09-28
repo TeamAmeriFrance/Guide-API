@@ -180,7 +180,7 @@ public class GuiSearch extends GuiBase {
             if (!category.canSee(player, bookStack))
                 continue;
 
-            for (EntryAbstract entry : category.entries.values()) {
+            for (EntryAbstract entry : category.getEntries().values()) {
                 if (!entry.canSee(player, bookStack))
                     continue;
 

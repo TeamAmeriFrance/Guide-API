@@ -62,7 +62,7 @@ public class GuiCategory extends GuiBase {
         int eY = guiTop + 15;
         int i = 0;
         int pageNumber = 0;
-        List<EntryAbstract> entries = Lists.newArrayList(category.entries.values());
+        List<EntryAbstract> entries = Lists.newArrayList(category.getEntries().values());
         for (EntryAbstract entry : entries) {
             entry.onInit(book, category, this, player, bookStack);
             entryWrapperMap.put(pageNumber, new EntryWrapper(this, book, category, entry, eX, eY, 4 * xSize / 6, 10, player, this.fontRenderer, bookStack));
