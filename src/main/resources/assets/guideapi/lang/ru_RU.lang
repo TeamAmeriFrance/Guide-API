@@ -2,12 +2,13 @@
 itemGroup.guideapi.creativeTab=Guide-API
 
 #Item
-item.GuideBook.name=Стандартная книга Guide-API
+item.guideapi.book.name=Стандартная книга Guide-API
 
 #Button hovering text
 button.back.name=Назад
 button.next.name=След.
 button.prev.name=Пред.
+button.search.name=Поиск
 
 #Text to draw
 text.shaped.crafting=Форменное создание
@@ -20,3 +21,11 @@ text.book=Книга: %s
 text.category=Категория: %s
 text.entry=Запись: %s
 text.page=Страница: %s
+text.brewing.brew=зельеварение
+text.brewing.error=&cОшибка в рецепте
+text.linked.open=Шифт + ПКМ, чтобы открыть
+
+#Test
+test.guide.format=Это \n редактируемый\n\tтест
+test.category.name=Тестовая категория
+test.entry.name=Тестовая запись
