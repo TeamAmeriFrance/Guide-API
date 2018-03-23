@@ -6,9 +6,7 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxy.CommonProxy;
 import amerifrance.guideapi.util.AnnotationHandler;
-import amerifrance.guideapi.util.EventHandler;
 import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
@@ -48,7 +46,6 @@ public class GuideMod {
         dataTable = event.getAsmData();
 
         NetworkRegistry.INSTANCE.registerGuiHandler(this, PROXY);
-        MinecraftForge.EVENT_BUS.register(new EventHandler());
         PacketHandler.registerPackets();
     }
 

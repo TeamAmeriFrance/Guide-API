@@ -26,6 +26,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -33,16 +34,17 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.Collection;
 
+@Mod.EventBusSubscriber(modid = GuideMod.ID)
 public class EventHandler {
 
     @SubscribeEvent
-    public void onPlayerJoinWorld(EntityJoinWorldEvent event) {
+    public static void onPlayerJoinWorld(EntityJoinWorldEvent event) {
         if (!event.getEntity().world.isRemote && event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             NBTTagCompound tag = getModTag(player, GuideMod.ID);
             if (ConfigHandler.canSpawnWithBooks) {
                 for (Book book : GuideAPI.getBooks().values()) {
-                    if (book.shouldSpawnWithBook() && !tag.getBoolean("hasInitial" + book.getTitle())) {
+                    if (ConfigHandler.SPAWN_BOOKS.getOrDefault(book, false) && !tag.getBoolean("hasInitial" + book.getTitle())) {
                         ItemHandlerHelper.giveItemToPlayer(player, GuideAPI.getStackFromBook(book));
                         tag.setBoolean("hasInitial" + book.getTitle(), true);
                     }
@@ -53,7 +55,7 @@ public class EventHandler {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void renderOverlay(RenderGameOverlayEvent.Pre event) {
+    public static void renderOverlay(RenderGameOverlayEvent.Pre event) {
         if (event.getType() != RenderGameOverlayEvent.ElementType.CROSSHAIRS)
             return;
 
@@ -121,7 +123,7 @@ public class EventHandler {
             renderer.drawInformation(book, world, rayTrace.getBlockPos(), state, rayTrace, player);
     }
 
-    public NBTTagCompound getModTag(EntityPlayer player, String modName) {
+    public static NBTTagCompound getModTag(EntityPlayer player, String modName) {
         NBTTagCompound tag = player.getEntityData();
         NBTTagCompound persistTag;
 
