@@ -16,6 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -68,7 +69,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        return !Strings.isNullOrEmpty(book.getDisplayName()) ? getBook(stack).getLocalizedDisplayName() : super.getItemStackDisplayName(stack);
+        return !Strings.isNullOrEmpty(book.getItemName()) ? I18n.translateToLocal(getBook(stack).getItemName()) : super.getItemStackDisplayName(stack);
     }
 
     @Override

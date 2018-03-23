@@ -11,6 +11,7 @@ import amerifrance.guideapi.wrapper.CategoryWrapper;
 import com.google.common.collect.HashMultimap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -104,7 +105,7 @@ public class GuiHome extends GuiBase {
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
-        drawCenteredString(fontRenderer, book.getLocalizedWelcomeMessage().replace("\\n", "\n").replace("&", "\u00a7"), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
+        drawCenteredString(fontRenderer, I18n.format(book.getHeader()).replace("\\n", "\n").replace("&", "\u00a7"), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
 
         categoryPage = MathHelper.clamp(categoryPage, 0, categoryWrapperMap.size() - 1);
 
@@ -117,7 +118,7 @@ public class GuiHome extends GuiBase {
                 wrapper.drawExtras(mouseX, mouseY, this);
 
         drawCenteredString(fontRenderer, String.format("%d/%d", categoryPage + 1, categoryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
-        drawCenteredStringWithShadow(fontRenderer, book.getLocalizedBookTitle(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
+        drawCenteredStringWithShadow(fontRenderer, I18n.format(book.getTitle()), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = categoryPage != 0;
         buttonNext.visible = categoryPage != categoryWrapperMap.asMap().size() - 1 && !categoryWrapperMap.asMap().isEmpty();

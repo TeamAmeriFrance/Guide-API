@@ -42,7 +42,7 @@ public class EventHandler {
             NBTTagCompound tag = getModTag(player, GuideMod.ID);
             if (ConfigHandler.canSpawnWithBooks) {
                 for (Book book : GuideAPI.getBooks().values()) {
-                    if (book.isSpawnWithBook() && !tag.getBoolean("hasInitial" + book.getTitle())) {
+                    if (book.shouldSpawnWithBook() && !tag.getBoolean("hasInitial" + book.getTitle())) {
                         ItemHandlerHelper.giveItemToPlayer(player, GuideAPI.getStackFromBook(book));
                         tag.setBoolean("hasInitial" + book.getTitle(), true);
                     }

@@ -1,40 +1,40 @@
 package amerifrance.guideapi.test;
 
+import amerifrance.guideapi.GuideMod;
 import amerifrance.guideapi.api.GuideBook;
 import amerifrance.guideapi.api.IGuideBook;
 import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.BookBinder;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.*;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.brewing.BrewingRecipe;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.awt.Color;
 
 @GuideBook
-public class TestBook2 implements IGuideBook {
+public class TestBook3 implements IGuideBook {
 
     public static Book book;
 
     @Nullable
     @Override
     public Book buildBook() {
-        book = new Book();
-        book.setAuthor("TehNut");
-        book.setColor(Color.GREEN);
-        book.setDisplayName("Display Name");
-        book.setTitle("Title message");
-        book.setHeader("Is this still a thing?");
+        BookBinder binder = new BookBinder(new ResourceLocation(GuideMod.ID, "test_book3"))
+                .setAuthor("TunHet")
+                .setColor(0x7EF67F)
+                .setCreativeTab(CreativeTabs.COMBAT)
+                .setGuideTitle("some.guide.title")
+                .setHeader("some.header.text")
+                .setSpawnWithBook();
 
         CategoryAbstract testCategory = new CategoryItemStack("test.category.name", new ItemStack(Items.BANNER)).withKeyBase("guideapi");
         testCategory.addEntry("entry", new EntryItemStack("test.entry.name", new ItemStack(Items.POTATO)));
@@ -47,15 +47,8 @@ public class TestBook2 implements IGuideBook {
                 PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.HEALING)))
         );
         testCategory.getEntry("entry").addPage(new PageJsonRecipe(new ResourceLocation("bread")));
-        book.addCategory(testCategory);
+        binder.addCategory(testCategory);
 
-        book.setRegistryName(new ResourceLocation("guideapi", "test_book2"));
-        return book;
-    }
-
-    @Nullable
-    @Override
-    public IRecipe getRecipe(@Nonnull ItemStack bookStack) {
-        return new ShapedOreRecipe(null, bookStack, "X X", " X ", "X X", 'X', "ingotIron").setRegistryName(book.getRegistryName());
+        return book = binder.build();
     }
 }
