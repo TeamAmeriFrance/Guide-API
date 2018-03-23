@@ -51,7 +51,7 @@ public class GuiHome extends GuiBase {
 
         addButton(buttonNext = new ButtonNext(0, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
         addButton(buttonPrev = new ButtonPrev(1, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
-        addButton(buttonSearch = new ButtonSearch(2, guiLeft + xSize / 6, guiTop, this));
+        addButton(buttonSearch = new ButtonSearch(2, (guiLeft + xSize / 6) - 25, guiTop + 5, this));
 
         int cX = guiLeft + 45;
         int cY = guiTop + 40;

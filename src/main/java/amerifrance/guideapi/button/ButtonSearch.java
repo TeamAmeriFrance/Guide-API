@@ -1,6 +1,6 @@
 package amerifrance.guideapi.button;
 
-import amerifrance.guideapi.GuideMod;
+import amerifrance.guideapi.api.SubTexture;
 import amerifrance.guideapi.api.button.ButtonGuideAPI;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.api.util.TextHelper;
@@ -8,7 +8,6 @@ import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +16,8 @@ public class ButtonSearch extends ButtonGuideAPI {
 
     public ButtonSearch(int id, int x, int y, GuiBase guiBase) {
         super(id, x, y, guiBase);
-        width = 18;
-        height = 10;
+        width = 15;
+        height = 15;
     }
 
     @Override
@@ -28,12 +27,11 @@ public class ButtonSearch extends ButtonGuideAPI {
             GlStateManager.enableBlend();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.disableLighting();
-            mc.getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) {
-                this.drawTexturedModalRect(x, y + 1, 47, 214, 18, 10);
+                SubTexture.MAGNIFYING_GLASS.draw(x, y + 1);
                 guiBase.drawHoveringText(getHoveringText(), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
             } else {
-                this.drawTexturedModalRect(x, y, 24, 214, 18, 10);
+                SubTexture.MAGNIFYING_GLASS.draw(x, y);
             }
             GlStateManager.disableBlend();
             RenderHelper.disableStandardItemLighting();

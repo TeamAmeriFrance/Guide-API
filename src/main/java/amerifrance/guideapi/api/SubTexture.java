@@ -12,6 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class SubTexture {
 
     private static final ResourceLocation RECIPE_ELEMENTS = new ResourceLocation("guideapi", "textures/gui/recipe_elements.png");
+    private static final ResourceLocation OTHER_ELEMENTS = new ResourceLocation("guideapi", "textures/gui/book_colored.png");
     // Grids
     public static final SubTexture CRAFTING_GRID = new SubTexture(RECIPE_ELEMENTS, 0, 48, 102, 56);
     public static final SubTexture FURNACE_GRID = new SubTexture(RECIPE_ELEMENTS, 0, 104, 68, 28);
@@ -19,6 +20,7 @@ public class SubTexture {
 
     // Singletons
     public static final SubTexture SINGLE_SLOT = new SubTexture(RECIPE_ELEMENTS, 0, 28, 20, 20);
+    public static final SubTexture MAGNIFYING_GLASS = new SubTexture(OTHER_ELEMENTS, 0, 241, 15, 15);
 
     // Large buttons
     public static final SubTexture LARGE_BUTTON = new SubTexture(RECIPE_ELEMENTS, 0, 0, 55, 18);
