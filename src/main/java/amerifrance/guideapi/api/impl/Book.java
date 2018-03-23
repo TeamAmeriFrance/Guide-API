@@ -154,7 +154,7 @@ public class Book {
      * @deprecated see {@link BookBinder#setHeader(String)}. To be removed in 1.13.
      */
     @Deprecated
-    public void setHeader(String header) {
+    public void setWelcomeMessage(String header) {
         this.header = header;
     }
 

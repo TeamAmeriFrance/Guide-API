@@ -34,7 +34,7 @@ public class TestBook2 implements IGuideBook {
         book.setColor(Color.GREEN);
         book.setDisplayName("Display Name");
         book.setTitle("Title message");
-        book.setHeader("Is this still a thing?");
+        book.setWelcomeMessage("Is this still a thing?");
 
         CategoryAbstract testCategory = new CategoryItemStack("test.category.name", new ItemStack(Items.BANNER)).withKeyBase("guideapi");
         testCategory.addEntry("entry", new EntryItemStack("test.entry.name", new ItemStack(Items.POTATO)));

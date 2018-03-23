@@ -41,7 +41,7 @@ public class TestBook implements IGuideBook {
         book.setColor(Color.GRAY);
         book.setDisplayName("Display Name");
         book.setTitle("Title message");
-        book.setHeader("Is this still a thing?");
+        book.setWelcomeMessage("Is this still a thing?");
 
         List<CategoryAbstract> categories = Lists.newArrayList();
         Map<ResourceLocation, EntryAbstract> entries = Maps.newHashMap();
