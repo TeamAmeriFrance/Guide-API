@@ -5,18 +5,16 @@ import amerifrance.guideapi.api.impl.Page;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
-import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PageTextImage extends Page {
 
-    public String draw;
+    public PageText pageText;
     public ResourceLocation image;
     public boolean drawAtTop;
 
@@ -26,8 +24,7 @@ public class PageTextImage extends Page {
      * @param drawAtTop - Draw Image at top and text at bottom. False reverses this.
      */
     public PageTextImage(String draw, ResourceLocation image, boolean drawAtTop) {
-
-        this.draw = I18n.canTranslate(draw) ? TextHelper.localizeEffect(draw) : draw;
+        this.pageText = new PageText(draw, drawAtTop ? 0 : 100);
         this.image = image;
         this.drawAtTop = drawAtTop;
     }
@@ -38,9 +35,8 @@ public class PageTextImage extends Page {
         Minecraft.getMinecraft().getTextureManager().bindTexture(image);
         GuiHelper.drawSizedIconWithoutColor(guiLeft + 50, guiTop + (drawAtTop ? 60 : 12), guiBase.xSize, guiBase.ySize, 0);
 
-        PageText text = new PageText(draw, drawAtTop ? 0 : 100);
-        text.setUnicodeFlag(unicode);
-        text.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
+        pageText.setUnicodeFlag(unicode);
+        pageText.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
     }
 
     @Override
@@ -52,13 +48,13 @@ public class PageTextImage extends Page {
         PageTextImage that = (PageTextImage) o;
 
         if (drawAtTop != that.drawAtTop) return false;
-        if (draw != null ? !draw.equals(that.draw) : that.draw != null) return false;
+        if (pageText != null ? !pageText.equals(that.pageText) : that.pageText != null) return false;
         return image != null ? image.equals(that.image) : that.image == null;
     }
 
     @Override
     public int hashCode() {
-        int result = draw != null ? draw.hashCode() : 0;
+        int result = pageText != null ? pageText.hashCode() : 0;
         result = 31 * result + (image != null ? image.hashCode() : 0);
         result = 31 * result + (drawAtTop ? 1 : 0);
         return result;

@@ -5,10 +5,9 @@ import amerifrance.guideapi.api.impl.Page;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
-import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -22,7 +21,7 @@ public class PageText extends Page {
      * @param yOffset - How many pixels to offset the text on the Y value
      */
     public PageText(String draw, int yOffset) {
-        this.draw = I18n.canTranslate(draw) ? TextHelper.localizeEffect(draw) : draw;
+        this.draw = draw;
         this.yOffset = yOffset;
     }
 
@@ -38,7 +37,7 @@ public class PageText extends Page {
         if (unicode)
             fontRendererObj.setUnicodeFlag(true);
 
-        PageHelper.drawFormattedText(guiLeft + 39, guiTop + 12 + yOffset, guiBase, draw);
+        PageHelper.drawFormattedText(guiLeft + 39, guiTop + 12 + yOffset, guiBase, I18n.format(draw));
 
         if (unicode && !startFlag)
             fontRendererObj.setUnicodeFlag(false);
