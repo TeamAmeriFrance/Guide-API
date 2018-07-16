@@ -1,6 +1,7 @@
 package amerifrance.guideapi.item;
 
 import amerifrance.guideapi.GuideMod;
+import amerifrance.guideapi.api.BookEvent;
 import amerifrance.guideapi.api.GuideAPI;
 import amerifrance.guideapi.api.IGuideItem;
 import amerifrance.guideapi.api.IGuideLinked;
@@ -18,6 +19,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,8 +40,16 @@ public class ItemGuideBook extends Item implements IGuideItem {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        ItemStack heldStack = player.getHeldItem(hand);
+
+        BookEvent.Open event = new BookEvent.Open(book, heldStack, player);
+        if (MinecraftForge.EVENT_BUS.post(event)) {
+            player.sendStatusMessage(event.getCanceledText(), true);
+            return ActionResult.newResult(EnumActionResult.FAIL, heldStack);
+        }
+
         player.openGui(GuideMod.INSTANCE, GuideAPI.getIndexedBooks().indexOf(book), world, hand.ordinal(), 0, 0);
-        return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+        return ActionResult.newResult(EnumActionResult.SUCCESS, heldStack);
     }
 
     @Override

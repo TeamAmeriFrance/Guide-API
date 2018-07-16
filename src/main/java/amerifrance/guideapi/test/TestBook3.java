@@ -1,6 +1,7 @@
 package amerifrance.guideapi.test;
 
 import amerifrance.guideapi.GuideMod;
+import amerifrance.guideapi.api.BookEvent;
 import amerifrance.guideapi.api.GuideBook;
 import amerifrance.guideapi.api.IGuideBook;
 import amerifrance.guideapi.api.impl.Book;
@@ -16,7 +17,10 @@ import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipe;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nullable;
 
@@ -28,6 +32,8 @@ public class TestBook3 implements IGuideBook {
     @Nullable
     @Override
     public Book buildBook() {
+        MinecraftForge.EVENT_BUS.register(this);
+
         BookBinder binder = new BookBinder(new ResourceLocation(GuideMod.ID, "test_book3"))
                 .setAuthor("TunHet")
                 .setColor(0x7EF67F)
@@ -50,5 +56,13 @@ public class TestBook3 implements IGuideBook {
         binder.addCategory(testCategory);
 
         return book = binder.build();
+    }
+
+    @SubscribeEvent
+    public void onBookOpen(BookEvent.Open event) {
+        if (event.getBook() == book && event.getPlayer().isSneaking()) {
+            event.setCanceledText(new TextComponentString("No snek allowed"));
+            event.setCanceled(true);
+        }
     }
 }

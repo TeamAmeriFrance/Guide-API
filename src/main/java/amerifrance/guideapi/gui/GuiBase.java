@@ -73,10 +73,6 @@ public class GuiBase extends GuiScreen {
         super.drawCenteredString(fontRendererObj, string, x, y, color);
     }
 
-    public void drawSplitString(String string, int x, int y, int maxLength, int color) {
-        fontRenderer.drawSplitString(string, x, y, maxLength, color);
-    }
-
     @Override
     public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {
         pushMatrix();
@@ -101,15 +97,5 @@ public class GuiBase extends GuiScreen {
         super.drawHoveringText(list, x, y);
         RenderHelper.enableStandardItemLighting();
         enableLighting();
-    }
-
-    @Override
-    public void renderToolTip(ItemStack stack, int x, int y) {
-        super.renderToolTip(stack, x, y);
-    }
-
-    @Override
-    public void onGuiClosed() {
-        super.onGuiClosed();
     }
 }
