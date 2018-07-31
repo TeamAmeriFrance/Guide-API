@@ -98,4 +98,14 @@ public class GuiBase extends GuiScreen {
         RenderHelper.enableStandardItemLighting();
         enableLighting();
     }
+
+    @Override
+    public void renderToolTip(ItemStack stack, int x, int y) {
+        super.renderToolTip(stack, x, y);
+    }
+
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+    }
 }
