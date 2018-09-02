@@ -14,6 +14,7 @@ import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecipes> {
@@ -35,9 +36,11 @@ public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecip
                     Ingredient ingredient = recipe.getIngredients().get(i);
                     List<ItemStack> list = Arrays.asList(ingredient.getMatchingStacks());
                     List<ItemStack> removeList = Lists.newArrayList();
-                    for(ItemStack testStack:list)
-                        if(testStack == null || testStack.getItem() == null)
+                    for (Iterator<ItemStack> iterator = list.iterator(); iterator.hasNext(); ) {
+                        ItemStack testStack = iterator.next();
+                        if (testStack == null || testStack.getItem() == null)
                             removeList.add(testStack);
+                    }
                     list.removeAll(removeList);
                     if (!list.isEmpty()) {
                         ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
