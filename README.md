@@ -16,6 +16,7 @@ The ones we know of at least
 * [Overlord](https://minecraft.curseforge.com/projects/overlord)
 * [Mechanical Soldiers](https://minecraft.curseforge.com/projects/mechanical-soldiers)
 * [Blood Magic](https://minecraft.curseforge.com/projects/blood-magic) (*In progress*)
+* [Crossroads](https://github.com/Da-Technomancer/Crossroads)
 
 ## Issue Reporting
 
