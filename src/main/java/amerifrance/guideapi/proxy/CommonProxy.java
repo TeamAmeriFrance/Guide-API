@@ -44,7 +44,7 @@ public class CommonProxy implements IGuiHandler {
                     } else if (tagCompound.hasKey(NBTBookTags.CATEGORY_TAG)) {
                         CategoryAbstract category = book.getCategoryList().get(tagCompound.getInteger(NBTBookTags.CATEGORY_TAG));
                         int entryPage = tagCompound.getInteger(NBTBookTags.ENTRY_PAGE_TAG);
-                        GuiCategory guiCategory = new GuiCategory(book, category, player, bookStack);
+                        GuiCategory guiCategory = new GuiCategory(book, category, player, bookStack, null);
                         guiCategory.entryPage = entryPage;
                         return guiCategory;
                     } else {
