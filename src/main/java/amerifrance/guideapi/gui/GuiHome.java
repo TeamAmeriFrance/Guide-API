@@ -60,6 +60,9 @@ public class GuiHome extends GuiBase {
         int pageNumber = 0;
 
         for (CategoryAbstract category : book.getCategoryList()) {
+            if (category.entries.isEmpty())
+                continue;
+
             category.onInit(book, this, player, bookStack);
             switch (drawLoc) {
                 case 0: {
