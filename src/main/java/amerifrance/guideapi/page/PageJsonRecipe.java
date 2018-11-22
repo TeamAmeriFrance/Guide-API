@@ -8,7 +8,7 @@ public class PageJsonRecipe extends PageIRecipe {
     private final ResourceLocation recipeId;
 
     public PageJsonRecipe(ResourceLocation recipeId) {
-        super(null);
+        super(null, null);
 
         this.recipeId = recipeId;
     }
