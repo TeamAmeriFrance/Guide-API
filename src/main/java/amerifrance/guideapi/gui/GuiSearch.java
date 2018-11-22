@@ -64,6 +64,7 @@ public class GuiSearch extends GuiBase {
 
         searchField = new GuiTextField(3, fontRenderer, guiLeft + 43, guiTop + 12, 100, 10);
         searchField.setEnableBackgroundDrawing(false);
+        searchField.setFocused(true);
         searchResults = getMatches(book, null, player, bookStack);
     }
 
