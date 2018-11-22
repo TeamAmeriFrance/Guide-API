@@ -43,7 +43,7 @@ public class Category extends CategoryAbstract {
     @Override
     @SideOnly(Side.CLIENT)
     public void onLeftClicked(Book book, int mouseX, int mouseY, EntityPlayer player, ItemStack bookStack) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiCategory(book, this, player, bookStack));
+        Minecraft.getMinecraft().displayGuiScreen(new GuiCategory(book, this, player, bookStack, null));
     }
 
     @Override

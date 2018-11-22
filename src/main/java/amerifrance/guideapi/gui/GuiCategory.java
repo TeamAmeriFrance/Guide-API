@@ -24,6 +24,8 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 public class GuiCategory extends GuiBase {
 
     public ResourceLocation outlineTexture;
@@ -35,14 +37,16 @@ public class GuiCategory extends GuiBase {
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
     public int entryPage;
+    @Nullable public EntryAbstract startEntry;
 
-    public GuiCategory(Book book, CategoryAbstract category, EntityPlayer player, ItemStack bookStack) {
+    public GuiCategory(Book book, CategoryAbstract category, EntityPlayer player, ItemStack bookStack, @Nullable EntryAbstract startEntry) {
         super(player, bookStack);
         this.book = book;
         this.category = category;
         this.pageTexture = book.getPageTexture();
         this.outlineTexture = book.getOutlineTexture();
         this.entryPage = 0;
+        this.startEntry = startEntry;
     }
 
     @Override
@@ -66,6 +70,10 @@ public class GuiCategory extends GuiBase {
         for (EntryAbstract entry : entries) {
             entry.onInit(book, category, this, player, bookStack);
             entryWrapperMap.put(pageNumber, new EntryWrapper(this, book, category, entry, eX, eY, 4 * xSize / 6, 10, player, this.fontRenderer, bookStack));
+            if (entry.equals(this.startEntry)) {
+                this.startEntry = null;
+                this.entryPage = pageNumber;
+            }
             eY += 13;
             i++;
 
