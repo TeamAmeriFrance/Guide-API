@@ -7,6 +7,7 @@ import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.button.ButtonBack;
 import amerifrance.guideapi.button.ButtonNext;
 import amerifrance.guideapi.button.ButtonPrev;
+import amerifrance.guideapi.button.ButtonSearch;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.network.PacketSyncEntry;
 import amerifrance.guideapi.wrapper.PageWrapper;
@@ -36,6 +37,7 @@ public class GuiEntry extends GuiBase {
     public ButtonBack buttonBack;
     public ButtonNext buttonNext;
     public ButtonPrev buttonPrev;
+    public ButtonSearch buttonSearch;
     public int pageNumber;
 
     public GuiEntry(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack) {
@@ -61,6 +63,7 @@ public class GuiEntry extends GuiBase {
         this.buttonList.add(buttonBack = new ButtonBack(0, guiLeft + xSize / 6, guiTop, this));
         this.buttonList.add(buttonNext = new ButtonNext(1, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
         this.buttonList.add(buttonPrev = new ButtonPrev(2, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
+        this.buttonList.add(buttonSearch = new ButtonSearch(3, (guiLeft + xSize / 6) - 25, guiTop + 5, this));
 
         for (IPage page : this.entry.pageList) {
             page.onInit(book, category, entry, player, bookStack, this);
@@ -142,6 +145,8 @@ public class GuiEntry extends GuiBase {
             nextPage();
         else if (button.id == 2 && pageNumber > 0)
             prevPage();
+        else if (button.id == 3)
+            this.mc.displayGuiScreen(new GuiSearch(book, player, bookStack, this));
     }
 
     @Override
