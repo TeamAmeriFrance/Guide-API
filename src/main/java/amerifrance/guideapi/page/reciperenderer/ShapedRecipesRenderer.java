@@ -5,6 +5,8 @@ import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.util.LogHelper;
+import com.google.common.collect.Lists;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -12,6 +14,7 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipes> {
@@ -20,6 +23,7 @@ public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipes> {
         super(recipe);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
         super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
@@ -30,6 +34,13 @@ public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipes> {
 
                 Ingredient ingredient = recipe.getIngredients().get(y * recipe.recipeWidth + x);
                 List<ItemStack> list = Arrays.asList(ingredient.getMatchingStacks());
+                List<ItemStack> removeList = Lists.newArrayList();
+                for (Iterator<ItemStack> iterator = list.iterator(); iterator.hasNext(); ) {
+                    ItemStack testStack = iterator.next();
+                    if (testStack == null || testStack.getItem() == null)
+                        removeList.add(testStack);
+                }
+                list.removeAll(removeList);
                 if (!list.isEmpty()) {
                     ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
                     if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
