@@ -8,7 +8,7 @@ import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class EntryWrapper extends AbstractWrapper {
@@ -17,12 +17,12 @@ public class EntryWrapper extends AbstractWrapper {
     public CategoryAbstract category;
     public EntryAbstract entry;
     public int x, y, width, height;
-    public EntityPlayer player;
+    public PlayerEntity player;
     public FontRenderer renderer;
     public GuiCategory categoryGui;
     public ItemStack bookStack;
 
-    public EntryWrapper(GuiCategory categoryGui, Book book, CategoryAbstract category, EntryAbstract entry, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer, ItemStack bookStack) {
+    public EntryWrapper(GuiCategory categoryGui, Book book, CategoryAbstract category, EntryAbstract entry, int x, int y, int width, int height, PlayerEntity player, FontRenderer renderer, ItemStack bookStack) {
         this.book = book;
         this.category = category;
         this.entry = entry;

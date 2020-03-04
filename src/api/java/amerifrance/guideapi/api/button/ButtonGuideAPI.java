@@ -1,9 +1,9 @@
 package amerifrance.guideapi.api.button;
 
 import amerifrance.guideapi.gui.GuiBase;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.widget.button.Button;
 
-public class ButtonGuideAPI extends GuiButton {
+public class ButtonGuideAPI extends Button {
 
     public GuiBase guiBase;
 

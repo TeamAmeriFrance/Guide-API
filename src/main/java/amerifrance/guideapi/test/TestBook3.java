@@ -11,13 +11,13 @@ import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.*;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.PotionTypes;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Items;
+import net.minecraft.potion.Potions;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -48,9 +48,9 @@ public class TestBook3 implements IGuideBook {
         testCategory.getEntry("entry").addPage(new PageFurnaceRecipe(Blocks.COBBLESTONE));
         testCategory.getEntry("entry").addPage(PageIRecipe.newShaped(new ItemStack(Items.ACACIA_BOAT), "X X", "XXX", 'X', new ItemStack(Blocks.PLANKS, 1, 4)));
         testCategory.getEntry("entry").addPage(new PageBrewingRecipe(new BrewingRecipe(
-                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.AWKWARD),
+                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), Potions.AWKWARD),
                 new ItemStack(Items.SPECKLED_MELON),
-                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.HEALING)))
+                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), Potions.HEALING)))
         );
         testCategory.getEntry("entry").addPage(new PageJsonRecipe(new ResourceLocation("bread")));
         binder.addCategory(testCategory);
@@ -61,7 +61,7 @@ public class TestBook3 implements IGuideBook {
     @SubscribeEvent
     public void onBookOpen(BookEvent.Open event) {
         if (event.getBook() == book && event.getPlayer().isSneaking()) {
-            event.setCanceledText(new TextComponentString("No snek allowed"));
+            event.setCanceledText(new StringTextComponent("No snek allowed"));
             event.setCanceled(true);
         }
     }

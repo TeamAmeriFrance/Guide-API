@@ -9,10 +9,10 @@ import amerifrance.guideapi.api.util.NBTBookTags;
 import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiEntry;
 import amerifrance.guideapi.gui.GuiHome;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumHand;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
@@ -21,19 +21,19 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 public class CommonProxy implements IGuiHandler {
 
     @Override
-    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+    public Object getServerGuiElement(int ID, PlayerEntity player, World world, int x, int y, int z) {
         return null;
     }
 
     @Override
-    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        ItemStack bookStack = player.getHeldItem(EnumHand.values()[x]);
+    public Object getClientGuiElement(int ID, PlayerEntity player, World world, int x, int y, int z) {
+        ItemStack bookStack = player.getHeldItem(Hand.values()[x]);
 
         if (!bookStack.isEmpty() && bookStack.getItem() instanceof IGuideItem) {
             Book book = GuideAPI.getIndexedBooks().get(ID);
             try {
                 if (bookStack.hasTagCompound()) {
-                    NBTTagCompound tagCompound = bookStack.getTagCompound();
+                    CompoundNBT tagCompound = bookStack.getTagCompound();
                     if (tagCompound.hasKey(NBTBookTags.ENTRY_TAG) && tagCompound.hasKey(NBTBookTags.CATEGORY_TAG)) {
                         CategoryAbstract category = book.getCategoryList().get(tagCompound.getInteger(NBTBookTags.CATEGORY_TAG));
                         EntryAbstract entry = category.entries.get(new ResourceLocation(tagCompound.getString(NBTBookTags.ENTRY_TAG)));
@@ -67,7 +67,7 @@ public class CommonProxy implements IGuiHandler {
     public void playSound(SoundEvent sound) {
     }
 
-    public void openEntry(Book book, CategoryAbstract categoryAbstract, EntryAbstract entryAbstract, EntityPlayer player, ItemStack stack) {
+    public void openEntry(Book book, CategoryAbstract categoryAbstract, EntryAbstract entryAbstract, PlayerEntity player, ItemStack stack) {
     }
 
     public void initColors() {

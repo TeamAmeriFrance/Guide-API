@@ -9,10 +9,10 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.util.TextHelper;
 import com.google.common.base.Strings;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
@@ -39,42 +39,42 @@ public class ItemGuideBook extends Item implements IGuideItem {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         ItemStack heldStack = player.getHeldItem(hand);
 
         BookEvent.Open event = new BookEvent.Open(book, heldStack, player);
         if (MinecraftForge.EVENT_BUS.post(event)) {
             player.sendStatusMessage(event.getCanceledText(), true);
-            return ActionResult.newResult(EnumActionResult.FAIL, heldStack);
+            return ActionResult.newResult(ActionResultType.FAIL, heldStack);
         }
 
         player.openGui(GuideMod.INSTANCE, GuideAPI.getIndexedBooks().indexOf(book), world, hand.ordinal(), 0, 0);
-        return ActionResult.newResult(EnumActionResult.SUCCESS, heldStack);
+        return ActionResult.newResult(ActionResultType.SUCCESS, heldStack);
     }
 
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public ActionResultType onItemUse(PlayerEntity player, World world, BlockPos pos, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
         if (!world.isRemote || !player.isSneaking())
-            return EnumActionResult.PASS;
+            return ActionResultType.PASS;
 
         ItemStack stack = player.getHeldItem(hand);
-        IBlockState state = world.getBlockState(pos);
+        BlockState state = world.getBlockState(pos);
 
         if (state.getBlock() instanceof IGuideLinked) {
             IGuideLinked guideLinked = (IGuideLinked) state.getBlock();
             ResourceLocation entryKey = guideLinked.getLinkedEntry(world, pos, player, stack);
             if (entryKey == null)
-                return EnumActionResult.FAIL;
+                return ActionResultType.FAIL;
 
             for (CategoryAbstract category : book.getCategoryList()) {
                 if (category.entries.containsKey(entryKey)) {
                     GuideMod.PROXY.openEntry(book, category, category.entries.get(entryKey), player, stack);
-                    return EnumActionResult.SUCCESS;
+                    return ActionResultType.SUCCESS;
                 }
             }
         }
 
-        return EnumActionResult.PASS;
+        return ActionResultType.PASS;
     }
 
     @Override

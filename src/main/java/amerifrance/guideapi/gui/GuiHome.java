@@ -10,9 +10,9 @@ import amerifrance.guideapi.network.PacketSyncHome;
 import amerifrance.guideapi.wrapper.CategoryWrapper;
 import com.google.common.collect.HashMultimap;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -33,7 +33,7 @@ public class GuiHome extends GuiBase {
     public ButtonSearch buttonSearch;
     public int categoryPage;
 
-    public GuiHome(Book book, EntityPlayer player, ItemStack bookStack) {
+    public GuiHome(Book book, PlayerEntity player, ItemStack bookStack) {
         super(player, bookStack);
         this.book = book;
         this.pageTexture = book.getPageTexture();
@@ -126,7 +126,7 @@ public class GuiHome extends GuiBase {
         buttonPrev.visible = categoryPage != 0;
         buttonNext.visible = categoryPage != categoryWrapperMap.asMap().size() - 1 && !categoryWrapperMap.asMap().isEmpty();
 
-        for (GuiButton button : this.buttonList)
+        for (Button button : this.buttonList)
             button.drawButton(this.mc, mouseX, mouseY, renderPartialTicks);
     }
 
@@ -167,7 +167,7 @@ public class GuiHome extends GuiBase {
     }
 
     @Override
-    public void actionPerformed(GuiButton button) {
+    public void actionPerformed(Button button) {
         if (button.id == 0 && categoryPage + 1 < categoryWrapperMap.asMap().size())
             nextPage();
         else if (button.id == 1 && categoryPage > 0)

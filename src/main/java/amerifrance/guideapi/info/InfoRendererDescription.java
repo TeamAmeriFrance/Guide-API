@@ -3,12 +3,12 @@ package amerifrance.guideapi.info;
 import amerifrance.guideapi.api.IInfoRenderer;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.util.GuiHelper;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -32,7 +32,7 @@ public class InfoRendererDescription implements IInfoRenderer {
     }
 
     @Override
-    public void drawInformation(Book book, World world, BlockPos pos, IBlockState state, RayTraceResult rayTrace, EntityPlayer player) {
+    public void drawInformation(Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player) {
         if (tiny) {
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.5F, 0.5F, 0.5F);

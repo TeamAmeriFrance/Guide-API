@@ -12,14 +12,14 @@ import amerifrance.guideapi.api.util.TextHelper;
 import com.google.common.base.Strings;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumHand;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
@@ -39,9 +39,9 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onPlayerJoinWorld(EntityJoinWorldEvent event) {
-        if (!event.getEntity().world.isRemote && event.getEntity() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getEntity();
-            NBTTagCompound tag = getModTag(player, GuideMod.ID);
+        if (!event.getEntity().world.isRemote && event.getEntity() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getEntity();
+            CompoundNBT tag = getModTag(player, GuideMod.ID);
             if (ConfigHandler.canSpawnWithBooks) {
                 for (Book book : GuideAPI.getBooks().values()) {
                     if (ConfigHandler.SPAWN_BOOKS.getOrDefault(book, false) && !tag.getBoolean("hasInitial" + book.getTitle())) {
@@ -63,11 +63,11 @@ public class EventHandler {
         if (rayTrace == null || rayTrace.typeOfHit != RayTraceResult.Type.BLOCK)
             return;
 
-        EntityPlayer player = Minecraft.getMinecraft().player;
+        PlayerEntity player = Minecraft.getMinecraft().player;
         World world = Minecraft.getMinecraft().world;
         ItemStack held = ItemStack.EMPTY;
         Book book = null;
-        for (EnumHand hand : EnumHand.values()) {
+        for (Hand hand : Hand.values()) {
             ItemStack heldStack = player.getHeldItem(hand);
             if (heldStack.getItem() instanceof IGuideItem) {
                 held = heldStack;
@@ -79,7 +79,7 @@ public class EventHandler {
         if (book == null)
             return;
 
-        IBlockState state = world.getBlockState(rayTrace.getBlockPos());
+        BlockState state = world.getBlockState(rayTrace.getBlockPos());
         String linkedEntry = null;
         if (state.getBlock() instanceof IGuideLinked) {
             IGuideLinked linked = (IGuideLinked) state.getBlock();
@@ -123,22 +123,22 @@ public class EventHandler {
             renderer.drawInformation(book, world, rayTrace.getBlockPos(), state, rayTrace, player);
     }
 
-    public static NBTTagCompound getModTag(EntityPlayer player, String modName) {
-        NBTTagCompound tag = player.getEntityData();
-        NBTTagCompound persistTag;
+    public static CompoundNBT getModTag(PlayerEntity player, String modName) {
+        CompoundNBT tag = player.getEntityData();
+        CompoundNBT persistTag;
 
-        if (tag.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
-            persistTag = tag.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+        if (tag.hasKey(PlayerEntity.PERSISTED_NBT_TAG))
+            persistTag = tag.getCompoundTag(PlayerEntity.PERSISTED_NBT_TAG);
         else {
-            persistTag = new NBTTagCompound();
-            tag.setTag(EntityPlayer.PERSISTED_NBT_TAG, persistTag);
+            persistTag = new CompoundNBT();
+            tag.setTag(PlayerEntity.PERSISTED_NBT_TAG, persistTag);
         }
 
-        NBTTagCompound modTag;
+        CompoundNBT modTag;
         if (persistTag.hasKey(modName)) {
             modTag = persistTag.getCompoundTag(modName);
         } else {
-            modTag = new NBTTagCompound();
+            modTag = new CompoundNBT();
             persistTag.setTag(modName, modTag);
         }
         return modTag;

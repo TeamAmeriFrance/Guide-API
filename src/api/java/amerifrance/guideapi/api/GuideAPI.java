@@ -3,12 +3,13 @@ package amerifrance.guideapi.api;
 import amerifrance.guideapi.api.impl.Book;
 import com.google.common.collect.*;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+
 
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class GuideAPI {
      * @param modelLoc    - Location of the model file
      * @param variantName - Variant to use
      */
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public static void setModel(Book book, ResourceLocation modelLoc, String variantName) {
         ModelResourceLocation mrl = new ModelResourceLocation(modelLoc, variantName);
         ModelLoader.setCustomModelResourceLocation(
@@ -74,7 +75,7 @@ public class GuideAPI {
      *
      * @param book - Book to set model for
      */
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public static void setModel(Book book) {
         setModel(book, new ResourceLocation("guideapi", "ItemGuideBook"), "inventory");
     }

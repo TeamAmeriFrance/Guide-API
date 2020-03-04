@@ -9,7 +9,7 @@ import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiEntry;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -42,20 +42,20 @@ public class PageSound extends Page {
     }
 
     @Override
-    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack, GuiEntry guiEntry) {
+    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, GuiEntry guiEntry) {
         return pageToEmulate.canSee(book, category, entry, player, bookStack, guiEntry);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry) {
+    public void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, PlayerEntity player, GuiEntry guiEntry) {
         GuideMod.PROXY.playSound(sound);
         pageToEmulate.onLeftClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, EntityPlayer player, GuiEntry guiEntry) {
+    public void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, PlayerEntity player, GuiEntry guiEntry) {
         pageToEmulate.onRightClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
     }
 

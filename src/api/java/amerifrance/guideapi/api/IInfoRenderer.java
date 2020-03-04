@@ -1,8 +1,8 @@
 package amerifrance.guideapi.api;
 
 import amerifrance.guideapi.api.impl.Book;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -33,7 +33,7 @@ public interface IInfoRenderer {
      * @param rayTrace - A RayTraceResult containing data about the block currently looked at
      * @param player   - The player looking at the block
      */
-    void drawInformation(Book book, World world, BlockPos pos, IBlockState state, RayTraceResult rayTrace, EntityPlayer player);
+    void drawInformation(Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player);
 
     interface Block {
 
@@ -49,7 +49,7 @@ public interface IInfoRenderer {
          * @return an IInfoRenderer for this block. If no IInfoRenderer is needed, return null.
          */
         @Nullable
-        IInfoRenderer getInfoRenderer(Book book, World world, BlockPos pos, IBlockState state, RayTraceResult rayTrace, EntityPlayer player);
+        IInfoRenderer getInfoRenderer(Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player);
 
         /**
          * @return returns the book required to display information.

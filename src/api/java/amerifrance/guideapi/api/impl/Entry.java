@@ -9,7 +9,7 @@ import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -87,23 +87,23 @@ public class Entry extends EntryAbstract {
     }
 
     @Override
-    public boolean canSee(EntityPlayer player, ItemStack bookStack) {
+    public boolean canSee(PlayerEntity player, ItemStack bookStack) {
         return true;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onLeftClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory) {
+    public void onLeftClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, PlayerEntity player, GuiCategory guiCategory) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiEntry(book, category, this, player, guiCategory.bookStack));
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onRightClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, EntityPlayer player, GuiCategory guiCategory) {
+    public void onRightClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, PlayerEntity player, GuiCategory guiCategory) {
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onInit(Book book, CategoryAbstract category, GuiCategory guiCategory, EntityPlayer player, ItemStack bookStack) {
+    public void onInit(Book book, CategoryAbstract category, GuiCategory guiCategory, PlayerEntity player, ItemStack bookStack) {
     }
 }

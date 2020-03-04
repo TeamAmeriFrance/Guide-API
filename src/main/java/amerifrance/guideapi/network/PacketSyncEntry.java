@@ -4,7 +4,7 @@ import amerifrance.guideapi.api.IGuideItem;
 import amerifrance.guideapi.api.util.NBTBookTags;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -52,7 +52,7 @@ public class PacketSyncEntry implements IMessage, IMessageHandler<PacketSyncEntr
         if (!book.isEmpty() && book.getItem() instanceof IGuideItem) {
             if (message.category != -1 && !message.entry.equals(new ResourceLocation("guideapi", "none")) && message.page != -1) {
                 if (!book.hasTagCompound())
-                    book.setTagCompound(new NBTTagCompound());
+                    book.setTagCompound(new CompoundNBT());
 
                 book.getTagCompound().setInteger(NBTBookTags.CATEGORY_TAG, message.category);
                 book.getTagCompound().setString(NBTBookTags.ENTRY_TAG, message.entry.toString());

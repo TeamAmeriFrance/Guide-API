@@ -13,8 +13,8 @@ import amerifrance.guideapi.wrapper.EntryWrapper;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -41,7 +41,7 @@ public class GuiCategory extends GuiBase {
     public int entryPage;
     @Nullable public EntryAbstract startEntry;
 
-    public GuiCategory(Book book, CategoryAbstract category, EntityPlayer player, ItemStack bookStack, @Nullable EntryAbstract startEntry) {
+    public GuiCategory(Book book, CategoryAbstract category, PlayerEntity player, ItemStack bookStack, @Nullable EntryAbstract startEntry) {
         super(player, bookStack);
         this.book = book;
         this.category = category;
@@ -155,7 +155,7 @@ public class GuiCategory extends GuiBase {
     }
 
     @Override
-    public void actionPerformed(GuiButton button) {
+    public void actionPerformed(Button button) {
         if (button.id == 0)
             this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
         else if (button.id == 1 && entryPage + 1 < entryWrapperMap.asMap().size())

@@ -6,7 +6,7 @@ import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class CategoryWrapper extends AbstractWrapper {
@@ -14,13 +14,13 @@ public class CategoryWrapper extends AbstractWrapper {
     public Book book;
     public CategoryAbstract category;
     public int x, y, width, height;
-    public EntityPlayer player;
+    public PlayerEntity player;
     public FontRenderer renderer;
     public RenderItem renderItem;
     public boolean drawOnLeft;
     public ItemStack bookStack;
 
-    public CategoryWrapper(Book book, CategoryAbstract category, int x, int y, int width, int height, EntityPlayer player, FontRenderer renderer, RenderItem renderItem, boolean drawOnLeft, ItemStack bookStack) {
+    public CategoryWrapper(Book book, CategoryAbstract category, int x, int y, int width, int height, PlayerEntity player, FontRenderer renderer, RenderItem renderItem, boolean drawOnLeft, ItemStack bookStack) {
         this.book = book;
         this.category = category;
         this.x = x;

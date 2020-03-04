@@ -10,10 +10,10 @@ import amerifrance.guideapi.button.ButtonNext;
 import amerifrance.guideapi.button.ButtonPrev;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiUtils;
@@ -35,13 +35,13 @@ public class GuiSearch extends GuiBase {
     private ResourceLocation pageTexture;
     private ButtonNext buttonNext;
     private ButtonPrev buttonPrev;
-    private GuiTextField searchField;
-    private GuiScreen parent;
+    private TextFieldWidget searchField;
+    private Screen parent;
     private List<List<Pair<EntryAbstract, CategoryAbstract>>> searchResults;
     private int currentPage = 0;
     private String lastQuery = "";
 
-    public GuiSearch(Book book, EntityPlayer player, ItemStack bookStack, GuiScreen parent) {
+    public GuiSearch(Book book, PlayerEntity player, ItemStack bookStack, Screen parent) {
         super(player, bookStack);
 
         this.book = book;
@@ -62,7 +62,7 @@ public class GuiSearch extends GuiBase {
         addButton(buttonNext = new ButtonNext(1, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
         addButton(buttonPrev = new ButtonPrev(2, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
 
-        searchField = new GuiTextField(3, fontRenderer, guiLeft + 43, guiTop + 12, 100, 10);
+        searchField = new TextFieldWidget(3, fontRenderer, guiLeft + 43, guiTop + 12, 100, 10);
         searchField.setEnableBackgroundDrawing(false);
         searchField.setFocused(true);
         searchResults = getMatches(book, null, player, bookStack);
@@ -154,7 +154,7 @@ public class GuiSearch extends GuiBase {
     }
 
     @Override
-    public void actionPerformed(GuiButton button) {
+    public void actionPerformed(Button button) {
         switch (button.id) {
             case 0: {
                 mc.displayGuiScreen(parent);
@@ -174,7 +174,7 @@ public class GuiSearch extends GuiBase {
     }
 
     @Nonnull
-    static List<List<Pair<EntryAbstract, CategoryAbstract>>> getMatches(Book book, @Nullable String query, EntityPlayer player, ItemStack bookStack) {
+    static List<List<Pair<EntryAbstract, CategoryAbstract>>> getMatches(Book book, @Nullable String query, PlayerEntity player, ItemStack bookStack) {
         List<Pair<EntryAbstract, CategoryAbstract>> discovered = Lists.newArrayList();
 
         for (CategoryAbstract category : book.getCategoryList()) {

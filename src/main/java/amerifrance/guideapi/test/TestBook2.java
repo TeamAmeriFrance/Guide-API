@@ -7,9 +7,9 @@ import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.*;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.PotionTypes;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Items;
+import net.minecraft.potion.Potions;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.potion.PotionUtils;
@@ -42,9 +42,9 @@ public class TestBook2 implements IGuideBook {
         testCategory.getEntry("entry").addPage(new PageFurnaceRecipe(Blocks.COBBLESTONE));
         testCategory.getEntry("entry").addPage(PageIRecipe.newShaped(new ItemStack(Items.ACACIA_BOAT), "X X", "XXX", 'X', new ItemStack(Blocks.PLANKS, 1, 4)));
         testCategory.getEntry("entry").addPage(new PageBrewingRecipe(new BrewingRecipe(
-                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.AWKWARD),
+                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), Potions.AWKWARD),
                 new ItemStack(Items.SPECKLED_MELON),
-                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.HEALING)))
+                PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), Potions.HEALING)))
         );
         testCategory.getEntry("entry").addPage(new PageJsonRecipe(new ResourceLocation("bread")));
         book.addCategory(testCategory);

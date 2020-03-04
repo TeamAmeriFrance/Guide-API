@@ -3,9 +3,8 @@ package amerifrance.guideapi.api;
 import amerifrance.guideapi.api.impl.Book;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -25,7 +24,7 @@ public interface IGuideBook {
      *
      * @param bookStack - The ItemStack assigned to your book.
      */
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     default void handleModel(@Nonnull ItemStack bookStack) {
         GuideAPI.setModel(((IGuideItem) bookStack.getItem()).getBook(bookStack));
     }

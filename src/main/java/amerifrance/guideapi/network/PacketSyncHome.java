@@ -4,7 +4,7 @@ import amerifrance.guideapi.api.IGuideItem;
 import amerifrance.guideapi.api.util.NBTBookTags;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -39,7 +39,7 @@ public class PacketSyncHome implements IMessage, IMessageHandler<PacketSyncHome,
 
         if (!book.isEmpty() && book.getItem() instanceof IGuideItem && message.page != -1) {
             if (!book.hasTagCompound())
-                book.setTagCompound(new NBTTagCompound());
+                book.setTagCompound(new CompoundNBT());
             book.getTagCompound().setInteger(NBTBookTags.CATEGORY_PAGE_TAG, message.page);
             book.getTagCompound().removeTag(NBTBookTags.CATEGORY_TAG);
             book.getTagCompound().removeTag(NBTBookTags.ENTRY_TAG);

@@ -1,11 +1,14 @@
 package amerifrance.guideapi.api;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -55,12 +58,12 @@ public class SubTexture {
         this.height = height;
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void draw(int drawX, int drawY, double zLevel) {
         final float someMagicValueFromMojang = 0.00390625F;
 
-        Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        Minecraft.getInstance().renderEngine.bindTexture(textureLocation);
+        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder vertexbuffer = tessellator.getBuffer();
         vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -71,7 +74,7 @@ public class SubTexture {
         tessellator.draw();
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void draw(int drawX, int drawY) {
         draw(drawX, drawY, 0.1D);
     }

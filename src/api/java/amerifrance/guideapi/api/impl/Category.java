@@ -7,7 +7,7 @@ import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiHome;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -36,23 +36,23 @@ public class Category extends CategoryAbstract {
     }
 
     @Override
-    public boolean canSee(EntityPlayer player, ItemStack bookStack) {
+    public boolean canSee(PlayerEntity player, ItemStack bookStack) {
         return true;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onLeftClicked(Book book, int mouseX, int mouseY, EntityPlayer player, ItemStack bookStack) {
+    public void onLeftClicked(Book book, int mouseX, int mouseY, PlayerEntity player, ItemStack bookStack) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiCategory(book, this, player, bookStack, null));
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onRightClicked(Book book, int mouseX, int mouseY, EntityPlayer player, ItemStack bookStack) {
+    public void onRightClicked(Book book, int mouseX, int mouseY, PlayerEntity player, ItemStack bookStack) {
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onInit(Book book, GuiHome guiHome, EntityPlayer player, ItemStack bookStack) {
+    public void onInit(Book book, GuiHome guiHome, PlayerEntity player, ItemStack bookStack) {
     }
 }

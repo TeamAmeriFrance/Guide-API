@@ -8,7 +8,7 @@ import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class PageWrapper extends AbstractWrapper {
@@ -19,11 +19,11 @@ public class PageWrapper extends AbstractWrapper {
     public EntryAbstract entry;
     public IPage page;
     public int guiLeft, guiTop;
-    public EntityPlayer player;
+    public PlayerEntity player;
     public FontRenderer renderer;
     public ItemStack bookStack;
 
-    public PageWrapper(GuiEntry guiEntry, Book book, CategoryAbstract category, EntryAbstract entry, IPage page, int guiLeft, int guiTop, EntityPlayer player, FontRenderer renderer, ItemStack bookStack) {
+    public PageWrapper(GuiEntry guiEntry, Book book, CategoryAbstract category, EntryAbstract entry, IPage page, int guiLeft, int guiTop, PlayerEntity player, FontRenderer renderer, ItemStack bookStack) {
         this.guiEntry = guiEntry;
         this.book = book;
         this.category = category;

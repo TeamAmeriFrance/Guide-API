@@ -1,11 +1,11 @@
 package amerifrance.guideapi.gui;
 
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -15,16 +15,16 @@ import java.util.List;
 
 import static net.minecraft.client.renderer.GlStateManager.*;
 
-public class GuiBase extends GuiScreen {
+public class GuiBase extends Screen {
 
     public int guiLeft, guiTop;
     public int xSize = 192;
     public int ySize = 192;
-    public EntityPlayer player;
+    public PlayerEntity player;
     public ItemStack bookStack;
     public float publicZLevel;
 
-    public GuiBase(EntityPlayer player, ItemStack bookStack) {
+    public GuiBase(PlayerEntity player, ItemStack bookStack) {
         this.player = player;
         this.bookStack = bookStack;
         this.publicZLevel = zLevel;

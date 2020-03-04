@@ -12,8 +12,8 @@ import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.network.PacketSyncEntry;
 import amerifrance.guideapi.wrapper.PageWrapper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -40,7 +40,7 @@ public class GuiEntry extends GuiBase {
     public ButtonSearch buttonSearch;
     public int pageNumber;
 
-    public GuiEntry(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack) {
+    public GuiEntry(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack) {
         super(player, bookStack);
         this.book = book;
         this.category = category;
@@ -138,7 +138,7 @@ public class GuiEntry extends GuiBase {
     }
 
     @Override
-    public void actionPerformed(GuiButton button) {
+    public void actionPerformed(Button button) {
         if (button.id == 0)
             this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack, entry));
         else if (button.id == 1 && pageNumber + 1 < pageWrapperList.size())

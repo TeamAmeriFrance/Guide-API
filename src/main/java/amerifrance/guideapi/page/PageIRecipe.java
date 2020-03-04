@@ -13,7 +13,7 @@ import amerifrance.guideapi.page.reciperenderer.ShapelessOreRecipeRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapelessRecipesRenderer;
 import amerifrance.guideapi.util.LogHelper;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
@@ -74,7 +74,7 @@ public class PageIRecipe extends Page {
     }
 
     @Override
-    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, EntityPlayer player, ItemStack bookStack, GuiEntry guiEntry) {
+    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, GuiEntry guiEntry) {
         return isValid;
     }
 

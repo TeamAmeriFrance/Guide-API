@@ -1,6 +1,7 @@
 package amerifrance.guideapi.api;
 
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
+
+import net.minecraftforge.eventbus.api.EventPriority;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
