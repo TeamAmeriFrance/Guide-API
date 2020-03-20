@@ -1,4 +1,4 @@
-package amerifrance.guideapi.api.util;
+package api.util;
 
 import net.minecraft.util.text.translation.I18n;
 import org.apache.commons.lang3.text.WordUtils;

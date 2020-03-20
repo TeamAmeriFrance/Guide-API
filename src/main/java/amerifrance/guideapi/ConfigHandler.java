@@ -1,7 +1,7 @@
 package amerifrance.guideapi;
 
-import amerifrance.guideapi.api.GuideAPI;
-import amerifrance.guideapi.api.impl.Book;
+import api.GuideAPI;
+import api.impl.Book;
 import com.google.common.collect.Maps;
 import net.minecraftforge.common.config.Configuration;
 

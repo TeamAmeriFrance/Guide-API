@@ -1,12 +1,12 @@
 package amerifrance.guideapi.test;
 
-import amerifrance.guideapi.api.GuideBook;
-import amerifrance.guideapi.api.IGuideBook;
-import amerifrance.guideapi.api.IPage;
-import amerifrance.guideapi.api.impl.Book;
-import amerifrance.guideapi.api.impl.Entry;
-import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import api.GuideBook;
+import api.IGuideBook;
+import api.IPage;
+import api.impl.Book;
+import api.impl.Entry;
+import api.impl.abstraction.CategoryAbstract;
+import api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.PageFurnaceRecipe;

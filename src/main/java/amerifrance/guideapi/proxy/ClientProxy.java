@@ -1,11 +1,11 @@
 package amerifrance.guideapi.proxy;
 
-import amerifrance.guideapi.api.BookEvent;
-import amerifrance.guideapi.api.GuideAPI;
-import amerifrance.guideapi.api.IGuideItem;
-import amerifrance.guideapi.api.impl.Book;
-import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import api.BookEvent;
+import api.GuideAPI;
+import api.IGuideItem;
+import api.impl.Book;
+import api.impl.abstraction.CategoryAbstract;
+import api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.gui.GuiEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;

@@ -1,9 +1,9 @@
 package amerifrance.guideapi.page.reciperenderer;
 
-import amerifrance.guideapi.api.impl.Book;
-import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.util.GuiHelper;
+import api.impl.Book;
+import api.impl.abstraction.CategoryAbstract;
+import api.impl.abstraction.EntryAbstract;
+import api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;

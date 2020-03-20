@@ -1,10 +1,10 @@
 package amerifrance.guideapi.page;
 
-import amerifrance.guideapi.api.IRecipeRenderer;
-import amerifrance.guideapi.api.impl.Book;
-import amerifrance.guideapi.api.impl.Page;
-import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import api.IRecipeRenderer;
+import api.impl.Book;
+import api.impl.Page;
+import api.impl.abstraction.CategoryAbstract;
+import api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiEntry;
 import amerifrance.guideapi.page.reciperenderer.ShapedOreRecipeRenderer;

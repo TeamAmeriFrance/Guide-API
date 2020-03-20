@@ -1,6 +1,6 @@
-package amerifrance.guideapi.api;
+package api;
 
-import amerifrance.guideapi.api.impl.Book;
+import api.impl.Book;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.api.distmarker.Dist;

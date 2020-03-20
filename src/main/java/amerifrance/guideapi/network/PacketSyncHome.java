@@ -1,7 +1,7 @@
 package amerifrance.guideapi.network;
 
-import amerifrance.guideapi.api.IGuideItem;
-import amerifrance.guideapi.api.util.NBTBookTags;
+import api.IGuideItem;
+import api.util.NBTBookTags;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;

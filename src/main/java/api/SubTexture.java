@@ -1,4 +1,4 @@
-package amerifrance.guideapi.api;
+package api;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;

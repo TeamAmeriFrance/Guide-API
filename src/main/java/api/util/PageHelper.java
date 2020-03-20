@@ -1,7 +1,7 @@
-package amerifrance.guideapi.api.util;
+package api.util;
 
-import amerifrance.guideapi.api.IPage;
-import amerifrance.guideapi.api.impl.Page;
+import api.IPage;
+import api.impl.Page;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.page.PageItemStack;
 import amerifrance.guideapi.page.PageText;

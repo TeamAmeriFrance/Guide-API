@@ -7,13 +7,11 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.Color;
 import java.util.List;
 
-import static net.minecraft.client.renderer.GlStateManager.*;
 
 public class GuiBase extends Screen {
 

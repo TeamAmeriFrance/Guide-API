@@ -1,13 +1,13 @@
 package amerifrance.guideapi.item;
 
 import amerifrance.guideapi.GuideMod;
-import amerifrance.guideapi.api.BookEvent;
-import amerifrance.guideapi.api.GuideAPI;
-import amerifrance.guideapi.api.IGuideItem;
-import amerifrance.guideapi.api.IGuideLinked;
-import amerifrance.guideapi.api.impl.Book;
-import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.util.TextHelper;
+import api.BookEvent;
+import api.GuideAPI;
+import api.IGuideItem;
+import api.IGuideLinked;
+import api.impl.Book;
+import api.impl.abstraction.CategoryAbstract;
+import api.util.TextHelper;
 import com.google.common.base.Strings;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;

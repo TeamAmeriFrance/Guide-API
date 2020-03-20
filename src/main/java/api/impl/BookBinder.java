@@ -1,6 +1,6 @@
-package amerifrance.guideapi.api.impl;
+package api.impl;
 
-import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import api.impl.abstraction.CategoryAbstract;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import net.minecraft.creativetab.CreativeTabs;

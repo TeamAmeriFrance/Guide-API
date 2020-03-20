@@ -1,4 +1,4 @@
-package amerifrance.guideapi.api.util;
+package api.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;

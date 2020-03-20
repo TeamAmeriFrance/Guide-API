@@ -1,7 +1,7 @@
-package amerifrance.guideapi.api.impl;
+package api.impl;
 
-import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.util.TextHelper;
+import api.impl.abstraction.CategoryAbstract;
+import api.util.TextHelper;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import net.minecraft.creativetab.CreativeTabs;

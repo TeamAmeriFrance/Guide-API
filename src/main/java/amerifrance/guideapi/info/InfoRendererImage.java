@@ -1,7 +1,7 @@
 package amerifrance.guideapi.info;
 
-import amerifrance.guideapi.api.IInfoRenderer;
-import amerifrance.guideapi.api.impl.Book;
+import api.IInfoRenderer;
+import api.impl.Book;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;

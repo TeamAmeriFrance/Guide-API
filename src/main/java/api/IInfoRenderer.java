@@ -1,6 +1,6 @@
-package amerifrance.guideapi.api;
+package api;
 
-import amerifrance.guideapi.api.impl.Book;
+import api.impl.Book;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
  * Used to render information on screen about a block while a player is looking at and holding the guide. This is only
  * called on the client.
  * <p>
- * Use {@link GuideAPI#registerInfoRenderer(amerifrance.guideapi.api.impl.Book, IInfoRenderer, Class...)} to register your
+ * Use {@link GuideAPI#registerInfoRenderer(Book, IInfoRenderer, Class...)} to register your
  * handler. You can also implement {@link Block} on a block.
  * <p>
  * Some example usages can be found in {@link amerifrance.guideapi.info}

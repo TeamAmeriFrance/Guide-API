@@ -1,11 +1,11 @@
 package amerifrance.guideapi.proxy;
 
-import amerifrance.guideapi.api.GuideAPI;
-import amerifrance.guideapi.api.IGuideItem;
-import amerifrance.guideapi.api.impl.Book;
-import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.util.NBTBookTags;
+import api.GuideAPI;
+import api.IGuideItem;
+import api.impl.Book;
+import api.impl.abstraction.CategoryAbstract;
+import api.impl.abstraction.EntryAbstract;
+import api.util.NBTBookTags;
 import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiEntry;
 import amerifrance.guideapi.gui.GuiHome;

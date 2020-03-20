@@ -1,4 +1,4 @@
-package amerifrance.guideapi.api.button;
+package api.button;
 
 import amerifrance.guideapi.gui.GuiBase;
 import net.minecraft.client.gui.widget.button.Button;

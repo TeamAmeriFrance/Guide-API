@@ -1,8 +1,8 @@
 package amerifrance.guideapi;
 
-import amerifrance.guideapi.api.GuideAPI;
-import amerifrance.guideapi.api.IGuideBook;
-import amerifrance.guideapi.api.impl.Book;
+import api.GuideAPI;
+import api.IGuideBook;
+import api.impl.Book;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxy.CommonProxy;
 import amerifrance.guideapi.util.AnnotationHandler;

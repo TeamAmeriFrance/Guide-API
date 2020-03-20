@@ -1,7 +1,7 @@
 package amerifrance.guideapi.gui;
 
-import amerifrance.guideapi.api.impl.Book;
-import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import api.impl.Book;
+import api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.button.ButtonNext;
 import amerifrance.guideapi.button.ButtonPrev;
 import amerifrance.guideapi.button.ButtonSearch;
@@ -16,8 +16,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 
 import java.awt.Color;
 import java.io.IOException;

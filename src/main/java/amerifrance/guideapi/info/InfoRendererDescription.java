@@ -1,13 +1,12 @@
 package amerifrance.guideapi.info;
 
-import amerifrance.guideapi.api.IInfoRenderer;
-import amerifrance.guideapi.api.impl.Book;
-import amerifrance.guideapi.api.util.GuiHelper;
+import api.IInfoRenderer;
+import api.impl.Book;
+import api.util.GuiHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;

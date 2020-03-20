@@ -1,7 +1,7 @@
-package amerifrance.guideapi.api.impl.abstraction;
+package api.impl.abstraction;
 
-import amerifrance.guideapi.api.impl.Book;
-import amerifrance.guideapi.api.util.TextHelper;
+import api.impl.Book;
+import api.util.TextHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiHome;
 import com.google.common.base.Strings;
@@ -11,8 +11,6 @@ import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 import java.util.Map;
@@ -133,21 +131,21 @@ public abstract class CategoryAbstract {
         return Lists.newArrayList(getLocalizedName());
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public abstract void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem);
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public abstract void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem);
 
     public abstract boolean canSee(PlayerEntity player, ItemStack bookStack);
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public abstract void onLeftClicked(Book book, int mouseX, int mouseY, PlayerEntity player, ItemStack bookStack);
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public abstract void onRightClicked(Book book, int mouseX, int mouseY, PlayerEntity player, ItemStack bookStack);
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public abstract void onInit(Book book, GuiHome guiHome, PlayerEntity player, ItemStack bookStack);
 
     @Override

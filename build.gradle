@@ -47,17 +47,7 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-${project.minecraft_version}:${project.jei_version}") //Full for runtime
 }
 
-sourceSets {
-    api
-    main {
-        compileClasspath += sourceSets.api.output
-        runtimeClasspath += sourceSets.api.output
-    }
-}
 
-configurations {
-    apiCompile.extendsFrom(compile)
-}
 
 
 minecraft {
@@ -73,9 +63,8 @@ minecraft {
             workingDirectory project.file('run/client1').canonicalPath
             
             mods {
-                vampirism {
+                guideapi {
                     source sourceSets.main
-                    source sourceSets.api
                 }
             }
 
@@ -86,11 +75,9 @@ minecraft {
             workingDirectory project.file('run/server').canonicalPath
 
             mods {
-                vampirism {
+                guideapi {
                     source sourceSets.main
-                    source sourceSets.api
                 }
-
 
             }
         }
@@ -119,9 +106,7 @@ jar {
     includeEmptyDirs = false
 
     from sourceSets.main.output.classesDirs
-    from sourceSets.api.output.classesDirs
     from sourceSets.main.output.resourcesDir
-    from sourceSets.api.output.resourcesDir
 
     classifier = ''
     manifest.mainAttributes(
@@ -133,15 +118,7 @@ jar {
     exclude 'amerifrance/guideapi/test/**/*'
 }
 
-// API jar
-task apiJar(type: Jar) {
-    from sourceSets.main.allSource
-    from sourceSets.main.output
-    include 'amerifrance/guideapi/api/**/*'
-    classifier = 'api'
-}
 
-tasks.build.dependsOn apiJar
 
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
@@ -152,7 +129,6 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifact jar
-            artifact apiJar
         }
     }
     repositories {
@@ -200,7 +176,6 @@ curseforge {
         changelog = getChangelogText()
         releaseType = 'beta'
  
-        addArtifact apiJar
     }
 }
 

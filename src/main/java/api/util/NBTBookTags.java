@@ -1,4 +1,4 @@
-package amerifrance.guideapi.api.util;
+package api.util;
 
 public class NBTBookTags {
 

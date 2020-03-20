@@ -1,4 +1,4 @@
-package amerifrance.guideapi.api;
+package api;
 
 
 import net.minecraftforge.eventbus.api.EventPriority;

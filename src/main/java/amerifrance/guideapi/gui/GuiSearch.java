@@ -1,10 +1,10 @@
 package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.GuideMod;
-import amerifrance.guideapi.api.impl.Book;
-import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.util.GuiHelper;
+import api.impl.Book;
+import api.impl.abstraction.CategoryAbstract;
+import api.impl.abstraction.EntryAbstract;
+import api.util.GuiHelper;
 import amerifrance.guideapi.button.ButtonBack;
 import amerifrance.guideapi.button.ButtonNext;
 import amerifrance.guideapi.button.ButtonPrev;
@@ -18,8 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import org.apache.commons.lang3.tuple.Pair;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

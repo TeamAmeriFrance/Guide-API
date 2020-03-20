@@ -1,4 +1,4 @@
-package amerifrance.guideapi.api;
+package api;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

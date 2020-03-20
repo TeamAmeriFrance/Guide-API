@@ -1,9 +1,9 @@
 package amerifrance.guideapi.util;
 
-import amerifrance.guideapi.api.GuideAPI;
-import amerifrance.guideapi.api.GuideBook;
-import amerifrance.guideapi.api.IGuideBook;
-import amerifrance.guideapi.api.impl.Book;
+import api.GuideAPI;
+import api.GuideBook;
+import api.IGuideBook;
+import api.impl.Book;
 import com.google.common.collect.Lists;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
 import net.minecraftforge.fml.common.discovery.asm.ModAnnotation;

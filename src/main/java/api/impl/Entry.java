@@ -1,9 +1,9 @@
-package amerifrance.guideapi.api.impl;
+package api.impl;
 
-import amerifrance.guideapi.api.IPage;
-import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.util.GuiHelper;
+import api.IPage;
+import api.impl.abstraction.CategoryAbstract;
+import api.impl.abstraction.EntryAbstract;
+import api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
 import amerifrance.guideapi.gui.GuiCategory;
 import amerifrance.guideapi.gui.GuiEntry;
