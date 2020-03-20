@@ -4,7 +4,7 @@ import amerifrance.guideapi.GuideMod;
 import api.button.ButtonGuideAPI;
 import api.util.GuiHelper;
 import api.util.TextHelper;
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ButtonPrev extends ButtonGuideAPI {
 
-    public ButtonPrev(int id, int x, int y, GuiBase guiBase) {
+    public ButtonPrev(int id, int x, int y, BaseScreen guiBase) {
         super(id, x, y, guiBase);
         width = 18;
         height = 10;

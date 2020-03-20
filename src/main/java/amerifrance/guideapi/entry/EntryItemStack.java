@@ -5,11 +5,11 @@ import api.impl.Book;
 import api.impl.Entry;
 import api.impl.abstraction.CategoryAbstract;
 import api.util.GuiHelper;
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
@@ -37,8 +37,8 @@ public class EntryItemStack extends Entry {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
+    @OnlyIn(Dist.CLIENT)
+    public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         if (stack != null)
             GuiHelper.drawScaledItemStack(stack, entryX + 2, entryY, 0.5F);
 

@@ -2,14 +2,16 @@ package api.impl;
 
 import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiCategory;
-import amerifrance.guideapi.gui.GuiHome;
+import amerifrance.guideapi.gui.BaseScreen;
+import amerifrance.guideapi.gui.CategoryScreen;
+import amerifrance.guideapi.gui.HomeScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Map;
 
@@ -24,13 +26,13 @@ public class Category extends CategoryAbstract {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
+    @OnlyIn(Dist.CLIENT)
+    public void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
+    @OnlyIn(Dist.CLIENT)
+    public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
     }
 
     @Override
@@ -39,18 +41,18 @@ public class Category extends CategoryAbstract {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void onLeftClicked(Book book, int mouseX, int mouseY, PlayerEntity player, ItemStack bookStack) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiCategory(book, this, player, bookStack, null));
+        Minecraft.getInstance().displayGuiScreen(new CategoryScreen(book, this, player, bookStack, null));
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void onRightClicked(Book book, int mouseX, int mouseY, PlayerEntity player, ItemStack bookStack) {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void onInit(Book book, GuiHome guiHome, PlayerEntity player, ItemStack bookStack) {
+    @OnlyIn(Dist.CLIENT)
+    public void onInit(Book book, HomeScreen guiHome, PlayerEntity player, ItemStack bookStack) {
     }
 }

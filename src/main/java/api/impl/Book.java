@@ -4,7 +4,7 @@ import api.impl.abstraction.CategoryAbstract;
 import api.util.TextHelper;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -26,13 +26,13 @@ public class Book {
     private Color color = new Color(171, 70, 30);
     private boolean spawnWithBook;
     private ResourceLocation registryName;
-    private CreativeTabs creativeTab = CreativeTabs.MISC;
+    private ItemGroup creativeTab = ItemGroup.MISC;
 
     /**
      * @deprecated see {@link BookBinder}. To be made package private in 1.13.
      */
     @Deprecated
-    public Book(List<CategoryAbstract> categoryList, String title, String header, String displayName, String author, ResourceLocation pageTexture, ResourceLocation outlineTexture, boolean customModel, Color color, boolean spawnWithBook, ResourceLocation registryName, CreativeTabs creativeTab) {
+    public Book(List<CategoryAbstract> categoryList, String title, String header, String displayName, String author, ResourceLocation pageTexture, ResourceLocation outlineTexture, boolean customModel, Color color, boolean spawnWithBook, ResourceLocation registryName, ItemGroup creativeTab) {
         this.categories = categoryList;
         this.title = title;
         this.header = header;
@@ -98,7 +98,7 @@ public class Book {
         return this.registryName;
     }
 
-    public CreativeTabs getCreativeTab() {
+    public ItemGroup getCreativeTab() {
         return this.creativeTab;
     }
 
@@ -223,10 +223,10 @@ public class Book {
     }
 
     /**
-     * @deprecated see {@link BookBinder#setCreativeTab(CreativeTabs)}. To be removed in 1.13.
+     * @deprecated see {@link BookBinder#setCreativeTab(ItemGroup)}. To be removed in 1.13.
      */
     @Deprecated
-    public void setCreativeTab(CreativeTabs creativeTab) {
+    public void setCreativeTab(ItemGroup creativeTab) {
         this.creativeTab = creativeTab;
     }
 

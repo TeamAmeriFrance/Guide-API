@@ -3,15 +3,18 @@ package amerifrance.guideapi.network;
 import api.IGuideItem;
 import api.util.NBTBookTags;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.network.NetworkEvent;
+import org.apache.commons.lang3.Validate;
 
-public class PacketSyncEntry implements IMessage, IMessageHandler<PacketSyncEntry, IMessage> {
+import java.util.function.Supplier;
+
+public class PacketSyncEntry implements IMessage {
 
     public int category;
     public ResourceLocation entry;
@@ -29,36 +32,44 @@ public class PacketSyncEntry implements IMessage, IMessageHandler<PacketSyncEntr
         this.page = page;
     }
 
-    @Override
-    public void fromBytes(ByteBuf buf) {
-        this.category = buf.readInt();
-        this.entry = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
-        this.page = buf.readInt();
+    static void encode(PacketSyncEntry msg, PacketBuffer buf){
+        buf.writeInt(msg.category);
+        buf.writeResourceLocation(msg.entry);
+        buf.writeInt(msg.page);
     }
 
-    @Override
-    public void toBytes(ByteBuf buf) {
-        buf.writeInt(category);
-        ByteBufUtils.writeUTF8String(buf, entry.toString());
-        buf.writeInt(page);
+    static PacketSyncEntry decode(PacketBuffer buf){
+        PacketSyncEntry msg=new PacketSyncEntry();
+        msg.category=buf.readInt();
+        msg.entry=buf.readResourceLocation();
+        msg.page = buf.readInt();
+        return msg;
     }
 
-    @Override
-    public IMessage onMessage(PacketSyncEntry message, MessageContext ctx) {
-        ItemStack book = ctx.getServerHandler().player.getHeldItemOffhand();
-        if (book.isEmpty() || !(book.getItem() instanceof IGuideItem))
-            book = ctx.getServerHandler().player.getHeldItemMainhand();
+    public static void handle(final PacketSyncEntry msg, Supplier<NetworkEvent.Context> contextSupplier){
+        final NetworkEvent.Context ctx=contextSupplier.get();
+        ServerPlayerEntity player = ctx.getSender();
+        Validate.notNull(player);
+        ctx.enqueueWork(()->{
+            ItemStack book = player.getHeldItemOffhand();
+            if (book.isEmpty() || !(book.getItem() instanceof IGuideItem))
+                book = player.getHeldItemMainhand();
 
-        if (!book.isEmpty() && book.getItem() instanceof IGuideItem) {
-            if (message.category != -1 && !message.entry.equals(new ResourceLocation("guideapi", "none")) && message.page != -1) {
-                if (!book.hasTagCompound())
-                    book.setTagCompound(new CompoundNBT());
+            if (!book.isEmpty() && book.getItem() instanceof IGuideItem) {
+                if (msg.category != -1 && !msg.entry.equals(new ResourceLocation("guideapi", "none")) && msg.page != -1) {
+                    if (!book.hasTag())
+                        book.setTag(new CompoundNBT());
 
-                book.getTagCompound().setInteger(NBTBookTags.CATEGORY_TAG, message.category);
-                book.getTagCompound().setString(NBTBookTags.ENTRY_TAG, message.entry.toString());
-                book.getTagCompound().setInteger(NBTBookTags.PAGE_TAG, message.page);
+                    book.getTag().putInt(NBTBookTags.CATEGORY_TAG, msg.category);
+                    book.getTag().putString(NBTBookTags.ENTRY_TAG, msg.entry.toString());
+                    book.getTag().putInt(NBTBookTags.PAGE_TAG, msg.page);
+                }
             }
-        }
-        return null;
+        });
+        ctx.setPacketHandled(true);
     }
+
+
+
+
 }

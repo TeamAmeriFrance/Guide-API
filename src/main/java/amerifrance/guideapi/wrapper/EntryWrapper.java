@@ -4,8 +4,8 @@ import api.impl.Book;
 import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
 import api.util.GuiHelper;
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiCategory;
+import amerifrance.guideapi.gui.BaseScreen;
+import amerifrance.guideapi.gui.CategoryScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,10 +19,10 @@ public class EntryWrapper extends AbstractWrapper {
     public int x, y, width, height;
     public PlayerEntity player;
     public FontRenderer renderer;
-    public GuiCategory categoryGui;
+    public CategoryScreen categoryGui;
     public ItemStack bookStack;
 
-    public EntryWrapper(GuiCategory categoryGui, Book book, CategoryAbstract category, EntryAbstract entry, int x, int y, int width, int height, PlayerEntity player, FontRenderer renderer, ItemStack bookStack) {
+    public EntryWrapper(CategoryScreen categoryGui, Book book, CategoryAbstract category, EntryAbstract entry, int x, int y, int width, int height, PlayerEntity player, FontRenderer renderer, ItemStack bookStack) {
         this.book = book;
         this.category = category;
         this.entry = entry;
@@ -46,12 +46,12 @@ public class EntryWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void draw(int mouseX, int mouseY, GuiBase gui) {
+    public void draw(int mouseX, int mouseY, BaseScreen gui) {
         entry.draw(book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getMinecraft().fontRenderer);
     }
 
     @Override
-    public void drawExtras(int mouseX, int mouseY, GuiBase gui) {
+    public void drawExtras(int mouseX, int mouseY, BaseScreen gui) {
         entry.drawExtras(book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getMinecraft().fontRenderer);
     }
 

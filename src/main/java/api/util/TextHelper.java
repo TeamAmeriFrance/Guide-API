@@ -1,6 +1,6 @@
 package api.util;
 
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class TextHelper {
     }
 
     public static String localize(String input, Object... format) {
-        return Il8n.translateToLocalFormatted(input, format);
+        return I18n.format(input, format);
     }
 
     public static String localizeEffect(String input, Object... format) {

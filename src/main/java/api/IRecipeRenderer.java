@@ -1,5 +1,6 @@
 package api;
 
+import amerifrance.guideapi.gui.BaseScreen;
 import api.impl.Book;
 import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
@@ -14,10 +15,10 @@ import java.util.List;
 public interface IRecipeRenderer {
 
     @OnlyIn(Dist.CLIENT)
-    void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj);
+    void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj);
 
     @OnlyIn(Dist.CLIENT)
-    void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj);
+    void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj);
 
     abstract class RecipeRendererBase<T extends IRecipe> implements IRecipeRenderer {
 
@@ -29,7 +30,7 @@ public interface IRecipeRenderer {
         }
 
         @Override
-        public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
+        public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
             guiBase.drawHoveringText(tooltips, mouseX, mouseY);
             tooltips.clear();
         }

@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GuiEntry extends GuiBase {
+public class EntryScreen extends BaseScreen {
 
     public ResourceLocation outlineTexture;
     public ResourceLocation pageTexture;
@@ -38,7 +38,7 @@ public class GuiEntry extends GuiBase {
     public ButtonSearch buttonSearch;
     public int pageNumber;
 
-    public GuiEntry(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack) {
+    public EntryScreen(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack) {
         super(player, bookStack);
         this.book = book;
         this.category = category;
@@ -65,7 +65,7 @@ public class GuiEntry extends GuiBase {
 
         for (IPage page : this.entry.pageList) {
             page.onInit(book, category, entry, player, bookStack, this);
-            pageWrapperList.add(new PageWrapper(this, book, category, entry, page, guiLeft, guiTop, player, this.fontRenderer, bookStack));
+            pageWrapperList.add(new PageWrapper(this, book, category, entry, page, guiLeft, guiTop, player, this.font, bookStack));
         }
     }
 
@@ -85,8 +85,8 @@ public class GuiEntry extends GuiBase {
             }
         }
 
-        drawCenteredString(fontRenderer, String.format("%d/%d", pageNumber + 1, pageWrapperList.size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
-        drawCenteredStringWithShadow(fontRenderer, entry.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
+        drawCenteredString(font, String.format("%d/%d", pageNumber + 1, pageWrapperList.size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        drawCenteredStringWithShadow(font, entry.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = pageNumber != 0;
         buttonNext.visible = pageNumber != pageWrapperList.size() - 1 && !pageWrapperList.isEmpty();
@@ -109,7 +109,7 @@ public class GuiEntry extends GuiBase {
         }
 
         if (typeofClick == 1) {
-            this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack, entry));
+            this.mc.displayGuiScreen(new CategoryScreen(book, category, player, bookStack, entry));
         }
     }
 
@@ -128,7 +128,7 @@ public class GuiEntry extends GuiBase {
     public void keyTyped(char typedChar, int keyCode) {
         super.keyTyped(typedChar, keyCode);
         if (keyCode == Keyboard.KEY_BACK || keyCode == this.mc.gameSettings.keyBindUseItem.getKeyCode())
-            this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack, entry));
+            this.minecraft.displayGuiScreen(new CategoryScreen(book, category, player, bookStack, entry));
         if ((keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_RIGHT) && pageNumber + 1 < pageWrapperList.size())
             nextPage();
         if ((keyCode == Keyboard.KEY_DOWN || keyCode == Keyboard.KEY_LEFT) && pageNumber > 0)
@@ -138,13 +138,13 @@ public class GuiEntry extends GuiBase {
     @Override
     public void actionPerformed(Button button) {
         if (button.id == 0)
-            this.mc.displayGuiScreen(new GuiCategory(book, category, player, bookStack, entry));
+            this.minecraft.displayGuiScreen(new CategoryScreen(book, category, player, bookStack, entry));
         else if (button.id == 1 && pageNumber + 1 < pageWrapperList.size())
             nextPage();
         else if (button.id == 2 && pageNumber > 0)
             prevPage();
         else if (button.id == 3)
-            this.mc.displayGuiScreen(new GuiSearch(book, player, bookStack, this));
+            this.mc.displayGuiScreen(new SearchScreen(book, player, bookStack, this));
     }
 
     @Override

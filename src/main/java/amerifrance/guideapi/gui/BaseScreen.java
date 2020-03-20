@@ -7,13 +7,16 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.Color;
 import java.util.List;
 
+import static com.mojang.blaze3d.platform.GlStateManager.*;
 
-public class GuiBase extends Screen {
+
+public class BaseScreen extends Screen {
 
     public int guiLeft, guiTop;
     public int xSize = 192;
@@ -22,10 +25,11 @@ public class GuiBase extends Screen {
     public ItemStack bookStack;
     public float publicZLevel;
 
-    public GuiBase(PlayerEntity player, ItemStack bookStack) {
+    public BaseScreen(ITextComponent title, PlayerEntity player, ItemStack bookStack) {
+        super(title);
         this.player = player;
         this.bookStack = bookStack;
-        this.publicZLevel = zLevel;
+        this.publicZLevel = blitOffset;
     }
 
     @Override
@@ -35,9 +39,9 @@ public class GuiBase extends Screen {
 
     @Override
     public void keyTyped(char typedChar, int keyCode) {
-        if (keyCode == Keyboard.KEY_ESCAPE || keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
-            this.mc.displayGuiScreen(null);
-            this.mc.setIngameFocus();
+        if (keyCode == Keyboard.KEY_ESCAPE || keyCode == this.minecraft.gameSettings.keyBindInventory.getKeyCode()) {
+            this.minecraft.displayGuiScreen(null);
+            this.minecraft.setIngameFocus();
         }
     }
 
@@ -48,13 +52,13 @@ public class GuiBase extends Screen {
         float f = 0.00390625F;
         float f1 = 0.00390625F;
         disableLighting();
-        color((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F);
+        color3f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F);
         Tessellator tessellator = Tessellator.getInstance();
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getBuffer().pos((double) (x), (double) (y + height), (double) this.zLevel).tex((double) ((float) (textureX) * f), (double) ((float) (textureY + height) * f1)).endVertex();
-        tessellator.getBuffer().pos((double) (x + width), (double) (y + height), (double) this.zLevel).tex((double) ((float) (textureX + width) * f), (double) ((float) (textureY + height) * f1)).endVertex();
-        tessellator.getBuffer().pos((double) (x + width), (double) (y), (double) this.zLevel).tex((double) ((float) (textureX + width) * f), (double) ((float) (textureY) * f1)).endVertex();
-        tessellator.getBuffer().pos((double) (x), (double) (y), (double) this.zLevel).tex((double) ((float) (textureX) * f), (double) ((float) (textureY) * f1)).endVertex();
+        tessellator.getBuffer().pos((double) (x), (double) (y + height), (double) this.blitOffset).tex((double) ((float) (textureX) * f), (double) ((float) (textureY + height) * f1)).endVertex();
+        tessellator.getBuffer().pos((double) (x + width), (double) (y + height), (double) this.blitOffset).tex((double) ((float) (textureX + width) * f), (double) ((float) (textureY + height) * f1)).endVertex();
+        tessellator.getBuffer().pos((double) (x + width), (double) (y), (double) this.blitOffset).tex((double) ((float) (textureX + width) * f), (double) ((float) (textureY) * f1)).endVertex();
+        tessellator.getBuffer().pos((double) (x), (double) (y), (double) this.blitOffset).tex((double) ((float) (textureX) * f), (double) ((float) (textureY) * f1)).endVertex();
         tessellator.draw();
         disableBlend();
         popMatrix();
@@ -74,7 +78,7 @@ public class GuiBase extends Screen {
     @Override
     public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {
         pushMatrix();
-        color(1.0F, 1.0F, 1.0F, 1.0F);
+        color4f(1.0F, 1.0F, 1.0F, 1.0F);
         super.drawTexturedModalRect(x, y, textureX, textureY, width, height);
         popMatrix();
     }

@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class GuiSearch extends GuiBase {
+public class SearchScreen extends BaseScreen {
 
     private Book book;
     private ResourceLocation outlineTexture;
@@ -39,7 +39,7 @@ public class GuiSearch extends GuiBase {
     private int currentPage = 0;
     private String lastQuery = "";
 
-    public GuiSearch(Book book, PlayerEntity player, ItemStack bookStack, Screen parent) {
+    public SearchScreen(Book book, PlayerEntity player, ItemStack bookStack, Screen parent) {
         super(player, bookStack);
 
         this.book = book;
@@ -60,7 +60,7 @@ public class GuiSearch extends GuiBase {
         addButton(buttonNext = new ButtonNext(1, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
         addButton(buttonPrev = new ButtonPrev(2, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
 
-        searchField = new TextFieldWidget(3, fontRenderer, guiLeft + 43, guiTop + 12, 100, 10);
+        searchField = new TextFieldWidget(3, font, guiLeft + 43, guiTop + 12, 100, 10);
         searchField.setEnableBackgroundDrawing(false);
         searchField.setFocused(true);
         searchResults = getMatches(book, null, player, bookStack);
@@ -68,9 +68,9 @@ public class GuiSearch extends GuiBase {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        mc.getTextureManager().bindTexture(pageTexture);
+        minecraft.getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-        mc.getTextureManager().bindTexture(outlineTexture);
+        minecraft.getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
         drawRect(searchField.x - 1, searchField.y - 1, searchField.x + searchField.width + 1, searchField.y + searchField.height + 1, new Color(166, 166, 166, 128).getRGB());
@@ -111,13 +111,13 @@ public class GuiSearch extends GuiBase {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
         if (mouseButton == 1) {
-            if (GuiHelper.isMouseBetween(mouseX, mouseY, searchField.x, searchField.y, searchField.width, searchField.height)) {
+            if (GuiHelper.isMouseBetween(mouseX, mouseY, searchField.x, searchField.y, searchField.getAdjustedWidth(), searchField.getHeight())) {
                 searchField.setText("");
                 lastQuery = "";
                 searchResults = getMatches(book, "", player, bookStack);
                 return;
             } else
-                mc.displayGuiScreen(parent);
+                minecraft.displayGuiScreen(parent);
         }
 
         searchField.mouseClicked(mouseX, mouseY, mouseButton);
@@ -155,7 +155,7 @@ public class GuiSearch extends GuiBase {
     public void actionPerformed(Button button) {
         switch (button.id) {
             case 0: {
-                mc.displayGuiScreen(parent);
+                minecraft.displayGuiScreen(parent);
                 break;
             }
             case 1: {

@@ -7,11 +7,11 @@ import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
 import api.util.GuiHelper;
 import api.util.TextHelper;
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.BaseScreen;
 import com.google.common.base.Strings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
@@ -31,7 +31,7 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
     }
 
     @Override
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         Minecraft mc = Minecraft.getMinecraft();
 
         long time = mc.world.getTotalWorldTime();
@@ -63,7 +63,7 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
 
     protected ItemStack getNextItem(ItemStack stack, int position) {
         NonNullList<ItemStack> subItems = NonNullList.create();
-        stack.getItem().getSubItems(CreativeTabs.SEARCH, subItems);
+        stack.getItem().getSubItems(ItemGroup.SEARCH, subItems);
         return subItems.get(getRandomizedCycle(position, subItems.size()));
     }
 

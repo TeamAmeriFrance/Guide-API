@@ -2,7 +2,7 @@ package api.util;
 
 import api.IPage;
 import api.impl.Page;
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.BaseScreen;
 import amerifrance.guideapi.page.PageItemStack;
 import amerifrance.guideapi.page.PageText;
 import net.minecraft.block.Block;
@@ -51,7 +51,7 @@ public class PageHelper {
         return pageList;
     }
 
-    public static void drawFormattedText(int x, int y, GuiBase guiBase, String toDraw) {
+    public static void drawFormattedText(int x, int y, BaseScreen guiBase, String toDraw) {
         FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
         toDraw = StringEscapeUtils.unescapeJava(toDraw).replaceAll("\\t", "     ");
         String[] lines = toDraw.split("\n");

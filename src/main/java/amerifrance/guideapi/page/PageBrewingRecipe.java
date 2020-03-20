@@ -7,7 +7,7 @@ import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
 import api.util.GuiHelper;
 import api.util.TextHelper;
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
@@ -49,7 +49,7 @@ public class PageBrewingRecipe extends Page {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
 
         int xStart = guiLeft + 62;
         int yStart = guiTop + 52;

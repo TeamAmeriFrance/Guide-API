@@ -5,10 +5,12 @@ import api.impl.Page;
 import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
 import api.util.GuiHelper;
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class PageImage extends Page {
 
@@ -22,9 +24,9 @@ public class PageImage extends Page {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(image);
+    @OnlyIn(Dist.CLIENT)
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+        Minecraft.getInstance().getTextureManager().bindTexture(image);
         GuiHelper.drawSizedIconWithoutColor(guiLeft + 50, guiTop + 34, guiBase.xSize, guiBase.ySize, 1F);
     }
 

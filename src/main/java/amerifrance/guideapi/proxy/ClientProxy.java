@@ -6,9 +6,9 @@ import api.IGuideItem;
 import api.impl.Book;
 import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
-import amerifrance.guideapi.gui.GuiEntry;
+import amerifrance.guideapi.gui.EntryScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundEvent;
@@ -18,7 +18,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void playSound(SoundEvent sound) {
-        Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(sound, 1.0F));
+        Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(sound,1));
     }
 
     @Override
@@ -29,13 +29,13 @@ public class ClientProxy extends CommonProxy {
             return;
         }
 
-        Minecraft.getMinecraft().displayGuiScreen(new GuiEntry(book, categoryAbstract, entryAbstract, player, stack));
+        Minecraft.getInstance().displayGuiScreen(new EntryScreen(book, categoryAbstract, entryAbstract, player, stack));
     }
 
     @Override
     public void initColors() {
         for (ItemStack bookStack : GuideAPI.getBookToStack().values()) {
-            Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
+            Minecraft.getInstance().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
                 IGuideItem guideItem = (IGuideItem) stack.getItem();
                 if (guideItem.getBook(stack) != null && tintIndex == 0)
                     return guideItem.getBook(stack).getColor().getRGB();

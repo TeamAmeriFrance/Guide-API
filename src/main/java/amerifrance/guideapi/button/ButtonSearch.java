@@ -4,7 +4,7 @@ import api.SubTexture;
 import api.button.ButtonGuideAPI;
 import api.util.GuiHelper;
 import api.util.TextHelper;
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ButtonSearch extends ButtonGuideAPI {
 
-    public ButtonSearch(int id, int x, int y, GuiBase guiBase) {
+    public ButtonSearch(int id, int x, int y, BaseScreen guiBase) {
         super(id, x, y, guiBase);
         width = 15;
         height = 15;

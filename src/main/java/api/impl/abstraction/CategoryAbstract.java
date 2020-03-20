@@ -2,15 +2,17 @@ package api.impl.abstraction;
 
 import api.impl.Book;
 import api.util.TextHelper;
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiHome;
+import amerifrance.guideapi.gui.BaseScreen;
+import amerifrance.guideapi.gui.HomeScreen;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 import java.util.Map;
@@ -132,10 +134,10 @@ public abstract class CategoryAbstract {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem);
+    public abstract void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem);
+    public abstract void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem);
 
     public abstract boolean canSee(PlayerEntity player, ItemStack bookStack);
 
@@ -146,7 +148,7 @@ public abstract class CategoryAbstract {
     public abstract void onRightClicked(Book book, int mouseX, int mouseY, PlayerEntity player, ItemStack bookStack);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void onInit(Book book, GuiHome guiHome, PlayerEntity player, ItemStack bookStack);
+    public abstract void onInit(Book book, HomeScreen guiHome, PlayerEntity player, ItemStack bookStack);
 
     @Override
     public boolean equals(Object o) {

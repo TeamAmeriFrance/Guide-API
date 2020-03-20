@@ -5,11 +5,12 @@ import api.impl.Page;
 import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
 import api.util.PageHelper;
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
 
 public class PageText extends Page {
 
@@ -30,17 +31,12 @@ public class PageText extends Page {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
-        boolean startFlag = fontRendererObj.getUnicodeFlag();
+    @OnlyIn(Dist.CLIENT)
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
 
-        if (unicode)
-            fontRendererObj.setUnicodeFlag(true);
 
         PageHelper.drawFormattedText(guiLeft + 39, guiTop + 12 + yOffset, guiBase, I18n.format(draw));
 
-        if (unicode && !startFlag)
-            fontRendererObj.setUnicodeFlag(false);
     }
 
     @Override

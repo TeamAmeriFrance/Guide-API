@@ -5,8 +5,8 @@ import api.impl.Book;
 import api.impl.Page;
 import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiEntry;
+import amerifrance.guideapi.gui.BaseScreen;
+import amerifrance.guideapi.gui.EntryScreen;
 import amerifrance.guideapi.page.reciperenderer.ShapedOreRecipeRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapedRecipesRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapelessOreRecipeRenderer;
@@ -16,12 +16,11 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.minecraft.item.crafting.ShapedRecipe;
+import net.minecraft.item.crafting.ShapelessRecipe;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
 
 public class PageIRecipe extends Page {
 
@@ -56,8 +55,8 @@ public class PageIRecipe extends Page {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
+    @OnlyIn(Dist.CLIENT)
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         if(isValid) {
             super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
             iRecipeRenderer.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
@@ -65,8 +64,8 @@ public class PageIRecipe extends Page {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
+    @OnlyIn(Dist.CLIENT)
+    public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         if(isValid) {
             super.drawExtras(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
             iRecipeRenderer.drawExtras(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
@@ -74,7 +73,7 @@ public class PageIRecipe extends Page {
     }
 
     @Override
-    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, GuiEntry guiEntry) {
+    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, EntryScreen guiEntry) {
         return isValid;
     }
 
@@ -90,10 +89,10 @@ public class PageIRecipe extends Page {
         if (recipe == null) {
             LogHelper.error("Cannot get renderer for null recipe.");
             return null;
-        } else if (recipe instanceof ShapedRecipes) {
-            return new ShapedRecipesRenderer((ShapedRecipes) recipe);
-        } else if (recipe instanceof ShapelessRecipes) {
-            return new ShapelessRecipesRenderer((ShapelessRecipes) recipe);
+        } else if (recipe instanceof ShapedRecipe) {
+            return new ShapedRecipesRenderer((ShapedRecipe) recipe);
+        } else if (recipe instanceof ShapelessRecipe) {
+            return new ShapelessRecipesRenderer((ShapelessRecipe) recipe);
         } else if (recipe instanceof ShapedOreRecipe) {
             return new ShapedOreRecipeRenderer((ShapedOreRecipe) recipe);
         } else if (recipe instanceof ShapelessOreRecipe) {

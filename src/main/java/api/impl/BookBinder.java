@@ -3,9 +3,13 @@ package api.impl;
 import api.impl.abstraction.CategoryAbstract;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.ModContainer;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
+import net.minecraftforge.forgespi.language.IModInfo;
 
 import java.awt.Color;
 import java.util.List;
@@ -23,7 +27,7 @@ public class BookBinder {
     private boolean hasCustomModel;
     private Color color = new Color(171, 70, 30);
     private boolean spawnWithBook;
-    private CreativeTabs creativeTab = CreativeTabs.MISC;
+    private ItemGroup creativeTab = ItemGroup.MISC;
 
     /**
      * Creates a new {@link Book} builder which will provide a much more user-friendly interface for creating books.
@@ -180,12 +184,12 @@ public class BookBinder {
     /**
      * Sets the Creative Tab this book should appear in.
      *
-     * By default, all books will appear in {@link CreativeTabs#MISC}.
+     * By default, all books will appear in {@link ItemGroup#MISC}.
      *
      * @param creativeTab The creative tab this book should display in.
      * @return the builder instance for chaining.
      */
-    public BookBinder setCreativeTab(CreativeTabs creativeTab) {
+    public BookBinder setCreativeTab(ItemGroup creativeTab) {
         this.creativeTab = creativeTab;
         return this;
     }
@@ -196,7 +200,7 @@ public class BookBinder {
      */
     public Book build() {
         if (Strings.isNullOrEmpty(author))
-            this.author = Loader.instance().getIndexedModList().getOrDefault(registryName.getResourceDomain(), Loader.instance().getMinecraftModContainer()).getName();
+            this.author = ModList.get().getModContainerById(registryName.getNamespace()).map(ModContainer::getModInfo).map(IModInfo::getDisplayName).orElse("Unknown");
 
         if (header == null)
             this.header = guideTitle;

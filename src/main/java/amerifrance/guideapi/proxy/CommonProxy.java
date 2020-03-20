@@ -6,9 +6,9 @@ import api.impl.Book;
 import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
 import api.util.NBTBookTags;
-import amerifrance.guideapi.gui.GuiCategory;
-import amerifrance.guideapi.gui.GuiEntry;
-import amerifrance.guideapi.gui.GuiHome;
+import amerifrance.guideapi.gui.CategoryScreen;
+import amerifrance.guideapi.gui.EntryScreen;
+import amerifrance.guideapi.gui.HomeScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -38,18 +38,18 @@ public class CommonProxy implements IGuiHandler {
                         CategoryAbstract category = book.getCategoryList().get(tagCompound.getInteger(NBTBookTags.CATEGORY_TAG));
                         EntryAbstract entry = category.entries.get(new ResourceLocation(tagCompound.getString(NBTBookTags.ENTRY_TAG)));
                         int pageNumber = tagCompound.getInteger(NBTBookTags.PAGE_TAG);
-                        GuiEntry guiEntry = new GuiEntry(book, category, entry, player, bookStack);
+                        EntryScreen guiEntry = new EntryScreen(book, category, entry, player, bookStack);
                         guiEntry.pageNumber = pageNumber;
                         return guiEntry;
                     } else if (tagCompound.hasKey(NBTBookTags.CATEGORY_TAG)) {
                         CategoryAbstract category = book.getCategoryList().get(tagCompound.getInteger(NBTBookTags.CATEGORY_TAG));
                         int entryPage = tagCompound.getInteger(NBTBookTags.ENTRY_PAGE_TAG);
-                        GuiCategory guiCategory = new GuiCategory(book, category, player, bookStack, null);
+                        CategoryScreen guiCategory = new CategoryScreen(book, category, player, bookStack, null);
                         guiCategory.entryPage = entryPage;
                         return guiCategory;
                     } else {
                         int categoryNumber = tagCompound.getInteger(NBTBookTags.CATEGORY_PAGE_TAG);
-                        GuiHome guiHome = new GuiHome(book, player, bookStack);
+                        HomeScreen guiHome = new HomeScreen(book, player, bookStack);
                         guiHome.categoryPage = categoryNumber;
                         return guiHome;
                     }
@@ -58,7 +58,7 @@ public class CommonProxy implements IGuiHandler {
                 // No-op: If the linked content doesn't exist anymore
             }
 
-            return new GuiHome(book, player, bookStack);
+            return new HomeScreen(book, player, bookStack);
         }
 
         return null;

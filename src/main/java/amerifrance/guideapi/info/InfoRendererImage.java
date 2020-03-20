@@ -5,7 +5,6 @@ import api.impl.Book;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -30,8 +29,7 @@ public class InfoRendererImage implements IInfoRenderer {
 
     @Override
     public void drawInformation(Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player) {
-        ScaledResolution resolution = new ScaledResolution(Minecraft.getMinecraft());
-        Minecraft.getMinecraft().renderEngine.bindTexture(image);
-        AbstractGui.drawModalRectWithCustomSizedTexture(resolution.getScaledWidth() / 2 + 20, resolution.getScaledHeight() / 2 - imageHeight / 2, imageX, imageY, imageWidth, imageHeight, imageWidth, imageHeight);
+        Minecraft.getInstance().renderEngine.bindTexture(image);
+        AbstractGui.drawModalRectWithCustomSizedTexture(Minecraft.getInstance().mainWindow.getScaledWidth() / 2 + 20, Minecraft.getInstance().mainWindow.getScaledHeight() / 2 - imageHeight / 2, imageX, imageY, imageWidth, imageHeight, imageWidth, imageHeight);
     }
 }

@@ -3,12 +3,14 @@ package api.impl.abstraction;
 import api.IPage;
 import api.impl.Book;
 import api.util.TextHelper;
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiCategory;
+import amerifrance.guideapi.gui.BaseScreen;
+import amerifrance.guideapi.gui.CategoryScreen;
 import com.google.common.collect.Lists;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
@@ -57,21 +59,21 @@ public abstract class EntryAbstract {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer renderer);
+    public abstract void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer renderer);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer renderer);
+    public abstract void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer renderer);
 
     public abstract boolean canSee(PlayerEntity player, ItemStack bookStack);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void onLeftClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, PlayerEntity player, GuiCategory guiCategory);
+    public abstract void onLeftClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, PlayerEntity player, CategoryScreen guiCategory);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void onRightClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, PlayerEntity player, GuiCategory guiCategory);
+    public abstract void onRightClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, PlayerEntity player, CategoryScreen guiCategory);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void onInit(Book book, CategoryAbstract category, GuiCategory guiCategory, PlayerEntity player, ItemStack bookStack);
+    public abstract void onInit(Book book, CategoryAbstract category, CategoryScreen guiCategory, PlayerEntity player, ItemStack bookStack);
 
     @Override
     public boolean equals(Object o) {

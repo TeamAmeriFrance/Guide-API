@@ -4,8 +4,8 @@ import api.IPage;
 import api.impl.Book;
 import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiEntry;
+import amerifrance.guideapi.gui.BaseScreen;
+import amerifrance.guideapi.gui.EntryScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 
 public class PageWrapper extends AbstractWrapper {
 
-    public GuiEntry guiEntry;
+    public EntryScreen guiEntry;
     public Book book;
     public CategoryAbstract category;
     public EntryAbstract entry;
@@ -23,7 +23,7 @@ public class PageWrapper extends AbstractWrapper {
     public FontRenderer renderer;
     public ItemStack bookStack;
 
-    public PageWrapper(GuiEntry guiEntry, Book book, CategoryAbstract category, EntryAbstract entry, IPage page, int guiLeft, int guiTop, PlayerEntity player, FontRenderer renderer, ItemStack bookStack) {
+    public PageWrapper(EntryScreen guiEntry, Book book, CategoryAbstract category, EntryAbstract entry, IPage page, int guiLeft, int guiTop, PlayerEntity player, FontRenderer renderer, ItemStack bookStack) {
         this.guiEntry = guiEntry;
         this.book = book;
         this.category = category;
@@ -46,12 +46,12 @@ public class PageWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void draw(int mouseX, int mouseY, GuiBase gui) {
+    public void draw(int mouseX, int mouseY, BaseScreen gui) {
         page.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, gui, Minecraft.getMinecraft().fontRenderer);
     }
 
     @Override
-    public void drawExtras(int mouseX, int mouseY, GuiBase gui) {
+    public void drawExtras(int mouseX, int mouseY, BaseScreen gui) {
         page.drawExtras(book, category, entry, guiLeft, guiTop, mouseX, mouseY, gui, Minecraft.getMinecraft().fontRenderer);
     }
 

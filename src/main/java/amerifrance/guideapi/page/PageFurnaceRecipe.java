@@ -7,16 +7,16 @@ import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
 import api.util.GuiHelper;
 import api.util.TextHelper;
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraft.item.crafting.FurnaceRecipe;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class PageFurnaceRecipe extends Page {
      */
     public PageFurnaceRecipe(ItemStack input) {
         this.input = input;
-        this.output = FurnaceRecipes.instance().getSmeltingResult(input);
+        this.output = FurnaceRecipe.instance().getSmeltingResult(input);
     }
 
     /**
@@ -67,9 +67,9 @@ public class PageFurnaceRecipe extends Page {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @SuppressWarnings("unchecked")
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         SubTexture.FURNACE_GRID.draw(guiLeft + 64, guiTop + 71);
 
         List badTip = new ArrayList();

@@ -3,10 +3,10 @@ package amerifrance.guideapi.info;
 import api.IInfoRenderer;
 import api.impl.Book;
 import api.util.GuiHelper;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -34,13 +34,12 @@ public class InfoRendererDescription implements IInfoRenderer {
     public void drawInformation(Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player) {
         if (tiny) {
             GlStateManager.pushMatrix();
-            GlStateManager.scale(0.5F, 0.5F, 0.5F);
+            GlStateManager.scalef(0.5F, 0.5F, 0.5F);
         }
-        ScaledResolution resolution = new ScaledResolution(Minecraft.getMinecraft());
-        FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
+        FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
         int scaleMulti = tiny ? 2 : 1;
 
-        GuiHelper.drawItemStack(stack, (resolution.getScaledWidth() / 2 + 55) * scaleMulti, ((resolution.getScaledHeight() / 2 - (tiny ? 20 : 30)) + yOffset) * scaleMulti);
+        GuiHelper.drawItemStack(stack, (Minecraft.getInstance().mainWindow.getScaledWidth() / 2 + 55) * scaleMulti, ((Minecraft.getInstance().mainWindow.getScaledHeight() / 2 - (tiny ? 20 : 30)) + yOffset) * scaleMulti);
 
         int y = 0;
         String toDraw = StringEscapeUtils.unescapeJava(description.getFormattedText()).replaceAll("\\t", "     ");
@@ -48,7 +47,7 @@ public class InfoRendererDescription implements IInfoRenderer {
         for (String line : lines) {
             List<String> cutLines = fontRenderer.listFormattedStringToWidth(line, 100 * scaleMulti);
             for (String cut : cutLines) {
-                fontRenderer.drawStringWithShadow(cut, (resolution.getScaledWidth() / 2 + 20) * scaleMulti, (((resolution.getScaledHeight() / 2 - 10) - y) * scaleMulti) + yOffset, Color.WHITE.getRGB());
+                fontRenderer.drawStringWithShadow(cut, (Minecraft.getInstance().mainWindow.getScaledWidth()/ 2 + 20) * scaleMulti, (((Minecraft.getInstance().mainWindow.getScaledHeight() / 2 - 10) - y) * scaleMulti) + yOffset, Color.WHITE.getRGB());
                 y -= 10 / scaleMulti;
             }
         }

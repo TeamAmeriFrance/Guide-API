@@ -1,6 +1,6 @@
 package amerifrance.guideapi.wrapper;
 
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.BaseScreen;
 
 public abstract class AbstractWrapper {
 
@@ -8,9 +8,9 @@ public abstract class AbstractWrapper {
 
     public abstract boolean canPlayerSee();
 
-    public abstract void draw(int mouseX, int mouseY, GuiBase gui);
+    public abstract void draw(int mouseX, int mouseY, BaseScreen gui);
 
-    public abstract void drawExtras(int mouseX, int mouseY, GuiBase gui);
+    public abstract void drawExtras(int mouseX, int mouseY, BaseScreen gui);
 
     public abstract boolean isMouseOnWrapper(int mouseX, int mouseY);
 }

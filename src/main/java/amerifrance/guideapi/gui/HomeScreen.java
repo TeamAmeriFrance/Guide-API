@@ -9,7 +9,6 @@ import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.network.PacketSyncHome;
 import amerifrance.guideapi.wrapper.CategoryWrapper;
 import com.google.common.collect.HashMultimap;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +19,7 @@ import net.minecraft.util.math.MathHelper;
 import java.awt.Color;
 import java.io.IOException;
 
-public class GuiHome extends GuiBase {
+public class HomeScreen extends BaseScreen {
 
     public ResourceLocation outlineTexture;
     public ResourceLocation pageTexture;
@@ -31,7 +30,7 @@ public class GuiHome extends GuiBase {
     public ButtonSearch buttonSearch;
     public int categoryPage;
 
-    public GuiHome(Book book, PlayerEntity player, ItemStack bookStack) {
+    public HomeScreen(Book book, PlayerEntity player, ItemStack bookStack) {
         super(player, bookStack);
         this.book = book;
         this.pageTexture = book.getPageTexture();
@@ -64,25 +63,25 @@ public class GuiHome extends GuiBase {
             category.onInit(book, this, player, bookStack);
             switch (drawLoc) {
                 case 0: {
-                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRenderer, itemRender, false, bookStack));
+                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.font, itemRenderer, false, bookStack));
                     cX += 27;
                     drawLoc = 1;
                     break;
                 }
                 case 1: {
-                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRenderer, itemRender, false, bookStack));
+                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.font, itemRenderer, false, bookStack));
                     cX += 27;
                     drawLoc = 2;
                     break;
                 }
                 case 2: {
-                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRenderer, itemRender, false, bookStack));
+                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.font, itemRenderer, false, bookStack));
                     cX += 27;
                     drawLoc = 3;
                     break;
                 }
                 case 3: {
-                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.fontRenderer, itemRender, false, bookStack));
+                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.font, itemRenderer, false, bookStack));
                     drawLoc = 0;
                     cX = guiLeft + 45;
                     cY += 30;
@@ -102,11 +101,11 @@ public class GuiHome extends GuiBase {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float renderPartialTicks) {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
+        minecraft.getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
+        minecraft.getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
-        drawCenteredString(fontRenderer, I18n.format(book.getHeader()).replace("\\n", "\n").replace("&", "\u00a7"), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
+        drawCenteredString(font, I18n.format(book.getHeader()).replace("\\n", "\n").replace("&", "\u00a7"), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
 
         categoryPage = MathHelper.clamp(categoryPage, 0, categoryWrapperMap.size() - 1);
 
@@ -118,8 +117,8 @@ public class GuiHome extends GuiBase {
             if (wrapper.canPlayerSee())
                 wrapper.drawExtras(mouseX, mouseY, this);
 
-        drawCenteredString(fontRenderer, String.format("%d/%d", categoryPage + 1, categoryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
-        drawCenteredStringWithShadow(fontRenderer, I18n.format(book.getTitle()), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
+        drawCenteredString(font, String.format("%d/%d", categoryPage + 1, categoryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        drawCenteredStringWithShadow(font, I18n.format(book.getTitle()), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = categoryPage != 0;
         buttonNext.visible = categoryPage != categoryWrapperMap.asMap().size() - 1 && !categoryWrapperMap.asMap().isEmpty();
@@ -183,7 +182,7 @@ public class GuiHome extends GuiBase {
                 break;
             }
             case 2: {
-                mc.displayGuiScreen(new GuiSearch(book, player, bookStack, this));
+                minecraft.displayGuiScreen(new SearchScreen(book, player, bookStack, this));
                 break;
             }
         }

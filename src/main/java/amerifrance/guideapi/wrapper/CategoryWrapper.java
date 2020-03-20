@@ -3,9 +3,9 @@ package amerifrance.guideapi.wrapper;
 import api.impl.Book;
 import api.impl.abstraction.CategoryAbstract;
 import api.util.GuiHelper;
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
@@ -16,11 +16,11 @@ public class CategoryWrapper extends AbstractWrapper {
     public int x, y, width, height;
     public PlayerEntity player;
     public FontRenderer renderer;
-    public RenderItem renderItem;
+    public ItemRenderer renderItem;
     public boolean drawOnLeft;
     public ItemStack bookStack;
 
-    public CategoryWrapper(Book book, CategoryAbstract category, int x, int y, int width, int height, PlayerEntity player, FontRenderer renderer, RenderItem renderItem, boolean drawOnLeft, ItemStack bookStack) {
+    public CategoryWrapper(Book book, CategoryAbstract category, int x, int y, int width, int height, PlayerEntity player, FontRenderer renderer, ItemRenderer renderItem, boolean drawOnLeft, ItemStack bookStack) {
         this.book = book;
         this.category = category;
         this.x = x;
@@ -44,12 +44,12 @@ public class CategoryWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void draw(int mouseX, int mouseY, GuiBase gui) {
+    public void draw(int mouseX, int mouseY, BaseScreen gui) {
         category.draw(book, x, y, width, height, mouseX, mouseY, gui, drawOnLeft, renderItem);
     }
 
     @Override
-    public void drawExtras(int mouseX, int mouseY, GuiBase gui) {
+    public void drawExtras(int mouseX, int mouseY, BaseScreen gui) {
         category.drawExtras(book, x, y, width, height, mouseX, mouseY, gui, drawOnLeft, renderItem);
     }
 

@@ -4,15 +4,15 @@ import api.IPage;
 import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
 import api.util.GuiHelper;
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiCategory;
-import amerifrance.guideapi.gui.GuiEntry;
+import amerifrance.guideapi.gui.BaseScreen;
+import amerifrance.guideapi.gui.CategoryScreen;
+import amerifrance.guideapi.gui.EntryScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.awt.Color;
 import java.util.Collections;
@@ -37,8 +37,8 @@ public class Entry extends EntryAbstract {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
+    @OnlyIn(Dist.CLIENT)
+    public void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
 
         boolean startFlag = fontRendererObj.getUnicodeFlag();
 
@@ -65,8 +65,8 @@ public class Entry extends EntryAbstract {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
+    @OnlyIn(Dist.CLIENT)
+    public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         boolean startFlag = fontRendererObj.getUnicodeFlag();
         fontRendererObj.setUnicodeFlag(false);
 
@@ -92,18 +92,18 @@ public class Entry extends EntryAbstract {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void onLeftClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, PlayerEntity player, GuiCategory guiCategory) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiEntry(book, category, this, player, guiCategory.bookStack));
+    @OnlyIn(Dist.CLIENT)
+    public void onLeftClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, PlayerEntity player, CategoryScreen guiCategory) {
+        Minecraft.getInstance().displayGuiScreen(new EntryScreen(book, category, this, player, guiCategory.bookStack));
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void onRightClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, PlayerEntity player, GuiCategory guiCategory) {
+    @OnlyIn(Dist.CLIENT)
+    public void onRightClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, PlayerEntity player, CategoryScreen guiCategory) {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void onInit(Book book, CategoryAbstract category, GuiCategory guiCategory, PlayerEntity player, ItemStack bookStack) {
+    @OnlyIn(Dist.CLIENT)
+    public void onInit(Book book, CategoryAbstract category, CategoryScreen guiCategory, PlayerEntity player, ItemStack bookStack) {
     }
 }

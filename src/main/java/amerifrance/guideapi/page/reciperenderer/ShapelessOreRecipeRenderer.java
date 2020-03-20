@@ -1,7 +1,6 @@
 package amerifrance.guideapi.page.reciperenderer;
 
-import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.minecraft.item.crafting.ShapelessRecipe;
 
 public class ShapelessOreRecipeRenderer extends ShapelessRecipesRenderer {
 

@@ -5,12 +5,12 @@ import api.impl.Book;
 import api.impl.Entry;
 import api.impl.abstraction.CategoryAbstract;
 import api.util.GuiHelper;
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
@@ -38,9 +38,9 @@ public class EntryResourceLocation extends Entry {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(image);
+    @OnlyIn(Dist.CLIENT)
+    public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+        Minecraft.getInstance().getTextureManager().bindTexture(image);
         GuiHelper.drawSizedIconWithoutColor(entryX + 2, entryY, 16, 16, 1F);
 
         super.drawExtras(book, category, entryX, entryY, entryWidth, entryHeight, mouseX, mouseY, guiBase, fontRendererObj);

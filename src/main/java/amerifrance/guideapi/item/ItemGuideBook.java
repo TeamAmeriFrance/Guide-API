@@ -10,6 +10,7 @@ import api.impl.abstraction.CategoryAbstract;
 import api.util.TextHelper;
 import com.google.common.base.Strings;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,7 +18,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -79,7 +79,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        return !Strings.isNullOrEmpty(book.getItemName()) ? I18n.translateToLocal(getBook(stack).getItemName()) : super.getItemStackDisplayName(stack);
+        return !Strings.isNullOrEmpty(book.getItemName()) ? I18n.format(getBook(stack).getItemName()) : super.getItemStackDisplayName(stack);
     }
 
     @Override
