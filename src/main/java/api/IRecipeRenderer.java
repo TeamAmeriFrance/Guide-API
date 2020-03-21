@@ -7,6 +7,7 @@ import api.impl.abstraction.EntryAbstract;
 import com.google.common.collect.Lists;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -23,7 +24,7 @@ public interface IRecipeRenderer {
     abstract class RecipeRendererBase<T extends IRecipe> implements IRecipeRenderer {
 
         protected T recipe;
-        protected List<String> tooltips = Lists.newArrayList();
+        protected List<ITextComponent> tooltips = Lists.newArrayList();
 
         public RecipeRendererBase(T recipe) {
             this.recipe = recipe;

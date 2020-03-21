@@ -35,7 +35,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void initColors() {
         for (ItemStack bookStack : GuideAPI.getBookToStack().values()) {
-            Minecraft.getInstance().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
+            Minecraft.getInstance().getItemColors().register((stack, tintIndex) -> {
                 IGuideItem guideItem = (IGuideItem) stack.getItem();
                 if (guideItem.getBook(stack) != null && tintIndex == 0)
                     return guideItem.getBook(stack).getColor().getRGB();

@@ -52,7 +52,7 @@ public class PageHelper {
     }
 
     public static void drawFormattedText(int x, int y, BaseScreen guiBase, String toDraw) {
-        FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
+        FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
         toDraw = StringEscapeUtils.unescapeJava(toDraw).replaceAll("\\t", "     ");
         String[] lines = toDraw.split("\n");
         for (String line : lines) {

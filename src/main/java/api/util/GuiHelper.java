@@ -47,7 +47,7 @@ public class GuiHelper {
         blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderHelper.enableGUIStandardItemLighting();
         enableRescaleNormal();
-        enableDepth();
+        enableDepthTest();
         render.renderItemAndEffectIntoGUI(stack, x, y);
         render.renderItemOverlayIntoGUI(Minecraft.getInstance().fontRenderer, stack, x, y, null);
         RenderHelper.disableStandardItemLighting();

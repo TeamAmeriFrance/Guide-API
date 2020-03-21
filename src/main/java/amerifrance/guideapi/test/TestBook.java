@@ -16,11 +16,15 @@ import amerifrance.guideapi.page.PageText;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapedRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -55,16 +59,16 @@ public class TestBook implements IGuideBook {
         entries.put(new ResourceLocation("guideapi", "entry"), entry);
 
         pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.IRON_BLOCK), "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron"));
-        pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.PLANKS, 4), new ItemStack(Blocks.LOG)));
+        pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.OAK_PLANKS, 4), new ItemStack(Blocks.OAK_LOG)));
 
-        categories.add(new CategoryItemStack(entries, "test.category.name", new ItemStack(Items.BANNER)));
+        categories.add(new CategoryItemStack(entries, "test.category.name", new ItemStack(Items.BLUE_BANNER)));
         book.setCategoryList(categories);
         book.setRegistryName(new ResourceLocation("guideapi", "test_book"));
         return book;
     }
 
     @Override
-    public IRecipe getRecipe(@Nonnull ItemStack bookStack) {
-        return new ShapedOreRecipe(null, bookStack, " X ", "X X", " X ", 'X', "ingotIron").setRegistryName(book.getRegistryName());
+    public IRecipe<?> getRecipe(@Nonnull ItemStack bookStack) {
+        return new ShapedRecipe(book.getRegistryName(), "", 3,1,NonNullList.from(Ingredient.EMPTY,Ingredient.EMPTY,Ingredient.fromTag(Tags.Items.INGOTS_IRON),Ingredient.EMPTY),bookStack);
     }
 }

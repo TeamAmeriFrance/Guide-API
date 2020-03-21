@@ -14,7 +14,7 @@ import org.apache.commons.lang3.Validate;
 
 import java.util.function.Supplier;
 
-public class PacketSyncEntry implements IMessage {
+public class PacketSyncEntry{
 
     public int category;
     public ResourceLocation entry;

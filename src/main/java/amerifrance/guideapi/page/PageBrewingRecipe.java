@@ -12,6 +12,10 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 
 import java.util.ArrayList;
@@ -20,8 +24,8 @@ import java.util.List;
 public class PageBrewingRecipe extends Page {
 
     public BrewingRecipe recipe;
-    public ItemStack ingredient;
-    public ItemStack input;
+    public Ingredient ingredient;
+    public Ingredient input;
     public ItemStack output;
 
     /**
@@ -48,7 +52,7 @@ public class PageBrewingRecipe extends Page {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
 
         int xStart = guiLeft + 62;
@@ -67,7 +71,7 @@ public class PageBrewingRecipe extends Page {
         //start input
         GuiHelper.drawItemStack(ingredient, x, y);
 
-        List<String> tooltip = null;
+        List<ITextComponent> tooltip = null;
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
             tooltip = GuiHelper.getTooltip(ingredient);
 

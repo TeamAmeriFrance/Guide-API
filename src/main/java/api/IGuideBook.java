@@ -35,7 +35,7 @@ public interface IGuideBook {
      * @return an IRecipe to register for your book or null to not include one.
      */
     @Nullable
-    default IRecipe getRecipe(@Nonnull ItemStack bookStack) {
+    default IRecipe<?> getRecipe(@Nonnull ItemStack bookStack) {
         return null;
     }
 

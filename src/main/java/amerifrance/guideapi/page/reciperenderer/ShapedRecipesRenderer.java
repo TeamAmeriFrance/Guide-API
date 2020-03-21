@@ -31,8 +31,6 @@ public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipe> {
                 List<ItemStack> list = Arrays.asList(ingredient.getMatchingStacks());
                 if (!list.isEmpty()) {
                     ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
-                    if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
-                        stack = getNextItem(stack, x);
                     GuiHelper.drawItemStack(stack, stackX, stackY);
                     if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                         tooltips = GuiHelper.getTooltip(stack);

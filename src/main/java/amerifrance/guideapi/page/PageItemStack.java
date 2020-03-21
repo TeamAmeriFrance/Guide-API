@@ -10,6 +10,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -42,21 +43,6 @@ public class PageItemStack extends PageText {
         this(draw, new ItemStack(block));
     }
 
-    /**
-     * @param draw  - Unlocalized text to draw
-     * @param entry - OreDict entry to render
-     */
-    public PageItemStack(String draw, String entry) {
-        super(draw, 60);
-        this.stack = new ItemStack(Blocks.FIRE);
-
-        if (!OreDictionary.getOres(entry).isEmpty()) {
-            for (int i = 0; i < OreDictionary.getOres(entry).size(); i++) {
-                ItemStack stack = OreDictionary.getOres(entry).get(i);
-                this.stack = stack;
-            }
-        }
-    }
 
     @Override
     @OnlyIn(Dist.CLIENT)

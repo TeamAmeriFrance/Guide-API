@@ -17,8 +17,8 @@ public class PacketHandler {
 
     public static void registerPackets() {
         INSTANCE.registerMessage(nextID(),PacketSyncEntry.class,PacketSyncEntry::encode,PacketSyncEntry::decode,PacketSyncEntry::handle);
-        INSTANCE.registerMessage(PacketSyncHome.class, PacketSyncHome.class, 0, Side.SERVER);
-        INSTANCE.registerMessage(PacketSyncCategory.class, PacketSyncCategory.class, 1, Side.SERVER);
+        INSTANCE.registerMessage(nextID(),PacketSyncCategory.class,PacketSyncCategory::encode,PacketSyncCategory::decode,PacketSyncCategory::handle);
+        INSTANCE.registerMessage(nextID(),PacketSyncHome.class,PacketSyncHome::encode,PacketSyncHome::decode,PacketSyncHome::handle);
     }
 
     protected static int nextID() {

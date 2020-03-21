@@ -7,9 +7,7 @@ import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.gui.BaseScreen;
 import amerifrance.guideapi.gui.EntryScreen;
-import amerifrance.guideapi.page.reciperenderer.ShapedOreRecipeRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapedRecipesRenderer;
-import amerifrance.guideapi.page.reciperenderer.ShapelessOreRecipeRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapelessRecipesRenderer;
 import amerifrance.guideapi.util.LogHelper;
 import net.minecraft.client.gui.FontRenderer;
@@ -24,7 +22,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class PageIRecipe extends Page {
 
-    public IRecipe recipe;
+    public IRecipe<?> recipe;
     public IRecipeRenderer iRecipeRenderer;
     protected boolean isValid;
 
@@ -32,15 +30,13 @@ public class PageIRecipe extends Page {
      * Use this if you are creating a page for a standard recipe, one of:
      * <p>
      * <ul>
-     * <li>{@link ShapedRecipes}</li>
-     * <li>{@link ShapelessRecipes}</li>
-     * <li>{@link ShapedOreRecipe}</li>
-     * <li>{@link ShapelessOreRecipe}</li>
+     * <li>{@link ShapedRecipe}</li>
+     * <li>{@link ShapelessRecipe}</li>
      * </ul>
      *
      * @param recipe - Recipe to draw
      */
-    public PageIRecipe(IRecipe recipe) {
+    public PageIRecipe(IRecipe<?> recipe) {
         this(recipe, getRenderer(recipe));
     }
 
@@ -48,7 +44,7 @@ public class PageIRecipe extends Page {
      * @param recipe          - Recipe to draw
      * @param iRecipeRenderer - Your custom Recipe drawer
      */
-    public PageIRecipe(IRecipe recipe, IRecipeRenderer iRecipeRenderer) {
+    public PageIRecipe(IRecipe<?> recipe, IRecipeRenderer iRecipeRenderer) {
         this.recipe = recipe;
         this.iRecipeRenderer = iRecipeRenderer;
         isValid = recipe != null && iRecipeRenderer != null;
@@ -77,15 +73,8 @@ public class PageIRecipe extends Page {
         return isValid;
     }
 
-    public static PageIRecipe newShaped(ItemStack output, Object... input) {
-        return new PageIRecipe(new ShapedOreRecipe(null, output, input));
-    }
 
-    public static PageIRecipe newShapeless(ItemStack output, Object... input) {
-        return new PageIRecipe(new ShapelessOreRecipe(null, output, input));
-    }
-
-    static IRecipeRenderer getRenderer(IRecipe recipe) {
+    static IRecipeRenderer getRenderer(IRecipe<?> recipe) {
         if (recipe == null) {
             LogHelper.error("Cannot get renderer for null recipe.");
             return null;
@@ -93,10 +82,6 @@ public class PageIRecipe extends Page {
             return new ShapedRecipesRenderer((ShapedRecipe) recipe);
         } else if (recipe instanceof ShapelessRecipe) {
             return new ShapelessRecipesRenderer((ShapelessRecipe) recipe);
-        } else if (recipe instanceof ShapedOreRecipe) {
-            return new ShapedOreRecipeRenderer((ShapedOreRecipe) recipe);
-        } else if (recipe instanceof ShapelessOreRecipe) {
-            return new ShapelessOreRecipeRenderer((ShapelessOreRecipe) recipe);
         } else {
             LogHelper.error("Cannot get renderer for recipe type "+recipe.getClass().toString());
             return null;

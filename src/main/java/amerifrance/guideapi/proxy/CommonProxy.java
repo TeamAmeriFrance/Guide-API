@@ -32,23 +32,23 @@ public class CommonProxy implements IGuiHandler {
         if (!bookStack.isEmpty() && bookStack.getItem() instanceof IGuideItem) {
             Book book = GuideAPI.getIndexedBooks().get(ID);
             try {
-                if (bookStack.hasTagCompound()) {
-                    CompoundNBT tagCompound = bookStack.getTagCompound();
-                    if (tagCompound.hasKey(NBTBookTags.ENTRY_TAG) && tagCompound.hasKey(NBTBookTags.CATEGORY_TAG)) {
-                        CategoryAbstract category = book.getCategoryList().get(tagCompound.getInteger(NBTBookTags.CATEGORY_TAG));
+                if (bookStack.hasTag()) {
+                    CompoundNBT tagCompound = bookStack.getTag();
+                    if (tagCompound.contains(NBTBookTags.ENTRY_TAG) && tagCompound.contains(NBTBookTags.CATEGORY_TAG)) {
+                        CategoryAbstract category = book.getCategoryList().get(tagCompound.getInt(NBTBookTags.CATEGORY_TAG));
                         EntryAbstract entry = category.entries.get(new ResourceLocation(tagCompound.getString(NBTBookTags.ENTRY_TAG)));
-                        int pageNumber = tagCompound.getInteger(NBTBookTags.PAGE_TAG);
+                        int pageNumber = tagCompound.getInt(NBTBookTags.PAGE_TAG);
                         EntryScreen guiEntry = new EntryScreen(book, category, entry, player, bookStack);
                         guiEntry.pageNumber = pageNumber;
                         return guiEntry;
-                    } else if (tagCompound.hasKey(NBTBookTags.CATEGORY_TAG)) {
-                        CategoryAbstract category = book.getCategoryList().get(tagCompound.getInteger(NBTBookTags.CATEGORY_TAG));
-                        int entryPage = tagCompound.getInteger(NBTBookTags.ENTRY_PAGE_TAG);
+                    } else if (tagCompound.contains(NBTBookTags.CATEGORY_TAG)) {
+                        CategoryAbstract category = book.getCategoryList().get(tagCompound.getInt(NBTBookTags.CATEGORY_TAG));
+                        int entryPage = tagCompound.getInt(NBTBookTags.ENTRY_PAGE_TAG);
                         CategoryScreen guiCategory = new CategoryScreen(book, category, player, bookStack, null);
                         guiCategory.entryPage = entryPage;
                         return guiCategory;
                     } else {
-                        int categoryNumber = tagCompound.getInteger(NBTBookTags.CATEGORY_PAGE_TAG);
+                        int categoryNumber = tagCompound.getInt(NBTBookTags.CATEGORY_PAGE_TAG);
                         HomeScreen guiHome = new HomeScreen(book, player, bookStack);
                         guiHome.categoryPage = categoryNumber;
                         return guiHome;

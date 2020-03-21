@@ -15,11 +15,10 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Random;
 
-public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T> {
+public class BasicRecipeRenderer<T extends IRecipe<?>> extends RecipeRendererBase<T> {
 
     private long lastCycle = -1;
     private int cycleIdx = 0;
@@ -32,15 +31,15 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
 
     @Override
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
 
-        long time = mc.world.getTotalWorldTime();
+        long time = mc.world.getGameTime();
         if (lastCycle < 0 || lastCycle < time - 20) {
             if (lastCycle > 0) {
                 cycleIdx++;
                 cycleIdx = Math.max(0, cycleIdx);
             }
-            lastCycle = mc.world.getTotalWorldTime();
+            lastCycle = mc.world.getGameTime();
         }
 
         SubTexture.CRAFTING_GRID.draw(guiLeft + 42, guiTop + 53);
@@ -53,19 +52,16 @@ public class BasicRecipeRenderer<T extends IRecipe> extends RecipeRendererBase<T
 
         ItemStack stack = recipe.getRecipeOutput();
 
-        if (!stack.isEmpty() && stack.getItemDamage() == OreDictionary.WILDCARD_VALUE)
-            stack = getNextItem(stack, 0);
-
         GuiHelper.drawItemStack(stack, outputX, outputY);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15))
             tooltips = GuiHelper.getTooltip(recipe.getRecipeOutput());
     }
 
-    protected ItemStack getNextItem(ItemStack stack, int position) {
-        NonNullList<ItemStack> subItems = NonNullList.create();
-        stack.getItem().getSubItems(ItemGroup.SEARCH, subItems);
-        return subItems.get(getRandomizedCycle(position, subItems.size()));
-    }
+//    protected ItemStack getNextItem(ItemStack stack, int position) {
+//        NonNullList<ItemStack> subItems = NonNullList.create();
+//        stack.getItem().fillItemGroup(ItemGroup.SEARCH, subItems);
+//        return subItems.get(getRandomizedCycle(position, subItems.size()));
+//    }
 
     protected int getRandomizedCycle(int index, int max) {
         rand.setSeed(index);
