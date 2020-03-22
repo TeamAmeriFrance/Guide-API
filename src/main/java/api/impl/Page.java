@@ -32,12 +32,12 @@ public class Page implements IPage {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, PlayerEntity player, EntryScreen guiEntry) {
+    public void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, double mouseX, double mouseY, PlayerEntity player, EntryScreen guiEntry) {
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, int mouseX, int mouseY, PlayerEntity player, EntryScreen guiEntry) {
+    public void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, double mouseX, double mouseY, PlayerEntity player, EntryScreen guiEntry) {
     }
 
     @Override

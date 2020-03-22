@@ -67,10 +67,10 @@ public abstract class EntryAbstract {
     public abstract boolean canSee(PlayerEntity player, ItemStack bookStack);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void onLeftClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, PlayerEntity player, CategoryScreen guiCategory);
+    public abstract void onLeftClicked(Book book, CategoryAbstract category, double mouseX, double mouseY, PlayerEntity player, CategoryScreen guiCategory);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void onRightClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, PlayerEntity player, CategoryScreen guiCategory);
+    public abstract void onRightClicked(Book book, CategoryAbstract category, double mouseX, double mouseY, PlayerEntity player, CategoryScreen guiCategory);
 
     @OnlyIn(Dist.CLIENT)
     public abstract void onInit(Book book, CategoryAbstract category, CategoryScreen guiCategory, PlayerEntity player, ItemStack bookStack);

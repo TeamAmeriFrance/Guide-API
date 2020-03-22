@@ -45,7 +45,6 @@ public class GuideMod {
 
     private void loadComplete(final FMLLoadCompleteEvent event){
         PROXY.initColors();
-        ConfigHandler.handleBookConfigs();
 
         for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES)
             guide.getRight().handlePost(GuideAPI.getStackFromBook(guide.getLeft()));

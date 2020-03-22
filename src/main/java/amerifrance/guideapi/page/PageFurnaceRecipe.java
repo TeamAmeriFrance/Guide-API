@@ -14,6 +14,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipe;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -81,7 +82,7 @@ public class PageFurnaceRecipe extends Page {
         int y = guiTop + 77;
         GuiHelper.drawItemStack(input, x, y);
 
-        List<String> tooltip = null;
+        List<ITextComponent> tooltip = null;
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
             tooltip = GuiHelper.getTooltip(input);
 
@@ -97,7 +98,7 @@ public class PageFurnaceRecipe extends Page {
             guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("text.furnace.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
 
         if (tooltip != null)
-            guiBase.drawHoveringText(tooltip, mouseX, mouseY);
+            guiBase.drawHoveringTextComponents(tooltip, mouseX, mouseY);
     }
 
     @Override

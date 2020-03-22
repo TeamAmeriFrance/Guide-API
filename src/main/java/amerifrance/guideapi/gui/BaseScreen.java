@@ -8,10 +8,13 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.fml.client.config.GuiUtils;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.mojang.blaze3d.platform.GlStateManager.*;
 
@@ -33,15 +36,19 @@ public class BaseScreen extends Screen {
     }
 
     @Override
-    public boolean doesGuiPauseGame() {
+    public boolean isPauseScreen() {
         return false;
     }
 
     @Override
-    public void keyTyped(char typedChar, int keyCode) {
-        if (keyCode == Keyboard.KEY_ESCAPE || keyCode == this.minecraft.gameSettings.keyBindInventory.getKeyCode()) {
-            this.minecraft.displayGuiScreen(null);
-            this.minecraft.setIngameFocus();
+    public boolean keyPressed(int p_keyPressed_1_, int p_keyPressed_2_, int p_keyPressed_3_) {
+        if (minecraft!=null&&(p_keyPressed_1_ == GLFW.GLFW_KEY_ESCAPE || p_keyPressed_1_==this.minecraft.gameSettings.keyBindInventory.getKey().getKeyCode())) {
+            this.onClose();
+            this.minecraft.setGameFocused(true);
+            return true;
+        }
+        else{
+            return super.keyPressed(p_keyPressed_1_, p_keyPressed_2_, p_keyPressed_3_);
         }
     }
 
@@ -67,7 +74,7 @@ public class BaseScreen extends Screen {
     @Override
     public void drawCenteredString(FontRenderer fontRendererObj, String string, int x, int y, int color) {
         RenderHelper.disableStandardItemLighting();
-        fontRendererObj.drawString(string, x - fontRendererObj.getStringWidth(string) / 2, y, color);
+        fontRendererObj.drawString(string, x - fontRendererObj.getStringWidth(string) / 2f, y, color);
         RenderHelper.disableStandardItemLighting();
     }
 
@@ -75,39 +82,13 @@ public class BaseScreen extends Screen {
         super.drawCenteredString(fontRendererObj, string, x, y, color);
     }
 
-    @Override
-    public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {
-        pushMatrix();
-        color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        super.drawTexturedModalRect(x, y, textureX, textureY, width, height);
-        popMatrix();
+    public void drawHoveringTextComponents(List<ITextComponent> tooltip , int mouseX, int mouseY){
+        this.drawHoveringText(tooltip.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList()), mouseX,mouseY);
     }
 
-    @Override
-    public void drawHoveringText(List<String> list, int x, int y, FontRenderer font) {
-        disableLighting();
-        RenderHelper.disableStandardItemLighting();
-        super.drawHoveringText(list, x, y, font);
-        RenderHelper.enableStandardItemLighting();
-        enableLighting();
+    public void drawHoveringText(List<String> tooltip , int mouseX, int mouseY){
+        GuiUtils.drawHoveringText(tooltip,mouseX,mouseY,width,height,-1,font);
     }
 
-    @Override
-    public void drawHoveringText(List<String> list, int x, int y) {
-        disableLighting();
-        RenderHelper.disableStandardItemLighting();
-        super.drawHoveringText(list, x, y);
-        RenderHelper.enableStandardItemLighting();
-        enableLighting();
-    }
 
-    @Override
-    public void renderToolTip(ItemStack stack, int x, int y) {
-        super.renderToolTip(stack, x, y);
-    }
-
-    @Override
-    public void onGuiClosed() {
-        super.onGuiClosed();
-    }
 }

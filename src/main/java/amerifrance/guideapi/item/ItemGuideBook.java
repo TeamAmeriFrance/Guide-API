@@ -16,8 +16,13 @@ import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -29,13 +34,31 @@ public class ItemGuideBook extends Item implements IGuideItem {
 
     @Nonnull
     private final Book book;
+    private String translation_key;
+
 
     public ItemGuideBook(@Nonnull Book book) {
+        super(new Item.Properties().maxStackSize(1).group(book.getCreativeTab()));
         this.book = book;
 
-        setMaxStackSize(1);
-        setCreativeTab(book.getCreativeTab());
-        setUnlocalizedName(GuideMod.ID + ".book." + book.getRegistryName().getResourceDomain() + "." + book.getRegistryName().getResourcePath());
+
+        setTranslation_key(GuideMod.ID + ".book." + book.getRegistryName().getNamespace() + "." + book.getRegistryName().getPath());
+    }
+
+    @Override
+    protected String getDefaultTranslationKey() {
+        if (this.translation_key == null) {
+            this.translation_key = Util.makeTranslationKey("item", Registry.ITEM.getKey(this));
+        }
+
+        return this.translation_key;
+    }
+
+    /**
+     * Set a custom translation key
+     */
+    protected void setTranslation_key(String name) {
+        this.translation_key = Util.makeTranslationKey("item", new ResourceLocation(GuideMod.ID, name));
     }
 
     @Override
@@ -47,28 +70,27 @@ public class ItemGuideBook extends Item implements IGuideItem {
             player.sendStatusMessage(event.getCanceledText(), true);
             return ActionResult.newResult(ActionResultType.FAIL, heldStack);
         }
-
-        player.openGui(GuideMod.INSTANCE, GuideAPI.getIndexedBooks().indexOf(book), world, hand.ordinal(), 0, 0);
+        GuideMod.PROXY.openGuidebook(player,world,book,heldStack);
         return ActionResult.newResult(ActionResultType.SUCCESS, heldStack);
     }
 
     @Override
-    public ActionResultType onItemUse(PlayerEntity player, World world, BlockPos pos, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
-        if (!world.isRemote || !player.isSneaking())
+    public ActionResultType onItemUse(ItemUseContext context) {
+        if (!context.getWorld().isRemote || !context.isPlacerSneaking())
             return ActionResultType.PASS;
 
-        ItemStack stack = player.getHeldItem(hand);
-        BlockState state = world.getBlockState(pos);
+        ItemStack stack = context.getItem();
+        BlockState state = context.getWorld().getBlockState(context.getPos());
 
         if (state.getBlock() instanceof IGuideLinked) {
             IGuideLinked guideLinked = (IGuideLinked) state.getBlock();
-            ResourceLocation entryKey = guideLinked.getLinkedEntry(world, pos, player, stack);
+            ResourceLocation entryKey = guideLinked.getLinkedEntry(context.getWorld(), context.getPos(),context.getPlayer(), stack);
             if (entryKey == null)
                 return ActionResultType.FAIL;
 
             for (CategoryAbstract category : book.getCategoryList()) {
                 if (category.entries.containsKey(entryKey)) {
-                    GuideMod.PROXY.openEntry(book, category, category.entries.get(entryKey), player, stack);
+                    GuideMod.PROXY.openEntry(book, category, category.entries.get(entryKey), context.getPlayer(), stack);
                     return ActionResultType.SUCCESS;
                 }
             }
@@ -78,22 +100,16 @@ public class ItemGuideBook extends Item implements IGuideItem {
     }
 
     @Override
-    public String getItemStackDisplayName(ItemStack stack) {
-        return !Strings.isNullOrEmpty(book.getItemName()) ? I18n.format(getBook(stack).getItemName()) : super.getItemStackDisplayName(stack);
+    public ITextComponent getDisplayName(ItemStack stack) {
+        return !Strings.isNullOrEmpty(book.getItemName()) ? new TranslationTextComponent(getBook(stack).getItemName()) : super.getDisplayName(stack);
     }
 
     @Override
-    public void addInformation(ItemStack stack, World playerIn, List<String> tooltip, ITooltipFlag advanced) {
+    public void addInformation(ItemStack stack, World playerIn, List<ITextComponent> tooltip, ITooltipFlag advanced) {
         if (!Strings.isNullOrEmpty(book.getAuthor()))
-            tooltip.add(TextHelper.localizeEffect(book.getAuthor()));
+            tooltip.add(new StringTextComponent(TextHelper.localizeEffect(book.getAuthor())));
         if (!Strings.isNullOrEmpty(book.getAuthor()) && (advanced == TooltipFlags.ADVANCED))
-            tooltip.add(book.getRegistryName().toString());
-    }
-
-    @Nullable
-//    @Override TODO - Soft override because this hasn't been merged into Forge yet. https://github.com/MinecraftForge/MinecraftForge/pull/4330
-    public String getCreatorModId(ItemStack stack) {
-        return book.getRegistryName().getResourceDomain();
+            tooltip.add(new StringTextComponent(book.getRegistryName().toString()));
     }
 
     // IGuideItem

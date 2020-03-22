@@ -29,7 +29,7 @@ public class InfoRendererImage implements IInfoRenderer {
 
     @Override
     public void drawInformation(Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player) {
-        Minecraft.getInstance().renderEngine.bindTexture(image);
-        AbstractGui.drawModalRectWithCustomSizedTexture(Minecraft.getInstance().mainWindow.getScaledWidth() / 2 + 20, Minecraft.getInstance().mainWindow.getScaledHeight() / 2 - imageHeight / 2, imageX, imageY, imageWidth, imageHeight, imageWidth, imageHeight);
+        Minecraft.getInstance().textureManager.bindTexture(image);
+        AbstractGui.blit(Minecraft.getInstance().mainWindow.getScaledWidth() / 2 + 20, Minecraft.getInstance().mainWindow.getScaledHeight() / 2 - imageHeight / 2, imageX, imageY, imageWidth, imageHeight, imageWidth, imageHeight);
     }
 }

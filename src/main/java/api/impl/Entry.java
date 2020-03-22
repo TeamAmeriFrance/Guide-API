@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.client.config.GuiUtils;
 
 import java.awt.Color;
 import java.util.Collections;
@@ -40,10 +41,6 @@ public class Entry extends EntryAbstract {
     @OnlyIn(Dist.CLIENT)
     public void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
 
-        boolean startFlag = fontRendererObj.getUnicodeFlag();
-
-        if (unicode)
-            fontRendererObj.setUnicodeFlag(true);
 
         // Cutting code ripped from GuiButtonExt#drawButton(...)
         String entryName = getLocalizedName();
@@ -60,15 +57,13 @@ public class Entry extends EntryAbstract {
             fontRendererObj.drawString(entryName, entryX + 12, entryY, 0);
         }
 
-        if (unicode && !startFlag)
-            fontRendererObj.setUnicodeFlag(false);
+
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-        boolean startFlag = fontRendererObj.getUnicodeFlag();
-        fontRendererObj.setUnicodeFlag(false);
+
 
         // Cutting code ripped from GuiButtonExt#drawButton(...)
         int strWidth = fontRendererObj.getStringWidth(getLocalizedName());
@@ -79,11 +74,10 @@ public class Entry extends EntryAbstract {
 
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight) && cutString) {
 
-            guiBase.drawHoveringText(Collections.singletonList(getLocalizedName()), entryX, entryY + 12);
-            fontRendererObj.setUnicodeFlag(unicode);
+            GuiUtils.drawHoveringText(Collections.singletonList(getLocalizedName()), entryX, entryY + 12,entryWidth,entryHeight,-1,fontRendererObj);
         }
 
-        fontRendererObj.setUnicodeFlag(startFlag);
+
     }
 
     @Override
@@ -93,13 +87,13 @@ public class Entry extends EntryAbstract {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void onLeftClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, PlayerEntity player, CategoryScreen guiCategory) {
+    public void onLeftClicked(Book book, CategoryAbstract category, double mouseX, double mouseY, PlayerEntity player, CategoryScreen guiCategory) {
         Minecraft.getInstance().displayGuiScreen(new EntryScreen(book, category, this, player, guiCategory.bookStack));
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void onRightClicked(Book book, CategoryAbstract category, int mouseX, int mouseY, PlayerEntity player, CategoryScreen guiCategory) {
+    public void onRightClicked(Book book, CategoryAbstract category, double mouseX, double mouseY, PlayerEntity player, CategoryScreen guiCategory) {
     }
 
     @Override

@@ -10,8 +10,10 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.client.config.GuiUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public interface IRecipeRenderer {
 
@@ -32,7 +34,7 @@ public interface IRecipeRenderer {
 
         @Override
         public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-            guiBase.drawHoveringText(tooltips, mouseX, mouseY);
+            guiBase.drawHoveringTextComponents(tooltips, mouseX, mouseY);
             tooltips.clear();
         }
     }

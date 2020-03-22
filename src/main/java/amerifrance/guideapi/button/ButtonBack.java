@@ -5,34 +5,35 @@ import api.button.ButtonGuideAPI;
 import api.util.GuiHelper;
 import api.util.TextHelper;
 import amerifrance.guideapi.gui.BaseScreen;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.config.GuiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ButtonBack extends ButtonGuideAPI {
 
-    public ButtonBack(int id, int x, int y, BaseScreen guiBase) {
-        super(id, x, y, guiBase);
-        width = 18;
-        height = 10;
+    public ButtonBack(int widthIn, int heightIn, Button.IPressable onPress, BaseScreen guiBase) {
+        super(widthIn, heightIn, 18, 10, onPress,guiBase);
     }
 
     @Override
-    public void drawButton(Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+    public void renderButton(int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
             RenderHelper.enableGUIStandardItemLighting();
             GlStateManager.enableBlend();
             GlStateManager.disableLighting();
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            minecraft.getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png"));
+            GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) {
-                this.drawTexturedModalRect(x, y + 1, 70, 201, 18, 10);
-                guiBase.drawHoveringText(getHoveringText(), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
+                this.blit(x,y+1,70,201,18,10);
+                GuiUtils.drawHoveringText(getHoveringText(),mouseX,mouseY,width,height,width,Minecraft.getInstance().fontRenderer);
             } else {
-                this.drawTexturedModalRect(x, y, 94, 201, 18, 10);
+                this.blit(x,y,94,201,18,10);
             }
             GlStateManager.disableBlend();
             RenderHelper.disableStandardItemLighting();

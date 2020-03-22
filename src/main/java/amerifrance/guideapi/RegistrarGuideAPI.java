@@ -32,10 +32,11 @@ public class RegistrarGuideAPI {
      * using @ObjectHolder will not have their Item fields populated. Thus, we must use an event that fires *after*
      * Item object holders are populated, but *before* the recipe registry. Since the events are fired in alphabetical order,
      * we just pick one that starts with a letter before "r".
+     * TODO check
      */
     @SubscribeEvent
     public static void registerItemsInADifferentRegistryEventBecauseLoadOrderingAndObjectHoldersAreImportant(RegistryEvent.Register<Biome> event) {
-        AnnotationHandler.gatherBooks(GuideMod.dataTable);
+        AnnotationHandler.gatherBooks();
 
         for (Book book : GuideAPI.getBooks().values()) {
             Item guideBook = new ItemGuideBook(book);
@@ -44,22 +45,22 @@ public class RegistrarGuideAPI {
             APISetter.setBookForStack(book, new ItemStack(guideBook));
         }
     }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-        for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES) {
-            IRecipe recipe = guide.getRight().getRecipe(GuideAPI.getStackFromBook(guide.getLeft()));
-            if (recipe != null)
-                event.getRegistry().register(recipe);
-        }
-
-        for (Book book : GuideAPI.getBooks().values())
-            for (CategoryAbstract cat : book.getCategoryList())
-                for (EntryAbstract entry : cat.entries.values())
-                    for (IPage page : entry.pageList)
-                        if (page instanceof PageJsonRecipe)
-                            ((PageJsonRecipe) page).init();
-    }
+//      TODO
+//    @SubscribeEvent(priority = EventPriority.LOWEST)
+//    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+//        for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES) {
+//            IRecipe recipe = guide.getRight().getRecipe(GuideAPI.getStackFromBook(guide.getLeft()));
+//            if (recipe != null)
+//                event.getRegistry().register(recipe);
+//        }
+//
+//        for (Book book : GuideAPI.getBooks().values())
+//            for (CategoryAbstract cat : book.getCategoryList())
+//                for (EntryAbstract entry : cat.entries.values())
+//                    for (IPage page : entry.pageList)
+//                        if (page instanceof PageJsonRecipe)
+//                            ((PageJsonRecipe) page).init();
+//    }
 
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {

@@ -7,8 +7,8 @@ public class ButtonGuideAPI extends Button {
 
     public BaseScreen guiBase;
 
-    public ButtonGuideAPI(int id, int x, int y, BaseScreen guiBase) {
-        super(id, x, y, "");
+    public ButtonGuideAPI(int widthIn, int heightIn, int width, int height, Button.IPressable onPress, BaseScreen guiBase) {
+        super(widthIn, heightIn, width, height, "", onPress);
         this.guiBase = guiBase;
     }
 }

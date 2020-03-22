@@ -54,7 +54,7 @@ public class CategoryWrapper extends AbstractWrapper {
     }
 
     @Override
-    public boolean isMouseOnWrapper(int mouseX, int mouseY) {
+    public boolean isMouseOnWrapper(double mouseX, double mouseY) {
         return GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height);
     }
 }

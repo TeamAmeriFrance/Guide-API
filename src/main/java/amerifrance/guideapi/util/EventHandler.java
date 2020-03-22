@@ -1,6 +1,6 @@
 package amerifrance.guideapi.util;
 
-import amerifrance.guideapi.ConfigHandler;
+import amerifrance.guideapi.GuideConfig;
 import amerifrance.guideapi.GuideMod;
 import api.GuideAPI;
 import api.IGuideItem;
@@ -43,12 +43,12 @@ public class EventHandler {
         if (!event.getEntity().world.isRemote && event.getEntity() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) event.getEntity();
             CompoundNBT tag = getModTag(player, GuideMod.ID);
-            if (ConfigHandler.canSpawnWithBooks) {
+            if (GuideConfig.SERVER.canSpawnWithBook.get()) {
                 for (Book book : GuideAPI.getBooks().values()) {
-                    if (ConfigHandler.SPAWN_BOOKS.getOrDefault(book, false) && !tag.getBoolean("hasInitial" + book.getTitle())) {
+                    //if (ConfigHandler.SPAWN_BOOKS.getOrDefault(book, false) && !tag.getBoolean("hasInitial" + book.getTitle())) { TODO
                         ItemHandlerHelper.giveItemToPlayer(player, GuideAPI.getStackFromBook(book));
                         tag.putBoolean("hasInitial" + book.getTitle(), true);
-                    }
+                    //}
                 }
             }
         }

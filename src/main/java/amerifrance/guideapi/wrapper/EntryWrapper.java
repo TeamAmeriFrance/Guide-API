@@ -47,16 +47,16 @@ public class EntryWrapper extends AbstractWrapper {
 
     @Override
     public void draw(int mouseX, int mouseY, BaseScreen gui) {
-        entry.draw(book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getMinecraft().fontRenderer);
+        entry.draw(book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getInstance().fontRenderer);
     }
 
     @Override
     public void drawExtras(int mouseX, int mouseY, BaseScreen gui) {
-        entry.drawExtras(book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getMinecraft().fontRenderer);
+        entry.drawExtras(book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getInstance().fontRenderer);
     }
 
     @Override
-    public boolean isMouseOnWrapper(int mouseX, int mouseY) {
+    public boolean isMouseOnWrapper(double mouseX, double mouseY) {
         return GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height);
     }
 }

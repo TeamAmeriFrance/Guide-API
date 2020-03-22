@@ -142,10 +142,10 @@ public abstract class CategoryAbstract {
     public abstract boolean canSee(PlayerEntity player, ItemStack bookStack);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void onLeftClicked(Book book, int mouseX, int mouseY, PlayerEntity player, ItemStack bookStack);
+    public abstract void onLeftClicked(Book book, double mouseX, double mouseY, PlayerEntity player, ItemStack bookStack);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void onRightClicked(Book book, int mouseX, int mouseY, PlayerEntity player, ItemStack bookStack);
+    public abstract void onRightClicked(Book book, double mouseX, double mouseY, PlayerEntity player, ItemStack bookStack);
 
     @OnlyIn(Dist.CLIENT)
     public abstract void onInit(Book book, HomeScreen guiHome, PlayerEntity player, ItemStack bookStack);

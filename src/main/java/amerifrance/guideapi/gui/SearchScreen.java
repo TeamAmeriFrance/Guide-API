@@ -10,14 +10,17 @@ import amerifrance.guideapi.button.ButtonNext;
 import amerifrance.guideapi.button.ButtonPrev;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import net.minecraft.client.MouseHelper;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,7 +43,7 @@ public class SearchScreen extends BaseScreen {
     private String lastQuery = "";
 
     public SearchScreen(Book book, PlayerEntity player, ItemStack bookStack, Screen parent) {
-        super(player, bookStack);
+        super(new TranslationTextComponent(book.getTitle()),player, bookStack);
 
         this.book = book;
         this.pageTexture = book.getPageTexture();
@@ -49,33 +52,42 @@ public class SearchScreen extends BaseScreen {
         this.searchResults = getMatches(book, null, player, bookStack);
     }
 
+
     @Override
-    public void initGui() {
-        buttonList.clear();
+    public void init() {
 
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
-        addButton(new ButtonBack(0, guiLeft + xSize / 6, guiTop, this));
-        addButton(buttonNext = new ButtonNext(1, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
-        addButton(buttonPrev = new ButtonPrev(2, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
+        addButton(new ButtonBack( guiLeft + xSize / 6, guiTop, (btn)->{
+            minecraft.displayGuiScreen(parent);
 
-        searchField = new TextFieldWidget(3, font, guiLeft + 43, guiTop + 12, 100, 10);
+        },this));
+        addButton(buttonNext = new ButtonNext( guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn)->{
+            if (currentPage <= searchResults.size() - 1)
+                currentPage++;
+        },this));
+        addButton(buttonPrev = new ButtonPrev( guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn)->{
+            if (currentPage > 0)
+                currentPage--;
+        },this));
+
+        searchField = new TextFieldWidget( font, guiLeft + 43, guiTop + 12, 100, 10,"");
         searchField.setEnableBackgroundDrawing(false);
-        searchField.setFocused(true);
+        searchField.changeFocus(true);
         searchResults = getMatches(book, null, player, bookStack);
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    public void render(int mouseX, int mouseY, float partialTicks) {
         minecraft.getTextureManager().bindTexture(pageTexture);
-        drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+        blit(guiLeft, guiTop, 0, 0, xSize, ySize);
         minecraft.getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
-        drawRect(searchField.x - 1, searchField.y - 1, searchField.x + searchField.width + 1, searchField.y + searchField.height + 1, new Color(166, 166, 166, 128).getRGB());
-        drawRect(searchField.x, searchField.y, searchField.x + searchField.width, searchField.y + searchField.height, new Color(58, 58, 58, 128).getRGB());
-        searchField.drawTextBox();
+        fill(searchField.x - 1, searchField.y - 1, searchField.x + searchField.getAdjustedWidth() + 1, searchField.y + searchField.getHeight() + 1, new Color(166, 166, 166, 128).getRGB());
+        fill(searchField.x, searchField.y, searchField.x + searchField.getAdjustedWidth(), searchField.y + searchField.getHeight(), new Color(58, 58, 58, 128).getRGB());
+        searchField.render(mouseX, mouseY, partialTicks);
 
         int entryX = guiLeft + 37;
         int entryY = guiTop + 30;
@@ -83,14 +95,14 @@ public class SearchScreen extends BaseScreen {
         if (searchResults.size() != 0 && currentPage >= 0 && currentPage < searchResults.size()) {
             List<Pair<EntryAbstract, CategoryAbstract>> pageResults = searchResults.get(currentPage);
             for (Pair<EntryAbstract, CategoryAbstract> entry : pageResults) {
-                entry.getLeft().draw(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, fontRenderer);
-                entry.getLeft().drawExtras(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, fontRenderer);
+                entry.getLeft().draw(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, font);
+                entry.getLeft().drawExtras(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, font);
 
                 if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, 4 * xSize / 6, 10)) {
-                    if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
-                        GuiUtils.drawHoveringText(Lists.newArrayList(entry.getRight().getLocalizedName()), mouseX, mouseY, width, height, 300, fontRenderer);
+                    if (GLFW.glfwGetKey(minecraft.mainWindow.getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) == GLFW.GLFW_PRESS)
+                        GuiUtils.drawHoveringText(Lists.newArrayList(entry.getRight().getLocalizedName()), mouseX, mouseY, width, height, 300, font);
 
-                    if (Mouse.isButtonDown(0)) {
+                    if (minecraft.mouseHelper.isLeftDown()) {
                         GuideMod.PROXY.openEntry(book, entry.getRight(), entry.getLeft(), player, bookStack);
                         return;
                     }
@@ -103,73 +115,65 @@ public class SearchScreen extends BaseScreen {
         buttonPrev.visible = currentPage != 0;
         buttonNext.visible = currentPage != searchResults.size() - 1 && !searchResults.isEmpty();
 
-        super.drawScreen(mouseX, mouseY, partialTicks);
+        super.render(mouseX, mouseY, partialTicks);
     }
 
     @Override
-    public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
+    public boolean mouseClicked(double mouseX, double mouseY, int typeofClick) {
+        if(!super.mouseClicked(mouseX, mouseY, typeofClick)){
+            if (typeofClick == 1) {
+                if (GuiHelper.isMouseBetween(mouseX, mouseY, searchField.x, searchField.y, searchField.getAdjustedWidth(), searchField.getHeight())) {
+                    searchField.setText("");
+                    lastQuery = "";
+                    searchResults = getMatches(book, "", player, bookStack);
+                    return true;
+                } else{
+                    minecraft.displayGuiScreen(parent);
+                    return true;
+                }
+            }
 
-        if (mouseButton == 1) {
-            if (GuiHelper.isMouseBetween(mouseX, mouseY, searchField.x, searchField.y, searchField.getAdjustedWidth(), searchField.getHeight())) {
-                searchField.setText("");
-                lastQuery = "";
-                searchResults = getMatches(book, "", player, bookStack);
-                return;
-            } else
-                minecraft.displayGuiScreen(parent);
+
+            return searchField.mouseClicked(mouseX, mouseY, typeofClick);
         }
+        return true;
 
-        searchField.mouseClicked(mouseX, mouseY, mouseButton);
+
     }
 
     @Override
-    public void handleMouseInput() throws IOException {
-        super.handleMouseInput();
+    public boolean mouseScrolled(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double movement) {
 
-        int movement = Mouse.getEventDWheel();
+
         if (movement < 0 && buttonNext.visible && currentPage <= searchResults.size())
             currentPage++;
         else if (movement > 0 && buttonPrev.visible && currentPage > 0)
             currentPage--;
+
+        return movement!=0 || super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
+
     }
 
     @Override
-    public void keyTyped(char typedChar, int keyCode) {
-        if (!searchField.isFocused())
-            super.keyTyped(typedChar, keyCode);
+    public boolean keyPressed(int keyCode, int p_keyPressed_2_, int p_keyPressed_3_) {
+        if (!searchField.isFocused()){
+            return super.keyPressed(keyCode, p_keyPressed_2_, p_keyPressed_3_);
+        }
 
-        if (keyCode == Keyboard.KEY_ESCAPE)
-            searchField.setFocused(false);
+        if (keyCode == GLFW.GLFW_KEY_ESCAPE)
+            searchField.changeFocus(false);
 
-        searchField.textboxKeyTyped(typedChar, keyCode);
+        searchField.keyPressed(keyCode, p_keyPressed_2_, p_keyPressed_3_);
         if (!searchField.getText().equalsIgnoreCase(lastQuery)) {
             lastQuery = searchField.getText();
             searchResults = getMatches(book, searchField.getText(), player, bookStack);
             if (currentPage > searchResults.size())
                 currentPage = searchResults.size() - 1;
         }
+        return true;
     }
 
-    @Override
-    public void actionPerformed(Button button) {
-        switch (button.id) {
-            case 0: {
-                minecraft.displayGuiScreen(parent);
-                break;
-            }
-            case 1: {
-                if (currentPage <= searchResults.size() - 1)
-                    currentPage++;
-                break;
-            }
-            case 2: {
-                if (currentPage > 0)
-                    currentPage--;
-                break;
-            }
-        }
-    }
+
 
     @Nonnull
     static List<List<Pair<EntryAbstract, CategoryAbstract>>> getMatches(Book book, @Nullable String query, PlayerEntity player, ItemStack bookStack) {

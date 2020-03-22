@@ -42,13 +42,13 @@ public class Category extends CategoryAbstract {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void onLeftClicked(Book book, int mouseX, int mouseY, PlayerEntity player, ItemStack bookStack) {
+    public void onLeftClicked(Book book, double mouseX, double mouseY, PlayerEntity player, ItemStack bookStack) {
         Minecraft.getInstance().displayGuiScreen(new CategoryScreen(book, this, player, bookStack, null));
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void onRightClicked(Book book, int mouseX, int mouseY, PlayerEntity player, ItemStack bookStack) {
+    public void onRightClicked(Book book, double mouseX, double mouseY, PlayerEntity player, ItemStack bookStack) {
     }
 
     @Override
