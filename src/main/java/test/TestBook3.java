@@ -1,4 +1,4 @@
-package amerifrance.guideapi.test;
+package test;
 
 import amerifrance.guideapi.GuideMod;
 import api.BookEvent;
@@ -10,7 +10,6 @@ import api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.*;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -46,8 +45,8 @@ public class TestBook3 implements IGuideBook {
         CategoryAbstract testCategory = new CategoryItemStack("test.category.name", new ItemStack(Items.BLACK_BANNER)).withKeyBase("guideapi");
         testCategory.addEntry("entry", new EntryItemStack("test.entry.name", new ItemStack(Items.POTATO)));
         testCategory.getEntry("entry").addPage(new PageText("Hello, this is\nsome text"));
-        testCategory.getEntry("entry").addPage(new PageFurnaceRecipe(Blocks.COBBLESTONE));
-        testCategory.getEntry("entry").addPage(PageIRecipe.newShaped(new ItemStack(Items.ACACIA_BOAT), "X X", "XXX", 'X', new ItemStack(Blocks.ACACIA_PLANKS, 1, 4)));
+        //testCategory.getEntry("entry").addPage(new PageFurnaceRecipe(Blocks.COBBLESTONE));
+        //testCategory.getEntry("entry").addPage(PageIRecipe.newShaped(new ItemStack(Items.ACACIA_BOAT), "X X", "XXX", 'X', new ItemStack(Blocks.ACACIA_PLANKS, 1, 4)));
         testCategory.getEntry("entry").addPage(new PageBrewingRecipe(new BrewingRecipe(Ingredient.fromStacks( PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)),Ingredient.fromStacks( new ItemStack(Items.GLISTERING_MELON_SLICE)),
                 PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.HEALING)))
         );

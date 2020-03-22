@@ -47,7 +47,19 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-${project.minecraft_version}:${project.jei_version}") //Full for runtime
 }
 
+sourceSets {
 
+    main {
+        java {
+            srcDirs = ["$rootDir/src/main/java"]
+        }
+        resources {
+            srcDirs = [
+                    "$rootDir/src/main/resources"
+            ]
+        }
+    }
+}
 
 
 minecraft {

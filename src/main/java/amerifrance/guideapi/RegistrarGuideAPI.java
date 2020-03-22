@@ -23,7 +23,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = "guideapi",bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RegistrarGuideAPI {
 
     /*

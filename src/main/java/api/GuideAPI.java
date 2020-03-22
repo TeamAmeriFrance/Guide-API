@@ -59,11 +59,11 @@ public class GuideAPI {
     @OnlyIn(Dist.CLIENT)
     public static void setModel(Book book, ResourceLocation modelLoc, String variantName) {
         ModelResourceLocation mrl = new ModelResourceLocation(modelLoc, variantName);
-        ModelLoader.setCustomModelResourceLocation(
-                getStackFromBook(book).getItem(),
-                0,
-                mrl
-        );
+//        ModelLoader.setCustomModelResourceLocation(
+//                getStackFromBook(book).getItem(),
+//                0,
+//                mrl
+//        ); TODO
     }
 
     /**

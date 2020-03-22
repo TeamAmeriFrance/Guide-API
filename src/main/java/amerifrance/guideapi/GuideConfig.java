@@ -65,7 +65,7 @@ public class GuideConfig {
 
 
         Common(ForgeConfigSpec.Builder builder) {
-            builder.comment("Common configurations settings").comment("common");
+            builder.comment("Common configurations settings").push("common");
             enableLogging = builder.comment("Enables extra information being printed to the console.").define("enableLogging",true);
             builder.pop();
         }

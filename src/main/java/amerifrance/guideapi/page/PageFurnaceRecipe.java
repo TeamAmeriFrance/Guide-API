@@ -26,46 +26,48 @@ public class PageFurnaceRecipe extends Page {
 
     public ItemStack input;
     public ItemStack output;
+//
+//    /**
+//     * @param input - Input ItemStack to draw smelting result of
+//     */
+//    public PageFurnaceRecipe(ItemStack input) {
+//        this.input = input;
+//        this.output = FurnaceRecipe.instance().getSmeltingResult(input);
+//    }
+//
+//    /**
+//     * @param input - Input Item to draw smelting result of
+//     */
+//    public PageFurnaceRecipe(Item input) {
+//        this.input = new ItemStack(input);
+//        this.output = FurnaceRecipes.instance().getSmeltingResult(new ItemStack(input));
+//    }
+//
+//    /**
+//     * @param input - Input Block to draw smelting result of
+//     */
+//    public PageFurnaceRecipe(Block input) {
+//        this.input = new ItemStack(input);
+//        this.output = FurnaceRecipes.instance().getSmeltingResult(new ItemStack(input));
+//    }
+//
+//    /**
+//     * @param input - Input OreDict entry to draw smelting result of
+//     */
+//    public PageFurnaceRecipe(String input) {
+//
+//        this.input = new ItemStack(Blocks.FIRE);
+//
+//        if (!OreDictionary.getOres(input).isEmpty())
+//            for (int i = 0; i < OreDictionary.getOres(input).size(); i++) {
+//                ItemStack stack = OreDictionary.getOres(input).get(i);
+//
+//                this.input = stack;
+//                this.output = FurnaceRecipes.instance().getSmeltingResult(stack);
+//            }
+//    }
 
-    /**
-     * @param input - Input ItemStack to draw smelting result of
-     */
-    public PageFurnaceRecipe(ItemStack input) {
-        this.input = input;
-        this.output = FurnaceRecipe.instance().getSmeltingResult(input);
-    }
 
-    /**
-     * @param input - Input Item to draw smelting result of
-     */
-    public PageFurnaceRecipe(Item input) {
-        this.input = new ItemStack(input);
-        this.output = FurnaceRecipes.instance().getSmeltingResult(new ItemStack(input));
-    }
-
-    /**
-     * @param input - Input Block to draw smelting result of
-     */
-    public PageFurnaceRecipe(Block input) {
-        this.input = new ItemStack(input);
-        this.output = FurnaceRecipes.instance().getSmeltingResult(new ItemStack(input));
-    }
-
-    /**
-     * @param input - Input OreDict entry to draw smelting result of
-     */
-    public PageFurnaceRecipe(String input) {
-
-        this.input = new ItemStack(Blocks.FIRE);
-
-        if (!OreDictionary.getOres(input).isEmpty())
-            for (int i = 0; i < OreDictionary.getOres(input).size(); i++) {
-                ItemStack stack = OreDictionary.getOres(input).get(i);
-
-                this.input = stack;
-                this.output = FurnaceRecipes.instance().getSmeltingResult(stack);
-            }
-    }
 
     @Override
     @OnlyIn(Dist.CLIENT)
