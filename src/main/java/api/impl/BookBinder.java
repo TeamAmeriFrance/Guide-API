@@ -1,23 +1,24 @@
 package api.impl;
 
 import api.impl.abstraction.CategoryAbstract;
+import com.google.common.base.Function;
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.forgespi.language.IModInfo;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class BookBinder {
 
     private final ResourceLocation registryName;
-    private final List<CategoryAbstract> categories = Lists.newArrayList();
+    private Consumer<List<CategoryAbstract>> contentProvider;
     private String guideTitle = "item.guideapi.book.name";
     private String header;
     private String itemName;
@@ -38,17 +39,16 @@ public class BookBinder {
         this.registryName = registryName;
     }
 
+
     /**
-     * Adds a new {@link CategoryAbstract} to this book. You should either pre-build or keep a reference of this category
-     * so you may populate it with entries.
+     * Set a consumer (method) that will generate the content for your book and add it to the provided list
+     * It will be called during GuideAPI's {@link InterModProcessEvent} (so it might execute in parallel with your mod)
      *
-     * Categories are displayed in the order they are added.
-     *
-     * @param category The category to add to this book.
+     * @param contentProvider The consumer. Categories are displayed in which they are added to the provided list
      * @return the builder instance for chaining.
      */
-    public BookBinder addCategory(CategoryAbstract category) {
-        this.categories.add(category);
+    public BookBinder setContentProvider(Consumer<List<CategoryAbstract>> contentProvider){
+        this.contentProvider = contentProvider;
         return this;
     }
 
@@ -208,6 +208,10 @@ public class BookBinder {
         if (this.itemName == null)
             this.itemName = guideTitle.substring(5);
 
-        return new Book(categories, guideTitle, header, itemName, author, pageTexture, outlineTexture, hasCustomModel, color, spawnWithBook, registryName, creativeTab);
+        if(contentProvider ==null){
+            throw new IllegalStateException("Content supplier of book "+registryName.toString()+" must be provided");
+        }
+
+        return new Book(contentProvider, guideTitle, header, itemName, author, pageTexture, outlineTexture, hasCustomModel, color, spawnWithBook, registryName, creativeTab);
     }
 }

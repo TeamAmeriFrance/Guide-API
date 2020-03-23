@@ -3,6 +3,7 @@ package test;
 import api.GuideBook;
 import api.IGuideBook;
 import api.impl.Book;
+import api.impl.BookBinder;
 import api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
@@ -22,6 +23,7 @@ import net.minecraftforge.common.brewing.BrewingRecipe;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.Color;
+import java.util.List;
 
 @GuideBook
 public class TestBook2 implements IGuideBook {
@@ -31,13 +33,21 @@ public class TestBook2 implements IGuideBook {
     @Nullable
     @Override
     public Book buildBook() {
-        book = new Book();
-        book.setAuthor("TehNut");
-        book.setColor(Color.GREEN);
-        book.setDisplayName("Display Name");
-        book.setTitle("Title message");
-        book.setWelcomeMessage("Is this still a thing?");
+        BookBinder binder = new BookBinder(new ResourceLocation("guideapi","test_book2"));
+        binder.setAuthor("TehNut").setColor(Color.GRAY).setItemName("Display Name").setHeader("Hello there").setGuideTitle("Title message").setContentProvider(this::buildContent);
 
+
+
+        return (book = binder.build());
+    }
+
+    @Nullable
+    @Override
+    public IRecipe getRecipe(@Nonnull ItemStack bookStack) {
+        return new ShapedRecipe(book.getRegistryName(), "", 3,1, NonNullList.from(Ingredient.EMPTY,Ingredient.EMPTY,Ingredient.fromTag(Tags.Items.INGOTS_GOLD),Ingredient.EMPTY),bookStack);
+    }
+
+    private void buildContent(List<CategoryAbstract> categories) {
         CategoryAbstract testCategory = new CategoryItemStack("test.category.name", new ItemStack(Items.BLUE_BANNER)).withKeyBase("guideapi");
         testCategory.addEntry("entry", new EntryItemStack("test.entry.name", new ItemStack(Items.POTATO)));
         testCategory.getEntry("entry").addPage(new PageText("Hello, this is\nsome text"));
@@ -46,15 +56,6 @@ public class TestBook2 implements IGuideBook {
         testCategory.getEntry("entry").addPage(new PageBrewingRecipe(new BrewingRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)),Ingredient.fromStacks( new ItemStack(Items.GLISTERING_MELON_SLICE)), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.HEALING)))
         );
         testCategory.getEntry("entry").addPage(new PageJsonRecipe(new ResourceLocation("bread")));
-        book.addCategory(testCategory);
-
-        book.setRegistryName(new ResourceLocation("guideapi", "test_book2"));
-        return book;
-    }
-
-    @Nullable
-    @Override
-    public IRecipe getRecipe(@Nonnull ItemStack bookStack) {
-        return new ShapedRecipe(book.getRegistryName(), "", 3,1, NonNullList.from(Ingredient.EMPTY,Ingredient.EMPTY,Ingredient.fromTag(Tags.Items.INGOTS_GOLD),Ingredient.EMPTY),bookStack);
+        categories.add(testCategory);
     }
 }

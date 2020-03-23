@@ -26,16 +26,9 @@ import org.apache.commons.lang3.tuple.Pair;
 @Mod.EventBusSubscriber(modid = "guideapi",bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RegistrarGuideAPI {
 
-    /*
-     * Why Register<Biome>? Well, that's an easy one. We need to register our items during the registry event phase so they
-     * can be properly used during init and beyond. However, we cannot handle it during Register<Item> because any mods
-     * using @ObjectHolder will not have their Item fields populated. Thus, we must use an event that fires *after*
-     * Item object holders are populated, but *before* the recipe registry. Since the events are fired in alphabetical order,
-     * we just pick one that starts with a letter before "r".
-     * TODO check
-     */
+
     @SubscribeEvent
-    public static void registerItemsInADifferentRegistryEventBecauseLoadOrderingAndObjectHoldersAreImportant(RegistryEvent.Register<Biome> event) {
+    public static void registerItems(RegistryEvent.Register<Item> event) {
         AnnotationHandler.gatherBooks();
 
         for (Book book : GuideAPI.getBooks().values()) {

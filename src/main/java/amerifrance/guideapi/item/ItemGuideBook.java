@@ -25,10 +25,12 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 
 public class ItemGuideBook extends Item implements IGuideItem {
 
@@ -37,7 +39,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
     private String translation_key;
 
 
-    public ItemGuideBook(@Nonnull Book book) {
+    public ItemGuideBook(Book book) {
         super(new Item.Properties().maxStackSize(1).group(book.getCreativeTab()));
         this.book = book;
 

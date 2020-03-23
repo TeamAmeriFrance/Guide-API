@@ -4,6 +4,7 @@ import api.GuideBook;
 import api.IGuideBook;
 import api.IPage;
 import api.impl.Book;
+import api.impl.BookBinder;
 import api.impl.Entry;
 import api.impl.abstraction.CategoryAbstract;
 import api.impl.abstraction.EntryAbstract;
@@ -27,6 +28,7 @@ import net.minecraftforge.common.Tags;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,14 +40,18 @@ public class TestBook implements IGuideBook {
     @Nullable
     @Override
     public Book buildBook() {
-        book = new Book();
-        book.setAuthor("TehNut");
-        book.setColor(Color.GRAY);
-        book.setDisplayName("Display Name");
-        book.setTitle("Title message");
-        book.setWelcomeMessage("Is this still a thing?");
+        BookBinder binder = new BookBinder(new ResourceLocation("guideapi","test_book"));
+        binder.setAuthor("TehNut").setColor(Color.GRAY).setItemName("Display Name").setHeader("Hello there").setGuideTitle("Title message").setContentProvider(this::buildContent);
+        return (book = binder.build());
+    }
 
-        List<CategoryAbstract> categories = Lists.newArrayList();
+    @Override
+    public IRecipe<?> getRecipe(@Nonnull ItemStack bookStack) {
+        return new ShapedRecipe(book.getRegistryName(), "", 3,1,NonNullList.from(Ingredient.EMPTY,Ingredient.EMPTY,Ingredient.fromTag(Tags.Items.INGOTS_IRON),Ingredient.EMPTY),bookStack);
+    }
+
+    private void buildContent(List<CategoryAbstract> categories){
+
         Map<ResourceLocation, EntryAbstract> entries = Maps.newHashMap();
 
         List<IPage> pages = Lists.newArrayList();
@@ -59,15 +65,6 @@ public class TestBook implements IGuideBook {
 
         //pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.IRON_BLOCK), "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron"));
         //pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.OAK_PLANKS, 4), new ItemStack(Blocks.OAK_LOG)));
-
         categories.add(new CategoryItemStack(entries, "test.category.name", new ItemStack(Items.BLUE_BANNER)));
-        book.setCategoryList(categories);
-        book.setRegistryName(new ResourceLocation("guideapi", "test_book"));
-        return book;
-    }
-
-    @Override
-    public IRecipe<?> getRecipe(@Nonnull ItemStack bookStack) {
-        return new ShapedRecipe(book.getRegistryName(), "", 3,1,NonNullList.from(Ingredient.EMPTY,Ingredient.EMPTY,Ingredient.fromTag(Tags.Items.INGOTS_IRON),Ingredient.EMPTY),bookStack);
     }
 }
