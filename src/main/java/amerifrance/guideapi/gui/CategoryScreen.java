@@ -1,8 +1,8 @@
 package amerifrance.guideapi.gui;
 
-import api.impl.Book;
-import api.impl.abstraction.CategoryAbstract;
-import api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.button.ButtonBack;
 import amerifrance.guideapi.button.ButtonNext;
 import amerifrance.guideapi.button.ButtonPrev;
@@ -12,18 +12,14 @@ import amerifrance.guideapi.network.PacketSyncCategory;
 import amerifrance.guideapi.wrapper.EntryWrapper;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Nullable;

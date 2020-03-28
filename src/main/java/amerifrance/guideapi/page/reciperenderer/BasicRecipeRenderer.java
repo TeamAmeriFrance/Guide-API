@@ -1,20 +1,18 @@
 package amerifrance.guideapi.page.reciperenderer;
 
-import api.IRecipeRenderer.RecipeRendererBase;
-import api.SubTexture;
-import api.impl.Book;
-import api.impl.abstraction.CategoryAbstract;
-import api.impl.abstraction.EntryAbstract;
-import api.util.GuiHelper;
-import api.util.TextHelper;
+import amerifrance.guideapi.api.IRecipeRenderer.RecipeRendererBase;
+import amerifrance.guideapi.api.SubTexture;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.BaseScreen;
 import com.google.common.base.Strings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.NonNullList;
 
 import java.util.Random;
 

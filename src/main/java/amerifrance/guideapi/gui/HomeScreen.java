@@ -1,7 +1,7 @@
 package amerifrance.guideapi.gui;
 
-import api.impl.Book;
-import api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.button.ButtonNext;
 import amerifrance.guideapi.button.ButtonPrev;
 import amerifrance.guideapi.button.ButtonSearch;
@@ -9,8 +9,6 @@ import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.network.PacketSyncHome;
 import amerifrance.guideapi.wrapper.CategoryWrapper;
 import com.google.common.collect.HashMultimap;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -20,7 +18,6 @@ import net.minecraft.util.text.StringTextComponent;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.Color;
-import java.io.IOException;
 
 public class HomeScreen extends BaseScreen {
 

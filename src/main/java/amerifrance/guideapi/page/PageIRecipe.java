@@ -1,11 +1,11 @@
 package amerifrance.guideapi.page;
 
 import amerifrance.guideapi.page.reciperenderer.FurnaceRecipeRenderer;
-import api.IRecipeRenderer;
-import api.impl.Book;
-import api.impl.Page;
-import api.impl.abstraction.CategoryAbstract;
-import api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.IRecipeRenderer;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.Page;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.gui.BaseScreen;
 import amerifrance.guideapi.gui.EntryScreen;
 import amerifrance.guideapi.page.reciperenderer.ShapedRecipesRenderer;
@@ -20,8 +20,6 @@ import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import javax.annotation.Nullable;
 
 
 public class PageIRecipe extends Page {

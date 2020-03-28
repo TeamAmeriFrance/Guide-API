@@ -2,20 +2,16 @@ package amerifrance.guideapi.page;
 
 import amerifrance.guideapi.gui.EntryScreen;
 import amerifrance.guideapi.util.LogHelper;
-import api.IRecipeRenderer;
-import api.impl.Book;
-import api.impl.abstraction.CategoryAbstract;
-import api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.IRecipeRenderer;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class PageJsonRecipe extends PageIRecipe {
 

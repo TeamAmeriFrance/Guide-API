@@ -1,10 +1,10 @@
 package amerifrance.guideapi.page;
 
-import api.impl.Book;
-import api.impl.Page;
-import api.impl.abstraction.CategoryAbstract;
-import api.impl.abstraction.EntryAbstract;
-import api.util.PageHelper;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.Page;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;

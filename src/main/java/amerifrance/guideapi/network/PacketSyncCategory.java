@@ -1,13 +1,11 @@
 package amerifrance.guideapi.network;
 
-import api.IGuideItem;
-import api.util.NBTBookTags;
-import io.netty.buffer.ByteBuf;
+import amerifrance.guideapi.api.IGuideItem;
+import amerifrance.guideapi.api.util.NBTBookTags;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
 
 import net.minecraftforge.fml.network.NetworkEvent;
 import org.apache.commons.lang3.Validate;

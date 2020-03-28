@@ -1,16 +1,14 @@
 package amerifrance.guideapi.item;
 
 import amerifrance.guideapi.GuideMod;
-import api.BookEvent;
-import api.GuideAPI;
-import api.IGuideItem;
-import api.IGuideLinked;
-import api.impl.Book;
-import api.impl.abstraction.CategoryAbstract;
-import api.util.TextHelper;
+import amerifrance.guideapi.api.BookEvent;
+import amerifrance.guideapi.api.IGuideItem;
+import amerifrance.guideapi.api.IGuideLinked;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.util.TextHelper;
 import com.google.common.base.Strings;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,19 +16,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
 
 public class ItemGuideBook extends Item implements IGuideItem {
 

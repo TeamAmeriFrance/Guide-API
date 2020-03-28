@@ -1,19 +1,17 @@
 package amerifrance.guideapi.page;
 
-import api.SubTexture;
-import api.impl.Book;
-import api.impl.Page;
-import api.impl.abstraction.CategoryAbstract;
-import api.impl.abstraction.EntryAbstract;
-import api.util.GuiHelper;
-import api.util.TextHelper;
+import amerifrance.guideapi.api.SubTexture;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.Page;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.BaseScreen;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipe;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

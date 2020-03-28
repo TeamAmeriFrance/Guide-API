@@ -1,17 +1,15 @@
 package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.GuideMod;
-import api.impl.Book;
-import api.impl.abstraction.CategoryAbstract;
-import api.impl.abstraction.EntryAbstract;
-import api.util.GuiHelper;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.button.ButtonBack;
 import amerifrance.guideapi.button.ButtonNext;
 import amerifrance.guideapi.button.ButtonPrev;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import net.minecraft.client.MouseHelper;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,7 +23,6 @@ import org.lwjgl.glfw.GLFW;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.Color;
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 

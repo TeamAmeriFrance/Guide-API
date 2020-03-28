@@ -1,16 +1,14 @@
 package amerifrance.guideapi.page;
 
-import api.impl.Book;
-import api.impl.abstraction.CategoryAbstract;
-import api.impl.abstraction.EntryAbstract;
-import api.util.GuiHelper;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

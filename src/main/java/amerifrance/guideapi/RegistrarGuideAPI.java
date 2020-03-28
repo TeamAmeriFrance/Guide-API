@@ -1,22 +1,15 @@
 package amerifrance.guideapi;
 
-import api.GuideAPI;
-import api.IGuideBook;
-import api.IPage;
-import api.impl.Book;
-import api.impl.abstraction.CategoryAbstract;
-import api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.api.IGuideBook;
+import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.item.ItemGuideBook;
-import amerifrance.guideapi.page.PageJsonRecipe;
 import amerifrance.guideapi.util.APISetter;
 import amerifrance.guideapi.util.AnnotationHandler;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 

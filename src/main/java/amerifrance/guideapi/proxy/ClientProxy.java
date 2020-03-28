@@ -2,27 +2,23 @@ package amerifrance.guideapi.proxy;
 
 import amerifrance.guideapi.gui.CategoryScreen;
 import amerifrance.guideapi.gui.HomeScreen;
-import api.BookEvent;
-import api.GuideAPI;
-import api.IGuideItem;
-import api.IRecipeRenderer;
-import api.impl.Book;
-import api.impl.abstraction.CategoryAbstract;
-import api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.BookEvent;
+import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.api.IGuideItem;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.gui.EntryScreen;
-import api.util.NBTBookTags;
+import amerifrance.guideapi.api.util.NBTBookTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-
-import java.util.Map;
 
 public class ClientProxy extends CommonProxy {
 

@@ -1,8 +1,8 @@
 package amerifrance.guideapi.wrapper;
 
-import api.impl.Book;
-import api.impl.abstraction.CategoryAbstract;
-import api.util.GuiHelper;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.ItemRenderer;

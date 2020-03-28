@@ -1,9 +1,9 @@
 package amerifrance.guideapi.wrapper;
 
-import api.IPage;
-import api.impl.Book;
-import api.impl.abstraction.CategoryAbstract;
-import api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.IPage;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.gui.BaseScreen;
 import amerifrance.guideapi.gui.EntryScreen;
 import net.minecraft.client.Minecraft;

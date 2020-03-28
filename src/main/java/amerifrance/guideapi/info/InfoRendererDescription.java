@@ -1,8 +1,8 @@
 package amerifrance.guideapi.info;
 
-import api.IInfoRenderer;
-import api.impl.Book;
-import api.util.GuiHelper;
+import amerifrance.guideapi.api.IInfoRenderer;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.util.GuiHelper;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;

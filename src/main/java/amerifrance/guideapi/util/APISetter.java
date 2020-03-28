@@ -1,8 +1,8 @@
 package amerifrance.guideapi.util;
 
 import amerifrance.guideapi.GuideMod;
-import api.GuideAPI;
-import api.impl.Book;
+import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.api.impl.Book;
 import com.google.common.base.Throwables;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;

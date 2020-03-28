@@ -1,13 +1,12 @@
 package amerifrance.guideapi;
 
 import amerifrance.guideapi.proxy.ClientProxy;
-import api.GuideAPI;
-import api.IGuideBook;
-import api.impl.Book;
+import amerifrance.guideapi.api.GuideAPI;
+import amerifrance.guideapi.api.IGuideBook;
+import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxy.CommonProxy;
 import amerifrance.guideapi.util.AnnotationHandler;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -15,8 +14,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
-
-import java.io.File;
 
 @Mod(value = GuideMod.ID)
 public class GuideMod {

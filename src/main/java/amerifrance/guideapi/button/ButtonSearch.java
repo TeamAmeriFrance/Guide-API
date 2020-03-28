@@ -1,9 +1,9 @@
 package amerifrance.guideapi.button;
 
-import api.SubTexture;
-import api.button.ButtonGuideAPI;
-import api.util.GuiHelper;
-import api.util.TextHelper;
+import amerifrance.guideapi.api.SubTexture;
+import amerifrance.guideapi.api.button.ButtonGuideAPI;
+import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.BaseScreen;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
