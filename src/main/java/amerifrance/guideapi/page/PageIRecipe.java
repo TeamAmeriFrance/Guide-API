@@ -1,5 +1,6 @@
 package amerifrance.guideapi.page;
 
+import amerifrance.guideapi.page.reciperenderer.FurnaceRecipeRenderer;
 import api.IRecipeRenderer;
 import api.impl.Book;
 import api.impl.Page;
@@ -13,11 +14,14 @@ import amerifrance.guideapi.util.LogHelper;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
 
 
 public class PageIRecipe extends Page {
@@ -32,6 +36,7 @@ public class PageIRecipe extends Page {
      * <ul>
      * <li>{@link ShapedRecipe}</li>
      * <li>{@link ShapelessRecipe}</li>
+     * <li>{@link FurnaceRecipe}</li>
      * </ul>
      *
      * @param recipe - Recipe to draw
@@ -82,7 +87,10 @@ public class PageIRecipe extends Page {
             return new ShapedRecipesRenderer((ShapedRecipe) recipe);
         } else if (recipe instanceof ShapelessRecipe) {
             return new ShapelessRecipesRenderer((ShapelessRecipe) recipe);
-        } else {
+        } else if(recipe instanceof FurnaceRecipe){
+            return new FurnaceRecipeRenderer((FurnaceRecipe)recipe);
+        }
+        else {
             LogHelper.error("Cannot get renderer for recipe type "+recipe.getClass().toString());
             return null;
         }
