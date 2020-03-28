@@ -13,7 +13,7 @@ import net.minecraft.item.crafting.ShapedRecipe;
 import java.util.Arrays;
 import java.util.List;
 
-public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipe> {
+public class ShapedRecipesRenderer extends CraftingRecipeRenderer<ShapedRecipe> {
 
     public ShapedRecipesRenderer(ShapedRecipe recipe) {
         super(recipe);
@@ -23,18 +23,17 @@ public class ShapedRecipesRenderer extends BasicRecipeRenderer<ShapedRecipe> {
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
         for (int y = 0; y < recipe.getRecipeHeight(); y++) {
-            for (int x = 0; x < recipe.getRecipeHeight(); x++) {
+            for (int x = 0; x < recipe.getRecipeWidth(); x++) {
+                int i = y*recipe.getRecipeWidth()+x;
                 int stackX = (x + 1) * 17 + (guiLeft + 27) + x;
                 int stackY = (y + 1) * 17 + (guiTop + 38) + y;
 
-                Ingredient ingredient = recipe.getIngredients().get(y * recipe.getRecipeWidth() + x);
-                List<ItemStack> list = Arrays.asList(ingredient.getMatchingStacks());
-                if (!list.isEmpty()) {
-                    ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
+                Ingredient ingredient = recipe.getIngredients().get(i);
+                getCycledIngredientStack(ingredient,i).ifPresent(stack -> {
                     GuiHelper.drawItemStack(stack, stackX, stackY);
                     if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                         tooltips = GuiHelper.getTooltip(stack);
-                }
+                });
             }
         }
     }

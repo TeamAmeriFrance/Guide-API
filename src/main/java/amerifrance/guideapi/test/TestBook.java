@@ -13,6 +13,7 @@ import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.PageIRecipe;
 import amerifrance.guideapi.page.PageJsonRecipe;
 import amerifrance.guideapi.page.PageText;
+import amerifrance.guideapi.page.reciperenderer.ShapedRecipesRenderer;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Blocks;
@@ -55,15 +56,13 @@ public class TestBook implements IGuideBook {
 
         List<IPage> pages = Lists.newArrayList();
         pages.add(new PageText("Hello, this is\nsome text"));
-        //pages.add(new PageFurnaceRecipe(Blocks.COBBLESTONE));
+        pages.add(new PageJsonRecipe(new ResourceLocation("minecraft","stone")));
+        pages.add(new PageJsonRecipe(new ResourceLocation("minecraft","stick"),recipe -> recipe instanceof ShapedRecipe ? new ShapedRecipesRenderer((ShapedRecipe) recipe) : null)); //Probably want to use your own method as render supplier and print proper logs
+
         pages.add(new PageIRecipe(new ShapedRecipe(new ResourceLocation("guideapi","test11"), "test",1,1,NonNullList.from(Ingredient.EMPTY,Ingredient.fromStacks(new ItemStack(Items.PUMPKIN))),new ItemStack(Blocks.OAK_LOG))));
-        //pages.add(PageIRecipe.newShaped(new ItemStack(Items.ACACIA_BOAT), "X X", "XXX", 'X', "plankWood"));
         pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "acacia_fence")));
         Entry entry = new EntryItemStack(pages, "test.entry.name", new ItemStack(Items.POTATO));
         entries.put(new ResourceLocation("guideapi", "entry"), entry);
-
-        //pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.IRON_BLOCK), "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron"));
-        //pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.OAK_PLANKS, 4), new ItemStack(Blocks.OAK_LOG)));
         categories.add(new CategoryItemStack(entries, "test.category.name", new ItemStack(Items.BLUE_BANNER)));
     }
 }

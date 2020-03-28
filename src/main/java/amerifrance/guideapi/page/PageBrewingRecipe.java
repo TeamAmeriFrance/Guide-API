@@ -1,5 +1,6 @@
 package amerifrance.guideapi.page;
 
+import amerifrance.guideapi.api.IRecipeRenderer;
 import amerifrance.guideapi.api.SubTexture;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.Page;
@@ -9,6 +10,7 @@ import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,6 +23,8 @@ import net.minecraftforge.common.brewing.BrewingRecipe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 public class PageBrewingRecipe extends Page {
 
@@ -28,6 +32,11 @@ public class PageBrewingRecipe extends Page {
     public Ingredient ingredient;
     public Ingredient input;
     public ItemStack output;
+
+    //Used for ingredient cycling
+    private long lastCycle = -1;
+    private int cycleIdx = 0;
+    private Random rand = new Random();
 
     /**
      * Your brewing recipe - what you pass to BrewingRecipeRegistry.addRecipe
@@ -55,6 +64,15 @@ public class PageBrewingRecipe extends Page {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+        Minecraft mc = guiBase.getMinecraft();
+        long time = mc.world.getGameTime();
+        if (lastCycle < 0 || lastCycle < time - 20) {
+            if (lastCycle > 0) {
+                cycleIdx++;
+                cycleIdx = Math.max(0, cycleIdx);
+            }
+            lastCycle = mc.world.getGameTime();
+        }
 
         int xStart = guiLeft + 62;
         int yStart = guiTop + 52;
@@ -70,7 +88,11 @@ public class PageBrewingRecipe extends Page {
         int x = xStart + 25;//since item stack is approx 16 wide
         int y = yStart + 1;
         //start input
-        GuiHelper.drawItemStack(ingredient.getMatchingStacks()[0], x, y); //TODO do proper and safe ingredient cycling
+        int finalX = x;
+        int finalY = y;
+        getCycledIngredientStack(ingredient,0).ifPresent(stack -> {
+            GuiHelper.drawItemStack(stack, finalX, finalY);
+        });
 
         List<ITextComponent> tooltip = null;
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
@@ -107,6 +129,23 @@ public class PageBrewingRecipe extends Page {
 
         if (tooltip != null)
             guiBase.drawHoveringTextComponents(tooltip, mouseX, mouseY);
+    }
+
+
+    /**
+     * Copied from {@link IRecipeRenderer} because brewing does not use real recipes
+     * @param ingredient
+     * @param index
+     * @return
+     */
+    private Optional<ItemStack> getCycledIngredientStack(Ingredient ingredient, int index){
+        ItemStack[] itemStacks = ingredient.getMatchingStacks();
+        if(itemStacks.length>0){
+            rand.setSeed(index);
+            int id = (index + rand.nextInt(itemStacks.length) + cycleIdx) %itemStacks.length;
+            return Optional.of(itemStacks[id]);
+        }
+        return Optional.empty();
     }
 
 }

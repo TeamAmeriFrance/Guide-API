@@ -14,7 +14,7 @@ import net.minecraft.item.crafting.ShapelessRecipe;
 import java.util.Arrays;
 import java.util.List;
 
-public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecipe> {
+public class ShapelessRecipesRenderer extends CraftingRecipeRenderer<ShapelessRecipe> {
 
     public ShapelessRecipesRenderer(ShapelessRecipe recipe) {
         super(recipe);
@@ -30,13 +30,11 @@ public class ShapelessRecipesRenderer extends BasicRecipeRenderer<ShapelessRecip
                 int stackY = (y + 1) * 17 + (guiTop + 38) + y;
                 if (i < recipe.getIngredients().size()) {
                     Ingredient ingredient = recipe.getIngredients().get(i);
-                    List<ItemStack> list = Arrays.asList(ingredient.getMatchingStacks());
-                    if (!list.isEmpty()) {
-                        ItemStack stack = list.get(getRandomizedCycle(x + (y * 3), list.size()));
+                    getCycledIngredientStack(ingredient,i).ifPresent(stack -> {
                         GuiHelper.drawItemStack(stack, stackX, stackY);
                         if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                             tooltips = GuiHelper.getTooltip(stack);
-                    }
+                    });
                 }
             }
         }

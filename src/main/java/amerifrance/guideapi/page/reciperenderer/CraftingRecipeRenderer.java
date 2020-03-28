@@ -13,32 +13,24 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
 
+import java.util.Optional;
 import java.util.Random;
 
-public class BasicRecipeRenderer<T extends IRecipe<?>> extends RecipeRendererBase<T> {
+public abstract class CraftingRecipeRenderer<T extends IRecipe<?>> extends RecipeRendererBase<T> {
 
-    private long lastCycle = -1;
-    private int cycleIdx = 0;
-    private Random rand = new Random();
+
     private String customDisplay;
 
-    public BasicRecipeRenderer(T recipe) {
+    public CraftingRecipeRenderer(T recipe) {
         super(recipe);
     }
 
     @Override
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-        Minecraft mc = Minecraft.getInstance();
+        super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
 
-        long time = mc.world.getGameTime();
-        if (lastCycle < 0 || lastCycle < time - 20) {
-            if (lastCycle > 0) {
-                cycleIdx++;
-                cycleIdx = Math.max(0, cycleIdx);
-            }
-            lastCycle = mc.world.getGameTime();
-        }
 
         SubTexture.CRAFTING_GRID.draw(guiLeft + 42, guiTop + 53);
 
@@ -61,10 +53,6 @@ public class BasicRecipeRenderer<T extends IRecipe<?>> extends RecipeRendererBas
 //        return subItems.get(getRandomizedCycle(position, subItems.size()));
 //    }
 
-    protected int getRandomizedCycle(int index, int max) {
-        rand.setSeed(index);
-        return (index + rand.nextInt(max) + cycleIdx) % max;
-    }
 
     protected String getRecipeName() {
         return TextHelper.localizeEffect("text.shaped.crafting");
@@ -73,4 +61,6 @@ public class BasicRecipeRenderer<T extends IRecipe<?>> extends RecipeRendererBas
     public void setCustomTitle(String customDisplay) {
         this.customDisplay = customDisplay;
     }
+
+
 }

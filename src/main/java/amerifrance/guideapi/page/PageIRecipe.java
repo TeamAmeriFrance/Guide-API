@@ -77,7 +77,7 @@ public class PageIRecipe extends Page {
     }
 
 
-    static IRecipeRenderer getRenderer(IRecipe<?> recipe) {
+    protected static IRecipeRenderer getRenderer(IRecipe<?> recipe) {
         if (recipe == null) {
             LogHelper.error("Cannot get renderer for null recipe.");
             return null;
