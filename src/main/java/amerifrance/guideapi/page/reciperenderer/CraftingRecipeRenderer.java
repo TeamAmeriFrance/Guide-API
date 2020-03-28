@@ -6,6 +6,7 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.api.util.IngredientCycler;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.BaseScreen;
 import com.google.common.base.Strings;
@@ -28,9 +29,7 @@ public abstract class CraftingRecipeRenderer<T extends IRecipe<?>> extends Recip
     }
 
     @Override
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-        super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
-
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler) {
 
         SubTexture.CRAFTING_GRID.draw(guiLeft + 42, guiTop + 53);
 

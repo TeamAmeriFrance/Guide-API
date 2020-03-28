@@ -6,6 +6,7 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.api.util.IngredientCycler;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.FontRenderer;
@@ -24,8 +25,7 @@ public class FurnaceRecipeRenderer extends IRecipeRenderer.RecipeRendererBase<Fu
     }
 
     @Override
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-        super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler) {
         SubTexture.FURNACE_GRID.draw(guiLeft + 64, guiTop + 71);
 
         guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("text.furnace.smelting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
@@ -34,7 +34,7 @@ public class FurnaceRecipeRenderer extends IRecipeRenderer.RecipeRendererBase<Fu
         int y = guiTop + 77;
 
         Ingredient input = recipe.getIngredients().get(0);
-        getCycledIngredientStack(input,0).ifPresent(stack -> {
+        cycler.getCycledIngredientStack(input,0).ifPresent(stack -> {
             GuiHelper.drawItemStack(stack, x, y);
 
             List<ITextComponent> tooltip = null;

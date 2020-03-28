@@ -4,25 +4,32 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.api.util.IngredientCycler;
 import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class PageItemStack extends PageText {
 
-    public ItemStack stack;
+    public Ingredient ingredient;
+    private IngredientCycler ingredientCycler = new IngredientCycler();
 
+
+    public PageItemStack(String draw, Ingredient ingredient){
+        super(draw,60);
+        this.ingredient=ingredient;
+    }
     /**
      * @param draw  - Unlocalized text to draw
-     * @param stack - ItemStack to render
+     * @param ingredient - ItemStack to render
      */
-    public PageItemStack(String draw, ItemStack stack) {
-        super(draw, 60);
-        this.stack = stack;
+    public PageItemStack(String draw, ItemStack ingredient) {
+        this(draw,Ingredient.fromStacks(ingredient));
     }
 
     /**
@@ -45,7 +52,10 @@ public class PageItemStack extends PageText {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-        GuiHelper.drawScaledItemStack(stack, guiLeft + 75, guiTop + 20, 3);
+        ingredientCycler.tick(guiBase.getMinecraft());
+        ingredientCycler.getCycledIngredientStack(ingredient,0).ifPresent(stack -> {
+            GuiHelper.drawScaledItemStack(stack, guiLeft + 75, guiTop + 20, 3);
+        });
     }
 
     @Override
@@ -56,13 +66,13 @@ public class PageItemStack extends PageText {
 
         PageItemStack that = (PageItemStack) o;
 
-        return stack != null ? stack.equals(that.stack) : that.stack == null;
+        return ingredient != null ? ingredient.equals(that.ingredient) : that.ingredient == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (stack != null ? stack.hashCode() : 0);
+        result = 31 * result + (ingredient != null ? ingredient.hashCode() : 0);
         return result;
     }
 }

@@ -1,5 +1,6 @@
 package amerifrance.guideapi.page;
 
+import amerifrance.guideapi.api.util.IngredientCycler;
 import amerifrance.guideapi.page.reciperenderer.FurnaceRecipeRenderer;
 import amerifrance.guideapi.api.IRecipeRenderer;
 import amerifrance.guideapi.api.impl.Book;
@@ -27,7 +28,7 @@ public class PageIRecipe extends Page {
     public IRecipe<?> recipe;
     public IRecipeRenderer iRecipeRenderer;
     protected boolean isValid;
-
+    private IngredientCycler ingredientCycler = new IngredientCycler();
     /**
      * Use this if you are creating a page for a standard recipe, one of:
      * <p>
@@ -58,7 +59,8 @@ public class PageIRecipe extends Page {
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         if(isValid) {
             super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
-            iRecipeRenderer.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
+            ingredientCycler.tick(guiBase.getMinecraft());
+            iRecipeRenderer.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj,ingredientCycler);
         }
     }
 

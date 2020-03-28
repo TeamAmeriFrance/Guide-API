@@ -7,6 +7,7 @@ import amerifrance.guideapi.api.impl.Page;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
+import amerifrance.guideapi.api.util.IngredientCycler;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.block.Blocks;
@@ -33,10 +34,7 @@ public class PageBrewingRecipe extends Page {
     public Ingredient input;
     public ItemStack output;
 
-    //Used for ingredient cycling
-    private long lastCycle = -1;
-    private int cycleIdx = 0;
-    private Random rand = new Random();
+    private IngredientCycler cycler = new IngredientCycler();
 
     /**
      * Your brewing recipe - what you pass to BrewingRecipeRegistry.addRecipe
@@ -64,15 +62,7 @@ public class PageBrewingRecipe extends Page {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-        Minecraft mc = guiBase.getMinecraft();
-        long time = mc.world.getGameTime();
-        if (lastCycle < 0 || lastCycle < time - 20) {
-            if (lastCycle > 0) {
-                cycleIdx++;
-                cycleIdx = Math.max(0, cycleIdx);
-            }
-            lastCycle = mc.world.getGameTime();
-        }
+        cycler.tick(guiBase.getMinecraft());
 
         int xStart = guiLeft + 62;
         int yStart = guiTop + 52;
@@ -90,7 +80,7 @@ public class PageBrewingRecipe extends Page {
         //start input
         int finalX = x;
         int finalY = y;
-        getCycledIngredientStack(ingredient,0).ifPresent(stack -> {
+        cycler.getCycledIngredientStack(ingredient,0).ifPresent(stack -> {
             GuiHelper.drawItemStack(stack, finalX, finalY);
         });
 
@@ -131,21 +121,5 @@ public class PageBrewingRecipe extends Page {
             guiBase.drawHoveringTextComponents(tooltip, mouseX, mouseY);
     }
 
-
-    /**
-     * Copied from {@link IRecipeRenderer} because brewing does not use real recipes
-     * @param ingredient
-     * @param index
-     * @return
-     */
-    private Optional<ItemStack> getCycledIngredientStack(Ingredient ingredient, int index){
-        ItemStack[] itemStacks = ingredient.getMatchingStacks();
-        if(itemStacks.length>0){
-            rand.setSeed(index);
-            int id = (index + rand.nextInt(itemStacks.length) + cycleIdx) %itemStacks.length;
-            return Optional.of(itemStacks[id]);
-        }
-        return Optional.empty();
-    }
 
 }
