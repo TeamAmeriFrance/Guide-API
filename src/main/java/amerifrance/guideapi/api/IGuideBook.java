@@ -30,16 +30,6 @@ public interface IGuideBook {
     }
 
     /**
-     * An IRecipe to use for your book. Called from {@link net.minecraftforge.event.RegistryEvent.Register<IRecipe>}
-     *
-     * @return an IRecipe to register for your book or null to not include one.
-     */
-    @Nullable
-    default IRecipe<?> getRecipe(@Nonnull ItemStack bookStack) {
-        return null;
-    }
-
-    /**
      * Called during Post Initialization.
      */
     default void handlePost(@Nonnull ItemStack bookStack) {

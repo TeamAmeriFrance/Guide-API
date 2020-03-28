@@ -41,12 +41,6 @@ public class TestBook2 implements IGuideBook {
         return (book = binder.build());
     }
 
-    @Nullable
-    @Override
-    public IRecipe getRecipe(@Nonnull ItemStack bookStack) {
-        return new ShapedRecipe(book.getRegistryName(), "", 3,1, NonNullList.from(Ingredient.EMPTY,Ingredient.EMPTY,Ingredient.fromTag(Tags.Items.INGOTS_GOLD),Ingredient.EMPTY),bookStack);
-    }
-
     private void buildContent(List<CategoryAbstract> categories) {
         CategoryAbstract testCategory = new CategoryItemStack("test.category.name", new ItemStack(Items.BLUE_BANNER)).withKeyBase("guideapi");
         testCategory.addEntry("entry", new EntryItemStack("test.entry.name", new ItemStack(Items.POTATO)));

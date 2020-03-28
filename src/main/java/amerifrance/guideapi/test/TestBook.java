@@ -48,11 +48,6 @@ public class TestBook implements IGuideBook {
         return (book = binder.build());
     }
 
-    @Override
-    public IRecipe<?> getRecipe(@Nonnull ItemStack bookStack) {
-        return new ShapedRecipe(book.getRegistryName(), "", 3,1,NonNullList.from(Ingredient.EMPTY,Ingredient.EMPTY,Ingredient.fromTag(Tags.Items.INGOTS_IRON),Ingredient.EMPTY),bookStack);
-    }
-
     private void buildContent(List<CategoryAbstract> categories){
 
         Map<ResourceLocation, EntryAbstract> entries = Maps.newHashMap();
