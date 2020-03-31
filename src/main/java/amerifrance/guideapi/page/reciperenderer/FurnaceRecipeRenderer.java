@@ -28,7 +28,7 @@ public class FurnaceRecipeRenderer extends IRecipeRenderer.RecipeRendererBase<Fu
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler) {
         SubTexture.FURNACE_GRID.draw(guiLeft + 64, guiTop + 71);
 
-        guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("text.furnace.smelting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
+        guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("guideapi.text.furnace.smelting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
         int x = guiLeft + 66;
         int y = guiTop + 77;

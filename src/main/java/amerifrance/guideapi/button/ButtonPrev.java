@@ -31,7 +31,7 @@ public class ButtonPrev extends ButtonGuideAPI {
             Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) {
                 this.blit(x,y+1,47,214,18,10);
-                GuiUtils.drawHoveringText(getHoveringText(),mouseX,mouseY,width,height,width,Minecraft.getInstance().fontRenderer);
+                GuiUtils.drawHoveringText(getHoveringText(),mouseX,mouseY,guiBase.width,guiBase.height,-1,Minecraft.getInstance().fontRenderer);
             } else {
                 this.blit(x,y,24,214,18,10);
             }
@@ -42,7 +42,7 @@ public class ButtonPrev extends ButtonGuideAPI {
 
     public List<String> getHoveringText() {
         ArrayList<String> list = new ArrayList<String>();
-        list.add(TextHelper.localizeEffect("button.prev.name"));
+        list.add(TextHelper.localizeEffect("guideapi.button.prev"));
         return list;
     }
 }

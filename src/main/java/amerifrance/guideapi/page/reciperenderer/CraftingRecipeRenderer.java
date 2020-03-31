@@ -54,7 +54,7 @@ public abstract class CraftingRecipeRenderer<T extends IRecipe<?>> extends Recip
 
 
     protected String getRecipeName() {
-        return TextHelper.localizeEffect("text.shaped.crafting");
+        return TextHelper.localizeEffect("guideapi.text.crafting.shaped");
     }
 
     public void setCustomTitle(String customDisplay) {

@@ -1,0 +1,21 @@
+{
+  "_comment": "Item",
+  "item.guideapi.book": "Стандартная книга Guide-API",
+
+  "_comment": "Button hovering text",
+  "guideapi.button.back": "Назад",
+  "guideapi.button.next": "След.",
+  "guideapi.button.prev": "Пред.",
+
+  "_comment": "Text to draw",
+  "guideapi.text.crafting.shaped": "Форменное создание",
+  "guideapi.text.crafting.shapeless": "Бесформенное создание",
+  "guideapi.text.furnace.smelting": "Плавка",
+  "text.furnace.error": "&cОшибка в рецепте",
+  "text.book.warning": "&c[ВНИМАНИЕ] Выкиньте этот предмет, у него нет связанной книги!",
+  "text.book.creative": "Творческая книга",
+  "text.book": "Книга: %s",
+  "text.category": "Категория: %s",
+  "text.entry": "Запись: %s",
+  "text.page": "Страница: %s"
+}

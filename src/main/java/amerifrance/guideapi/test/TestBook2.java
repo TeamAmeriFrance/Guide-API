@@ -5,6 +5,7 @@ import amerifrance.guideapi.api.IGuideBook;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.BookBinder;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
 import amerifrance.guideapi.page.*;
@@ -42,14 +43,16 @@ public class TestBook2 implements IGuideBook {
     }
 
     private void buildContent(List<CategoryAbstract> categories) {
-        CategoryAbstract testCategory = new CategoryItemStack("test.category.name", new ItemStack(Items.BLUE_BANNER)).withKeyBase("guideapi");
-        testCategory.addEntry("entry", new EntryItemStack("test.entry.name", new ItemStack(Items.POTATO)));
+        CategoryAbstract testCategory = new CategoryItemStack("guideapi.test.category", new ItemStack(Items.BLUE_BANNER)).withKeyBase("guideapi");
+        testCategory.addEntry("entry", new EntryItemStack("guideapi.test.entry", new ItemStack(Items.POTATO)));
         testCategory.getEntry("entry").addPage(new PageText("Hello, this is\nsome text"));
         //testCategory.getEntry("entry").addPage(new PageFurnaceRecipe(Blocks.COBBLESTONE));
         //testCategory.getEntry("entry").addPage(PageIRecipe.newShaped(new ItemStack(Items.ACACIA_BOAT), "X X", "XXX", 'X', new ItemStack(Blocks.ACACIA_PLANKS, 1, 4)));
         testCategory.getEntry("entry").addPage(new PageBrewingRecipe(new BrewingRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)),Ingredient.fromStacks( new ItemStack(Items.GLISTERING_MELON_SLICE)), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.HEALING)))
         );
         testCategory.getEntry("entry").addPage(new PageJsonRecipe(new ResourceLocation("bread")));
+        testCategory.getEntry("entry").addPage(new PageJsonRecipe(new ResourceLocation("redstone")));
+        testCategory.getEntry("entry").addPageList(PageHelper.pagesForLongText("guideapi.test.format"));
         categories.add(testCategory);
     }
 }

@@ -30,7 +30,7 @@ public class ButtonNext extends ButtonGuideAPI {
             Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) {
                 this.blit(x,y+1,47,201,18,10);
-                GuiUtils.drawHoveringText(getHoveringText(),mouseX,mouseY,width,height,width,Minecraft.getInstance().fontRenderer);
+                GuiUtils.drawHoveringText(getHoveringText(),mouseX,mouseY,guiBase.width,guiBase.height,-1,Minecraft.getInstance().fontRenderer);
             } else {
                 this.blit(x,y,24,201,18,10);
             }
@@ -41,7 +41,7 @@ public class ButtonNext extends ButtonGuideAPI {
 
     public List<String> getHoveringText() {
         ArrayList<String> list = new ArrayList<String>();
-        list.add(TextHelper.localizeEffect("button.next.name"));
+        list.add(TextHelper.localizeEffect("guideapi.button.next"));
         return list;
     }
 }

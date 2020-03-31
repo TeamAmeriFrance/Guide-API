@@ -70,9 +70,9 @@ public class PageBrewingRecipe extends Page {
         SubTexture.POTION_GRID.draw(xStart, yStart);
 
         List<ITextComponent> badTip = new ArrayList<>();
-        badTip.add(new TranslationTextComponent("text.brewing.error"));
+        badTip.add(new TranslationTextComponent("guideapi.text.brewing.error"));
 
-        guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("text.brewing.brew"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
+        guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("guideapi.text.brewing.brew"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
         //int xmiddle =  guiLeft + guiBase.xSize / 2 - 6;
         int x = xStart + 25;//since item stack is approx 16 wide
@@ -115,7 +115,7 @@ public class PageBrewingRecipe extends Page {
             tooltip = output.getItem() == Item.getItemFromBlock(Blocks.BARRIER) ? badTip : GuiHelper.getTooltip(output);
 
         if (output.getItem() == Item.getItemFromBlock(Blocks.BARRIER))
-            guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("text.brewing.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
+            guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("guideapi.text.brewing.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
 
         if (tooltip != null)
             guiBase.drawHoveringTextComponents(tooltip, mouseX, mouseY);

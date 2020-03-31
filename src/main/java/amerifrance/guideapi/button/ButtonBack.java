@@ -31,7 +31,7 @@ public class ButtonBack extends ButtonGuideAPI {
             Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) {
                 this.blit(x,y+1,70,201,18,10);
-                GuiUtils.drawHoveringText(getHoveringText(),mouseX,mouseY,width,height,width,Minecraft.getInstance().fontRenderer);
+                GuiUtils.drawHoveringText(getHoveringText(),mouseX,mouseY,guiBase.width,guiBase.height,-1,Minecraft.getInstance().fontRenderer);
             } else {
                 this.blit(x,y,94,201,18,10);
             }
@@ -42,7 +42,7 @@ public class ButtonBack extends ButtonGuideAPI {
 
     public List<String> getHoveringText() {
         ArrayList<String> list = new ArrayList<String>();
-        String s = TextHelper.localizeEffect("button.back.name");
+        String s = TextHelper.localizeEffect("guideapi.button.back");
         list.add(s);
         return list;
     }

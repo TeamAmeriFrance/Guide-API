@@ -43,6 +43,6 @@ public class ShapelessRecipesRenderer extends CraftingRecipeRenderer<ShapelessRe
 
     @Override
     protected String getRecipeName() {
-        return TextHelper.localizeEffect("text.shapeless.crafting");
+        return TextHelper.localizeEffect("guideapi.text.crafting.shapeless");
     }
 }

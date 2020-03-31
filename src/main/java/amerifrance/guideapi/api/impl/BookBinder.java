@@ -17,7 +17,7 @@ public class BookBinder {
 
     private final ResourceLocation registryName;
     private Consumer<List<CategoryAbstract>> contentProvider;
-    private String guideTitle = "item.guideapi.book.name";
+    private String guideTitle = "item.guideapi.book";
     private String header;
     private String itemName;
     private String author;

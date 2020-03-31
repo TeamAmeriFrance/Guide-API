@@ -63,8 +63,8 @@ public class TestBook implements IGuideBook {
         pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "acacia_fence")));
         pages.add(new PageItemStack("These are all logs",Ingredient.fromTag(ItemTags.LOGS)));
 
-        Entry entry = new EntryItemStack(pages, "test.entry.name", new ItemStack(Items.POTATO));
+        Entry entry = new EntryItemStack(pages, "guideapi.test.entry", new ItemStack(Items.POTATO));
         entries.put(new ResourceLocation("guideapi", "entry"), entry);
-        categories.add(new CategoryItemStack(entries, "test.category.name", new ItemStack(Items.BLUE_BANNER)));
+        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.BLUE_BANNER)));
     }
 }
