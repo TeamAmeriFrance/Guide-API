@@ -18,25 +18,16 @@ public abstract class EntryAbstract {
 
     public final List<IPage> pageList;
     public final String name;
-    public boolean unicode;
-
-    public EntryAbstract(List<IPage> pageList, String name, boolean unicode) {
-        this.pageList = pageList;
-        this.name = name;
-        this.unicode = unicode;
-    }
 
     public EntryAbstract(List<IPage> pageList, String name) {
-        this(pageList, name, false);
-    }
-
-    public EntryAbstract(String name, boolean unicode) {
-        this(Lists.<IPage>newArrayList(), name, unicode);
+        this.pageList = pageList;
+        this.name = name;
     }
 
     public EntryAbstract(String name) {
-        this(name, false);
+        this(Lists.newArrayList(), name);
     }
+
 
     public void addPage(IPage page) {
         this.pageList.add(page);

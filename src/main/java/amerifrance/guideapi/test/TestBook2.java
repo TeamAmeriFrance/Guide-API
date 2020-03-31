@@ -53,6 +53,8 @@ public class TestBook2 implements IGuideBook {
         testCategory.getEntry("entry").addPage(new PageJsonRecipe(new ResourceLocation("bread")));
         testCategory.getEntry("entry").addPage(new PageJsonRecipe(new ResourceLocation("redstone")));
         testCategory.getEntry("entry").addPageList(PageHelper.pagesForLongText("guideapi.test.format"));
+        testCategory.addEntry("unicode",new EntryItemStack("Творческая книга",new ItemStack(Items.BEEF)));
+        testCategory.getEntry("unicode").addPage(new PageText("Творческая книга \u0F06"));
         categories.add(testCategory);
     }
 }

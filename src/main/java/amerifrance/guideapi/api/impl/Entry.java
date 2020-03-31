@@ -21,16 +21,9 @@ import java.util.List;
 
 public class Entry extends EntryAbstract {
 
-    public Entry(List<IPage> pageList, String name, boolean unicode) {
-        super(pageList, name, unicode);
-    }
 
     public Entry(List<IPage> pageList, String name) {
-        super(pageList, name, false);
-    }
-
-    public Entry(String name, boolean unicode) {
-        super(name, unicode);
+        super(pageList, name);
     }
 
     public Entry(String name) {
