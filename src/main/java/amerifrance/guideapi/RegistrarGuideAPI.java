@@ -6,9 +6,17 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.item.ItemGuideBook;
 import amerifrance.guideapi.util.APISetter;
 import amerifrance.guideapi.util.AnnotationHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -31,26 +39,34 @@ public class RegistrarGuideAPI {
             APISetter.setBookForStack(book, new ItemStack(guideBook));
         }
     }
-//      TODO
-//    @SubscribeEvent(priority = EventPriority.LOWEST)
-//    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-//        for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES) {
-//            IRecipe recipe = guide.getRight().getRecipe(GuideAPI.getStackFromBook(guide.getLeft()));
-//            if (recipe != null)
-//                event.getRegistry().register(recipe);
-//        }
-//
-//        for (Book book : GuideAPI.getBooks().values())
-//            for (CategoryAbstract cat : book.getCategoryList())
-//                for (EntryAbstract entry : cat.entries.values())
-//                    for (IPage page : entry.pageList)
-//                        if (page instanceof PageJsonRecipe)
-//                            ((PageJsonRecipe) page).init();
-//    }
+
 
     @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
     public static void registerModels(ModelRegistryEvent event) {
-        for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES)
-            guide.getRight().handleModel(GuideAPI.getStackFromBook(guide.getLeft()));
+        for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES){
+            ResourceLocation loc=guide.getRight().getModel();
+            if (loc!=null){
+                ModelLoader.addSpecialModel(new ModelResourceLocation(loc,"inventory"));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public static void bakeModel(ModelBakeEvent event) {
+        for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES) {
+            ResourceLocation loc=guide.getRight().getModel();
+            if (loc!=null){
+                ModelResourceLocation newMrl = new ModelResourceLocation(loc,"inventory");
+                Item bookItem = GuideAPI.getStackFromBook(guide.getLeft()).getItem();
+                ModelResourceLocation oldMrl = new ModelResourceLocation(bookItem.getRegistryName(),"inventory");
+                IBakedModel model= event.getModelRegistry().get(newMrl);
+
+                event.getModelRegistry().put(oldMrl, model);
+
+            }
+        }
+
     }
 }

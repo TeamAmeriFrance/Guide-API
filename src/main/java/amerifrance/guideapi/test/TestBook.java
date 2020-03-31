@@ -44,7 +44,7 @@ public class TestBook implements IGuideBook {
     @Override
     public Book buildBook() {
         BookBinder binder = new BookBinder(new ResourceLocation("guideapi","test_book"));
-        binder.setAuthor("TehNut").setColor(Color.GRAY).setItemName("Display Name").setHeader("Hello there").setGuideTitle("Title message").setContentProvider(this::buildContent);
+        binder.setAuthor("TehNut").setColor(Color.PINK).setItemName("Display Name").setHeader("Hello there").setGuideTitle("Title message").setContentProvider(this::buildContent);
         return (book = binder.build());
     }
 

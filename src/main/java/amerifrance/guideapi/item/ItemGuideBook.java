@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemGuideBook extends Item implements IGuideItem {
@@ -36,9 +37,13 @@ public class ItemGuideBook extends Item implements IGuideItem {
     public ItemGuideBook(Book book) {
         super(new Item.Properties().maxStackSize(1).group(book.getCreativeTab()));
         this.book = book;
-
-
         setTranslation_key(GuideMod.ID + ".book." + book.getRegistryName().getNamespace() + "." + book.getRegistryName().getPath());
+    }
+
+    @Nullable
+    @Override
+    public String getCreatorModId(ItemStack itemStack) {
+        return book.getRegistryName().getNamespace();
     }
 
     @Override

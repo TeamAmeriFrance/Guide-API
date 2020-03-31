@@ -3,7 +3,10 @@ package amerifrance.guideapi.api;
 import amerifrance.guideapi.api.impl.Book;
 import com.google.common.collect.*;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -42,41 +45,6 @@ public class GuideAPI {
 
         for (Class<? extends Block> blockClass : blockClasses)
             INFO_RENDERERS.get(book).put(blockClass, infoRenderer);
-    }
-
-    /**
-     * Helper method for setting a model for your book.
-     * <p>
-     * Use if you wish to use a custom model.
-     * <p>
-     * Only call <b>AFTER</b> you have registered your book.
-     *
-     * @param book        - Book to set model for
-     * @param modelLoc    - Location of the model file
-     * @param variantName - Variant to use
-     */
-    @OnlyIn(Dist.CLIENT)
-    public static void setModel(Book book, ResourceLocation modelLoc, String variantName) {
-        ModelResourceLocation mrl = new ModelResourceLocation(modelLoc, variantName);
-//        ModelLoader.setCustomModelResourceLocation(
-//                getStackFromBook(book).getItem(),
-//                0,
-//                mrl
-//        ); TODO
-    }
-
-    /**
-     * Helper method for setting a model for your book.
-     * <p>
-     * Use if you wish to use the default model with color.
-     * <p>
-     * Only call <b>AFTER</b> you have registered your book.
-     *
-     * @param book - Book to set model for
-     */
-    @OnlyIn(Dist.CLIENT)
-    public static void setModel(Book book) {
-        setModel(book, new ResourceLocation("guideapi", "ItemGuideBook"), "inventory");
     }
 
     public static void initialize() {
