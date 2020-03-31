@@ -140,8 +140,6 @@ public class SearchScreen extends BaseScreen {
 
     @Override
     public boolean mouseScrolled(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double movement) {
-
-
         if (movement < 0 && buttonNext.visible && currentPage <= searchResults.size())
             currentPage++;
         else if (movement > 0 && buttonPrev.visible && currentPage > 0)
@@ -160,17 +158,30 @@ public class SearchScreen extends BaseScreen {
         if (keyCode == GLFW.GLFW_KEY_ESCAPE)
             searchField.changeFocus(false);
 
-        searchField.keyPressed(keyCode, p_keyPressed_2_, p_keyPressed_3_);
+        if(searchField.keyPressed(keyCode, p_keyPressed_2_, p_keyPressed_3_)) {
+            this.updateSearch();
+        }
+
+        return true;
+    }
+
+    private void updateSearch(){
         if (!searchField.getText().equalsIgnoreCase(lastQuery)) {
             lastQuery = searchField.getText();
             searchResults = getMatches(book, searchField.getText(), player, bookStack);
             if (currentPage > searchResults.size())
                 currentPage = searchResults.size() - 1;
         }
-        return true;
     }
 
-
+    @Override
+    public boolean charTyped(char p_charTyped_1_, int p_charTyped_2_) {
+        if (this.searchField.charTyped(p_charTyped_1_, p_charTyped_2_)) {
+            this.updateSearch();
+            return true;
+        }
+        return super.charTyped(p_charTyped_1_, p_charTyped_2_);
+    }
 
     @Nonnull
     static List<List<Pair<EntryAbstract, CategoryAbstract>>> getMatches(Book book, @Nullable String query, PlayerEntity player, ItemStack bookStack) {
