@@ -7,6 +7,7 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxy.CommonProxy;
 import amerifrance.guideapi.util.AnnotationHandler;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -49,7 +50,7 @@ public class GuideMod {
     }
 
     private void interModMsg(final InterModProcessEvent event){
-        GuideAPI.getBooks().values().parallelStream().forEach(Book::initializeContent);
+        DistExecutor.runWhenOn(Dist.CLIENT,()-> () -> GuideAPI.getBooks().values().parallelStream().forEach(Book::initializeContent));
     }
 
 

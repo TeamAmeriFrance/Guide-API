@@ -64,17 +64,20 @@ public class ClientProxy extends CommonProxy {
                         EntryScreen guiEntry = new EntryScreen(book, category, entry, player, bookStack);
                         guiEntry.pageNumber = pageNumber;
                         Minecraft.getInstance().displayGuiScreen( guiEntry);
+                        return;
                     } else if (tagCompound.contains(NBTBookTags.CATEGORY_TAG)) {
                         CategoryAbstract category = book.getCategoryList().get(tagCompound.getInt(NBTBookTags.CATEGORY_TAG));
                         int entryPage = tagCompound.getInt(NBTBookTags.ENTRY_PAGE_TAG);
                         CategoryScreen guiCategory = new CategoryScreen(book, category, player, bookStack, null);
                         guiCategory.entryPage = entryPage;
                         Minecraft.getInstance().displayGuiScreen( guiCategory);
+                        return;
                     } else {
                         int categoryNumber = tagCompound.getInt(NBTBookTags.CATEGORY_PAGE_TAG);
                         HomeScreen guiHome = new HomeScreen(book, player, bookStack);
                         guiHome.categoryPage = categoryNumber;
                         Minecraft.getInstance().displayGuiScreen( guiHome);
+                        return;
                     }
                 }
             } catch (Exception e) {
