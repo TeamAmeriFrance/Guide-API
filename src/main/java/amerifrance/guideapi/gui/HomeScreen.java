@@ -2,6 +2,7 @@ package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.button.ButtonNext;
 import amerifrance.guideapi.button.ButtonPrev;
 import amerifrance.guideapi.button.ButtonSearch;
@@ -114,7 +115,7 @@ public class HomeScreen extends BaseScreen {
         blit(guiLeft, guiTop, 0, 0, xSize, ySize);
         minecraft.getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
-        drawCenteredString(font, I18n.format(book.getHeader()).replace("\\n", "\n").replace("&", "\u00a7"), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
+        drawCenteredString(font, TextHelper.localize(book.getHeader()).replace("\\n", "\n").replace("&", "\u00a7"), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
 
         categoryPage = MathHelper.clamp(categoryPage, 0, categoryWrapperMap.size() - 1);
 
@@ -127,7 +128,7 @@ public class HomeScreen extends BaseScreen {
                 wrapper.drawExtras(mouseX, mouseY, this);
 
         drawCenteredString(font, String.format("%d/%d", categoryPage + 1, categoryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
-        drawCenteredStringWithShadow(font, I18n.format(book.getTitle()), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
+        drawCenteredStringWithShadow(font, TextHelper.localize(book.getTitle()), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = categoryPage != 0;
         buttonNext.visible = categoryPage != categoryWrapperMap.asMap().size() - 1 && !categoryWrapperMap.asMap().isEmpty();

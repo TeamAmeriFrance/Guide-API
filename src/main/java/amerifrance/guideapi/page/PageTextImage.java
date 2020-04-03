@@ -35,7 +35,6 @@ public class PageTextImage extends Page {
         Minecraft.getInstance().getTextureManager().bindTexture(image);
         GuiHelper.drawSizedIconWithoutColor(guiLeft + 50, guiTop + (drawAtTop ? 60 : 12), guiBase.xSize, guiBase.ySize, 0);
 
-        pageText.setUnicodeFlag(unicode);
         pageText.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
     }
 

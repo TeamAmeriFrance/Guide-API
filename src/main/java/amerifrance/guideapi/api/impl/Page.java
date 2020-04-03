@@ -13,8 +13,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class Page implements IPage {
 
-    protected boolean unicode;
-
     @Override
     @OnlyIn(Dist.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
@@ -43,10 +41,6 @@ public class Page implements IPage {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void onInit(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, EntryScreen guiEntry) {
-    }
-
-    public void setUnicodeFlag(boolean flag) {
-        this.unicode = flag;
     }
 
     @Override

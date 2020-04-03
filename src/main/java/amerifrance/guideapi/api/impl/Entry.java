@@ -66,8 +66,7 @@ public class Entry extends EntryAbstract {
             cutString = true;
 
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight) && cutString) {
-
-            GuiUtils.drawHoveringText(Collections.singletonList(getLocalizedName()), entryX, entryY + 12,entryWidth,entryHeight,-1,fontRendererObj);
+            guiBase.renderTooltip(getLocalizedName(),entryX,entryY+12);
         }
 
 

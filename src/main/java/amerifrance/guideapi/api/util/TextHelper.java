@@ -1,6 +1,7 @@
 package amerifrance.guideapi.api.util;
 
 import net.minecraft.client.resources.I18n;
+import net.minecraftforge.fml.ForgeI18n;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class TextHelper {
     }
 
     public static String localize(String input, Object... format) {
-        return I18n.format(input, format);
+        return ForgeI18n.parseMessage(input, format);
     }
 
     public static String localizeEffect(String input, Object... format) {

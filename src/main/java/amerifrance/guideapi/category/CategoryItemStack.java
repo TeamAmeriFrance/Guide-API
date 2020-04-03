@@ -39,7 +39,7 @@ public class CategoryItemStack extends Category {
     @OnlyIn(Dist.CLIENT)
     public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
         if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight))
-            GuiUtils.drawHoveringText(this.getTooltip(), mouseX, mouseY, categoryWidth,categoryHeight,-1,Minecraft.getInstance().fontRenderer);
+            guiBase.renderTooltip(this.getTooltip(),mouseX,mouseY);
     }
 
     @Override

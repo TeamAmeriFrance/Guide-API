@@ -47,6 +47,9 @@ public class PageJsonRecipe extends PageIRecipe {
             else{
                 if(iRecipeRenderer==null){
                     iRecipeRenderer = recipeRendererSupplier.apply(recipe);
+                    if(iRecipeRenderer==null){
+                        LogHelper.error("Did not get renderer for recipe type "+recipe.getClass().toString()+" for recipe "+recipeId.toString());
+                    }
                 }
             }
         }

@@ -22,6 +22,8 @@ import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nullable;
+
 
 public class PageIRecipe extends Page {
 
@@ -79,7 +81,8 @@ public class PageIRecipe extends Page {
     }
 
 
-    protected static IRecipeRenderer getRenderer(IRecipe<?> recipe) {
+    @Nullable
+    public static IRecipeRenderer getRenderer(IRecipe<?> recipe) {
         if (recipe == null) {
             LogHelper.error("Cannot get renderer for null recipe.");
             return null;
@@ -91,7 +94,6 @@ public class PageIRecipe extends Page {
             return new FurnaceRecipeRenderer((FurnaceRecipe)recipe);
         }
         else {
-            LogHelper.error("Cannot get renderer for recipe type "+recipe.getClass().toString());
             return null;
         }
     }

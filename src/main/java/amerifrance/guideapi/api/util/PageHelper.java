@@ -18,15 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PageHelper {
-
-    public static List<IPage> setPagesToUnicode(List<IPage> pages) {
-        for (IPage page : pages)
-            if (page instanceof Page)
-                ((Page) page).setUnicodeFlag(true);
-
-        return pages;
-    }
-
+    
     public static List<IPage> pagesForLongText(String locText, int maxLength) {
         List<IPage> pageList = new ArrayList<IPage>();
         for (String s : WordUtils.wrap(locText, maxLength, "/cut", false).split("/cut")) pageList.add(new PageText(s));
