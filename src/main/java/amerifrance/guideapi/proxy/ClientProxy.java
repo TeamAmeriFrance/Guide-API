@@ -54,6 +54,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void openGuidebook(PlayerEntity player, World world, Book book, ItemStack bookStack) {
         if (!bookStack.isEmpty() && bookStack.getItem() instanceof IGuideItem) {
+            book.initializeContent();
             try {
                 if (bookStack.hasTag()) {
                     CompoundNBT tagCompound = bookStack.getTag();

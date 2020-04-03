@@ -1,6 +1,7 @@
 package amerifrance.guideapi.api.impl;
 
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.util.LogHelper;
 import com.google.common.base.Joiner;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
@@ -28,6 +29,7 @@ public class Book {
     private final boolean spawnWithBook;
     private final ResourceLocation registryName;
     private final ItemGroup creativeTab;
+    private boolean isInitialized;
 
 
     protected Book(Consumer<List<CategoryAbstract>> contentProvider, String title, String header, String displayName, String author, ResourceLocation pageTexture, ResourceLocation outlineTexture, boolean customModel, Color color, boolean spawnWithBook, ResourceLocation registryName, ItemGroup creativeTab) {
@@ -46,7 +48,11 @@ public class Book {
     }
 
     public void initializeContent(){
-        contentProvider.accept(categories);
+        if(!isInitialized){
+            LogHelper.debug("Opening book "+registryName.toString()+" for the first time -> Initializing content");
+            contentProvider.accept(categories);
+            isInitialized=true;
+        }
     }
 
     public List<CategoryAbstract> getCategoryList() {

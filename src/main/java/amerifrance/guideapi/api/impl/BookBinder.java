@@ -40,7 +40,7 @@ public class BookBinder {
 
     /**
      * Set a consumer (method) that will generate the content for your book and add it to the provided list
-     * It will be called during GuideAPI's {@link InterModProcessEvent} (so it might execute in parallel with your mod)
+     * This will be called on client side when the book is opened for the first time.
      *
      * @param contentProvider The consumer. Categories are displayed in which they are added to the provided list
      * @return the builder instance for chaining.

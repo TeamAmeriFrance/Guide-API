@@ -44,7 +44,7 @@ public class BookEvent extends Event {
     }
 
     /**
-     * Called whenever a book is opened.
+     * Called client side whenever a book is opened.
      *
      * {@link #canceledText} is a status message sent to the player when the book fails to open.
      */

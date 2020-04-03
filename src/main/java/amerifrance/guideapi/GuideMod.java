@@ -35,7 +35,6 @@ public class GuideMod {
         GuideAPI.initialize();
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::interModMsg);
     }
 
     private void setup(final FMLCommonSetupEvent event){
@@ -48,13 +47,6 @@ public class GuideMod {
         for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES)
             guide.getRight().handlePost(GuideAPI.getStackFromBook(guide.getLeft()));
     }
-
-    private void interModMsg(final InterModProcessEvent event){
-        DistExecutor.runWhenOn(Dist.CLIENT,()-> () -> GuideAPI.getBooks().values().parallelStream().forEach(Book::initializeContent));
-    }
-
-
-
 
     private void checkDevEnv() {
         String launchTarget = System.getenv().get("target");

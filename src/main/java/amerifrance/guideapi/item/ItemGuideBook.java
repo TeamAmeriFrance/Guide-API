@@ -64,7 +64,12 @@ public class ItemGuideBook extends Item implements IGuideItem {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+
         ItemStack heldStack = player.getHeldItem(hand);
+
+        //Only handle book client side
+        if(!world.isRemote())return ActionResult.newResult(ActionResultType.SUCCESS,heldStack);
+
 
         BookEvent.Open event = new BookEvent.Open(book, heldStack, player);
         if (MinecraftForge.EVENT_BUS.post(event)) {
