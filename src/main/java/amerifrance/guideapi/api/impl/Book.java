@@ -55,6 +55,17 @@ public class Book {
         }
     }
 
+    /**
+     * Can be used to force content initialisation independent of first use regardless of if it was initialized previously.
+     * Use at own risk. Might cause crashes if the book is currently open.
+     */
+    public void forceInitializeContent(){
+        LogHelper.info("Force initializing book content "+registryName.toString());
+        categories.clear();
+        isInitialized=false;
+        initializeContent();
+    }
+
     public List<CategoryAbstract> getCategoryList() {
         return this.categories;
     }

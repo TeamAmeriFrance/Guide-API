@@ -7,12 +7,18 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.network.PacketHandler;
 import amerifrance.guideapi.proxy.CommonProxy;
 import amerifrance.guideapi.util.AnnotationHandler;
+import amerifrance.guideapi.util.ReloadCommand;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.command.CommandSource;
+import net.minecraft.command.Commands;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -35,6 +41,8 @@ public class GuideMod {
         GuideAPI.initialize();
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
+        MinecraftForge.EVENT_BUS.addListener(this::onServerStarting);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onServerStarting);
     }
 
     private void setup(final FMLCommonSetupEvent event){
@@ -52,6 +60,12 @@ public class GuideMod {
         String launchTarget = System.getenv().get("target");
         if (launchTarget != null && launchTarget.contains("dev")) {
             inDev = true;
+        }
+    }
+
+    private void onServerStarting(FMLServerStartingEvent event){
+        if(inDev){
+            event.getCommandDispatcher().register(LiteralArgumentBuilder.<CommandSource>literal("guide-api").then(ReloadCommand.register()));
         }
     }
 }
