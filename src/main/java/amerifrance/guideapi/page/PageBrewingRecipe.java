@@ -64,7 +64,7 @@ public class PageBrewingRecipe extends Page {
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         cycler.tick(guiBase.getMinecraft());
 
-        int xStart = guiLeft + 62;
+        int xStart = guiLeft + 88;
         int yStart = guiTop + 52;
 
         SubTexture.POTION_GRID.draw(xStart, yStart);

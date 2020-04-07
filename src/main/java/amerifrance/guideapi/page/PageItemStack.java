@@ -54,7 +54,7 @@ public class PageItemStack extends PageText {
     public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         ingredientCycler.tick(guiBase.getMinecraft());
         ingredientCycler.getCycledIngredientStack(ingredient,0).ifPresent(stack -> {
-            GuiHelper.drawScaledItemStack(stack, guiLeft + 75, guiTop + 20, 3);
+            GuiHelper.drawScaledItemStack(stack, guiLeft + 101, guiTop + 20, 3);
         });
     }
 

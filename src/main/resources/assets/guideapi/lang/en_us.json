@@ -20,6 +20,7 @@
   "guideapi.test.format": "This i\\ns a formatting\\n\\ttest",
   "guideapi.test.category": "Test Category",
   "guideapi.test.entry": "Test Entry which is very very very long",
+  "guideapi.test.string": "Some translated content string",
 
   "_comment": "Unused",
   "text.furnace.error": "&cError in the recipe",

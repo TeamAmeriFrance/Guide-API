@@ -28,15 +28,14 @@ public class PageText extends Page {
     }
 
     public PageText(String draw) {
-        this(draw, 0);
+        this(draw, 5);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
 
-
-        PageHelper.drawFormattedText(guiLeft + 39, guiTop + 12 + yOffset, guiBase, ForgeI18n.getPattern(draw));
+        PageHelper.drawFormattedText(guiLeft + 44, guiTop + 12 + yOffset, guiBase, ForgeI18n.getPattern(draw));
 
     }
 

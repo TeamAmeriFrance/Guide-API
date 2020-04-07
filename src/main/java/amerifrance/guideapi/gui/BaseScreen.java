@@ -22,7 +22,7 @@ import static com.mojang.blaze3d.platform.GlStateManager.*;
 public class BaseScreen extends Screen {
 
     public int guiLeft, guiTop;
-    public int xSize = 192;
+    public int xSize = 245;
     public int ySize = 192;
     public PlayerEntity player;
     public ItemStack bookStack;

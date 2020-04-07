@@ -27,7 +27,7 @@ public class ShapelessRecipesRenderer extends CraftingRecipeRenderer<ShapelessRe
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
                 int i = 3 * y + x;
-                int stackX = (x + 1) * 17 + (guiLeft + 27) + x;
+                int stackX = (x + 1) * 17 + (guiLeft + 53) + x;
                 int stackY = (y + 1) * 17 + (guiTop + 38) + y;
                 if (i < recipe.getIngredients().size()) {
                     Ingredient ingredient = recipe.getIngredients().get(i);

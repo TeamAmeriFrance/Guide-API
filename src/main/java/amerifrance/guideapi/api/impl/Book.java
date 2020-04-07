@@ -14,8 +14,6 @@ import java.util.function.Consumer;
 
 public class Book {
 
-    private static final String GUITEXLOC = "guideapi:textures/gui/";
-
     private final List<CategoryAbstract> categories = new ArrayList<>();
     private final Consumer<List<CategoryAbstract>> contentProvider;
     private final String title;

@@ -26,7 +26,7 @@ public class ShapedRecipesRenderer extends CraftingRecipeRenderer<ShapedRecipe> 
         for (int y = 0; y < recipe.getRecipeHeight(); y++) {
             for (int x = 0; x < recipe.getRecipeWidth(); x++) {
                 int i = y*recipe.getRecipeWidth()+x;
-                int stackX = (x + 1) * 17 + (guiLeft + 27) + x;
+                int stackX = (x + 1) * 17 + (guiLeft + 53) + x;
                 int stackY = (y + 1) * 17 + (guiTop + 38) + y;
 
                 Ingredient ingredient = recipe.getIngredients().get(i);

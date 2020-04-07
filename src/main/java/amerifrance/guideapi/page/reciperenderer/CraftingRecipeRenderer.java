@@ -31,13 +31,13 @@ public abstract class CraftingRecipeRenderer<T extends IRecipe<?>> extends Recip
     @Override
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler) {
 
-        SubTexture.CRAFTING_GRID.draw(guiLeft + 42, guiTop + 53);
+        SubTexture.CRAFTING_GRID.draw(guiLeft + 68, guiTop + 53);
 
         String recipeName = Strings.isNullOrEmpty(customDisplay) ? getRecipeName() : customDisplay;
         guiBase.drawCenteredString(fontRendererObj, recipeName, guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
-        int outputX = (5 * 18) + (guiLeft + guiBase.xSize / 7) + 5;
-        int outputY = (2 * 18) + (guiTop + guiBase.xSize / 5);
+        int outputX = guiLeft + 148;
+        int outputY = guiTop + 73;
 
         ItemStack stack = recipe.getRecipeOutput();
 
