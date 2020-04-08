@@ -22,7 +22,6 @@ public class Book {
     private final String author;
     private final ResourceLocation pageTexture;
     private final ResourceLocation outlineTexture;
-    private final boolean customModel;
     private final Color color;
     private final boolean spawnWithBook;
     private final ResourceLocation registryName;
@@ -30,7 +29,7 @@ public class Book {
     private boolean isInitialized;
 
 
-    protected Book(Consumer<List<CategoryAbstract>> contentProvider, String title, String header, String displayName, String author, ResourceLocation pageTexture, ResourceLocation outlineTexture, boolean customModel, Color color, boolean spawnWithBook, ResourceLocation registryName, ItemGroup creativeTab) {
+    protected Book(Consumer<List<CategoryAbstract>> contentProvider, String title, String header, String displayName, String author, ResourceLocation pageTexture, ResourceLocation outlineTexture, Color color, boolean spawnWithBook, ResourceLocation registryName, ItemGroup creativeTab) {
         this.contentProvider = contentProvider;
         this.title = title;
         this.header = header;
@@ -38,7 +37,6 @@ public class Book {
         this.author = author;
         this.pageTexture = pageTexture;
         this.outlineTexture = outlineTexture;
-        this.customModel = customModel;
         this.color = color;
         this.spawnWithBook = spawnWithBook;
         this.registryName = registryName;
@@ -92,10 +90,6 @@ public class Book {
         return this.outlineTexture;
     }
 
-    public boolean hasCustomModel() {
-        return this.customModel;
-    }
-
     public Color getColor() {
         return this.color;
     }
@@ -123,7 +117,6 @@ public class Book {
                 .append("author", author)
                 .append("pageTexture", pageTexture)
                 .append("outlineTexture", outlineTexture)
-                .append("customModel", customModel)
                 .append("color", color)
                 .append("spawnWithBook", spawnWithBook)
                 .append("registryName", registryName)

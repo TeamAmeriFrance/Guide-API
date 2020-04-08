@@ -22,7 +22,6 @@ public class BookBinder {
     private String author;
     private ResourceLocation pageTexture = new ResourceLocation("guideapi", "textures/gui/book_colored.png");
     private ResourceLocation outlineTexture = new ResourceLocation("guideapi", "textures/gui/book_greyscale.png");
-    private boolean hasCustomModel;
     private Color color = new Color(171, 70, 30);
     private boolean spawnWithBook;
     private ItemGroup creativeTab = ItemGroup.MISC;
@@ -129,18 +128,6 @@ public class BookBinder {
     }
 
     /**
-     * Indicates that the item containing this book has a custom model that you will manually register.
-     * <p>
-     * By default, a generic book model will be registered and colored with {@link #color}.
-     *
-     * @return the builder instance for chaining.
-     */
-    public BookBinder setHasCustomModel() {
-        this.hasCustomModel = true;
-        return this;
-    }
-
-    /**
      * Sets the color to overlay on the book model and GUI border.
      * <p>
      * By default, this is a reddish-brown color.
@@ -209,6 +196,6 @@ public class BookBinder {
             throw new IllegalStateException("Content supplier of book " + registryName.toString() + " must be provided");
         }
 
-        return new Book(contentProvider, guideTitle, header, itemName, author, pageTexture, outlineTexture, hasCustomModel, color, spawnWithBook, registryName, creativeTab);
+        return new Book(contentProvider, guideTitle, header, itemName, author, pageTexture, outlineTexture, color, spawnWithBook, registryName, creativeTab);
     }
 }
