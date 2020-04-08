@@ -15,7 +15,6 @@ import net.minecraft.item.crafting.FurnaceRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.text.ITextComponent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,14 +33,13 @@ public class FurnaceRecipeRenderer extends IRecipeRenderer.RecipeRendererBase<Fu
         int y = guiTop + 77;
 
         Ingredient input = recipe.getIngredients().get(0);
-        cycler.getCycledIngredientStack(input,0).ifPresent(stack -> {
+        cycler.getCycledIngredientStack(input, 0).ifPresent(stack -> {
             GuiHelper.drawItemStack(stack, x, y);
 
             List<ITextComponent> tooltip = null;
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
                 tooltips = GuiHelper.getTooltip(stack);
         });
-
 
 
         ItemStack output = recipe.getRecipeOutput();

@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 public class CommonProxy {
 
 
-    public void openGuidebook(PlayerEntity player, World world, Book book, ItemStack bookStack){
+    public void openGuidebook(PlayerEntity player, World world, Book book, ItemStack bookStack) {
     }
 
     public void playSound(SoundEvent sound) {

@@ -15,7 +15,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 
 public class InfoRendererDescription implements IInfoRenderer {
@@ -47,7 +47,7 @@ public class InfoRendererDescription implements IInfoRenderer {
         for (String line : lines) {
             List<String> cutLines = fontRenderer.listFormattedStringToWidth(line, 100 * scaleMulti);
             for (String cut : cutLines) {
-                fontRenderer.drawStringWithShadow(cut, (Minecraft.getInstance().mainWindow.getScaledWidth()/ 2 + 20) * scaleMulti, (((Minecraft.getInstance().mainWindow.getScaledHeight() / 2 - 10) - y) * scaleMulti) + yOffset, Color.WHITE.getRGB());
+                fontRenderer.drawStringWithShadow(cut, (Minecraft.getInstance().mainWindow.getScaledWidth() / 2 + 20) * scaleMulti, (((Minecraft.getInstance().mainWindow.getScaledHeight() / 2 - 10) - y) * scaleMulti) + yOffset, Color.WHITE.getRGB());
                 y -= 10 / scaleMulti;
             }
         }

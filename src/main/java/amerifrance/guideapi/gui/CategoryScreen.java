@@ -19,10 +19,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.lwjgl.glfw.GLFW;
 
-import java.awt.Color;
-import java.util.List;
-
 import javax.annotation.Nullable;
+import java.awt.*;
+import java.util.List;
 
 public class CategoryScreen extends BaseScreen {
 
@@ -36,10 +35,11 @@ public class CategoryScreen extends BaseScreen {
     public ButtonPrev buttonPrev;
     public ButtonSearch buttonSearch;
     public int entryPage;
-    @Nullable public EntryAbstract startEntry;
+    @Nullable
+    public EntryAbstract startEntry;
 
     public CategoryScreen(Book book, CategoryAbstract category, PlayerEntity player, ItemStack bookStack, @Nullable EntryAbstract startEntry) {
-        super(new TranslationTextComponent(category.name),player, bookStack);
+        super(new TranslationTextComponent(category.name), player, bookStack);
         this.book = book;
         this.category = category;
         this.pageTexture = book.getPageTexture();
@@ -55,22 +55,22 @@ public class CategoryScreen extends BaseScreen {
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
-        addButton(buttonBack = new ButtonBack( guiLeft + xSize / 6, guiTop, (btn) ->{
+        addButton(buttonBack = new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
             this.minecraft.displayGuiScreen(new HomeScreen(book, player, bookStack));
-        },this));
-        addButton(buttonNext = new ButtonNext( guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
-            if(entryPage+1<entryWrapperMap.asMap().size()){
+        }, this));
+        addButton(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
+            if (entryPage + 1 < entryWrapperMap.asMap().size()) {
                 nextPage();
             }
-        },this));
-        addButton(buttonPrev = new ButtonPrev( guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn)->{
-            if(entryPage>0){
+        }, this));
+        addButton(buttonPrev = new ButtonPrev(guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn) -> {
+            if (entryPage > 0) {
                 prevPage();
             }
-        },this));
-        addButton(buttonSearch = new ButtonSearch( (guiLeft + xSize / 6) - 25, guiTop + 5, (btn) -> {
+        }, this));
+        addButton(buttonSearch = new ButtonSearch((guiLeft + xSize / 6) - 25, guiTop + 5, (btn) -> {
             this.minecraft.displayGuiScreen(new SearchScreen(book, player, bookStack, this));
-        },this));
+        }, this));
 
         int eX = guiLeft + 37;
         int eY = guiTop + 15;
@@ -147,7 +147,7 @@ public class CategoryScreen extends BaseScreen {
         else if (movement > 0)
             prevPage();
 
-        return movement!=0||super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
+        return movement != 0 || super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
     }
 
     @Override
@@ -155,20 +155,17 @@ public class CategoryScreen extends BaseScreen {
         if (keyCode == GLFW.GLFW_KEY_BACKSPACE || keyCode == this.minecraft.gameSettings.keyBindUseItem.getKey().getKeyCode()) {
             this.minecraft.displayGuiScreen(new HomeScreen(book, player, bookStack));
             return true;
-        }
-        else if ((keyCode == GLFW.GLFW_KEY_UP || keyCode == GLFW.GLFW_KEY_RIGHT) && entryPage + 1 < entryWrapperMap.asMap().size()) {
+        } else if ((keyCode == GLFW.GLFW_KEY_UP || keyCode == GLFW.GLFW_KEY_RIGHT) && entryPage + 1 < entryWrapperMap.asMap().size()) {
 
 
             nextPage();
             return true;
-        }
-        else if ((keyCode == GLFW.GLFW_KEY_DOWN|| keyCode == GLFW.GLFW_KEY_LEFT) && entryPage > 0){
+        } else if ((keyCode == GLFW.GLFW_KEY_DOWN || keyCode == GLFW.GLFW_KEY_LEFT) && entryPage > 0) {
             prevPage();
             return true;
         }
         return super.keyPressed(keyCode, p_keyPressed_2_, p_keyPressed_3_);
     }
-
 
 
     @Override

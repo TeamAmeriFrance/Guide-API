@@ -18,7 +18,7 @@ import java.util.List;
 public class ButtonBack extends ButtonGuideAPI {
 
     public ButtonBack(int widthIn, int heightIn, Button.IPressable onPress, BaseScreen guiBase) {
-        super(widthIn, heightIn, 18, 10, onPress,guiBase);
+        super(widthIn, heightIn, 18, 10, onPress, guiBase);
     }
 
     @Override
@@ -30,10 +30,10 @@ public class ButtonBack extends ButtonGuideAPI {
             GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) {
-                this.blit(x,y+1,70,201,18,10);
-                GuiUtils.drawHoveringText(getHoveringText(),mouseX,mouseY,guiBase.width,guiBase.height,-1,Minecraft.getInstance().fontRenderer);
+                this.blit(x, y + 1, 70, 201, 18, 10);
+                GuiUtils.drawHoveringText(getHoveringText(), mouseX, mouseY, guiBase.width, guiBase.height, -1, Minecraft.getInstance().fontRenderer);
             } else {
-                this.blit(x,y,94,201,18,10);
+                this.blit(x, y, 94, 201, 18, 10);
             }
             GlStateManager.disableBlend();
             RenderHelper.disableStandardItemLighting();

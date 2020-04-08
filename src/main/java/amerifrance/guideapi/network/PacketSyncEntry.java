@@ -12,7 +12,7 @@ import org.apache.commons.lang3.Validate;
 
 import java.util.function.Supplier;
 
-public class PacketSyncEntry{
+public class PacketSyncEntry {
 
     public int category;
     public ResourceLocation entry;
@@ -30,25 +30,25 @@ public class PacketSyncEntry{
         this.page = page;
     }
 
-    static void encode(PacketSyncEntry msg, PacketBuffer buf){
+    static void encode(PacketSyncEntry msg, PacketBuffer buf) {
         buf.writeInt(msg.category);
         buf.writeResourceLocation(msg.entry);
         buf.writeInt(msg.page);
     }
 
-    static PacketSyncEntry decode(PacketBuffer buf){
-        PacketSyncEntry msg=new PacketSyncEntry();
-        msg.category=buf.readInt();
-        msg.entry=buf.readResourceLocation();
+    static PacketSyncEntry decode(PacketBuffer buf) {
+        PacketSyncEntry msg = new PacketSyncEntry();
+        msg.category = buf.readInt();
+        msg.entry = buf.readResourceLocation();
         msg.page = buf.readInt();
         return msg;
     }
 
-    public static void handle(final PacketSyncEntry msg, Supplier<NetworkEvent.Context> contextSupplier){
-        final NetworkEvent.Context ctx=contextSupplier.get();
+    public static void handle(final PacketSyncEntry msg, Supplier<NetworkEvent.Context> contextSupplier) {
+        final NetworkEvent.Context ctx = contextSupplier.get();
         ServerPlayerEntity player = ctx.getSender();
         Validate.notNull(player);
-        ctx.enqueueWork(()->{
+        ctx.enqueueWork(() -> {
             ItemStack book = player.getHeldItemOffhand();
             if (book.isEmpty() || !(book.getItem() instanceof IGuideItem))
                 book = player.getHeldItemMainhand();
@@ -66,8 +66,6 @@ public class PacketSyncEntry{
         });
         ctx.setPacketHandled(true);
     }
-
-
 
 
 }

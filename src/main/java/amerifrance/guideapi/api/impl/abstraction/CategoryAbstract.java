@@ -29,7 +29,7 @@ public abstract class CategoryAbstract {
     }
 
     public CategoryAbstract(String name) {
-        this(Maps.<ResourceLocation, EntryAbstract>newLinkedHashMap(), name);
+        this(Maps.newLinkedHashMap(), name);
     }
 
     /**
@@ -67,8 +67,7 @@ public abstract class CategoryAbstract {
 
     public void removeEntries(List<ResourceLocation> keys) {
         for (ResourceLocation key : keys)
-            if (entries.containsKey(key))
-                entries.remove(key);
+            entries.remove(key);
     }
 
     /**
@@ -157,10 +156,7 @@ public abstract class CategoryAbstract {
 
         CategoryAbstract that = (CategoryAbstract) o;
         if (entries != null ? !entries.equals(that.entries) : that.entries != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null)
-            return false;
-
-        return true;
+        return name != null ? name.equals(that.name) : that.name == null;
     }
 
     @Override

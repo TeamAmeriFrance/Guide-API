@@ -17,7 +17,7 @@ import java.util.List;
 public class ButtonSearch extends ButtonGuideAPI {
 
     public ButtonSearch(int widthIn, int heightIn, Button.IPressable onPress, BaseScreen guiBase) {
-        super(widthIn, heightIn, 15, 15, onPress,guiBase);
+        super(widthIn, heightIn, 15, 15, onPress, guiBase);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ButtonSearch extends ButtonGuideAPI {
             GlStateManager.disableLighting();
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) {
                 SubTexture.MAGNIFYING_GLASS.draw(x, y + 1);
-                GuiUtils.drawHoveringText(getHoveringText(),mouseX,mouseY,guiBase.width,guiBase.height,-1,Minecraft.getInstance().fontRenderer);
+                GuiUtils.drawHoveringText(getHoveringText(), mouseX, mouseY, guiBase.width, guiBase.height, -1, Minecraft.getInstance().fontRenderer);
             } else {
                 SubTexture.MAGNIFYING_GLASS.draw(x, y);
             }

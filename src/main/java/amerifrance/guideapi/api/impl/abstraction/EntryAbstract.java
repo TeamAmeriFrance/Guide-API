@@ -73,10 +73,7 @@ public abstract class EntryAbstract {
 
         EntryAbstract that = (EntryAbstract) o;
         if (pageList != null ? !pageList.equals(that.pageList) : that.pageList != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null)
-            return false;
-
-        return true;
+        return name != null ? name.equals(that.name) : that.name == null;
     }
 
     @Override

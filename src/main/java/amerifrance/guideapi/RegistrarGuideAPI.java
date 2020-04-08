@@ -6,7 +6,6 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.item.ItemGuideBook;
 import amerifrance.guideapi.util.APISetter;
 import amerifrance.guideapi.util.AnnotationHandler;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -20,11 +19,10 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
 
-@Mod.EventBusSubscriber(modid = "guideapi",bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = "guideapi", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RegistrarGuideAPI {
 
 
@@ -44,10 +42,10 @@ public class RegistrarGuideAPI {
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public static void registerModels(ModelRegistryEvent event) {
-        for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES){
-            ResourceLocation loc=guide.getRight().getModel();
-            if (loc!=null){
-                ModelLoader.addSpecialModel(new ModelResourceLocation(loc,"inventory"));
+        for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES) {
+            ResourceLocation loc = guide.getRight().getModel();
+            if (loc != null) {
+                ModelLoader.addSpecialModel(new ModelResourceLocation(loc, "inventory"));
             }
         }
     }
@@ -56,12 +54,12 @@ public class RegistrarGuideAPI {
     @OnlyIn(Dist.CLIENT)
     public static void bakeModel(ModelBakeEvent event) {
         for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES) {
-            ResourceLocation loc=guide.getRight().getModel();
-            if (loc!=null){
-                ModelResourceLocation newMrl = new ModelResourceLocation(loc,"inventory");
+            ResourceLocation loc = guide.getRight().getModel();
+            if (loc != null) {
+                ModelResourceLocation newMrl = new ModelResourceLocation(loc, "inventory");
                 Item bookItem = GuideAPI.getStackFromBook(guide.getLeft()).getItem();
-                ModelResourceLocation oldMrl = new ModelResourceLocation(bookItem.getRegistryName(),"inventory");
-                IBakedModel model= event.getModelRegistry().get(newMrl);
+                ModelResourceLocation oldMrl = new ModelResourceLocation(bookItem.getRegistryName(), "inventory");
+                IBakedModel model = event.getModelRegistry().get(newMrl);
 
                 event.getModelRegistry().put(oldMrl, model);
 

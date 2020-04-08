@@ -47,7 +47,6 @@ public class Page implements IPage {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
-        if (getClass() != o.getClass()) return false;
-        return true;
+        return getClass() == o.getClass();
     }
 }

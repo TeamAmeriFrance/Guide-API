@@ -22,7 +22,7 @@ import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,7 +40,7 @@ public class SearchScreen extends BaseScreen {
     private String lastQuery = "";
 
     public SearchScreen(Book book, PlayerEntity player, ItemStack bookStack, Screen parent) {
-        super(new TranslationTextComponent(book.getTitle()),player, bookStack);
+        super(new TranslationTextComponent(book.getTitle()), player, bookStack);
 
         this.book = book;
         this.pageTexture = book.getPageTexture();
@@ -56,20 +56,20 @@ public class SearchScreen extends BaseScreen {
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
-        addButton(new ButtonBack( guiLeft + xSize / 6, guiTop, (btn)->{
+        addButton(new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
             minecraft.displayGuiScreen(parent);
 
-        },this));
-        addButton(buttonNext = new ButtonNext( guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn)->{
+        }, this));
+        addButton(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
             if (currentPage <= searchResults.size() - 1)
                 currentPage++;
-        },this));
-        addButton(buttonPrev = new ButtonPrev( guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn)->{
+        }, this));
+        addButton(buttonPrev = new ButtonPrev(guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn) -> {
             if (currentPage > 0)
                 currentPage--;
-        },this));
+        }, this));
 
-        searchField = new TextFieldWidget( font, guiLeft + 43, guiTop + 12, 100, 10,"");
+        searchField = new TextFieldWidget(font, guiLeft + 43, guiTop + 12, 100, 10, "");
         searchField.setEnableBackgroundDrawing(false);
         searchField.changeFocus(true);
         searchResults = getMatches(book, null, player, bookStack);
@@ -117,14 +117,14 @@ public class SearchScreen extends BaseScreen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int typeofClick) {
-        if(!super.mouseClicked(mouseX, mouseY, typeofClick)){
+        if (!super.mouseClicked(mouseX, mouseY, typeofClick)) {
             if (typeofClick == 1) {
                 if (GuiHelper.isMouseBetween(mouseX, mouseY, searchField.x, searchField.y, searchField.getAdjustedWidth(), searchField.getHeight())) {
                     searchField.setText("");
                     lastQuery = "";
                     searchResults = getMatches(book, "", player, bookStack);
                     return true;
-                } else{
+                } else {
                     minecraft.displayGuiScreen(parent);
                     return true;
                 }
@@ -145,27 +145,27 @@ public class SearchScreen extends BaseScreen {
         else if (movement > 0 && buttonPrev.visible && currentPage > 0)
             currentPage--;
 
-        return movement!=0 || super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
+        return movement != 0 || super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
 
     }
 
     @Override
     public boolean keyPressed(int keyCode, int p_keyPressed_2_, int p_keyPressed_3_) {
-        if (!searchField.isFocused()){
+        if (!searchField.isFocused()) {
             return super.keyPressed(keyCode, p_keyPressed_2_, p_keyPressed_3_);
         }
 
         if (keyCode == GLFW.GLFW_KEY_ESCAPE)
             searchField.changeFocus(false);
 
-        if(searchField.keyPressed(keyCode, p_keyPressed_2_, p_keyPressed_3_)) {
+        if (searchField.keyPressed(keyCode, p_keyPressed_2_, p_keyPressed_3_)) {
             this.updateSearch();
         }
 
         return true;
     }
 
-    private void updateSearch(){
+    private void updateSearch() {
         if (!searchField.getText().equalsIgnoreCase(lastQuery)) {
             lastQuery = searchField.getText();
             searchResults = getMatches(book, searchField.getText(), player, bookStack);

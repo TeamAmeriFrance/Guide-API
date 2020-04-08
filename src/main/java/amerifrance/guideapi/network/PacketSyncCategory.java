@@ -6,7 +6,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
-
 import net.minecraftforge.fml.network.NetworkEvent;
 import org.apache.commons.lang3.Validate;
 
@@ -27,23 +26,23 @@ public class PacketSyncCategory {
         this.page = page;
     }
 
-    static void encode(PacketSyncCategory msg, PacketBuffer buf){
+    static void encode(PacketSyncCategory msg, PacketBuffer buf) {
         buf.writeInt(msg.category);
         buf.writeInt(msg.page);
     }
 
-    static PacketSyncCategory decode(PacketBuffer buf){
-        PacketSyncCategory msg=new PacketSyncCategory();
-        msg.category=buf.readInt();
+    static PacketSyncCategory decode(PacketBuffer buf) {
+        PacketSyncCategory msg = new PacketSyncCategory();
+        msg.category = buf.readInt();
         msg.page = buf.readInt();
         return msg;
     }
 
-    public static void handle(final PacketSyncCategory msg, Supplier<NetworkEvent.Context> contextSupplier){
-        final NetworkEvent.Context ctx=contextSupplier.get();
+    public static void handle(final PacketSyncCategory msg, Supplier<NetworkEvent.Context> contextSupplier) {
+        final NetworkEvent.Context ctx = contextSupplier.get();
         ServerPlayerEntity player = ctx.getSender();
         Validate.notNull(player);
-        ctx.enqueueWork(()->{
+        ctx.enqueueWork(() -> {
             ItemStack book = player.getHeldItemOffhand();
             if (book.isEmpty() || !(book.getItem() instanceof IGuideItem))
                 book = player.getHeldItemMainhand();

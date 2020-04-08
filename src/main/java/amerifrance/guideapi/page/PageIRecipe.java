@@ -1,14 +1,14 @@
 package amerifrance.guideapi.page;
 
-import amerifrance.guideapi.api.util.IngredientCycler;
-import amerifrance.guideapi.page.reciperenderer.FurnaceRecipeRenderer;
 import amerifrance.guideapi.api.IRecipeRenderer;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.Page;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.util.IngredientCycler;
 import amerifrance.guideapi.gui.BaseScreen;
 import amerifrance.guideapi.gui.EntryScreen;
+import amerifrance.guideapi.page.reciperenderer.FurnaceRecipeRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapedRecipesRenderer;
 import amerifrance.guideapi.page.reciperenderer.ShapelessRecipesRenderer;
 import amerifrance.guideapi.util.LogHelper;
@@ -31,6 +31,7 @@ public class PageIRecipe extends Page {
     public IRecipeRenderer iRecipeRenderer;
     protected boolean isValid;
     private IngredientCycler ingredientCycler = new IngredientCycler();
+
     /**
      * Use this if you are creating a page for a standard recipe, one of:
      * <p>
@@ -59,17 +60,17 @@ public class PageIRecipe extends Page {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-        if(isValid) {
+        if (isValid) {
             super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
             ingredientCycler.tick(guiBase.getMinecraft());
-            iRecipeRenderer.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj,ingredientCycler);
+            iRecipeRenderer.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj, ingredientCycler);
         }
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-        if(isValid) {
+        if (isValid) {
             super.drawExtras(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
             iRecipeRenderer.drawExtras(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
         }
@@ -90,10 +91,9 @@ public class PageIRecipe extends Page {
             return new ShapedRecipesRenderer((ShapedRecipe) recipe);
         } else if (recipe instanceof ShapelessRecipe) {
             return new ShapelessRecipesRenderer((ShapelessRecipe) recipe);
-        } else if(recipe instanceof FurnaceRecipe){
-            return new FurnaceRecipeRenderer((FurnaceRecipe)recipe);
-        }
-        else {
+        } else if (recipe instanceof FurnaceRecipe) {
+            return new FurnaceRecipeRenderer((FurnaceRecipe) recipe);
+        } else {
             return null;
         }
     }

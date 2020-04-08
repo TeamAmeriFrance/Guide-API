@@ -1,12 +1,10 @@
 {
   "_comment": "Item",
   "item.guideapi.book": "Guide-API 默认书",
-
   "_comment": "Button hovering text",
   "guideapi.button.back": "返回",
   "guideapi.button.next": "下一页",
   "guideapi.button.prev": "上一页",
-
   "_comment": "Text to draw",
   "guideapi.text.crafting.shaped": "普通配方",
   "guideapi.text.crafting.shapeless": "无形配方",

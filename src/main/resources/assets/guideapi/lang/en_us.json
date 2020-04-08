@@ -1,13 +1,11 @@
 {
   "_comment": "Item",
   "item.guideapi.book": "Guide Book",
-
   "_comment": "Button hovering text",
   "guideapi.button.back": "Back",
   "guideapi.button.next": "Next",
   "guideapi.button.prev": "Previous",
   "guideapi.button.search": "Search",
-
   "_comment": "Text to draw",
   "guideapi.text.crafting.shaped": "Shaped Crafting",
   "guideapi.text.crafting.shapeless": "Shapeless Crafting",
@@ -15,13 +13,11 @@
   "guideapi.text.linked.open": "Sneak + Use to open",
   "guideapi.text.brewing.brew": "Brewing",
   "guidepai.text.brewing.error": "&cError in the recipe",
-
   "_comment": "Test",
   "guideapi.test.format": "This i\\ns a formatting\\n\\ttest",
   "guideapi.test.category": "Test Category",
   "guideapi.test.entry": "Test Entry which is very very very long",
   "guideapi.test.string": "Some translated content string",
-
   "_comment": "Unused",
   "text.furnace.error": "&cError in the recipe",
   "text.book.warning": "&c[WARNING] Delete this item, it has no associated book!",

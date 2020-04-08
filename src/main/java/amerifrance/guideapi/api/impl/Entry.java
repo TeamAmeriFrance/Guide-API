@@ -13,10 +13,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.client.config.GuiUtils;
 
-import java.awt.Color;
-import java.util.Collections;
+import java.awt.*;
 import java.util.List;
 
 public class Entry extends EntryAbstract {
@@ -66,7 +64,7 @@ public class Entry extends EntryAbstract {
             cutString = true;
 
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight) && cutString) {
-            guiBase.renderTooltip(getLocalizedName(),entryX,entryY+12);
+            guiBase.renderTooltip(getLocalizedName(), entryX, entryY + 12);
         }
 
 

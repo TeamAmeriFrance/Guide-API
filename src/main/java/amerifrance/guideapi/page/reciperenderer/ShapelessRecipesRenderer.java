@@ -8,12 +8,8 @@ import amerifrance.guideapi.api.util.IngredientCycler;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class ShapelessRecipesRenderer extends CraftingRecipeRenderer<ShapelessRecipe> {
 
@@ -31,7 +27,7 @@ public class ShapelessRecipesRenderer extends CraftingRecipeRenderer<ShapelessRe
                 int stackY = (y + 1) * 17 + (guiTop + 38) + y;
                 if (i < recipe.getIngredients().size()) {
                     Ingredient ingredient = recipe.getIngredients().get(i);
-                    cycler.getCycledIngredientStack(ingredient,i).ifPresent(stack -> {
+                    cycler.getCycledIngredientStack(ingredient, i).ifPresent(stack -> {
                         GuiHelper.drawItemStack(stack, stackX, stackY);
                         if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                             tooltips = GuiHelper.getTooltip(stack);

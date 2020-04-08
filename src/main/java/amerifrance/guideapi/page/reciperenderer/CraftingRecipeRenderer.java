@@ -10,14 +10,9 @@ import amerifrance.guideapi.api.util.IngredientCycler;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.BaseScreen;
 import com.google.common.base.Strings;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
-
-import java.util.Optional;
-import java.util.Random;
 
 public abstract class CraftingRecipeRenderer<T extends IRecipe<?>> extends RecipeRendererBase<T> {
 

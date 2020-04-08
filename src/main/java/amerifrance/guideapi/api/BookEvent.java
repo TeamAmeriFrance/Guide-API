@@ -5,8 +5,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.eventbus.api.Cancelable;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Base class for all {@link Book} related events.
- *
+ * <p>
  * {@link #book} is the book being opened.
  * {@link #stack} is the ItemStack of the Book.
  * {@link #player} is the player opening the book.
@@ -45,7 +45,7 @@ public class BookEvent extends Event {
 
     /**
      * Called client side whenever a book is opened.
-     *
+     * <p>
      * {@link #canceledText} is a status message sent to the player when the book fails to open.
      */
     @Cancelable

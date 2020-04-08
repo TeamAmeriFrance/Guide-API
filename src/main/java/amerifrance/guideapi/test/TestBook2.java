@@ -8,22 +8,19 @@ import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
-import amerifrance.guideapi.page.*;
+import amerifrance.guideapi.page.PageBrewingRecipe;
+import amerifrance.guideapi.page.PageJsonRecipe;
+import amerifrance.guideapi.page.PageText;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
-import net.minecraft.potion.Potions;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.potion.PotionUtils;
-import net.minecraft.util.NonNullList;
+import net.minecraft.potion.Potions;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 
 @GuideBook
@@ -34,9 +31,8 @@ public class TestBook2 implements IGuideBook {
     @Nullable
     @Override
     public Book buildBook() {
-        BookBinder binder = new BookBinder(new ResourceLocation("guideapi","test_book2"));
-        binder.setAuthor("TehNut").setColor(new Color(80,50,5)).setItemName("Display Name").setHeader("Hello there").setSpawnWithBook().setGuideTitle("Title message").setContentProvider(this::buildContent);
-
+        BookBinder binder = new BookBinder(new ResourceLocation("guideapi", "test_book2"));
+        binder.setAuthor("TehNut").setColor(new Color(80, 50, 5)).setItemName("Display Name").setHeader("Hello there").setSpawnWithBook().setGuideTitle("Title message").setContentProvider(this::buildContent);
 
 
         return (book = binder.build());
@@ -48,12 +44,12 @@ public class TestBook2 implements IGuideBook {
         testCategory.getEntry("entry").addPage(new PageText("Hello, this is\nsome text"));
         //testCategory.getEntry("entry").addPage(new PageFurnaceRecipe(Blocks.COBBLESTONE));
         //testCategory.getEntry("entry").addPage(PageIRecipe.newShaped(new ItemStack(Items.ACACIA_BOAT), "X X", "XXX", 'X', new ItemStack(Blocks.ACACIA_PLANKS, 1, 4)));
-        testCategory.getEntry("entry").addPage(new PageBrewingRecipe(new BrewingRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)),Ingredient.fromStacks( new ItemStack(Items.GLISTERING_MELON_SLICE)), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.HEALING)))
+        testCategory.getEntry("entry").addPage(new PageBrewingRecipe(new BrewingRecipe(Ingredient.fromStacks(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.AWKWARD)), Ingredient.fromStacks(new ItemStack(Items.GLISTERING_MELON_SLICE)), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.HEALING)))
         );
         testCategory.getEntry("entry").addPage(new PageJsonRecipe(new ResourceLocation("bread")));
         testCategory.getEntry("entry").addPage(new PageJsonRecipe(new ResourceLocation("redstone")));
         testCategory.getEntry("entry").addPageList(PageHelper.pagesForLongText("guideapi.test.format"));
-        testCategory.addEntry("unicode",new EntryItemStack("Творческая книга",new ItemStack(Items.BEEF)));
+        testCategory.addEntry("unicode", new EntryItemStack("Творческая книга", new ItemStack(Items.BEEF)));
         testCategory.getEntry("unicode").addPage(new PageText("Творческая книга \u0F06"));
         categories.add(testCategory);
     }

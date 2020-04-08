@@ -7,7 +7,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -45,11 +45,11 @@ public class Book {
         this.creativeTab = creativeTab;
     }
 
-    public void initializeContent(){
-        if(!isInitialized){
-            LogHelper.debug("Opening book "+registryName.toString()+" for the first time -> Initializing content");
+    public void initializeContent() {
+        if (!isInitialized) {
+            LogHelper.debug("Opening book " + registryName.toString() + " for the first time -> Initializing content");
             contentProvider.accept(categories);
-            isInitialized=true;
+            isInitialized = true;
         }
     }
 
@@ -57,10 +57,10 @@ public class Book {
      * Can be used to force content initialisation independent of first use regardless of if it was initialized previously.
      * Use at own risk. Might cause crashes if the book is currently open.
      */
-    public void forceInitializeContent(){
-        LogHelper.info("Force initializing book content "+registryName.toString());
+    public void forceInitializeContent() {
+        LogHelper.info("Force initializing book content " + registryName.toString());
         categories.clear();
-        isInitialized=false;
+        isInitialized = false;
         initializeContent();
     }
 

@@ -23,21 +23,21 @@ public class PacketSyncHome {
         this.page = page;
     }
 
-    static void encode(PacketSyncHome msg, PacketBuffer buf){
+    static void encode(PacketSyncHome msg, PacketBuffer buf) {
         buf.writeInt(msg.page);
     }
 
-    static PacketSyncHome decode(PacketBuffer buf){
-        PacketSyncHome msg=new PacketSyncHome();
+    static PacketSyncHome decode(PacketBuffer buf) {
+        PacketSyncHome msg = new PacketSyncHome();
         msg.page = buf.readInt();
         return msg;
     }
 
-    public static void handle(final PacketSyncHome msg, Supplier<NetworkEvent.Context> contextSupplier){
-        final NetworkEvent.Context ctx=contextSupplier.get();
+    public static void handle(final PacketSyncHome msg, Supplier<NetworkEvent.Context> contextSupplier) {
+        final NetworkEvent.Context ctx = contextSupplier.get();
         ServerPlayerEntity player = ctx.getSender();
         Validate.notNull(player);
-        ctx.enqueueWork(()->{
+        ctx.enqueueWork(() -> {
             ItemStack book = player.getHeldItemOffhand();
             if (book.isEmpty() || !(book.getItem() instanceof IGuideItem))
                 book = player.getHeldItemMainhand();

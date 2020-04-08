@@ -7,7 +7,6 @@ import amerifrance.guideapi.api.impl.Book;
 import com.google.common.collect.Lists;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fml.ModList;
-
 import net.minecraftforge.forgespi.language.ModFileScanData;
 import org.apache.commons.lang3.tuple.Pair;
 import org.objectweb.asm.Type;
@@ -31,13 +30,12 @@ public class AnnotationHandler {
                 .collect(Collectors.toList());
 
 
-
         for (EventPriority priority : EventPriority.values())
-            for(ModFileScanData.AnnotationData data: annotations){
-                try{
+            for (ModFileScanData.AnnotationData data : annotations) {
+                try {
 
-                    EventPriority priority1 = (EventPriority) data.getAnnotationData().getOrDefault("priority",EventPriority.NORMAL);
-                    if(priority!=priority1)continue;
+                    EventPriority priority1 = (EventPriority) data.getAnnotationData().getOrDefault("priority", EventPriority.NORMAL);
+                    if (priority != priority1) continue;
                     Class<?> genericClass = Class.forName(data.getClassType().getClassName());
                     if (!IGuideBook.class.isAssignableFrom(genericClass))
                         continue;
@@ -48,7 +46,7 @@ public class AnnotationHandler {
                     APISetter.registerBook(book);
                     BOOK_CLASSES.add(Pair.of(book, guideBook));
 
-                }catch (Exception e) {
+                } catch (Exception e) {
                     LogHelper.error("Error registering book for class " + data.getClassType().getClassName());
                     e.printStackTrace();
                 }

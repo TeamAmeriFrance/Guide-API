@@ -2,10 +2,10 @@ package amerifrance.guideapi.api;
 
 import amerifrance.guideapi.api.impl.Book;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -25,8 +25,8 @@ public interface IGuideBook {
      */
     @Nullable
     @OnlyIn(Dist.CLIENT)
-    default ResourceLocation getModel(){
-        return new ResourceLocation("guideapi","guidebook");
+    default ResourceLocation getModel() {
+        return new ResourceLocation("guideapi", "guidebook");
     }
 
     /**

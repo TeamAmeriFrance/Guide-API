@@ -42,12 +42,11 @@ public class BaseScreen extends Screen {
 
     @Override
     public boolean keyPressed(int p_keyPressed_1_, int p_keyPressed_2_, int p_keyPressed_3_) {
-        if (minecraft!=null&&(p_keyPressed_1_ == GLFW.GLFW_KEY_ESCAPE || p_keyPressed_1_==this.minecraft.gameSettings.keyBindInventory.getKey().getKeyCode())) {
+        if (minecraft != null && (p_keyPressed_1_ == GLFW.GLFW_KEY_ESCAPE || p_keyPressed_1_ == this.minecraft.gameSettings.keyBindInventory.getKey().getKeyCode())) {
             this.onClose();
             this.minecraft.setGameFocused(true);
             return true;
-        }
-        else{
+        } else {
             return super.keyPressed(p_keyPressed_1_, p_keyPressed_2_, p_keyPressed_3_);
         }
     }
@@ -62,10 +61,10 @@ public class BaseScreen extends Screen {
         color3f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F);
         Tessellator tessellator = Tessellator.getInstance();
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getBuffer().pos((double) (x), (double) (y + height), (double) this.blitOffset).tex((double) ((float) (textureX) * f), (double) ((float) (textureY + height) * f1)).endVertex();
-        tessellator.getBuffer().pos((double) (x + width), (double) (y + height), (double) this.blitOffset).tex((double) ((float) (textureX + width) * f), (double) ((float) (textureY + height) * f1)).endVertex();
-        tessellator.getBuffer().pos((double) (x + width), (double) (y), (double) this.blitOffset).tex((double) ((float) (textureX + width) * f), (double) ((float) (textureY) * f1)).endVertex();
-        tessellator.getBuffer().pos((double) (x), (double) (y), (double) this.blitOffset).tex((double) ((float) (textureX) * f), (double) ((float) (textureY) * f1)).endVertex();
+        tessellator.getBuffer().pos(x, y + height, this.blitOffset).tex((float) (textureX) * f, (float) (textureY + height) * f1).endVertex();
+        tessellator.getBuffer().pos(x + width, y + height, this.blitOffset).tex((float) (textureX + width) * f, (float) (textureY + height) * f1).endVertex();
+        tessellator.getBuffer().pos(x + width, y, this.blitOffset).tex((float) (textureX + width) * f, (float) (textureY) * f1).endVertex();
+        tessellator.getBuffer().pos(x, y, this.blitOffset).tex((float) (textureX) * f, (float) (textureY) * f1).endVertex();
         tessellator.draw();
         disableBlend();
         popMatrix();
@@ -82,12 +81,12 @@ public class BaseScreen extends Screen {
         super.drawCenteredString(fontRendererObj, string, x, y, color);
     }
 
-    public void drawHoveringTextComponents(List<ITextComponent> tooltip , int mouseX, int mouseY){
-        this.drawHoveringText(tooltip.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList()), mouseX,mouseY);
+    public void drawHoveringTextComponents(List<ITextComponent> tooltip, int mouseX, int mouseY) {
+        this.drawHoveringText(tooltip.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList()), mouseX, mouseY);
     }
 
-    public void drawHoveringText(List<String> tooltip , int mouseX, int mouseY){
-        GuiUtils.drawHoveringText(tooltip,mouseX,mouseY,width,height,-1,font);
+    public void drawHoveringText(List<String> tooltip, int mouseX, int mouseY) {
+        GuiUtils.drawHoveringText(tooltip, mouseX, mouseY, width, height, -1, font);
     }
 
 

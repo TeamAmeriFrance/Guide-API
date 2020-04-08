@@ -1,6 +1,5 @@
 package amerifrance.guideapi.page;
 
-import amerifrance.guideapi.api.IRecipeRenderer;
 import amerifrance.guideapi.api.SubTexture;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.Page;
@@ -11,7 +10,6 @@ import amerifrance.guideapi.api.util.IngredientCycler;
 import amerifrance.guideapi.api.util.TextHelper;
 import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,8 +22,6 @@ import net.minecraftforge.common.brewing.BrewingRecipe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Random;
 
 public class PageBrewingRecipe extends Page {
 
@@ -80,7 +76,7 @@ public class PageBrewingRecipe extends Page {
         //start input
         int finalX = x;
         int finalY = y;
-        cycler.getCycledIngredientStack(ingredient,0).ifPresent(stack -> {
+        cycler.getCycledIngredientStack(ingredient, 0).ifPresent(stack -> {
             GuiHelper.drawItemStack(stack, finalX, finalY);
         });
 

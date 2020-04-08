@@ -1,13 +1,7 @@
 package amerifrance.guideapi.api.util;
 
 
-import amerifrance.guideapi.api.IRecipeRenderer;
-import amerifrance.guideapi.api.impl.Book;
-import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
-import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
@@ -25,8 +19,8 @@ public class IngredientCycler {
     private int cycleIdx = 0;
     private Random rand = new Random();
 
-    public void tick(@Nonnull Minecraft mc){
-        long time = mc.world!=null?mc.world.getGameTime():0;
+    public void tick(@Nonnull Minecraft mc) {
+        long time = mc.world != null ? mc.world.getGameTime() : 0;
         if (lastCycle < 0 || lastCycle < time - 20) {
             if (lastCycle > 0) {
                 cycleIdx++;
@@ -40,15 +34,16 @@ public class IngredientCycler {
      * Retrieves a itemstack that matches the ingredient.
      * Cycles though all matching stacks.
      * Must call {@link IngredientCycler#tick(Minecraft)} before (e.g. once per onDraw)
+     *
      * @param ingredient The ingredient
-     * @param index An "unique" id for this ingredient, so multiple ingredients can be cycled independently
+     * @param index      An "unique" id for this ingredient, so multiple ingredients can be cycled independently
      * @return Optional. Can be empty if ingredient is invalid and has no matching stacks
      */
-    public Optional<ItemStack> getCycledIngredientStack(@Nonnull Ingredient ingredient, int index){
+    public Optional<ItemStack> getCycledIngredientStack(@Nonnull Ingredient ingredient, int index) {
         ItemStack[] itemStacks = ingredient.getMatchingStacks();
-        if(itemStacks.length>0){
+        if (itemStacks.length > 0) {
             rand.setSeed(index);
-            int id = (index + rand.nextInt(itemStacks.length) + cycleIdx) %itemStacks.length;
+            int id = (index + rand.nextInt(itemStacks.length) + cycleIdx) % itemStacks.length;
             return Optional.of(itemStacks[id]);
         }
         return Optional.empty();

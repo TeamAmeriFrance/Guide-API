@@ -1,15 +1,15 @@
 package amerifrance.guideapi.proxy;
 
-import amerifrance.guideapi.gui.CategoryScreen;
-import amerifrance.guideapi.gui.HomeScreen;
 import amerifrance.guideapi.api.BookEvent;
 import amerifrance.guideapi.api.GuideAPI;
 import amerifrance.guideapi.api.IGuideItem;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
-import amerifrance.guideapi.gui.EntryScreen;
 import amerifrance.guideapi.api.util.NBTBookTags;
+import amerifrance.guideapi.gui.CategoryScreen;
+import amerifrance.guideapi.gui.EntryScreen;
+import amerifrance.guideapi.gui.HomeScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,7 +24,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void playSound(SoundEvent sound) {
-        Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(sound,1));
+        Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(sound, 1));
     }
 
     @Override
@@ -64,20 +64,20 @@ public class ClientProxy extends CommonProxy {
                         int pageNumber = tagCompound.getInt(NBTBookTags.PAGE_TAG);
                         EntryScreen guiEntry = new EntryScreen(book, category, entry, player, bookStack);
                         guiEntry.pageNumber = pageNumber;
-                        Minecraft.getInstance().displayGuiScreen( guiEntry);
+                        Minecraft.getInstance().displayGuiScreen(guiEntry);
                         return;
                     } else if (tagCompound.contains(NBTBookTags.CATEGORY_TAG)) {
                         CategoryAbstract category = book.getCategoryList().get(tagCompound.getInt(NBTBookTags.CATEGORY_TAG));
                         int entryPage = tagCompound.getInt(NBTBookTags.ENTRY_PAGE_TAG);
                         CategoryScreen guiCategory = new CategoryScreen(book, category, player, bookStack, null);
                         guiCategory.entryPage = entryPage;
-                        Minecraft.getInstance().displayGuiScreen( guiCategory);
+                        Minecraft.getInstance().displayGuiScreen(guiCategory);
                         return;
                     } else {
                         int categoryNumber = tagCompound.getInt(NBTBookTags.CATEGORY_PAGE_TAG);
                         HomeScreen guiHome = new HomeScreen(book, player, bookStack);
                         guiHome.categoryPage = categoryNumber;
-                        Minecraft.getInstance().displayGuiScreen( guiHome);
+                        Minecraft.getInstance().displayGuiScreen(guiHome);
                         return;
                     }
                 }

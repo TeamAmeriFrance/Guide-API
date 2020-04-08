@@ -19,7 +19,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.lwjgl.glfw.GLFW;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +39,7 @@ public class EntryScreen extends BaseScreen {
     public int pageNumber;
 
     public EntryScreen(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack) {
-        super(new TranslationTextComponent(entry.name),player, bookStack);
+        super(new TranslationTextComponent(entry.name), player, bookStack);
         this.book = book;
         this.category = category;
         this.entry = entry;
@@ -47,7 +47,7 @@ public class EntryScreen extends BaseScreen {
         this.outlineTexture = book.getOutlineTexture();
         this.pageNumber = 0;
     }
-    
+
 
     @Override
     public void init() {
@@ -58,23 +58,23 @@ public class EntryScreen extends BaseScreen {
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
-        addButton(buttonBack = new ButtonBack( guiLeft + xSize / 6, guiTop, (btn)-> {
+        addButton(buttonBack = new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
             this.minecraft.displayGuiScreen(new CategoryScreen(book, category, player, bookStack, entry));
 
-        },this));
-        addButton(buttonNext = new ButtonNext( guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn)->{
-            if(pageNumber+1 <pageWrapperList.size()){
+        }, this));
+        addButton(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
+            if (pageNumber + 1 < pageWrapperList.size()) {
                 nextPage();
             }
-        },this));
-        addButton(buttonPrev = new ButtonPrev( guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn)->{
-            if(pageNumber>0){
+        }, this));
+        addButton(buttonPrev = new ButtonPrev(guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn) -> {
+            if (pageNumber > 0) {
                 prevPage();
             }
-        },this));
-        addButton(buttonSearch = new ButtonSearch( (guiLeft + xSize / 6) - 25, guiTop + 5, (btn)->{
+        }, this));
+        addButton(buttonSearch = new ButtonSearch((guiLeft + xSize / 6) - 25, guiTop + 5, (btn) -> {
             this.minecraft.displayGuiScreen(new SearchScreen(book, player, bookStack, this));
-        },this));
+        }, this));
 
         for (IPage page : this.entry.pageList) {
             page.onInit(book, category, entry, player, bookStack, this);
@@ -109,7 +109,7 @@ public class EntryScreen extends BaseScreen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int typeofClick) {
-        if(!super.mouseClicked(mouseX, mouseY, typeofClick)){
+        if (!super.mouseClicked(mouseX, mouseY, typeofClick)) {
             for (PageWrapper wrapper : this.pageWrapperList) {
                 if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
                     if (typeofClick == 0) {
@@ -142,7 +142,7 @@ public class EntryScreen extends BaseScreen {
             prevPage();
 
 
-        return movement!=0||super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
+        return movement != 0 || super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
 
     }
 
@@ -151,12 +151,10 @@ public class EntryScreen extends BaseScreen {
         if (keyCode == GLFW.GLFW_KEY_BACKSPACE || keyCode == this.minecraft.gameSettings.keyBindUseItem.getKey().getKeyCode()) {
             this.minecraft.displayGuiScreen(new CategoryScreen(book, category, player, bookStack, entry));
             return true;
-        }
-        else if ((keyCode == GLFW.GLFW_KEY_UP || keyCode == GLFW.GLFW_KEY_RIGHT) && pageNumber + 1 < pageWrapperList.size()){
+        } else if ((keyCode == GLFW.GLFW_KEY_UP || keyCode == GLFW.GLFW_KEY_RIGHT) && pageNumber + 1 < pageWrapperList.size()) {
             nextPage();
             return true;
-        }
-        else if ((keyCode == GLFW.GLFW_KEY_DOWN || keyCode == GLFW.GLFW_KEY_LEFT) && pageNumber > 0){
+        } else if ((keyCode == GLFW.GLFW_KEY_DOWN || keyCode == GLFW.GLFW_KEY_LEFT) && pageNumber > 0) {
             prevPage();
             return true;
         }

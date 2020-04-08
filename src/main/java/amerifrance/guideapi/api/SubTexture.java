@@ -64,10 +64,10 @@ public class SubTexture {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder vertexbuffer = tessellator.getBuffer();
         vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        vertexbuffer.pos((double) drawX, (double) (drawY + height), zLevel).tex((double) ((float) xPos * someMagicValueFromMojang), (double) ((float) (yPos + height) * someMagicValueFromMojang)).endVertex();
-        vertexbuffer.pos((double) (drawX + width), (double) (drawY + height), zLevel).tex((double) ((float) (xPos + width) * someMagicValueFromMojang), (double) ((float) (yPos + height) * someMagicValueFromMojang)).endVertex();
-        vertexbuffer.pos((double) (drawX + width), (double) drawY, zLevel).tex((double) ((float) (xPos + width) * someMagicValueFromMojang), (double) ((float) yPos * someMagicValueFromMojang)).endVertex();
-        vertexbuffer.pos((double) drawX, (double) drawY, zLevel).tex((double) ((float) xPos * someMagicValueFromMojang), (double) ((float) yPos * someMagicValueFromMojang)).endVertex();
+        vertexbuffer.pos(drawX, drawY + height, zLevel).tex((float) xPos * someMagicValueFromMojang, (float) (yPos + height) * someMagicValueFromMojang).endVertex();
+        vertexbuffer.pos(drawX + width, drawY + height, zLevel).tex((float) (xPos + width) * someMagicValueFromMojang, (float) (yPos + height) * someMagicValueFromMojang).endVertex();
+        vertexbuffer.pos(drawX + width, drawY, zLevel).tex((float) (xPos + width) * someMagicValueFromMojang, (float) yPos * someMagicValueFromMojang).endVertex();
+        vertexbuffer.pos(drawX, drawY, zLevel).tex((float) xPos * someMagicValueFromMojang, (float) yPos * someMagicValueFromMojang).endVertex();
         tessellator.draw();
     }
 

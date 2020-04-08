@@ -1,13 +1,11 @@
 {
   "_comment": "Item",
   "item.guideapi.book": "Handbuch",
-
   "_comment": "Button hovering text",
   "guideapi.button.back": "Zurück",
   "guideapi.button.next": "Nächste",
   "guideapi.button.prev": "Vorherige",
   "guideapi.button.search": "Suche",
-
   "_comment": "Text to draw",
   "guideapi.text.crafting.shaped": "Crafting",
   "guideapi.text.crafting.shapeless": "Formloses Crafting",

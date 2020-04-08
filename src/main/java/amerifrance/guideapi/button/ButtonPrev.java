@@ -18,7 +18,7 @@ import java.util.List;
 public class ButtonPrev extends ButtonGuideAPI {
 
     public ButtonPrev(int widthIn, int heightIn, Button.IPressable onPress, BaseScreen guiBase) {
-        super(widthIn, heightIn, 18, 10, onPress,guiBase);
+        super(widthIn, heightIn, 18, 10, onPress, guiBase);
     }
 
     @Override
@@ -30,10 +30,10 @@ public class ButtonPrev extends ButtonGuideAPI {
             GlStateManager.disableLighting();
             Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) {
-                this.blit(x,y+1,47,214,18,10);
-                GuiUtils.drawHoveringText(getHoveringText(),mouseX,mouseY,guiBase.width,guiBase.height,-1,Minecraft.getInstance().fontRenderer);
+                this.blit(x, y + 1, 47, 214, 18, 10);
+                GuiUtils.drawHoveringText(getHoveringText(), mouseX, mouseY, guiBase.width, guiBase.height, -1, Minecraft.getInstance().fontRenderer);
             } else {
-                this.blit(x,y,24,214,18,10);
+                this.blit(x, y, 24, 214, 18, 10);
             }
             GlStateManager.disableBlend();
             RenderHelper.disableStandardItemLighting();

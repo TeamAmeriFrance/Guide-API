@@ -47,7 +47,7 @@ public class EventHandler {
             if (GuideConfig.COMMON.canSpawnWithBook.get()) {
                 for (Book book : GuideAPI.getBooks().values()) {
                     ForgeConfigSpec.BooleanValue bookSpawnConfig = GuideConfig.COMMON.SPAWN_BOOKS.get(book);
-                    if((bookSpawnConfig==null||bookSpawnConfig.get()) && !tag.getBoolean("hasInitial" + book.getRegistryName().toString())){
+                    if ((bookSpawnConfig == null || bookSpawnConfig.get()) && !tag.getBoolean("hasInitial" + book.getRegistryName().toString())) {
                         ItemHandlerHelper.giveItemToPlayer(player, GuideAPI.getStackFromBook(book));
                         tag.putBoolean("hasInitial" + book.getRegistryName().toString(), true);
                     }
@@ -81,7 +81,7 @@ public class EventHandler {
 
         if (book == null)
             return;
-        BlockPos rayTracePos=((BlockRayTraceResult)rayTrace).getPos();
+        BlockPos rayTracePos = ((BlockRayTraceResult) rayTrace).getPos();
         BlockState state = world.getBlockState(rayTracePos);
         String linkedEntry = null;
         if (state.getBlock() instanceof IGuideLinked) {

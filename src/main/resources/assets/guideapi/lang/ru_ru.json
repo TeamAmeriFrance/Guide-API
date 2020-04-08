@@ -1,12 +1,10 @@
 {
   "_comment": "Item",
   "item.guideapi.book": "Стандартная книга Guide-API",
-
   "_comment": "Button hovering text",
   "guideapi.button.back": "Назад",
   "guideapi.button.next": "След.",
   "guideapi.button.prev": "Пред.",
-
   "_comment": "Text to draw",
   "guideapi.text.crafting.shaped": "Форменное создание",
   "guideapi.text.crafting.shapeless": "Бесформенное создание",

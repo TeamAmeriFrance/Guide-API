@@ -20,16 +20,17 @@ public class PageItemStack extends PageText {
     private IngredientCycler ingredientCycler = new IngredientCycler();
 
 
-    public PageItemStack(String draw, Ingredient ingredient){
-        super(draw,60);
-        this.ingredient=ingredient;
+    public PageItemStack(String draw, Ingredient ingredient) {
+        super(draw, 60);
+        this.ingredient = ingredient;
     }
+
     /**
-     * @param draw  - Unlocalized text to draw
+     * @param draw       - Unlocalized text to draw
      * @param ingredient - ItemStack to render
      */
     public PageItemStack(String draw, ItemStack ingredient) {
-        this(draw,Ingredient.fromStacks(ingredient));
+        this(draw, Ingredient.fromStacks(ingredient));
     }
 
     /**
@@ -53,7 +54,7 @@ public class PageItemStack extends PageText {
     @OnlyIn(Dist.CLIENT)
     public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         ingredientCycler.tick(guiBase.getMinecraft());
-        ingredientCycler.getCycledIngredientStack(ingredient,0).ifPresent(stack -> {
+        ingredientCycler.getCycledIngredientStack(ingredient, 0).ifPresent(stack -> {
             GuiHelper.drawScaledItemStack(stack, guiLeft + 101, guiTop + 20, 3);
         });
     }

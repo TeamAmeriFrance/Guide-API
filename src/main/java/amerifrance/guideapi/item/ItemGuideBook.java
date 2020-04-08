@@ -68,7 +68,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
         ItemStack heldStack = player.getHeldItem(hand);
 
         //Only handle book client side
-        if(!world.isRemote())return ActionResult.newResult(ActionResultType.SUCCESS,heldStack);
+        if (!world.isRemote()) return ActionResult.newResult(ActionResultType.SUCCESS, heldStack);
 
 
         BookEvent.Open event = new BookEvent.Open(book, heldStack, player);
@@ -76,7 +76,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
             player.sendStatusMessage(event.getCanceledText(), true);
             return ActionResult.newResult(ActionResultType.FAIL, heldStack);
         }
-        GuideMod.PROXY.openGuidebook(player,world,book,heldStack);
+        GuideMod.PROXY.openGuidebook(player, world, book, heldStack);
         return ActionResult.newResult(ActionResultType.SUCCESS, heldStack);
     }
 
@@ -90,7 +90,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
 
         if (state.getBlock() instanceof IGuideLinked) {
             IGuideLinked guideLinked = (IGuideLinked) state.getBlock();
-            ResourceLocation entryKey = guideLinked.getLinkedEntry(context.getWorld(), context.getPos(),context.getPlayer(), stack);
+            ResourceLocation entryKey = guideLinked.getLinkedEntry(context.getWorld(), context.getPos(), context.getPlayer(), stack);
             if (entryKey == null)
                 return ActionResultType.FAIL;
 

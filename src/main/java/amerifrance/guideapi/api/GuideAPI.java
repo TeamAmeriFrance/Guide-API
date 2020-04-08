@@ -3,15 +3,8 @@ package amerifrance.guideapi.api;
 import amerifrance.guideapi.api.impl.Book;
 import com.google.common.collect.*;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemModelMesher;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
 
 import java.util.List;
 import java.util.Map;
@@ -41,7 +34,7 @@ public class GuideAPI {
      */
     public static void registerInfoRenderer(Book book, IInfoRenderer infoRenderer, Class<? extends Block>... blockClasses) {
         if (!INFO_RENDERERS.containsKey(book))
-            INFO_RENDERERS.put(book, ArrayListMultimap.<Class<? extends Block>, IInfoRenderer>create());
+            INFO_RENDERERS.put(book, ArrayListMultimap.create());
 
         for (Class<? extends Block> blockClass : blockClasses)
             INFO_RENDERERS.get(book).put(blockClass, infoRenderer);

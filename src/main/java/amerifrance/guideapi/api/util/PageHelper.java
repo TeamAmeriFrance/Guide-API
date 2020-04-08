@@ -1,7 +1,6 @@
 package amerifrance.guideapi.api.util;
 
 import amerifrance.guideapi.api.IPage;
-import amerifrance.guideapi.api.impl.Page;
 import amerifrance.guideapi.gui.BaseScreen;
 import amerifrance.guideapi.page.PageItemStack;
 import amerifrance.guideapi.page.PageText;
@@ -14,38 +13,37 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PageHelper {
-    
 
 
     /**
      * Split the given text into multiple section if it does not fit one page.
      * The first page can have a different number of lines than the subsequent ones if desired
      * Insert new line characters to wrap the text to the available line width.
-     * @param locText Text to process
-     * @param lineWidth Available width (pixel)
-     * @param firstHeight Available height on the first page (pixel)
+     *
+     * @param locText          Text to process
+     * @param lineWidth        Available width (pixel)
+     * @param firstHeight      Available height on the first page (pixel)
      * @param subsequentHeight Available height on subsequent pages (pixel)
      * @return Each list element should be drawn on a individual page. Lines are wrapped using '\n'
      */
-    public static List<String> prepareForLongText(String locText, int lineWidth, int firstHeight, int subsequentHeight){
+    public static List<String> prepareForLongText(String locText, int lineWidth, int firstHeight, int subsequentHeight) {
         FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-        int firstCount = firstHeight/fontRenderer.FONT_HEIGHT;
-        int count = subsequentHeight/fontRenderer.FONT_HEIGHT;
-        List<String> lines = new ArrayList<>(fontRenderer.listFormattedStringToWidth(locText,lineWidth)); //Create a new list from returned list so we can later remove items
+        int firstCount = firstHeight / fontRenderer.FONT_HEIGHT;
+        int count = subsequentHeight / fontRenderer.FONT_HEIGHT;
+        List<String> lines = new ArrayList<>(fontRenderer.listFormattedStringToWidth(locText, lineWidth)); //Create a new list from returned list so we can later remove items
         List<String> pages = new ArrayList<>();
 
-        List<String> pageLines = lines.size()>firstCount ? lines.subList(0,firstCount):lines;
-        pages.add(StringUtils.join( pageLines, "\n"));
+        List<String> pageLines = lines.size() > firstCount ? lines.subList(0, firstCount) : lines;
+        pages.add(StringUtils.join(pageLines, "\n"));
         pageLines.clear();
-        while(lines.size()>0){
-            pageLines = lines.size()>count ? lines.subList(0,count):lines;
-            pages.add(StringUtils.join(pageLines,"\n"));
+        while (lines.size() > 0) {
+            pageLines = lines.size() > count ? lines.subList(0, count) : lines;
+            pages.add(StringUtils.join(pageLines, "\n"));
             pageLines.clear();
         }
         return pages;
@@ -54,14 +52,13 @@ public class PageHelper {
     /**
      * Spread the text over multiple pages if necessary. Display ingredient at first page
      */
-    public static List<IPage> pagesForLongText(String locText, Ingredient ingredient){
-        List<String> pageText = prepareForLongText(locText,164,79,120);
+    public static List<IPage> pagesForLongText(String locText, Ingredient ingredient) {
+        List<String> pageText = prepareForLongText(locText, 164, 79, 120);
         List<IPage> pageList = new ArrayList<>();
-        for(int i=0;i<pageText.size();i++){
-            if(i==0){
-                pageList.add(new PageItemStack(pageText.get(i),ingredient));
-            }
-            else{
+        for (int i = 0; i < pageText.size(); i++) {
+            if (i == 0) {
+                pageList.add(new PageItemStack(pageText.get(i), ingredient));
+            } else {
                 pageList.add(new PageText(pageText.get(i)));
             }
         }
@@ -69,9 +66,9 @@ public class PageHelper {
     }
 
 
-    public static List<IPage> pagesForLongText(String locText){
+    public static List<IPage> pagesForLongText(String locText) {
         List<IPage> pageList = new ArrayList<>();
-        prepareForLongText(locText,164,120,120).forEach(t->pageList.add(new PageText(t)));
+        prepareForLongText(locText, 164, 120, 120).forEach(t -> pageList.add(new PageText(t)));
         return pageList;
     }
 
@@ -109,7 +106,7 @@ public class PageHelper {
 
     /**
      * @param locText - Text
-     * @param item   - The stack to put on the first page
+     * @param item    - The stack to put on the first page
      * @return a list of IPages with the text cut to fit on page
      */
     public static List<IPage> pagesForLongText(String locText, ItemStack item) {
@@ -125,8 +122,7 @@ public class PageHelper {
         if (recipe1 == recipe2) return true;
         if (recipe1 == null || recipe2 == null || recipe1.getClass() != recipe2.getClass()) return false;
         if (recipe1.equals(recipe2)) return true;
-        if (!recipe1.getRecipeOutput().isItemEqual(recipe2.getRecipeOutput())) return false;
+        return recipe1.getRecipeOutput().isItemEqual(recipe2.getRecipeOutput());
 //        if (recipe1.getRecipeSize() != recipe2.getRecipeSize()) return false;//FN was removed, there is no size now
-        return true;
     }
 }

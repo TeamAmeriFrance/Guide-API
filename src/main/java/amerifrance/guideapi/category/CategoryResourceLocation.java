@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.client.config.GuiUtils;
 
 import java.util.Map;
 
@@ -39,7 +38,7 @@ public class CategoryResourceLocation extends Category {
     @OnlyIn(Dist.CLIENT)
     public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
         if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight))
-            guiBase.renderTooltip(this.getTooltip(),mouseX,mouseY);
+            guiBase.renderTooltip(this.getTooltip(), mouseX, mouseY);
     }
 
     @Override

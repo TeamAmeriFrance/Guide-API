@@ -6,10 +6,9 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.forgespi.language.IModInfo;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -45,7 +44,7 @@ public class BookBinder {
      * @param contentProvider The consumer. Categories are displayed in which they are added to the provided list
      * @return the builder instance for chaining.
      */
-    public BookBinder setContentProvider(Consumer<List<CategoryAbstract>> contentProvider){
+    public BookBinder setContentProvider(Consumer<List<CategoryAbstract>> contentProvider) {
         this.contentProvider = contentProvider;
         return this;
     }
@@ -63,7 +62,7 @@ public class BookBinder {
 
     /**
      * Sets the header text of this book. The header is displayed at the top of the home page above the category listing.
-     *
+     * <p>
      * By default, this is the same as {@link #guideTitle}.
      *
      * @param header The header text to display.
@@ -76,7 +75,7 @@ public class BookBinder {
 
     /**
      * Sets the unlocalized name for the item containing this book.
-     *
+     * <p>
      * By default, this is the same as {@link #guideTitle}.
      *
      * @param itemName The unlocalized name for this item.
@@ -90,7 +89,7 @@ public class BookBinder {
     /**
      * The author of this book. If your books are lore-heavy, using an actual author name is acceptable. If not, you can
      * just use your mod name.
-     *
+     * <p>
      * By default, this uses the name of the mod container obtained from looking up the domain of {@link #registryName}.
      *
      * @param author The author of this book.
@@ -104,7 +103,7 @@ public class BookBinder {
     /**
      * The texture to use for the pages themselves. These are un-colored and drawn just how they appear in the texture file.
      * The dimensions should remain the same as the default texture.
-     *
+     * <p>
      * By default, this uses the same page texture as vanilla books.
      *
      * @param pageTexture The page texture to use for this guide.
@@ -118,7 +117,7 @@ public class BookBinder {
     /**
      * The texture to use for the border of the book. These are colored with {@link #color}. The dimensions should remain
      * the same as the default texture.
-     *
+     * <p>
      * By default, this uses a greyscale version of the outline of vanilla books.
      *
      * @param outlineTexture The outline texture to use for this guide.
@@ -131,7 +130,7 @@ public class BookBinder {
 
     /**
      * Indicates that the item containing this book has a custom model that you will manually register.
-     *
+     * <p>
      * By default, a generic book model will be registered and colored with {@link #color}.
      *
      * @return the builder instance for chaining.
@@ -143,7 +142,7 @@ public class BookBinder {
 
     /**
      * Sets the color to overlay on the book model and GUI border.
-     *
+     * <p>
      * By default, this is a reddish-brown color.
      *
      * @param color The color to overlay with.
@@ -157,10 +156,9 @@ public class BookBinder {
     /**
      * An overload that takes an RGB color instead of a {@link Color} instance.
      *
-     * @see #setColor(int)
-     *
      * @param color The color to overlay with.
      * @return the builder instance for chaining.
+     * @see #setColor(int)
      */
     public BookBinder setColor(int color) {
         return setColor(new Color(color));
@@ -169,7 +167,7 @@ public class BookBinder {
     /**
      * Sets the default config option for whether new players should spawn with this book in their inventory. Players may
      * override this in the config if they wish.
-     *
+     * <p>
      * By default, books will not spawn in the player's inventory.
      *
      * @return the builder instance for chaining.
@@ -181,7 +179,7 @@ public class BookBinder {
 
     /**
      * Sets the Creative Tab this book should appear in.
-     *
+     * <p>
      * By default, all books will appear in {@link ItemGroup#MISC}.
      *
      * @param creativeTab The creative tab this book should display in.
@@ -194,6 +192,7 @@ public class BookBinder {
 
     /**
      * Constructs a book from the given data. Will modify specific values if not set so they have defaults.
+     *
      * @return a constructed book.
      */
     public Book build() {
@@ -206,8 +205,8 @@ public class BookBinder {
         if (this.itemName == null)
             this.itemName = guideTitle.substring(5);
 
-        if(contentProvider ==null){
-            throw new IllegalStateException("Content supplier of book "+registryName.toString()+" must be provided");
+        if (contentProvider == null) {
+            throw new IllegalStateException("Content supplier of book " + registryName.toString() + " must be provided");
         }
 
         return new Book(contentProvider, guideTitle, header, itemName, author, pageTexture, outlineTexture, hasCustomModel, color, spawnWithBook, registryName, creativeTab);

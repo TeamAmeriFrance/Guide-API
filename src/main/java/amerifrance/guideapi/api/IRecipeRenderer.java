@@ -1,23 +1,18 @@
 package amerifrance.guideapi.api;
 
-import amerifrance.guideapi.api.util.IngredientCycler;
-import amerifrance.guideapi.gui.BaseScreen;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.util.IngredientCycler;
+import amerifrance.guideapi.gui.BaseScreen;
 import com.google.common.collect.Lists;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Random;
 
 public interface IRecipeRenderer {
 
