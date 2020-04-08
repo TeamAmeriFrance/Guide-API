@@ -45,6 +45,7 @@ dependencies {
     ])
     compileOnly fg.deobf("mezz.jei:jei-${project.minecraft_version}:${project.jei_version}:api") //API for compile
     runtimeOnly fg.deobf("mezz.jei:jei-${project.minecraft_version}:${project.jei_version}") //Full for runtime
+    //runtimeClasspath 'com.electronwill.night-config:hocon:3.6.2'
 }
 
 sourceSets {

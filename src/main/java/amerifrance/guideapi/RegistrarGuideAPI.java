@@ -31,7 +31,7 @@ public class RegistrarGuideAPI {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         AnnotationHandler.gatherBooks();
-
+        GuideConfig.buildConfiguration();//Build configuration now that we know all added books
         for (Book book : GuideAPI.getBooks().values()) {
             Item guideBook = new ItemGuideBook(book);
             guideBook.setRegistryName(book.getRegistryName().toString().replace(":", "-"));

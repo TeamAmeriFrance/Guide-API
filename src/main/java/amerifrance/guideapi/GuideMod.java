@@ -46,6 +46,9 @@ public class GuideMod {
     }
 
     private void setup(final FMLCommonSetupEvent event){
+        if(GuideConfig.COMMON==null){
+           throw new IllegalStateException("Did not build configuration, before configuration load. Make sure to call GuideConfig#buildConfiguration during one of the registry events");
+        }
         PacketHandler.registerPackets();
     }
 

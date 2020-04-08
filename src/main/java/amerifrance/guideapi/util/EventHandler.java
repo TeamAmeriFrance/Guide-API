@@ -28,6 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -43,12 +44,13 @@ public class EventHandler {
         if (!event.getEntity().world.isRemote && event.getEntity() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) event.getEntity();
             CompoundNBT tag = getModTag(player, GuideMod.ID);
-            if (GuideConfig.SERVER.canSpawnWithBook.get()) {
+            if (GuideConfig.COMMON.canSpawnWithBook.get()) {
                 for (Book book : GuideAPI.getBooks().values()) {
-                    //if (ConfigHandler.SPAWN_BOOKS.getOrDefault(book, false) && !tag.getBoolean("hasInitial" + book.getTitle())) { TODO
+                    ForgeConfigSpec.BooleanValue bookSpawnConfig = GuideConfig.COMMON.SPAWN_BOOKS.get(book);
+                    if((bookSpawnConfig==null||bookSpawnConfig.get()) && !tag.getBoolean("hasInitial" + book.getRegistryName().toString())){
                         ItemHandlerHelper.giveItemToPlayer(player, GuideAPI.getStackFromBook(book));
-                        tag.putBoolean("hasInitial" + book.getTitle(), true);
-                    //}
+                        tag.putBoolean("hasInitial" + book.getRegistryName().toString(), true);
+                    }
                 }
             }
         }
