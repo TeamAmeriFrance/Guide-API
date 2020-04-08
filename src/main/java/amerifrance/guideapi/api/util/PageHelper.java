@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PageHelper {
@@ -35,7 +36,8 @@ public class PageHelper {
         FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
         int firstCount = firstHeight / fontRenderer.FONT_HEIGHT;
         int count = subsequentHeight / fontRenderer.FONT_HEIGHT;
-        List<String> lines = new ArrayList<>(fontRenderer.listFormattedStringToWidth(locText, lineWidth)); //Create a new list from returned list so we can later remove items
+        List<String> lines = new ArrayList<>();
+        Arrays.stream(locText.split("\n")).forEach(l -> lines.addAll(fontRenderer.listFormattedStringToWidth(l, lineWidth))); //Make sure to also split at manually specified newlines
         List<String> pages = new ArrayList<>();
 
         List<String> pageLines = lines.size() > firstCount ? lines.subList(0, firstCount) : lines;
@@ -53,7 +55,7 @@ public class PageHelper {
      * Spread the text over multiple pages if necessary. Display ingredient at first page
      */
     public static List<IPage> pagesForLongText(String locText, Ingredient ingredient) {
-        List<String> pageText = prepareForLongText(locText, 164, 79, 120);
+        List<String> pageText = prepareForLongText(locText, 164, 81, 120);
         List<IPage> pageList = new ArrayList<>();
         for (int i = 0; i < pageText.size(); i++) {
             if (i == 0) {
@@ -68,7 +70,7 @@ public class PageHelper {
 
     public static List<IPage> pagesForLongText(String locText) {
         List<IPage> pageList = new ArrayList<>();
-        prepareForLongText(locText, 164, 120, 120).forEach(t -> pageList.add(new PageText(t)));
+        prepareForLongText(locText, 164, 126, 126).forEach(t -> pageList.add(new PageText(t)));
         return pageList;
     }
 
@@ -78,7 +80,7 @@ public class PageHelper {
         toDraw = StringEscapeUtils.unescapeJava(toDraw).replaceAll("\\t", "     ");
         String[] lines = toDraw.split("\n");
         for (String line : lines) {
-            List<String> cutLines = fontRenderer.listFormattedStringToWidth(line, 2 * guiBase.xSize / 3);
+            List<String> cutLines = fontRenderer.listFormattedStringToWidth(line, 170);
             for (String cut : cutLines) {
                 fontRenderer.drawString(cut, x, y, 0);
                 y += 10;
