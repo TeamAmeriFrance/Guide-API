@@ -59,9 +59,8 @@ public class HomeScreen extends BaseScreen {
             minecraft.displayGuiScreen(new SearchScreen(book, player, bookStack, this));
         }, this));
 
-        int cX = guiLeft + 45;
+        int cX = guiLeft + 55;
         int cY = guiTop + 40;
-        int drawLoc = 0;
         int i = 0;
         int pageNumber = 0;
 
@@ -70,39 +69,13 @@ public class HomeScreen extends BaseScreen {
                 continue;
 
             category.onInit(book, this, player, bookStack);
-            switch (drawLoc) {
-                case 0: {
-                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.font, itemRenderer, false, bookStack));
-                    cX += 27;
-                    drawLoc = 1;
-                    break;
-                }
-                case 1: {
-                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.font, itemRenderer, false, bookStack));
-                    cX += 27;
-                    drawLoc = 2;
-                    break;
-                }
-                case 2: {
-                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.font, itemRenderer, false, bookStack));
-                    cX += 27;
-                    drawLoc = 3;
-                    break;
-                }
-                case 3: {
-                    categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX, cY, 23, 23, player, this.font, itemRenderer, false, bookStack));
-                    drawLoc = 0;
-                    cX = guiLeft + 45;
-                    cY += 30;
-                    break;
-                }
-            }
+            int x = i % 5;
+            int y = i / 5;
+            categoryWrapperMap.put(pageNumber, new CategoryWrapper(book, category, cX + x * 27, cY + y * 30, 23, 23, player, this.font, itemRenderer, false, bookStack));
             i++;
 
-            if (i >= 16) {
+            if (i >= 20) {
                 i = 0;
-                cX = guiLeft + 45;
-                cY = guiTop + 40;
                 pageNumber++;
             }
         }

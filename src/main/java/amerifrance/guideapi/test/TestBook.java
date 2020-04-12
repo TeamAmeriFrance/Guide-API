@@ -68,5 +68,11 @@ public class TestBook implements IGuideBook {
         Entry entry = new EntryItemStack(pages, "guideapi.test.entry", new ItemStack(Items.POTATO));
         entries.put(new ResourceLocation("guideapi", "entry"), entry);
         categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.ACACIA_DOOR)));
+        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.PUMPKIN)));
+        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.WOODEN_AXE)));
+        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.SPRUCE_WOOD)));
+        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.BONE_MEAL)));
+        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.WHEAT)));
+
     }
 }
