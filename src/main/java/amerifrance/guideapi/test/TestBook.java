@@ -4,27 +4,28 @@ import amerifrance.guideapi.api.GuideBook;
 import amerifrance.guideapi.api.IGuideBook;
 import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.BookBinder;
 import amerifrance.guideapi.api.impl.Entry;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.category.CategoryItemStack;
 import amerifrance.guideapi.entry.EntryItemStack;
-import amerifrance.guideapi.page.PageFurnaceRecipe;
-import amerifrance.guideapi.page.PageIRecipe;
-import amerifrance.guideapi.page.PageJsonRecipe;
-import amerifrance.guideapi.page.PageText;
+import amerifrance.guideapi.page.*;
+import amerifrance.guideapi.page.reciperenderer.ShapedRecipesRenderer;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapedRecipe;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 import java.util.Map;
 
@@ -36,35 +37,42 @@ public class TestBook implements IGuideBook {
     @Nullable
     @Override
     public Book buildBook() {
-        book = new Book();
-        book.setAuthor("TehNut");
-        book.setColor(Color.GRAY);
-        book.setDisplayName("Display Name");
-        book.setTitle("Title message");
-        book.setWelcomeMessage("Is this still a thing?");
+        BookBinder binder = new BookBinder(new ResourceLocation("guideapi", "test_book"));
+        binder.setAuthor("TehNut").setColor(Color.PINK).setItemName("Display Name").setHeader("Hello there").setGuideTitle("Title message").setSpawnWithBook().setContentProvider(this::buildContent);
+        return (book = binder.build());
+    }
 
-        List<CategoryAbstract> categories = Lists.newArrayList();
+    private void buildContent(List<CategoryAbstract> categories) {
+
         Map<ResourceLocation, EntryAbstract> entries = Maps.newHashMap();
 
         List<IPage> pages = Lists.newArrayList();
-        pages.add(new PageText("Hello, this is\nsome text"));
-        pages.add(new PageFurnaceRecipe(Blocks.COBBLESTONE));
-        pages.add(PageIRecipe.newShaped(new ItemStack(Items.ACACIA_BOAT), "X X", "XXX", 'X', "plankWood"));
+        pages.add(new PageText("Hello, this is\nsome text with a new line."));
+        pages.add(new PageText("Hello, this is some text without a new line. It is long so it should probably be automaticall wrapped"));
+        pages.addAll(PageHelper.pagesForLongText("Hello, this is some text. It is very long so it should be split across multiple pages. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."));
+        pages.addAll(PageHelper.pagesForLongText("Hello, this is some text. It is very long so it should be split across multiple pages. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.", Items.COAL_BLOCK));
+
+        pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "stone")));
+        pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "charcoal")));
+
+        pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "stick"), recipe -> recipe instanceof ShapedRecipe ? new ShapedRecipesRenderer((ShapedRecipe) recipe) : null)); //Probably want to use your own method as render supplier and print proper logs
+
+        pages.add(new PageIRecipe(new ShapedRecipe(new ResourceLocation("guideapi", "test11"), "test", 1, 1, NonNullList.from(Ingredient.EMPTY, Ingredient.fromStacks(new ItemStack(Items.PUMPKIN))), new ItemStack(Blocks.OAK_LOG))));
         pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "acacia_fence")));
-        Entry entry = new EntryItemStack(pages, "test.entry.name", new ItemStack(Items.POTATO));
+        pages.add(new PageItemStack("These are all logs", Ingredient.fromTag(ItemTags.LOGS)));
+        pages.add(new PageTextImage("guideapi.test.string", new ResourceLocation("guideapi", "textures/gui/testimage.png"), true));
+        pages.add(new PageTextImage("guideapi.test.string", new ResourceLocation("guideapi", "textures/gui/testimage.png"), false));
+        pages.add(new PageImage(new ResourceLocation("guideapi", "textures/gui/testimage.png")));
+
+
+        Entry entry = new EntryItemStack(pages, "guideapi.test.entry", new ItemStack(Items.POTATO));
         entries.put(new ResourceLocation("guideapi", "entry"), entry);
+        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.ACACIA_DOOR)));
+        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.PUMPKIN)));
+        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.WOODEN_AXE)));
+        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.SPRUCE_WOOD)));
+        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.BONE_MEAL)));
+        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.WHEAT)));
 
-        pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.IRON_BLOCK), "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron", "ingotIron"));
-        pages.add(PageIRecipe.newShapeless(new ItemStack(Blocks.PLANKS, 4), new ItemStack(Blocks.LOG)));
-
-        categories.add(new CategoryItemStack(entries, "test.category.name", new ItemStack(Items.BANNER)));
-        book.setCategoryList(categories);
-        book.setRegistryName(new ResourceLocation("guideapi", "test_book"));
-        return book;
-    }
-
-    @Override
-    public IRecipe getRecipe(@Nonnull ItemStack bookStack) {
-        return new ShapedOreRecipe(null, bookStack, " X ", "X X", " X ", 'X', "ingotIron").setRegistryName(book.getRegistryName());
     }
 }

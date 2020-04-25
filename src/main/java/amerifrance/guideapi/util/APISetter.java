@@ -6,8 +6,7 @@ import amerifrance.guideapi.api.impl.Book;
 import com.google.common.base.Throwables;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.ModLoadingContext;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -73,8 +72,8 @@ public class APISetter {
     }
 
     private static void sanityCheck() throws IllegalAccessException {
-        ModContainer activeMod = Loader.instance().activeModContainer();
-        if (!activeMod.getModId().equals(GuideMod.ID))
-            throw new IllegalAccessException("Mod " + activeMod.getModId() + " tried to access an internal-only method in GuideAPI. Please report this.");
+        String activeMod = ModLoadingContext.get().getActiveNamespace();
+        if (!GuideMod.ID.equals(activeMod))
+            throw new IllegalAccessException("Mod " + activeMod + " tried to access an internal-only method in GuideAPI. Please report this.");
     }
 }

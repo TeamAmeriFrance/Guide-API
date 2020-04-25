@@ -1,13 +1,13 @@
 package amerifrance.guideapi.api;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class SubTexture {
 
@@ -55,23 +55,23 @@ public class SubTexture {
         this.height = height;
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void draw(int drawX, int drawY, double zLevel) {
         final float someMagicValueFromMojang = 0.00390625F;
 
-        Minecraft.getMinecraft().renderEngine.bindTexture(textureLocation);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        Minecraft.getInstance().getTextureManager().bindTexture(textureLocation);
+        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder vertexbuffer = tessellator.getBuffer();
         vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        vertexbuffer.pos((double) drawX, (double) (drawY + height), zLevel).tex((double) ((float) xPos * someMagicValueFromMojang), (double) ((float) (yPos + height) * someMagicValueFromMojang)).endVertex();
-        vertexbuffer.pos((double) (drawX + width), (double) (drawY + height), zLevel).tex((double) ((float) (xPos + width) * someMagicValueFromMojang), (double) ((float) (yPos + height) * someMagicValueFromMojang)).endVertex();
-        vertexbuffer.pos((double) (drawX + width), (double) drawY, zLevel).tex((double) ((float) (xPos + width) * someMagicValueFromMojang), (double) ((float) yPos * someMagicValueFromMojang)).endVertex();
-        vertexbuffer.pos((double) drawX, (double) drawY, zLevel).tex((double) ((float) xPos * someMagicValueFromMojang), (double) ((float) yPos * someMagicValueFromMojang)).endVertex();
+        vertexbuffer.pos(drawX, drawY + height, zLevel).tex((float) xPos * someMagicValueFromMojang, (float) (yPos + height) * someMagicValueFromMojang).endVertex();
+        vertexbuffer.pos(drawX + width, drawY + height, zLevel).tex((float) (xPos + width) * someMagicValueFromMojang, (float) (yPos + height) * someMagicValueFromMojang).endVertex();
+        vertexbuffer.pos(drawX + width, drawY, zLevel).tex((float) (xPos + width) * someMagicValueFromMojang, (float) yPos * someMagicValueFromMojang).endVertex();
+        vertexbuffer.pos(drawX, drawY, zLevel).tex((float) xPos * someMagicValueFromMojang, (float) yPos * someMagicValueFromMojang).endVertex();
         tessellator.draw();
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void draw(int drawX, int drawY) {
         draw(drawX, drawY, 0.1D);
     }

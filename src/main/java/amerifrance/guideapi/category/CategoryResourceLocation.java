@@ -4,12 +4,12 @@ import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.Category;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Map;
 
@@ -28,17 +28,17 @@ public class CategoryResourceLocation extends Category {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(resourceLocation);
+    @OnlyIn(Dist.CLIENT)
+    public void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
+        Minecraft.getInstance().getTextureManager().bindTexture(resourceLocation);
         GuiHelper.drawSizedIconWithoutColor(categoryX, categoryY, 48, 48, 0);
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, GuiBase guiBase, boolean drawOnLeft, RenderItem renderItem) {
+    @OnlyIn(Dist.CLIENT)
+    public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
         if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight))
-            guiBase.drawHoveringText(this.getTooltip(), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
+            guiBase.renderTooltip(this.getTooltip(), mouseX, mouseY);
     }
 
     @Override

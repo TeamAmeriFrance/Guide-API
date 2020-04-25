@@ -2,11 +2,10 @@ package amerifrance.guideapi.info;
 
 import amerifrance.guideapi.api.IInfoRenderer;
 import amerifrance.guideapi.api.impl.Book;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -29,9 +28,8 @@ public class InfoRendererImage implements IInfoRenderer {
     }
 
     @Override
-    public void drawInformation(Book book, World world, BlockPos pos, IBlockState state, RayTraceResult rayTrace, EntityPlayer player) {
-        ScaledResolution resolution = new ScaledResolution(Minecraft.getMinecraft());
-        Minecraft.getMinecraft().renderEngine.bindTexture(image);
-        Gui.drawModalRectWithCustomSizedTexture(resolution.getScaledWidth() / 2 + 20, resolution.getScaledHeight() / 2 - imageHeight / 2, imageX, imageY, imageWidth, imageHeight, imageWidth, imageHeight);
+    public void drawInformation(Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player) {
+        Minecraft.getInstance().textureManager.bindTexture(image);
+        AbstractGui.blit(Minecraft.getInstance().mainWindow.getScaledWidth() / 2 + 20, Minecraft.getInstance().mainWindow.getScaledHeight() / 2 - imageHeight / 2, imageX, imageY, imageWidth, imageHeight, imageWidth, imageHeight);
     }
 }

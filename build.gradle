@@ -1,19 +1,27 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url = "http://files.minecraftforge.net/maven" }
-        maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
     }
+
+    
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
+
 
 plugins {
-    id 'com.matthewprenger.cursegradle' version '1.1.2'
-    id "net.minecraftforge.gradle.forge" version "2.0.2"
+    id 'com.matthewprenger.cursegradle' version '1.2.0'
 }
 
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 def build_number = 'CUSTOM'
@@ -23,46 +31,96 @@ if (System.getenv('BUILD_NUMBER') != null)
 
 group = package_group
 archivesBaseName = mod_name
-version = "${mc_version}-${mod_version}-${build_number}"
+version = "${minecraft_version}-${mod_version}-${build_number}"
 
 repositories {
     maven { url = "http://dvs1.progwml6.com/files/maven" }
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
+    minecraft([
+            group: "net.minecraftforge",
+            name: "forge",
+            version: "${project.minecraft_version}-${project.forge_version}"
+    ])
+    compileOnly fg.deobf("mezz.jei:jei-${project.minecraft_version}:${project.jei_version}:api") //API for compile
+    runtimeOnly fg.deobf("mezz.jei:jei-${project.minecraft_version}:${project.jei_version}") //Full for runtime
+    //runtimeClasspath 'com.electronwill.night-config:hocon:3.6.2'
 }
+
+sourceSets {
+
+    main {
+        java {
+            srcDirs = ["$rootDir/src/main/java"]
+        }
+        resources {
+            srcDirs = [
+                    "$rootDir/src/main/resources"
+            ]
+        }
+    }
+}
+
 
 minecraft {
-    version = "${mc_version}-${forge_version}"
-    runDir = "run"
+    mappings channel: "${project.mcp_channel}".toString(), version: "${project.mcp_mappings}".toString()
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
-    replace "@VERSION@", project.version
-    replaceIn "GuideMod.java"
-    replace "@API_VERSION@", "${api_version}"
-    replaceIn "package-info.java"
+    runs {
+        client {
+            taskName 'runClient1'
+            main 'net.minecraftforge.userdev.LaunchTesting'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            workingDirectory project.file('run/client1').canonicalPath
+            
+            mods {
+                guideapi {
+                    source sourceSets.main
+                }
+            }
 
-    if (project.hasProperty('mappings_version'))
-        mappings = project.mappings_version
+        }
+        server = {
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            workingDirectory project.file('run/server').canonicalPath
+
+            mods {
+                guideapi {
+                    source sourceSets.main
+                }
+
+            }
+        }
+    }
+
 }
 
+
+
 processResources {
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+    inputs.property "version", project.mod_version
 
     from(sourceSets.main.resources.srcDirs) {
-        include '**/*.info'
-        include '**/*.properties'
+        include 'META-INF/mods.toml'
 
-        expand 'version': project.version, 'mcversion': project.minecraft.version
+        expand 'version': project.mod_version, 'mcversion': minecraft_version, 'forge_version': forge_version
     }
+
     from(sourceSets.main.resources.srcDirs) {
-        exclude '**/*.info'
-        exclude '**/*.properties'
+        exclude 'META-INF/mods.toml'
     }
 }
 
 jar {
+    //Keep the jar as clean as possible
+    includeEmptyDirs = false
+
+    from sourceSets.main.output.classesDirs
+    from sourceSets.main.output.resourcesDir
+
     classifier = ''
     manifest.mainAttributes(
             "Built-By": System.getProperty('user.name'),
@@ -73,15 +131,7 @@ jar {
     exclude 'amerifrance/guideapi/test/**/*'
 }
 
-// API jar
-task apiJar(type: Jar) {
-    from sourceSets.main.allSource
-    from sourceSets.main.output
-    include 'amerifrance/guideapi/api/**/*'
-    classifier = 'api'
-}
 
-tasks.build.dependsOn apiJar
 
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
@@ -92,7 +142,6 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifact jar
-            artifact sourceJar
         }
     }
     repositories {
@@ -140,6 +189,14 @@ curseforge {
         changelog = getChangelogText()
         releaseType = 'beta'
  
-        addArtifact sourceJar
+    }
+}
+
+idea {
+    module {
+        for (String excludeDirName in ["run", "out", "logs", "gradle"]) {
+            File excludeDir = new File(projectDir, excludeDirName)
+            excludeDirs.add(excludeDir)
+        }
     }
 }

@@ -4,61 +4,67 @@ import amerifrance.guideapi.api.GuideAPI;
 import amerifrance.guideapi.api.IGuideBook;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.network.PacketHandler;
+import amerifrance.guideapi.proxy.ClientProxy;
 import amerifrance.guideapi.proxy.CommonProxy;
 import amerifrance.guideapi.util.AnnotationHandler;
-import net.minecraft.launchwrapper.Launch;
+import amerifrance.guideapi.util.ReloadCommand;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.command.CommandSource;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.discovery.ASMDataTable;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.io.File;
-
-@Mod(modid = GuideMod.ID, name = GuideMod.NAME, version = GuideMod.VERSION)
+@Mod(value = GuideMod.ID)
 public class GuideMod {
 
     public static final String NAME = "Guide-API";
     public static final String ID = "guideapi";
     public static final String CHANNEL = "GuideAPI";
     public static final String VERSION = "@VERSION@";
-    public static final boolean IS_DEV = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
+    public static boolean inDev = false;
 
-    @Mod.Instance(ID)
     public static GuideMod INSTANCE;
 
-    @SidedProxy(clientSide = "amerifrance.guideapi.proxy.ClientProxy", serverSide = "amerifrance.guideapi.proxy.CommonProxy")
-    public static CommonProxy PROXY;
+    public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
-    public static File configDir;
-    public static ASMDataTable dataTable;
-
-    @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        configDir = new File(event.getModConfigurationDirectory(), NAME);
-        configDir.mkdirs();
-        ConfigHandler.init(new File(configDir, NAME + ".cfg"));
-
+    public GuideMod() {
+        INSTANCE = this;
+        checkDevEnv();
         GuideAPI.initialize();
-        dataTable = event.getAsmData();
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
+        MinecraftForge.EVENT_BUS.addListener(this::onServerStarting);
+    }
 
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, PROXY);
+    private void setup(final FMLCommonSetupEvent event) {
+        if (GuideConfig.COMMON == null) {
+            throw new IllegalStateException("Did not build configuration, before configuration load. Make sure to call GuideConfig#buildConfiguration during one of the registry events");
+        }
         PacketHandler.registerPackets();
     }
 
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {
+    private void loadComplete(final FMLLoadCompleteEvent event) {
         PROXY.initColors();
-    }
-
-    @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
-        ConfigHandler.handleBookConfigs();
 
         for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES)
             guide.getRight().handlePost(GuideAPI.getStackFromBook(guide.getLeft()));
+    }
+
+    private void checkDevEnv() {
+        String launchTarget = System.getenv().get("target");
+        if (launchTarget != null && launchTarget.contains("dev")) {
+            inDev = true;
+        }
+    }
+
+    private void onServerStarting(FMLServerStartingEvent event) {
+        if (inDev) {
+            event.getCommandDispatcher().register(LiteralArgumentBuilder.<CommandSource>literal("guide-api").then(ReloadCommand.register()));
+        }
     }
 }

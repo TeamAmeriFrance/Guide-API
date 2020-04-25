@@ -3,12 +3,8 @@ package amerifrance.guideapi.api;
 import amerifrance.guideapi.api.impl.Book;
 import com.google.common.collect.*;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 import java.util.Map;
@@ -38,45 +34,10 @@ public class GuideAPI {
      */
     public static void registerInfoRenderer(Book book, IInfoRenderer infoRenderer, Class<? extends Block>... blockClasses) {
         if (!INFO_RENDERERS.containsKey(book))
-            INFO_RENDERERS.put(book, ArrayListMultimap.<Class<? extends Block>, IInfoRenderer>create());
+            INFO_RENDERERS.put(book, ArrayListMultimap.create());
 
         for (Class<? extends Block> blockClass : blockClasses)
             INFO_RENDERERS.get(book).put(blockClass, infoRenderer);
-    }
-
-    /**
-     * Helper method for setting a model for your book.
-     * <p>
-     * Use if you wish to use a custom model.
-     * <p>
-     * Only call <b>AFTER</b> you have registered your book.
-     *
-     * @param book        - Book to set model for
-     * @param modelLoc    - Location of the model file
-     * @param variantName - Variant to use
-     */
-    @SideOnly(Side.CLIENT)
-    public static void setModel(Book book, ResourceLocation modelLoc, String variantName) {
-        ModelResourceLocation mrl = new ModelResourceLocation(modelLoc, variantName);
-        ModelLoader.setCustomModelResourceLocation(
-                getStackFromBook(book).getItem(),
-                0,
-                mrl
-        );
-    }
-
-    /**
-     * Helper method for setting a model for your book.
-     * <p>
-     * Use if you wish to use the default model with color.
-     * <p>
-     * Only call <b>AFTER</b> you have registered your book.
-     *
-     * @param book - Book to set model for
-     */
-    @SideOnly(Side.CLIENT)
-    public static void setModel(Book book) {
-        setModel(book, new ResourceLocation("guideapi", "ItemGuideBook"), "inventory");
     }
 
     public static void initialize() {

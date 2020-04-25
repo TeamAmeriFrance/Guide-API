@@ -4,26 +4,26 @@ import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.Book;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
-import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.gui.GuiEntry;
+import amerifrance.guideapi.gui.BaseScreen;
+import amerifrance.guideapi.gui.EntryScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class PageWrapper extends AbstractWrapper {
 
-    public GuiEntry guiEntry;
+    public EntryScreen guiEntry;
     public Book book;
     public CategoryAbstract category;
     public EntryAbstract entry;
     public IPage page;
     public int guiLeft, guiTop;
-    public EntityPlayer player;
+    public PlayerEntity player;
     public FontRenderer renderer;
     public ItemStack bookStack;
 
-    public PageWrapper(GuiEntry guiEntry, Book book, CategoryAbstract category, EntryAbstract entry, IPage page, int guiLeft, int guiTop, EntityPlayer player, FontRenderer renderer, ItemStack bookStack) {
+    public PageWrapper(EntryScreen guiEntry, Book book, CategoryAbstract category, EntryAbstract entry, IPage page, int guiLeft, int guiTop, PlayerEntity player, FontRenderer renderer, ItemStack bookStack) {
         this.guiEntry = guiEntry;
         this.book = book;
         this.category = category;
@@ -46,17 +46,17 @@ public class PageWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void draw(int mouseX, int mouseY, GuiBase gui) {
-        page.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, gui, Minecraft.getMinecraft().fontRenderer);
+    public void draw(int mouseX, int mouseY, BaseScreen gui) {
+        page.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, gui, Minecraft.getInstance().fontRenderer);
     }
 
     @Override
-    public void drawExtras(int mouseX, int mouseY, GuiBase gui) {
-        page.drawExtras(book, category, entry, guiLeft, guiTop, mouseX, mouseY, gui, Minecraft.getMinecraft().fontRenderer);
+    public void drawExtras(int mouseX, int mouseY, BaseScreen gui) {
+        page.drawExtras(book, category, entry, guiLeft, guiTop, mouseX, mouseY, gui, Minecraft.getInstance().fontRenderer);
     }
 
     @Override
-    public boolean isMouseOnWrapper(int mouseX, int mouseY) {
+    public boolean isMouseOnWrapper(double mouseX, double mouseY) {
         return true;
     }
 }

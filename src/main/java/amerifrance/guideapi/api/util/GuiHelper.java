@@ -1,22 +1,24 @@
 package amerifrance.guideapi.api.util;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.Color;
 import java.util.List;
 
-import static net.minecraft.client.renderer.GlStateManager.*;
+import static com.mojang.blaze3d.platform.GlStateManager.*;
+
 
 public class GuiHelper {
-    private static final RenderItem render = Minecraft.getMinecraft().getRenderItem();
+    private static final ItemRenderer render = Minecraft.getInstance().getItemRenderer();
 
     /**
      * @param mouseX - Position of the mouse on the x-axiq
@@ -27,7 +29,7 @@ public class GuiHelper {
      * @param height - Height of the rectangle
      * @return whether or not the mouse is in the rectangle
      */
-    public static boolean isMouseBetween(int mouseX, int mouseY, int x, int y, int width, int height) {
+    public static boolean isMouseBetween(double mouseX, double mouseY, int x, int y, int width, int height) {
         int xSize = x + width;
         int ySize = y + height;
         return (mouseX >= x && mouseX <= xSize && mouseY >= y && mouseY <= ySize);
@@ -44,9 +46,9 @@ public class GuiHelper {
         blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderHelper.enableGUIStandardItemLighting();
         enableRescaleNormal();
-        enableDepth();
+        enableDepthTest();
         render.renderItemAndEffectIntoGUI(stack, x, y);
-        render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRenderer, stack, x, y, null);
+        render.renderItemOverlayIntoGUI(Minecraft.getInstance().fontRenderer, stack, x, y, null);
         RenderHelper.disableStandardItemLighting();
         popMatrix();
         disableLighting();
@@ -62,10 +64,10 @@ public class GuiHelper {
         pushMatrix();
         enableBlend();
         blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        scale(scale, scale, 1.0F);
+        scalef(scale, scale, 1.0F);
         RenderHelper.enableGUIStandardItemLighting();
         enableRescaleNormal();
-        enableDepth();
+        enableDepthTest();//enableDepth?
         render.renderItemAndEffectIntoGUI(stack, (int) (x / scale), (int) (y / scale));
         RenderHelper.disableStandardItemLighting();
         popMatrix();
@@ -85,7 +87,7 @@ public class GuiHelper {
         RenderHelper.enableGUIStandardItemLighting();
         disableLighting();
         enableRescaleNormal();
-        enableDepth();
+        enableDepthTest();
         Tessellator tessellator = Tessellator.getInstance();
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
         tessellator.getBuffer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
@@ -112,8 +114,8 @@ public class GuiHelper {
         RenderHelper.enableGUIStandardItemLighting();
         disableLighting();
         enableRescaleNormal();
-        enableDepth();
-        color((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
+        enableDepthTest();
+        color4f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
         Tessellator tessellator = Tessellator.getInstance();
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
         tessellator.getBuffer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
@@ -122,7 +124,7 @@ public class GuiHelper {
         tessellator.getBuffer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        color(1.0F, 1.0F, 1.0F, 1.0F);
+        color4f(1.0F, 1.0F, 1.0F, 1.0F);
         popMatrix();
     }
 
@@ -137,13 +139,13 @@ public class GuiHelper {
         pushMatrix();
         enableBlend();
         blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        color(1F, 1F, 1F, 1F);
-        scale(0.5D, 0.5D, 0.5D);
-        translate(x, y, zLevel);
+        color4f(1F, 1F, 1F, 1F);
+        scaled(0.5D, 0.5D, 0.5D);
+        translated(x, y, zLevel);
         RenderHelper.enableGUIStandardItemLighting();
         disableLighting();
         enableRescaleNormal();
-        enableDepth();
+        enableDepthTest();
         Tessellator tessellator = Tessellator.getInstance();
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
         tessellator.getBuffer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
@@ -166,13 +168,13 @@ public class GuiHelper {
         pushMatrix();
         enableBlend();
         blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        scale(0.5D, 0.5D, 0.5D);
-        color((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
-        translate(x, y, zLevel);
+        scaled(0.5D, 0.5D, 0.5D);
+        color4f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
+        translated(x, y, zLevel);
         RenderHelper.enableGUIStandardItemLighting();
         disableLighting();
         enableRescaleNormal();
-        enableDepth();
+        enableDepthTest();
         Tessellator tessellator = Tessellator.getInstance();
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
         tessellator.getBuffer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
@@ -185,14 +187,14 @@ public class GuiHelper {
     }
 
     @SuppressWarnings("unchecked")
-    public static List<String> getTooltip(ItemStack stack) {
-        Minecraft mc = Minecraft.getMinecraft();
-        List<String> list = stack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? TooltipFlags.ADVANCED : TooltipFlags.NORMAL);
+    public static List<ITextComponent> getTooltip(ItemStack stack) {
+        Minecraft mc = Minecraft.getInstance();
+        List<ITextComponent> list = stack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? TooltipFlags.ADVANCED : TooltipFlags.NORMAL);
         for (int k = 0; k < list.size(); ++k) {
             if (k == 0) {
-                list.set(k, stack.getRarity().rarityColor + list.get(k));
+                list.get(k).applyTextStyle(stack.getRarity().color);
             } else {
-                list.set(k, TextFormatting.GRAY + list.get(k));
+                list.get(k).applyTextStyle(TextFormatting.GRAY);
             }
         }
         return list;

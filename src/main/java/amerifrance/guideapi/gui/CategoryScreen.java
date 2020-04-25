@@ -12,22 +12,18 @@ import amerifrance.guideapi.network.PacketSyncCategory;
 import amerifrance.guideapi.wrapper.EntryWrapper;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-
-import java.awt.Color;
-import java.io.IOException;
-import java.util.List;
+import net.minecraft.util.text.TranslationTextComponent;
+import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nullable;
+import java.awt.*;
+import java.util.List;
 
-public class GuiCategory extends GuiBase {
+public class CategoryScreen extends BaseScreen {
 
     public ResourceLocation outlineTexture;
     public ResourceLocation pageTexture;
@@ -39,10 +35,11 @@ public class GuiCategory extends GuiBase {
     public ButtonPrev buttonPrev;
     public ButtonSearch buttonSearch;
     public int entryPage;
-    @Nullable public EntryAbstract startEntry;
+    @Nullable
+    public EntryAbstract startEntry;
 
-    public GuiCategory(Book book, CategoryAbstract category, EntityPlayer player, ItemStack bookStack, @Nullable EntryAbstract startEntry) {
-        super(player, bookStack);
+    public CategoryScreen(Book book, CategoryAbstract category, PlayerEntity player, ItemStack bookStack, @Nullable EntryAbstract startEntry) {
+        super(new TranslationTextComponent(category.name), player, bookStack);
         this.book = book;
         this.category = category;
         this.pageTexture = book.getPageTexture();
@@ -52,18 +49,28 @@ public class GuiCategory extends GuiBase {
     }
 
     @Override
-    public void initGui() {
-        super.initGui();
-        this.buttonList.clear();
+    public void init() {
         this.entryWrapperMap.clear();
 
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
-        this.buttonList.add(buttonBack = new ButtonBack(0, guiLeft + xSize / 6, guiTop, this));
-        this.buttonList.add(buttonNext = new ButtonNext(1, guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, this));
-        this.buttonList.add(buttonPrev = new ButtonPrev(2, guiLeft + xSize / 5, guiTop + 5 * ySize / 6, this));
-        this.buttonList.add(buttonSearch = new ButtonSearch(3, (guiLeft + xSize / 6) - 25, guiTop + 5, this));
+        addButton(buttonBack = new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
+            this.minecraft.displayGuiScreen(new HomeScreen(book, player, bookStack));
+        }, this));
+        addButton(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
+            if (entryPage + 1 < entryWrapperMap.asMap().size()) {
+                nextPage();
+            }
+        }, this));
+        addButton(buttonPrev = new ButtonPrev(guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn) -> {
+            if (entryPage > 0) {
+                prevPage();
+            }
+        }, this));
+        addButton(buttonSearch = new ButtonSearch((guiLeft + xSize / 6) - 25, guiTop + 5, (btn) -> {
+            this.minecraft.displayGuiScreen(new SearchScreen(book, player, bookStack, this));
+        }, this));
 
         int eX = guiLeft + 37;
         int eY = guiTop + 15;
@@ -72,7 +79,7 @@ public class GuiCategory extends GuiBase {
         List<EntryAbstract> entries = Lists.newArrayList(category.entries.values());
         for (EntryAbstract entry : entries) {
             entry.onInit(book, category, this, player, bookStack);
-            entryWrapperMap.put(pageNumber, new EntryWrapper(this, book, category, entry, eX, eY, 4 * xSize / 6, 10, player, this.fontRenderer, bookStack));
+            entryWrapperMap.put(pageNumber, new EntryWrapper(this, book, category, entry, eX, eY, 4 * xSize / 6, 10, player, this.font, bookStack));
             if (entry.equals(this.startEntry)) {
                 this.startEntry = null;
                 this.entryPage = pageNumber;
@@ -89,10 +96,10 @@ public class GuiCategory extends GuiBase {
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float renderPartialTicks) {
-        Minecraft.getMinecraft().getTextureManager().bindTexture(pageTexture);
-        drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(outlineTexture);
+    public void render(int mouseX, int mouseY, float renderPartialTicks) {
+        minecraft.getTextureManager().bindTexture(pageTexture);
+        blit(guiLeft, guiTop, 0, 0, xSize, ySize);
+        minecraft.getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
         entryPage = MathHelper.clamp(entryPage, 0, entryWrapperMap.size() - 1);
@@ -107,18 +114,18 @@ public class GuiCategory extends GuiBase {
             }
         }
 
-        drawCenteredString(fontRenderer, String.format("%d/%d", entryPage + 1, entryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
-        drawCenteredStringWithShadow(fontRenderer, category.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
+        drawCenteredString(font, String.format("%d/%d", entryPage + 1, entryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        drawCenteredStringWithShadow(font, category.getLocalizedName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = entryPage != 0;
         buttonNext.visible = entryPage != entryWrapperMap.asMap().size() - 1 && !entryWrapperMap.asMap().isEmpty();
 
-        super.drawScreen(mouseX, mouseY, renderPartialTicks);
+        super.render(mouseX, mouseY, renderPartialTicks);
     }
 
     @Override
-    public void mouseClicked(int mouseX, int mouseY, int typeofClick) throws IOException {
-        super.mouseClicked(mouseX, mouseY, typeofClick);
+    public boolean mouseClicked(double mouseX, double mouseY, int typeofClick) {
+        boolean ret = super.mouseClicked(mouseX, mouseY, typeofClick);
 
         for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
             if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
@@ -129,46 +136,41 @@ public class GuiCategory extends GuiBase {
         }
 
         if (typeofClick == 1)
-            this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
+            this.minecraft.displayGuiScreen(new HomeScreen(book, player, bookStack));
+        return ret;
     }
 
     @Override
-    public void handleMouseInput() throws IOException {
-        super.handleMouseInput();
-
-        int movement = Mouse.getEventDWheel();
+    public boolean mouseScrolled(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double movement) {
         if (movement < 0)
             nextPage();
         else if (movement > 0)
             prevPage();
+
+        return movement != 0 || super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
     }
 
     @Override
-    public void keyTyped(char typedChar, int keyCode) {
-        super.keyTyped(typedChar, keyCode);
-        if (keyCode == Keyboard.KEY_BACK || keyCode == this.mc.gameSettings.keyBindUseItem.getKeyCode())
-            this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
-        if ((keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_RIGHT) && entryPage + 1 < entryWrapperMap.asMap().size())
+    public boolean keyPressed(int keyCode, int p_keyPressed_2_, int p_keyPressed_3_) {
+        if (keyCode == GLFW.GLFW_KEY_BACKSPACE || keyCode == this.minecraft.gameSettings.keyBindUseItem.getKey().getKeyCode()) {
+            this.minecraft.displayGuiScreen(new HomeScreen(book, player, bookStack));
+            return true;
+        } else if ((keyCode == GLFW.GLFW_KEY_UP || keyCode == GLFW.GLFW_KEY_RIGHT) && entryPage + 1 < entryWrapperMap.asMap().size()) {
+
+
             nextPage();
-        if ((keyCode == Keyboard.KEY_DOWN || keyCode == Keyboard.KEY_LEFT) && entryPage > 0)
+            return true;
+        } else if ((keyCode == GLFW.GLFW_KEY_DOWN || keyCode == GLFW.GLFW_KEY_LEFT) && entryPage > 0) {
             prevPage();
+            return true;
+        }
+        return super.keyPressed(keyCode, p_keyPressed_2_, p_keyPressed_3_);
     }
 
-    @Override
-    public void actionPerformed(GuiButton button) {
-        if (button.id == 0)
-            this.mc.displayGuiScreen(new GuiHome(book, player, bookStack));
-        else if (button.id == 1 && entryPage + 1 < entryWrapperMap.asMap().size())
-            nextPage();
-        else if (button.id == 2 && entryPage > 0)
-            prevPage();
-        else if (button.id == 3)
-            this.mc.displayGuiScreen(new GuiSearch(book, player, bookStack, this));
-    }
 
     @Override
-    public void onGuiClosed() {
-        super.onGuiClosed();
+    public void onClose() {
+        super.onClose();
 
         PacketHandler.INSTANCE.sendToServer(new PacketSyncCategory(book.getCategoryList().indexOf(category), entryPage));
     }

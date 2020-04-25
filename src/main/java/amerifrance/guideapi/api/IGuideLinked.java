@@ -1,6 +1,6 @@
 package amerifrance.guideapi.api;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -18,5 +18,5 @@ public interface IGuideLinked {
      * @return the key of the entry to open or null if no entry should be opened
      */
     @Nullable
-    ResourceLocation getLinkedEntry(World world, BlockPos pos, EntityPlayer player, ItemStack stack);
+    ResourceLocation getLinkedEntry(World world, BlockPos pos, PlayerEntity player, ItemStack stack);
 }

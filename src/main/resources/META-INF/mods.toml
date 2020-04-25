@@ -1,0 +1,19 @@
+modLoader="javafml"
+loaderVersion="[27,)"
+issueTrackerURL="https://github.com/TeamAmeriFrance/Guide-API/issues"
+
+[[mods]]
+    modId="guideapi"
+    namespace="guideapi"
+    version="${version}"
+    displayName="Guide-API"
+    authors="Tombenpotter, TehNut, Maxanier"
+    credits=""
+    description="Simple mod guide creation"
+    updateJSONURL="https://maxanier.de/projects/vampirism/versions.json"
+    [[dependencies.guideeapi]]
+        modId="forge"
+        mandatory=true
+        versionRange="[${forge_version},)"
+        ordering="NONE"
+        side="BOTH"

@@ -5,11 +5,12 @@ import amerifrance.guideapi.api.impl.Page;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
-import amerifrance.guideapi.gui.GuiBase;
+import amerifrance.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.resources.I18n;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.ForgeI18n;
+
 
 public class PageText extends Page {
 
@@ -26,21 +27,15 @@ public class PageText extends Page {
     }
 
     public PageText(String draw) {
-        this(draw, 0);
+        this(draw, 5);
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRendererObj) {
-        boolean startFlag = fontRendererObj.getUnicodeFlag();
+    @OnlyIn(Dist.CLIENT)
+    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
 
-        if (unicode)
-            fontRendererObj.setUnicodeFlag(true);
+        PageHelper.drawFormattedText(guiLeft + 44, guiTop + 12 + yOffset, guiBase, ForgeI18n.getPattern(draw));
 
-        PageHelper.drawFormattedText(guiLeft + 39, guiTop + 12 + yOffset, guiBase, I18n.format(draw));
-
-        if (unicode && !startFlag)
-            fontRendererObj.setUnicodeFlag(false);
     }
 
     @Override

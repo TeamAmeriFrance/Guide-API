@@ -2,9 +2,9 @@ package amerifrance.guideapi.api;
 
 import amerifrance.guideapi.api.impl.Book;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,23 +21,12 @@ public interface IGuideBook {
     Book buildBook();
 
     /**
-     * Use this to handle setting the model of your book. Only exists on the client.
-     *
-     * @param bookStack - The ItemStack assigned to your book.
-     */
-    @SideOnly(Side.CLIENT)
-    default void handleModel(@Nonnull ItemStack bookStack) {
-        GuideAPI.setModel(((IGuideItem) bookStack.getItem()).getBook(bookStack));
-    }
-
-    /**
-     * An IRecipe to use for your book. Called from {@link net.minecraftforge.event.RegistryEvent.Register<IRecipe>}
-     *
-     * @return an IRecipe to register for your book or null to not include one.
+     * @return The resource location of your own model or null if you want handle rendering yourself somehow
      */
     @Nullable
-    default IRecipe getRecipe(@Nonnull ItemStack bookStack) {
-        return null;
+    @OnlyIn(Dist.CLIENT)
+    default ResourceLocation getModel() {
+        return new ResourceLocation("guideapi", "guidebook");
     }
 
     /**
