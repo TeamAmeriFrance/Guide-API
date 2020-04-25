@@ -39,7 +39,6 @@ public class GuideMod {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
         MinecraftForge.EVENT_BUS.addListener(this::onServerStarting);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onServerStarting);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
