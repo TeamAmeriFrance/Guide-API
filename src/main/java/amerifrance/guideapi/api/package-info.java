@@ -1,2 +1,0 @@
-package amerifrance.guideapi.api;
-

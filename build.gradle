@@ -8,7 +8,7 @@ buildscript {
         }
     }
 
-    
+
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
@@ -17,180 +17,36 @@ buildscript {
 
 plugins {
     id 'com.matthewprenger.cursegradle' version '1.2.0'
+    id 'de.undercouch.download' version '3.3.0'
+    id 'com.wynprice.cursemaven' version '2.1.1'
 }
 
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
 
-def build_number = 'CUSTOM'
 
-if (System.getenv('BUILD_NUMBER') != null)
-    build_number = System.getenv('BUILD_NUMBER')
-
-group = package_group
-archivesBaseName = mod_name
-version = "${minecraft_version}-${mod_version}-${build_number}"
-
-repositories {
-    maven { url = "http://dvs1.progwml6.com/files/maven" }
+configurations {
+    optionalRuntime
+    runtime.extendsFrom optionalRuntime // optionalRuntime dependencies are downloaded but not exported to POM
 }
 
-dependencies {
-    minecraft([
-            group: "net.minecraftforge",
-            name: "forge",
-            version: "${project.minecraft_version}-${project.forge_version}"
-    ])
-    compileOnly fg.deobf("mezz.jei:jei-${project.minecraft_version}:${project.jei_version}:api") //API for compile
-    runtimeOnly fg.deobf("mezz.jei:jei-${project.minecraft_version}:${project.jei_version}") //Full for runtime
-    //runtimeClasspath 'com.electronwill.night-config:hocon:3.6.2'
-}
-
-sourceSets {
-
-    main {
-        java {
-            srcDirs = ["$rootDir/src/main/java"]
-        }
-        resources {
-            srcDirs = [
-                    "$rootDir/src/main/resources"
-            ]
-        }
-    }
-}
-
-
-minecraft {
-    mappings channel: "${project.mcp_channel}".toString(), version: "${project.mcp_mappings}".toString()
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-
-    runs {
-        client {
-            taskName 'runClient1'
-            main 'net.minecraftforge.userdev.LaunchTesting'
-            property 'forge.logging.console.level', 'debug'
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            workingDirectory project.file('run/client1').canonicalPath
-            
-            mods {
-                guideapi {
-                    source sourceSets.main
-                }
-            }
-
-        }
-        server = {
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            workingDirectory project.file('run/server').canonicalPath
-
-            mods {
-                guideapi {
-                    source sourceSets.main
-                }
-
-            }
-        }
-    }
-
-}
+group = "de.maxanier.guideapi"
+archivesBaseName = "Guide-API-VP"
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+ext.mod_version="Test"
+ext.type="test"
 
 
 
-processResources {
-    inputs.property "version", project.mod_version
 
-    from(sourceSets.main.resources.srcDirs) {
-        include 'META-INF/mods.toml'
-
-        expand 'version': project.mod_version, 'mcversion': minecraft_version, 'forge_version': forge_version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'META-INF/mods.toml'
-    }
-}
-
-jar {
-    //Keep the jar as clean as possible
-    includeEmptyDirs = false
-
-    from sourceSets.main.output.classesDirs
-    from sourceSets.main.output.resourcesDir
-
-    classifier = ''
-    manifest.mainAttributes(
-            "Built-By": System.getProperty('user.name'),
-            "Created-By": "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})",
-            "Implementation-Title": project.name,
-            "Implementation-Version": project.version
-    )
-    exclude 'amerifrance/guideapi/test/**/*'
-}
+apply from: 'gradle/versioning.gradle'
+apply from: 'gradle/forge.gradle'
+apply from: 'gradle/dev.gradle'
+apply from: 'gradle/deploy.gradle'
 
 
 
-tasks.withType(JavaCompile) { task ->
-    task.options.encoding = 'UTF-8'
-}
-
-publishing {
-    tasks.publish.dependsOn 'build'
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        if (project.hasProperty('maven_repo')) {
-            maven { url maven_repo }
-        } else {
-            mavenLocal()
-        }
-    }
-}
-
-String getChangelogText() {
-    def changelogFile = new File('changelog.txt')
-    if (!changelogFile.exists())
-        return ""
-    String str = ''
-    String separator = '---'
-    int lineCount = 0
-    boolean done = false
-    changelogFile.eachLine {
-        if (done || it == null) {
-            return
-        }
-        if (lineCount < 3) {
-            lineCount++
-            if (it.startsWith(separator)) {
-                return
-            }
-        }
-        if (!it.startsWith(separator)) {
-            str += "$it" + (lineCount < 3 ? ':\n\n' : '\n')
-            return
-        }
-        done = true // once we go past the first version block, parse no more
-    }
-    return str
-}
-
-curseforge {
-    if (project.hasProperty('curse_key'))
-        apiKey = project.curse_key
- 
-    project {
-        id = "${curse_id}"
-        changelog = getChangelogText()
-        releaseType = 'beta'
- 
-    }
-}
 
 idea {
     module {
