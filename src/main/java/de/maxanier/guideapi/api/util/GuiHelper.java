@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.api.util;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
@@ -14,7 +15,6 @@ import org.lwjgl.opengl.GL11;
 import java.awt.Color;
 import java.util.List;
 
-import static com.mojang.blaze3d.platform.GlStateManager.*;
 
 
 public class GuiHelper {
@@ -41,17 +41,17 @@ public class GuiHelper {
      * @param y     - The position on the y-axis to draw the itemstack
      */
     public static void drawItemStack(ItemStack stack, int x, int y) {
-        pushMatrix();
-        enableBlend();
-        blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        RenderHelper.enableGUIStandardItemLighting();
-        enableRescaleNormal();
-        enableDepthTest();
+        RenderSystem.pushMatrix();
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        RenderHelper.enableStandardItemLighting();
+        RenderSystem.enableRescaleNormal();
+        RenderSystem.enableDepthTest();
         render.renderItemAndEffectIntoGUI(stack, x, y);
         render.renderItemOverlayIntoGUI(Minecraft.getInstance().fontRenderer, stack, x, y, null);
         RenderHelper.disableStandardItemLighting();
-        popMatrix();
-        disableLighting();
+        RenderSystem.popMatrix();
+        RenderSystem.disableLighting();
     }
 
     /**
@@ -61,16 +61,16 @@ public class GuiHelper {
      * @param scale - The scale with which to draw the itemstack
      */
     public static void drawScaledItemStack(ItemStack stack, int x, int y, float scale) {
-        pushMatrix();
-        enableBlend();
-        blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        scalef(scale, scale, 1.0F);
-        RenderHelper.enableGUIStandardItemLighting();
-        enableRescaleNormal();
-        enableDepthTest();//enableDepth?
+        RenderSystem.pushMatrix();
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        RenderSystem.scalef(scale, scale, 1.0F);
+        RenderHelper.enableStandardItemLighting();
+        RenderSystem.enableRescaleNormal();
+        RenderSystem.enableDepthTest();//enableDepth?
         render.renderItemAndEffectIntoGUI(stack, (int) (x / scale), (int) (y / scale));
         RenderHelper.disableStandardItemLighting();
-        popMatrix();
+        RenderSystem.popMatrix();
     }
 
     /**
@@ -81,22 +81,22 @@ public class GuiHelper {
      * @param zLevel -
      */
     public static void drawIconWithoutColor(int x, int y, int width, int height, float zLevel) {
-        pushMatrix();
-        enableBlend();
-        blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        RenderHelper.enableGUIStandardItemLighting();
-        disableLighting();
-        enableRescaleNormal();
-        enableDepthTest();
+        RenderSystem.pushMatrix();
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        RenderHelper.enableStandardItemLighting();
+        RenderSystem.disableLighting();
+        RenderSystem.enableRescaleNormal();
+        RenderSystem.enableDepthTest();
         Tessellator tessellator = Tessellator.getInstance();
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
-        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
-        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
-        tessellator.getBuffer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
+        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0f, 1f).endVertex();
+        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1f, 1f).endVertex();
+        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1f, 0f).endVertex();
+        tessellator.getBuffer().pos(x, y, zLevel).tex(0f, 0f).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        popMatrix();
+        RenderSystem.popMatrix();
     }
 
     /**
@@ -108,24 +108,24 @@ public class GuiHelper {
      * @param color  - The color the icon will have
      */
     public static void drawIconWithColor(int x, int y, int width, int height, float zLevel, Color color) {
-        pushMatrix();
-        enableBlend();
-        blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        RenderHelper.enableGUIStandardItemLighting();
-        disableLighting();
-        enableRescaleNormal();
-        enableDepthTest();
-        color4f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
+        RenderSystem.pushMatrix();
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        RenderHelper.enableStandardItemLighting();
+        RenderSystem.disableLighting();
+        RenderSystem.enableRescaleNormal();
+        RenderSystem.enableDepthTest();
+        RenderSystem.color4f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
         Tessellator tessellator = Tessellator.getInstance();
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
-        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
-        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
-        tessellator.getBuffer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
+        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0f, 1f).endVertex();
+        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1f, 1f).endVertex();
+        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1f, 0f).endVertex();
+        tessellator.getBuffer().pos(x, y, zLevel).tex(0f, 0f).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        popMatrix();
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.popMatrix();
     }
 
     /**
@@ -136,25 +136,25 @@ public class GuiHelper {
      * @param zLevel -
      */
     public static void drawSizedIconWithoutColor(int x, int y, int width, int height, float zLevel) {
-        pushMatrix();
-        enableBlend();
-        blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        color4f(1F, 1F, 1F, 1F);
-        scaled(0.5D, 0.5D, 0.5D);
-        translated(x, y, zLevel);
-        RenderHelper.enableGUIStandardItemLighting();
-        disableLighting();
-        enableRescaleNormal();
-        enableDepthTest();
+        RenderSystem.pushMatrix();
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        RenderSystem.color4f(1F, 1F, 1F, 1F);
+        RenderSystem.scaled(0.5D, 0.5D, 0.5D);
+        RenderSystem.translated(x, y, zLevel);
+        RenderHelper.enableStandardItemLighting();
+        RenderSystem.disableLighting();
+        RenderSystem.enableRescaleNormal();
+        RenderSystem.enableDepthTest();
         Tessellator tessellator = Tessellator.getInstance();
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
-        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
-        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
-        tessellator.getBuffer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
+        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0f, 1f).endVertex();
+        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1f, 1).endVertex();
+        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1, 0).endVertex();
+        tessellator.getBuffer().pos(x, y, zLevel).tex(0, 0).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        popMatrix();
+        RenderSystem.popMatrix();
     }
 
     /**
@@ -165,25 +165,25 @@ public class GuiHelper {
      * @param color  - The color the icon will have
      */
     public static void drawSizedIconWithColor(int x, int y, int width, int height, float zLevel, Color color) {
-        pushMatrix();
-        enableBlend();
-        blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        scaled(0.5D, 0.5D, 0.5D);
-        color4f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
-        translated(x, y, zLevel);
-        RenderHelper.enableGUIStandardItemLighting();
-        disableLighting();
-        enableRescaleNormal();
-        enableDepthTest();
+        RenderSystem.pushMatrix();
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        RenderSystem.scaled(0.5D, 0.5D, 0.5D);
+        RenderSystem.color4f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
+        RenderSystem.translated(x, y, zLevel);
+        RenderHelper.enableStandardItemLighting();
+        RenderSystem.disableLighting();
+        RenderSystem.enableRescaleNormal();
+        RenderSystem.enableDepthTest();
         Tessellator tessellator = Tessellator.getInstance();
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0D, 1D).endVertex();
-        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1D, 1D).endVertex();
-        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1D, 0D).endVertex();
-        tessellator.getBuffer().pos(x, y, zLevel).tex(0D, 0D).endVertex();
+        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0, 1).endVertex();
+        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1, 1).endVertex();
+        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1, 0).endVertex();
+        tessellator.getBuffer().pos(x, y, zLevel).tex(0, 0).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        popMatrix();
+        RenderSystem.popMatrix();
     }
 
     @SuppressWarnings("unchecked")

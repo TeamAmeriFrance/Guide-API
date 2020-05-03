@@ -1,6 +1,7 @@
 package de.maxanier.guideapi.info;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import de.maxanier.guideapi.api.IInfoRenderer;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.util.GuiHelper;
@@ -33,13 +34,13 @@ public class InfoRendererDescription implements IInfoRenderer {
     @Override
     public void drawInformation(Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player) {
         if (tiny) {
-            GlStateManager.pushMatrix();
-            GlStateManager.scalef(0.5F, 0.5F, 0.5F);
+            RenderSystem.pushMatrix();
+            RenderSystem.scalef(0.5F, 0.5F, 0.5F);
         }
         FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
         int scaleMulti = tiny ? 2 : 1;
 
-        GuiHelper.drawItemStack(stack, (Minecraft.getInstance().mainWindow.getScaledWidth() / 2 + 55) * scaleMulti, ((Minecraft.getInstance().mainWindow.getScaledHeight() / 2 - (tiny ? 20 : 30)) + yOffset) * scaleMulti);
+        GuiHelper.drawItemStack(stack, (Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 55) * scaleMulti, ((Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 - (tiny ? 20 : 30)) + yOffset) * scaleMulti);
 
         int y = 0;
         String toDraw = StringEscapeUtils.unescapeJava(description.getFormattedText()).replaceAll("\\t", "     ");
@@ -47,7 +48,7 @@ public class InfoRendererDescription implements IInfoRenderer {
         for (String line : lines) {
             List<String> cutLines = fontRenderer.listFormattedStringToWidth(line, 100 * scaleMulti);
             for (String cut : cutLines) {
-                fontRenderer.drawStringWithShadow(cut, (Minecraft.getInstance().mainWindow.getScaledWidth() / 2 + 20) * scaleMulti, (((Minecraft.getInstance().mainWindow.getScaledHeight() / 2 - 10) - y) * scaleMulti) + yOffset, Color.WHITE.getRGB());
+                fontRenderer.drawStringWithShadow(cut, (Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 20) * scaleMulti, (((Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 - 10) - y) * scaleMulti) + yOffset, Color.WHITE.getRGB());
                 y -= 10 / scaleMulti;
             }
         }

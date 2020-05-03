@@ -100,8 +100,8 @@ public class EventHandler {
         if (!Strings.isNullOrEmpty(linkedEntry)) {
             FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
 
-            int drawX = Minecraft.getInstance().mainWindow.getScaledWidth() / 2 + 10;
-            int drawY = Minecraft.getInstance().mainWindow.getScaledHeight() / 2 - 8;
+            int drawX = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 10;
+            int drawY = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 - 8;
 
             Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(held, drawX, drawY);
 

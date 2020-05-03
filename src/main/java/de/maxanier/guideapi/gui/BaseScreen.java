@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.gui;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.RenderHelper;
@@ -8,7 +9,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
@@ -32,7 +33,7 @@ public class BaseScreen extends Screen {
         super(title);
         this.player = player;
         this.bookStack = bookStack;
-        this.publicZLevel = blitOffset;
+        this.publicZLevel = this.getBlitOffset();
     }
 
     @Override
@@ -52,22 +53,22 @@ public class BaseScreen extends Screen {
     }
 
     public void drawTexturedModalRectWithColor(int x, int y, int textureX, int textureY, int width, int height, Color color) {
-        pushMatrix();
-        enableBlend();
-        blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        RenderSystem.pushMatrix();
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         float f = 0.00390625F;
         float f1 = 0.00390625F;
-        disableLighting();
-        color3f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F);
+        RenderSystem.disableLighting();
+        RenderSystem.color3f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F);
         Tessellator tessellator = Tessellator.getInstance();
         tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getBuffer().pos(x, y + height, this.blitOffset).tex((float) (textureX) * f, (float) (textureY + height) * f1).endVertex();
-        tessellator.getBuffer().pos(x + width, y + height, this.blitOffset).tex((float) (textureX + width) * f, (float) (textureY + height) * f1).endVertex();
-        tessellator.getBuffer().pos(x + width, y, this.blitOffset).tex((float) (textureX + width) * f, (float) (textureY) * f1).endVertex();
-        tessellator.getBuffer().pos(x, y, this.blitOffset).tex((float) (textureX) * f, (float) (textureY) * f1).endVertex();
+        tessellator.getBuffer().pos(x, y + height, this.publicZLevel).tex((float) (textureX) * f, (float) (textureY + height) * f1).endVertex();
+        tessellator.getBuffer().pos(x + width, y + height, this.publicZLevel).tex((float) (textureX + width) * f, (float) (textureY + height) * f1).endVertex();
+        tessellator.getBuffer().pos(x + width, y, this.publicZLevel).tex((float) (textureX + width) * f, (float) (textureY) * f1).endVertex();
+        tessellator.getBuffer().pos(x, y, this.publicZLevel).tex((float) (textureX) * f, (float) (textureY) * f1).endVertex();
         tessellator.draw();
         disableBlend();
-        popMatrix();
+        RenderSystem.popMatrix();
     }
 
     @Override

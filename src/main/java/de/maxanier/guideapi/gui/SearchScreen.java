@@ -16,7 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.glfw.GLFW;
 
@@ -96,7 +96,7 @@ public class SearchScreen extends BaseScreen {
                 entry.getLeft().drawExtras(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, font);
 
                 if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, 4 * xSize / 6, 10)) {
-                    if (GLFW.glfwGetKey(minecraft.mainWindow.getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) == GLFW.GLFW_PRESS)
+                    if (GLFW.glfwGetKey(minecraft.getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) == GLFW.GLFW_PRESS)
                         GuiUtils.drawHoveringText(Lists.newArrayList(entry.getRight().getLocalizedName()), mouseX, mouseY, width, height, 300, font);
 
                     if (minecraft.mouseHelper.isLeftDown()) {

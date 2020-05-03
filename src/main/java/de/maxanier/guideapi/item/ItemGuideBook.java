@@ -68,21 +68,21 @@ public class ItemGuideBook extends Item implements IGuideItem {
         ItemStack heldStack = player.getHeldItem(hand);
 
         //Only handle book client side
-        if (!world.isRemote()) return ActionResult.newResult(ActionResultType.SUCCESS, heldStack);
+        if (!world.isRemote()) return ActionResult.resultSuccess(heldStack);
 
 
         BookEvent.Open event = new BookEvent.Open(book, heldStack, player);
         if (MinecraftForge.EVENT_BUS.post(event)) {
             player.sendStatusMessage(event.getCanceledText(), true);
-            return ActionResult.newResult(ActionResultType.FAIL, heldStack);
+            return ActionResult.resultFail( heldStack);
         }
         GuideMod.PROXY.openGuidebook(player, world, book, heldStack);
-        return ActionResult.newResult(ActionResultType.SUCCESS, heldStack);
+        return ActionResult.resultSuccess( heldStack);
     }
 
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
-        if (!context.getWorld().isRemote || !context.isPlacerSneaking())
+        if (!context.getWorld().isRemote || !context.func_225518_g_())
             return ActionResultType.PASS;
 
         ItemStack stack = context.getItem();

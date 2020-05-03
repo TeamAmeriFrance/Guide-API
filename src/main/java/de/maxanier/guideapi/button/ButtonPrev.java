@@ -1,6 +1,7 @@
 package de.maxanier.guideapi.button;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import de.maxanier.guideapi.GuideMod;
 import de.maxanier.guideapi.api.button.ButtonGuideAPI;
 import de.maxanier.guideapi.api.util.GuiHelper;
@@ -10,7 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +25,10 @@ public class ButtonPrev extends ButtonGuideAPI {
     @Override
     public void renderButton(int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
-            RenderHelper.enableGUIStandardItemLighting();
-            GlStateManager.enableBlend();
-            GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            GlStateManager.disableLighting();
+            RenderHelper.enableStandardItemLighting();
+            RenderSystem.enableBlend();
+            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderSystem.disableLighting();
             Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) {
                 this.blit(x, y + 1, 47, 214, 18, 10);
