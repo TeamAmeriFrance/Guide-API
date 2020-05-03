@@ -10,6 +10,7 @@ issueTrackerURL="https://github.com/maxanier/Guide-API/issues"
     authors="Tombenpotter, TehNut, Maxanier"
     credits=""
     description="Simple mod guide creation"
+    updateJSONURL="https://maxanier.de/projects/guideapi/versions.json"
     [[dependencies.guideeapi]]
         modId="forge"
         mandatory=true

@@ -32,8 +32,49 @@ Please include the following:
  * Latest Forge log or crash log
 
 ## Developer Information
-This is from the original mod, but the fork is currently very similar API wise:
- [ReadTheDocs](http://guide-api.readthedocs.org/en/latest/).
+The original information from Guide-API can be found [here](http://guide-api.readthedocs.org/en/latest/).
+The fork is still very similar
+
+
+## Setup
+#### Setup Gradle build script
+You should be able to include it with the following in your `build.gradle`:
+```gradle
+repositories {
+    //Maven repo for Guide-API
+    maven {
+        url = "https://maxanier.de/maven2"
+    }
+}
+dependencies {
+    //Compile against and provide deobf version of Guide-API
+    compile fg.deobf("de.maxanier.guideapi:Guide-API-VP:${project.guideapi_version}")
+
+}
+```
+
+#### Choose a version
+
+
+For a list of available Vampirism version, see [CurseForge](https://www.curseforge.com/minecraft/mc-mods/vampirism-become-a-vampire) or the [maven listing](https://maxanier.de/maven2/de/maxanier/guideapi/Guide-API-VP/) .
+
+These properties can be set in a file named `gradle.properties`, placed in the same directory as your `build.gradle` file.
+Example `gradle.properties`:
+```
+guideapi_version=1.14.4-2.2.0-beta.1
+```
+
+#### Rerun Gradle setup commands
+Please run the commands that you used to setup your development environment again.
+E.g. `gradlew` or `gradlew --refresh-dependencies`
+Refresh/Restart your IDE afterwards.
+
+#### Examples
+Checkout the test books [here](https://github.com/maxanier/Guide-API/tree/1.14.4_latest/src/main/java/de/maxanier/guideapi/test)  
+
+Checkout Vampirism which adds a extensive guide book [here](https://github.com/TeamLapen/Vampirism/blob/1.14/src/main/java/de/teamlapen/vampirism/modcompat/guide/GuideBook.java)
+
+
 
 
 ## Modpack Permissions
