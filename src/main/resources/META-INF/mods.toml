@@ -11,6 +11,8 @@ issueTrackerURL="https://github.com/maxanier/Guide-API/issues"
     credits=""
     description="Simple mod guide creation"
     updateJSONURL="https://maxanier.de/projects/guideapi/versions.json"
+    displayURL="https://maxanier.de/projects/guideapi"
+    logoFile="logo.png"
     [[dependencies.guideeapi]]
         modId="forge"
         mandatory=true
