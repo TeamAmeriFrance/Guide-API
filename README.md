@@ -74,6 +74,30 @@ Checkout the test books [here](https://github.com/maxanier/Guide-API/tree/1.14.4
 
 Checkout Vampirism which adds a extensive guide book [here](https://github.com/TeamLapen/Vampirism/blob/1.14/src/main/java/de/teamlapen/vampirism/modcompat/guide/GuideBook.java)
 
+#### Crafting recipe
+Add a crafting recipe for your book like this
+```
+{
+  "result": {
+    "item": "guideapi-vp:vampirism-guidebook"
+  },
+  "ingredients": [
+    {
+      "item": "vampirism:vampire_fang"
+    },
+    {
+      "item": "minecraft:book"
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "guideapi-vp"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}
+```
 
 
 
