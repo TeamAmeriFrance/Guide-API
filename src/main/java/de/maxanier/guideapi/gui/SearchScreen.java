@@ -38,6 +38,8 @@ public class SearchScreen extends BaseScreen {
     private List<List<Pair<EntryAbstract, CategoryAbstract>>> searchResults;
     private int currentPage = 0;
     private String lastQuery = "";
+    private final int renderXOffset = 37;
+    private final int renderYOffset = 30;
 
     public SearchScreen(Book book, PlayerEntity player, ItemStack bookStack, Screen parent) {
         super(new TranslationTextComponent(book.getTitle()), player, bookStack);
@@ -76,49 +78,22 @@ public class SearchScreen extends BaseScreen {
     }
 
     @Override
-    public void render(int mouseX, int mouseY, float partialTicks) {
-        minecraft.getTextureManager().bindTexture(pageTexture);
-        blit(guiLeft, guiTop, 0, 0, xSize, ySize);
-        minecraft.getTextureManager().bindTexture(outlineTexture);
-        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
-
-        fill(searchField.x - 1, searchField.y - 1, searchField.x + searchField.getAdjustedWidth() + 1, searchField.y + searchField.getHeight() + 1, new Color(166, 166, 166, 128).getRGB());
-        fill(searchField.x, searchField.y, searchField.x + searchField.getAdjustedWidth(), searchField.y + searchField.getHeight(), new Color(58, 58, 58, 128).getRGB());
-        searchField.render(mouseX, mouseY, partialTicks);
-
-        int entryX = guiLeft + 37;
-        int entryY = guiTop + 30;
-
-        if (searchResults.size() != 0 && currentPage >= 0 && currentPage < searchResults.size()) {
-            List<Pair<EntryAbstract, CategoryAbstract>> pageResults = searchResults.get(currentPage);
-            for (Pair<EntryAbstract, CategoryAbstract> entry : pageResults) {
-                entry.getLeft().draw(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, font);
-                entry.getLeft().drawExtras(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, font);
-
-                if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, 4 * xSize / 6, 10)) {
-                    if (GLFW.glfwGetKey(minecraft.getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) == GLFW.GLFW_PRESS)
-                        GuiUtils.drawHoveringText(Lists.newArrayList(entry.getRight().getLocalizedName()), mouseX, mouseY, width, height, 300, font);
-
-                    if (minecraft.mouseHelper.isLeftDown()) {
-                        GuideMod.PROXY.openEntry(book, entry.getRight(), entry.getLeft(), player, bookStack);
-                        return;
-                    }
-                }
-
-                entryY += 13;
-            }
-        }
-
-        buttonPrev.visible = currentPage != 0;
-        buttonNext.visible = currentPage != searchResults.size() - 1 && !searchResults.isEmpty();
-
-        super.render(mouseX, mouseY, partialTicks);
-    }
-
-    @Override
     public boolean mouseClicked(double mouseX, double mouseY, int typeofClick) {
         if (!super.mouseClicked(mouseX, mouseY, typeofClick)) {
-            if (typeofClick == 1) {
+            if (typeofClick == 0) {
+                int entryX = guiLeft + renderXOffset;
+                int entryY = guiTop + renderYOffset;
+
+                if (searchResults.size() != 0 && currentPage >= 0 && currentPage < searchResults.size()) {
+                    List<Pair<EntryAbstract, CategoryAbstract>> pageResults = searchResults.get(currentPage);
+                    for (Pair<EntryAbstract, CategoryAbstract> entry : pageResults) {
+                        if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, 4 * xSize / 6, 10)) {
+                            GuideMod.PROXY.openEntry(book, entry.getRight(), entry.getLeft(), player, bookStack);
+                        }
+                        entryY += 13;
+                    }
+                }
+            } else if (typeofClick == 1) {
                 if (GuiHelper.isMouseBetween(mouseX, mouseY, searchField.x, searchField.y, searchField.getAdjustedWidth(), searchField.getHeight())) {
                     searchField.setText("");
                     lastQuery = "";
@@ -136,6 +111,41 @@ public class SearchScreen extends BaseScreen {
         return true;
 
 
+    }
+
+    @Override
+    public void render(int mouseX, int mouseY, float partialTicks) {
+        minecraft.getTextureManager().bindTexture(pageTexture);
+        blit(guiLeft, guiTop, 0, 0, xSize, ySize);
+        minecraft.getTextureManager().bindTexture(outlineTexture);
+        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
+
+        fill(searchField.x - 1, searchField.y - 1, searchField.x + searchField.getAdjustedWidth() + 1, searchField.y + searchField.getHeight() + 1, new Color(166, 166, 166, 128).getRGB());
+        fill(searchField.x, searchField.y, searchField.x + searchField.getAdjustedWidth(), searchField.y + searchField.getHeight(), new Color(58, 58, 58, 128).getRGB());
+        searchField.render(mouseX, mouseY, partialTicks);
+
+        int entryX = guiLeft + renderXOffset;
+        int entryY = guiTop + renderYOffset;
+
+        if (searchResults.size() != 0 && currentPage >= 0 && currentPage < searchResults.size()) {
+            List<Pair<EntryAbstract, CategoryAbstract>> pageResults = searchResults.get(currentPage);
+            for (Pair<EntryAbstract, CategoryAbstract> entry : pageResults) {
+                entry.getLeft().draw(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, font);
+                entry.getLeft().drawExtras(book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, font);
+
+                if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, 4 * xSize / 6, 10)) {
+                    if (GLFW.glfwGetKey(minecraft.getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) == GLFW.GLFW_PRESS)
+                        GuiUtils.drawHoveringText(Lists.newArrayList(entry.getRight().getLocalizedName()), mouseX, mouseY, width, height, 300, font);
+                }
+
+                entryY += 13;
+            }
+        }
+
+        buttonPrev.visible = currentPage != 0;
+        buttonNext.visible = currentPage != searchResults.size() - 1 && !searchResults.isEmpty();
+
+        super.render(mouseX, mouseY, partialTicks);
     }
 
     @Override
