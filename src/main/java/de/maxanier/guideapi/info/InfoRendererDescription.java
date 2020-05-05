@@ -1,6 +1,5 @@
 package de.maxanier.guideapi.info;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import de.maxanier.guideapi.api.IInfoRenderer;
 import de.maxanier.guideapi.api.impl.Book;
@@ -53,7 +52,7 @@ public class InfoRendererDescription implements IInfoRenderer {
             }
         }
         if (tiny)
-            GlStateManager.popMatrix();
+            RenderSystem.popMatrix();
     }
 
     public InfoRendererDescription setTiny(boolean tiny) {

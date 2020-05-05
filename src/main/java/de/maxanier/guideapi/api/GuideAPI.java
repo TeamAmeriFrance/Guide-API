@@ -13,7 +13,7 @@ public class GuideAPI {
 
     private static final Map<ResourceLocation, Book> BOOKS = Maps.newHashMap();
     private static final Map<Book, ItemStack> BOOK_TO_STACK = Maps.newHashMap();
-    private static final Map<Book, Multimap<Class<? extends Block>, IInfoRenderer>> INFO_RENDERERS = Maps.newHashMap();
+    private static final Map<Book, Multimap<Block, IInfoRenderer>> INFO_RENDERERS = Maps.newHashMap();
     private static List<Book> indexedBooks = Lists.newArrayList();
 
     /**
@@ -27,17 +27,17 @@ public class GuideAPI {
     }
 
     /**
-     * Registers an IInfoRenderer
+     * Registers an IInfoRenderer. Do this from {@link IGuideBook#registerInfoRenderer(Book)}
      *
      * @param infoRenderer - The renderer to register
-     * @param blockClasses - The block classes that this should draw for
+     * @param blocks       - The blocks that this should draw for
      */
-    public static void registerInfoRenderer(Book book, IInfoRenderer infoRenderer, Class<? extends Block>... blockClasses) {
+    public static void registerInfoRenderer(Book book, IInfoRenderer infoRenderer, Block... blocks) {
         if (!INFO_RENDERERS.containsKey(book))
             INFO_RENDERERS.put(book, ArrayListMultimap.create());
 
-        for (Class<? extends Block> blockClass : blockClasses)
-            INFO_RENDERERS.get(book).put(blockClass, infoRenderer);
+        for (Block block : blocks)
+            INFO_RENDERERS.get(book).put(block, infoRenderer);
     }
 
     public static void initialize() {
@@ -52,7 +52,7 @@ public class GuideAPI {
         return ImmutableMap.copyOf(BOOK_TO_STACK);
     }
 
-    public static Map<Book, Multimap<Class<? extends Block>, IInfoRenderer>> getInfoRenderers() {
+    public static Map<Book, Multimap<Block, IInfoRenderer>> getInfoRenderers() {
         return ImmutableMap.copyOf(INFO_RENDERERS);
     }
 

@@ -117,11 +117,11 @@ public class EventHandler {
                 infoRenderer.drawInformation(book, world, rayTracePos, state, rayTrace, player);
         }
 
-        Multimap<Class<? extends Block>, IInfoRenderer> bookRenderers = GuideAPI.getInfoRenderers().get(book);
+        Multimap<Block, IInfoRenderer> bookRenderers = GuideAPI.getInfoRenderers().get(book);
         if (bookRenderers == null)
             return;
 
-        Collection<IInfoRenderer> renderers = bookRenderers.get(state.getBlock().getClass());
+        Collection<IInfoRenderer> renderers = bookRenderers.get(state.getBlock());
         for (IInfoRenderer renderer : renderers)
             renderer.drawInformation(book, world, rayTracePos, state, rayTrace, player);
     }

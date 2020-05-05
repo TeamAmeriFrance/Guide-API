@@ -29,6 +29,7 @@ public class RegistrarGuideAPI {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         AnnotationHandler.gatherBooks();
+        //Don't build book content here as items/blocks are not available and translation is only possible in game
         GuideConfig.buildConfiguration();//Build configuration now that we know all added books
         for (Book book : GuideAPI.getBooks().values()) {
             Item guideBook = new ItemGuideBook(book);

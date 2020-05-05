@@ -44,6 +44,10 @@ public class GuideMod {
             throw new IllegalStateException("Did not build configuration, before configuration load. Make sure to call GuideConfig#buildConfiguration during one of the registry events");
         }
         PacketHandler.registerPackets();
+        for (Pair<Book, IGuideBook> pair : AnnotationHandler.BOOK_CLASSES) {
+            IGuideBook guide = pair.getRight();
+            guide.registerInfoRenderer(pair.getLeft());
+        }
     }
 
     private void loadComplete(final FMLLoadCompleteEvent event) {

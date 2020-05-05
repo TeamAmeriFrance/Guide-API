@@ -14,10 +14,10 @@ import javax.annotation.Nullable;
  * Used to render information on screen about a block while a player is looking at and holding the guide. This is only
  * called on the client.
  * <p>
- * Use {@link GuideAPI#registerInfoRenderer(Book, IInfoRenderer, Class...)} to register your
+ * Use {@link GuideAPI#registerInfoRenderer(Book, IInfoRenderer, net.minecraft.block.Block...)} to register your
  * handler. You can also implement {@link Block} on a block.
  * <p>
- * Some example usages can be found in {@link amerifrance.guideapi.info}
+ * Some example usages can be found in {@link de.maxanier.guideapi.info}
  * <p>
  * You can display recipes, information about what a block does, etc
  */
@@ -35,6 +35,9 @@ public interface IInfoRenderer {
      */
     void drawInformation(Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player);
 
+    /**
+     * You can implement this in your block. However, this of course creates a hard dependency on GuideAPI
+     */
     interface Block {
 
         /**

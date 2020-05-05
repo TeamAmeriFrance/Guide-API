@@ -8,6 +8,10 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
+/**
+ * When right-clicking a block with this interface holding the respective guide will open the supplied entry
+ * You can implement this in your block. However, this of course creates a hard dependency on GuideAPI.
+ */
 public interface IGuideLinked {
 
     /**
