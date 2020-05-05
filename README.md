@@ -1,9 +1,25 @@
 # Guide-API - Village and Pillage
 
-Library mod for easy creation of guide books. Also allows book creation via JSON files.
+Library mod for easy creation of guide books.
 
 Fork by maxanier of Guide-API for Minecraft 1.14+ (Village and Pillage)  
 Original mod by TehNut and Tombenpotter. https://github.com/TeamAmeriFrance/Guide-API  
+
+Allows easy creation of a guide book for your mod.
+Books are mostly maintained by Guide-API (it registers them, it puts them in its own creative tab, etc).
+
+The guide book is created mostly in code whereas e.g. Patchouli is mostly JSON based. This means:
+- Add or change content based on the configuration of your mod.
+- Wrap lines and pages based automatically, so localized strings don't overflow
+- Refer to the set keybindings
+- Refer to internal constants, balancing values etc so they are automatically changed in the book if you change them in the mod
+- Add custom page types, recipe types, etc.
+- Use helper methods to generate parts of the book automatically
+
+What else?
+- No hard dependency, if Guide-API is not present at runtime the book won't be there, but everything else works
+- Use TextFormatting and manual \n
+- Several ready-to-use page types like text, item/block focused text, recipe, and image pages 
 
 
 ## Useful Links
@@ -33,7 +49,9 @@ Please include the following:
 
 ## Developer Information
 The original information from Guide-API can be found [here](http://guide-api.readthedocs.org/en/latest/).
-The fork is still very similar
+The fork is still very similar.
+
+If you need any assistance adding your own guide book, or if you are missing a feature, create an issue here.
 
 
 ## Setup
@@ -56,7 +74,7 @@ dependencies {
 #### Choose a version
 
 
-For a list of available Vampirism version, see [CurseForge](https://www.curseforge.com/minecraft/mc-mods/vampirism-become-a-vampire) or the [maven listing](https://maxanier.de/maven2/de/maxanier/guideapi/Guide-API-VP/) .
+For a list of available Vampirism version, see [CurseForge](https://www.curseforge.com/minecraft/mc-mods/guide-api-village-and-pillage) or the [maven listing](https://maxanier.de/maven2/de/maxanier/guideapi/Guide-API-VP/) .
 
 These properties can be set in a file named `gradle.properties`, placed in the same directory as your `build.gradle` file.
 Example `gradle.properties`:
@@ -98,7 +116,10 @@ Add a crafting recipe for your book like this
   "type": "minecraft:crafting_shapeless"
 }
 ```
-
+#### API stability
+There isn't a dedicated API package since mods can/have to make use of most of GuideAPI's classes.  
+Binary breaking changes are only introduced with new main versions `*.0.0-beta.1` or new MC versions.
+New features are introduced with major versions `*.*.0` (possibly with alpha and beta stages) and bugfixes are introduced with minor versions (without alpha and beta phase).
 
 
 ## Modpack Permissions
