@@ -1,6 +1,7 @@
 package de.maxanier.guideapi.page.reciperenderer;
 
 import com.google.common.base.Strings;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.IRecipeRenderer;
 import de.maxanier.guideapi.api.SubTexture;
 import de.maxanier.guideapi.api.impl.Book;
@@ -24,19 +25,19 @@ public abstract class CraftingRecipeRenderer<T extends IRecipe<?>> extends IReci
     }
 
     @Override
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler) {
+    public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler) {
 
-        SubTexture.CRAFTING_GRID.draw(guiLeft + 68, guiTop + 53);
+        SubTexture.CRAFTING_GRID.draw(stack, guiLeft + 68, guiTop + 53);
 
         String recipeName = Strings.isNullOrEmpty(customDisplay) ? getRecipeName() : customDisplay;
-        guiBase.drawCenteredString(fontRendererObj, recipeName, guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
+        guiBase.func_238471_a_(stack, fontRendererObj, recipeName, guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
         int outputX = guiLeft + 148;
         int outputY = guiTop + 73;
 
-        ItemStack stack = recipe.getRecipeOutput();
+        ItemStack itemStack = recipe.getRecipeOutput();
 
-        GuiHelper.drawItemStack(stack, outputX, outputY);
+        GuiHelper.drawItemStack(stack, itemStack, outputX, outputY);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15))
             tooltips = GuiHelper.getTooltip(recipe.getRecipeOutput());
     }

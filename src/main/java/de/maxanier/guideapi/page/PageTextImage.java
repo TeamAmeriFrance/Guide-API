@@ -10,6 +10,7 @@ import de.maxanier.guideapi.gui.BaseScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextProperties;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -24,7 +25,7 @@ public class PageTextImage extends Page {
      * @param image     - Image to draw
      * @param drawAtTop - Draw Image at top and text at bottom. False reverses this.
      */
-    public PageTextImage(String draw, ResourceLocation image, boolean drawAtTop) {
+    public PageTextImage(ITextProperties draw, ResourceLocation image, boolean drawAtTop) {
         this.pageText = new PageText(draw, drawAtTop ? 0 : 100);
         this.image = image;
         this.drawAtTop = drawAtTop;
@@ -34,7 +35,7 @@ public class PageTextImage extends Page {
     @OnlyIn(Dist.CLIENT)
     public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         Minecraft.getInstance().getTextureManager().bindTexture(image);
-        GuiHelper.drawSizedIconWithoutColor(guiLeft + 60, guiTop + (drawAtTop ? 60 : 12), guiBase.xSize, guiBase.ySize, 0);
+        GuiHelper.drawSizedIconWithoutColor(stack, guiLeft + 60, guiTop + (drawAtTop ? 60 : 12), guiBase.xSize, guiBase.ySize, 0);
 
         pageText.draw(stack, book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
     }

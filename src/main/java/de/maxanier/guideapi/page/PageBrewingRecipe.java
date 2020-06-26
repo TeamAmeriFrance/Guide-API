@@ -64,7 +64,7 @@ public class PageBrewingRecipe extends Page {
         int xStart = guiLeft + 88;
         int yStart = guiTop + 52;
 
-        SubTexture.POTION_GRID.draw(xStart, yStart);
+        SubTexture.POTION_GRID.draw(stack, xStart, yStart);
 
         List<ITextComponent> badTip = new ArrayList<>();
         badTip.add(new TranslationTextComponent("guideapi.text.brewing.error"));
@@ -78,7 +78,7 @@ public class PageBrewingRecipe extends Page {
         int finalX = x;
         int finalY = y;
         cycler.getCycledIngredientStack(ingredient, 0).ifPresent(s -> {
-            GuiHelper.drawItemStack(s, finalX, finalY);
+            GuiHelper.drawItemStack(stack, s, finalX, finalY);
         });
 
         List<ITextComponent> tooltip = null;
@@ -87,17 +87,17 @@ public class PageBrewingRecipe extends Page {
 
         //the three bottles
         y += 39;
-        GuiHelper.drawItemStack(input.getMatchingStacks()[0], x, y);
+        GuiHelper.drawItemStack(stack, input.getMatchingStacks()[0], x, y);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
             tooltip = GuiHelper.getTooltip(input.getMatchingStacks()[0]);
         int hSpacing = 24;
         x -= hSpacing;
         y -= 8;
-        GuiHelper.drawItemStack(input.getMatchingStacks()[0], x, y);
+        GuiHelper.drawItemStack(stack, input.getMatchingStacks()[0], x, y);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
             tooltip = GuiHelper.getTooltip(input.getMatchingStacks()[0]);
         x += hSpacing * 2;
-        GuiHelper.drawItemStack(input.getMatchingStacks()[0], x, y);
+        GuiHelper.drawItemStack(stack, input.getMatchingStacks()[0], x, y);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
             tooltip = GuiHelper.getTooltip(input.getMatchingStacks()[0]);
 
@@ -107,7 +107,7 @@ public class PageBrewingRecipe extends Page {
         //start output
         x = xStart + 25;
         y += 31;
-        GuiHelper.drawItemStack(output, x, y);
+        GuiHelper.drawItemStack(stack, output, x, y);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
             tooltip = output.getItem() == Item.getItemFromBlock(Blocks.BARRIER) ? badTip : GuiHelper.getTooltip(output);
 

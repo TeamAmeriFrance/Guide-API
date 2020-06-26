@@ -26,10 +26,10 @@ public class ButtonSearch extends ButtonGuideAPI {
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableLighting();
             if (GuiHelper.isMouseBetween(mouseX, mouseY, field_230690_l_, field_230691_m_, field_230688_j_, field_230689_k_)) { //x,y,width,height
-                SubTexture.MAGNIFYING_GLASS.draw(field_230690_l_, field_230691_m_ + 1);
+                SubTexture.MAGNIFYING_GLASS.draw(stack, field_230690_l_, field_230691_m_ + 1);
                 GuiUtils.drawHoveringText(stack, getHoveringText(), mouseX, mouseY, guiBase.field_230708_k_, guiBase.field_230709_l_, -1, Minecraft.getInstance().fontRenderer);
             } else {
-                SubTexture.MAGNIFYING_GLASS.draw(field_230690_l_, field_230691_m_);
+                SubTexture.MAGNIFYING_GLASS.draw(stack, field_230690_l_, field_230691_m_);
             }
             RenderSystem.disableBlend();
             RenderHelper.disableStandardItemLighting();

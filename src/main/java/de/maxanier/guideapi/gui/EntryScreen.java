@@ -55,14 +55,14 @@ public class EntryScreen extends BaseScreen {
         Minecraft.getInstance().getTextureManager().bindTexture(pageTexture);
         func_238474_b_(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
         Minecraft.getInstance().getTextureManager().bindTexture(outlineTexture);
-        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
+        drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
         pageNumber = MathHelper.clamp(pageNumber, 0, pageWrapperList.size() - 1);
 
         if (pageNumber < pageWrapperList.size()) {
             if (pageWrapperList.get(pageNumber).canPlayerSee()) {
-                pageWrapperList.get(pageNumber).draw(mouseX, mouseY, this);
-                pageWrapperList.get(pageNumber).drawExtras(mouseX, mouseY, this);
+                pageWrapperList.get(pageNumber).draw(stack, mouseX, mouseY, this);
+                pageWrapperList.get(pageNumber).drawExtras(stack, mouseX, mouseY, this);
             }
         }
 

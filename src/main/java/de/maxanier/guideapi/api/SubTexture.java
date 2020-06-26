@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.api;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import de.maxanier.guideapi.GuideMod;
 import net.minecraft.client.Minecraft;
@@ -7,6 +8,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -57,7 +59,8 @@ public class SubTexture {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void draw(int drawX, int drawY, double zLevel) {
+    public void draw(MatrixStack stack, int drawX, int drawY, float zLevel) {
+        Matrix4f matrix = stack.getLast().getMatrix();
         final float someMagicValueFromMojang = 0.00390625F;
 
         Minecraft.getInstance().getTextureManager().bindTexture(textureLocation);
@@ -65,7 +68,7 @@ public class SubTexture {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder vertexbuffer = tessellator.getBuffer();
         vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        vertexbuffer.pos(drawX, drawY + height, zLevel).tex((float) xPos * someMagicValueFromMojang, (float) (yPos + height) * someMagicValueFromMojang).endVertex();
+        vertexbuffer.pos(matrix, drawX, drawY + height, zLevel).tex((float) xPos * someMagicValueFromMojang, (float) (yPos + height) * someMagicValueFromMojang).endVertex();
         vertexbuffer.pos(drawX + width, drawY + height, zLevel).tex((float) (xPos + width) * someMagicValueFromMojang, (float) (yPos + height) * someMagicValueFromMojang).endVertex();
         vertexbuffer.pos(drawX + width, drawY, zLevel).tex((float) (xPos + width) * someMagicValueFromMojang, (float) yPos * someMagicValueFromMojang).endVertex();
         vertexbuffer.pos(drawX, drawY, zLevel).tex((float) xPos * someMagicValueFromMojang, (float) yPos * someMagicValueFromMojang).endVertex();
@@ -73,8 +76,8 @@ public class SubTexture {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void draw(int drawX, int drawY) {
-        draw(drawX, drawY, 0.1D);
+    public void draw(MatrixStack stack, int drawX, int drawY) {
+        draw(stack, drawX, drawY, 0.1f);
     }
 
     public ResourceLocation getTextureLocation() {

@@ -12,6 +12,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.text.ITextProperties;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -21,7 +22,7 @@ public class PageItemStack extends PageText {
     private final IngredientCycler ingredientCycler = new IngredientCycler();
 
 
-    public PageItemStack(String draw, Ingredient ingredient) {
+    public PageItemStack(ITextProperties draw, Ingredient ingredient) {
         super(draw, 60);
         this.ingredient = ingredient;
     }
@@ -30,7 +31,7 @@ public class PageItemStack extends PageText {
      * @param draw       - Unlocalized text to draw
      * @param ingredient - ItemStack to render
      */
-    public PageItemStack(String draw, ItemStack ingredient) {
+    public PageItemStack(ITextProperties draw, ItemStack ingredient) {
         this(draw, Ingredient.fromStacks(ingredient));
     }
 
@@ -38,7 +39,7 @@ public class PageItemStack extends PageText {
      * @param draw - Unlocalized text to draw
      * @param item - Item to render
      */
-    public PageItemStack(String draw, Item item) {
+    public PageItemStack(ITextProperties draw, Item item) {
         this(draw, new ItemStack(item));
     }
 
@@ -46,7 +47,7 @@ public class PageItemStack extends PageText {
      * @param draw  - Unlocalized text to draw
      * @param block - Block to render
      */
-    public PageItemStack(String draw, Block block) {
+    public PageItemStack(ITextProperties draw, Block block) {
         this(draw, new ItemStack(block));
     }
 
@@ -56,7 +57,7 @@ public class PageItemStack extends PageText {
     public void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         ingredientCycler.tick(guiBase.getMinecraft());
         ingredientCycler.getCycledIngredientStack(ingredient, 0).ifPresent(s -> {
-            GuiHelper.drawScaledItemStack(s, guiLeft + 101, guiTop + 20, 3);
+            GuiHelper.drawScaledItemStack(stack, s, guiLeft + 101, guiTop + 20, 3);
         });
     }
 

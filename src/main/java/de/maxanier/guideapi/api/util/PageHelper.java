@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.api.util;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.IPage;
 import de.maxanier.guideapi.gui.BaseScreen;
 import de.maxanier.guideapi.page.PageItemStack;
@@ -11,11 +12,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.StringUtils;
+import net.minecraft.util.text.ITextProperties;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PageHelper {
@@ -26,26 +25,26 @@ public class PageHelper {
      * The first page can have a different number of lines than the subsequent ones if desired
      * Insert new line characters to wrap the text to the available line width.
      *
-     * @param locText          Text to process
+     * @param text             Text component to process
      * @param lineWidth        Available width (pixel)
      * @param firstHeight      Available height on the first page (pixel)
      * @param subsequentHeight Available height on subsequent pages (pixel)
      * @return Each list element should be drawn on a individual page. Lines are wrapped using '\n'
      */
-    public static List<String> prepareForLongText(String locText, int lineWidth, int firstHeight, int subsequentHeight) {
+    public static List<ITextProperties> prepareForLongText(ITextProperties text, int lineWidth, int firstHeight, int subsequentHeight) {
         FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
         int firstCount = firstHeight / fontRenderer.FONT_HEIGHT;
         int count = subsequentHeight / fontRenderer.FONT_HEIGHT;
-        List<String> lines = new ArrayList<>();
-        Arrays.stream(locText.split("\n")).forEach(l -> lines.addAll(fontRenderer.listFormattedStringToWidth(l, lineWidth))); //Make sure to also split at manually specified newlines
-        List<String> pages = new ArrayList<>();
+        List<ITextProperties> lines = new ArrayList<>(fontRenderer.func_238425_b_(text, lineWidth)); //TODO Make sure to also split at manually specified newlines
+        List<ITextProperties> pages = new ArrayList<>();
 
-        List<String> pageLines = lines.size() > firstCount ? lines.subList(0, firstCount) : lines;
-        pages.add(StringUtils.join(pageLines, "\n"));
+        List<ITextProperties> pageLines = lines.size() > firstCount ? lines.subList(0, firstCount) : lines;
+        pages.add(ITextProperties.func_240654_a_(pageLines));
+        //pages.add(StringUtils.join(pageLines, "\n"));
         pageLines.clear();
         while (lines.size() > 0) {
             pageLines = lines.size() > count ? lines.subList(0, count) : lines;
-            pages.add(StringUtils.join(pageLines, "\n"));
+            pages.add(ITextProperties.func_240654_a_(pageLines));
             pageLines.clear();
         }
         return pages;
@@ -54,8 +53,8 @@ public class PageHelper {
     /**
      * Spread the text over multiple pages if necessary. Display ingredient at first page
      */
-    public static List<IPage> pagesForLongText(String locText, Ingredient ingredient) {
-        List<String> pageText = prepareForLongText(locText, 164, 81, 120);
+    public static List<IPage> pagesForLongText(ITextProperties text, Ingredient ingredient) {
+        List<ITextProperties> pageText = prepareForLongText(text, 164, 81, 120);
         List<IPage> pageList = new ArrayList<>();
         for (int i = 0; i < pageText.size(); i++) {
             if (i == 0) {
@@ -68,51 +67,49 @@ public class PageHelper {
     }
 
 
-    public static List<IPage> pagesForLongText(String locText) {
+    public static List<IPage> pagesForLongText(ITextProperties text) {
         List<IPage> pageList = new ArrayList<>();
-        prepareForLongText(locText, 164, 126, 126).forEach(t -> pageList.add(new PageText(t)));
+        prepareForLongText(text, 164, 126, 126).forEach(t -> pageList.add(new PageText(t)));
         return pageList;
     }
 
 
-    public static void drawFormattedText(int x, int y, BaseScreen guiBase, String toDraw) {
+    public static void drawFormattedText(MatrixStack stack, int x, int y, BaseScreen guiBase, ITextProperties toDraw) {
         FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-        toDraw = StringEscapeUtils.unescapeJava(toDraw).replaceAll("\\t", "     ");
-        String[] lines = toDraw.split("\n");
-        for (String line : lines) {
-            List<String> cutLines = fontRenderer.listFormattedStringToWidth(line, 170);
-            for (String cut : cutLines) {
-                fontRenderer.drawString(cut, x, y, 0);
-                y += 10;
-            }
+
+        List<ITextProperties> cutLines = fontRenderer.func_238425_b_(toDraw, 170); //Split at new line? TODO
+        for (ITextProperties cut : cutLines) {
+            fontRenderer.func_238422_b_(stack, cut, x, y, 0);
+            y += 10;
         }
+
     }
 
     /**
-     * @param locText - Text
-     * @param item    - The item to put on the first page
+     * @param text - Text
+     * @param item - The item to put on the first page
      * @return a list of IPages with the text cut to fit on page
      */
-    public static List<IPage> pagesForLongText(String locText, Item item) {
-        return pagesForLongText(locText, new ItemStack(item));
+    public static List<IPage> pagesForLongText(ITextProperties text, Item item) {
+        return pagesForLongText(text, new ItemStack(item));
     }
 
     /**
-     * @param locText - Text
-     * @param block   - The block to put on the first page
+     * @param text  - Text
+     * @param block - The block to put on the first page
      * @return a list of IPages with the text cut to fit on page
      */
-    public static List<IPage> pagesForLongText(String locText, Block block) {
-        return pagesForLongText(locText, new ItemStack(block));
+    public static List<IPage> pagesForLongText(ITextProperties text, Block block) {
+        return pagesForLongText(text, new ItemStack(block));
     }
 
     /**
-     * @param locText - Text
+     * @param text - Text
      * @param item    - The stack to put on the first page
      * @return a list of IPages with the text cut to fit on page
      */
-    public static List<IPage> pagesForLongText(String locText, ItemStack item) {
-        return pagesForLongText(locText, Ingredient.fromStacks(item));
+    public static List<IPage> pagesForLongText(ITextProperties text, ItemStack item) {
+        return pagesForLongText(text, Ingredient.fromStacks(item));
     }
 
     /**

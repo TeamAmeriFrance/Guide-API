@@ -47,8 +47,8 @@ public class BaseScreen extends Screen {
         RenderHelper.disableStandardItemLighting();
     }
 
-    public void drawTexturedModalRectWithColor(int x, int y, int textureX, int textureY, int width, int height, Color color) {
-        RenderSystem.pushMatrix();
+    public void drawTexturedModalRectWithColor(MatrixStack stack, int x, int y, int textureX, int textureY, int width, int height, Color color) {
+        stack.push();
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         float f = 0.00390625F;
@@ -63,7 +63,7 @@ public class BaseScreen extends Screen {
         tessellator.getBuffer().pos(x, y, this.publicZLevel).tex((float) (textureX) * f, (float) (textureY) * f1).endVertex();
         tessellator.draw();
         disableBlend();
-        RenderSystem.popMatrix();
+        stack.pop();
     }
 
     @Override

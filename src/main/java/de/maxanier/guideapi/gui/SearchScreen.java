@@ -78,7 +78,7 @@ public class SearchScreen extends BaseScreen {
         field_230706_i_.getTextureManager().bindTexture(pageTexture);
         func_238474_b_(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
         field_230706_i_.getTextureManager().bindTexture(outlineTexture);
-        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
+        drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
         func_238467_a_(stack, searchField.field_230690_l_ - 1, searchField.field_230691_m_ - 1, searchField.field_230690_l_ + searchField.getAdjustedWidth() + 1, searchField.field_230691_m_ + searchField.getHeight() + 1, new Color(166, 166, 166, 128).getRGB());
         func_238467_a_(stack, searchField.field_230690_l_, searchField.field_230691_m_, searchField.field_230690_l_ + searchField.getAdjustedWidth(), searchField.field_230691_m_ + searchField.getHeight(), new Color(58, 58, 58, 128).getRGB());

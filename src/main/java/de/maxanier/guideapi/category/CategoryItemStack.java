@@ -16,22 +16,22 @@ import java.util.Map;
 
 public class CategoryItemStack extends Category {
 
-    public ItemStack stack;
+    public ItemStack itemStack;
 
     public CategoryItemStack(Map<ResourceLocation, EntryAbstract> entries, String name, ItemStack stack) {
         super(entries, name);
-        this.stack = stack;
+        this.itemStack = stack;
     }
 
     public CategoryItemStack(String name, ItemStack stack) {
         super(name);
-        this.stack = stack;
+        this.itemStack = stack;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public void draw(MatrixStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
-        GuiHelper.drawScaledItemStack(this.stack, categoryX, categoryY, 1.5F);
+        GuiHelper.drawScaledItemStack(stack, this.itemStack, categoryX, categoryY, 1.5F);
     }
 
     @Override
@@ -49,13 +49,13 @@ public class CategoryItemStack extends Category {
 
         CategoryItemStack that = (CategoryItemStack) o;
 
-        return stack != null ? stack.equals(that.stack) : that.stack == null;
+        return itemStack != null ? itemStack.equals(that.itemStack) : that.itemStack == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (stack != null ? stack.hashCode() : 0);
+        result = 31 * result + (itemStack != null ? itemStack.hashCode() : 0);
         return result;
     }
 }

@@ -23,8 +23,8 @@ import java.util.List;
 public class Entry extends EntryAbstract {
 
 
-    public Entry(List<IPage> pageList, String name) {
-        super(pageList, name);
+    public Entry(List<IPage> pageList, String unlocName) {
+        super(pageList, unlocName);
     }
 
     public Entry(String name) {

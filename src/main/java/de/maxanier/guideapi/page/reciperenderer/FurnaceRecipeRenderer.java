@@ -26,7 +26,7 @@ public class FurnaceRecipeRenderer extends IRecipeRenderer.RecipeRendererBase<Fu
 
     @Override
     public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler) {
-        SubTexture.FURNACE_GRID.draw(guiLeft + 90, guiTop + 71);
+        SubTexture.FURNACE_GRID.draw(stack, guiLeft + 90, guiTop + 71);
 
         guiBase.func_238471_a_(stack, fontRendererObj, TextHelper.localizeEffect("guideapi.text.furnace.smelting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
@@ -35,7 +35,7 @@ public class FurnaceRecipeRenderer extends IRecipeRenderer.RecipeRendererBase<Fu
 
         Ingredient input = recipe.getIngredients().get(0);
         cycler.getCycledIngredientStack(input, 0).ifPresent(s -> {
-            GuiHelper.drawItemStack(s, x, y);
+            GuiHelper.drawItemStack(stack, s, x, y);
 
             List<ITextComponent> tooltip = null;
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
@@ -46,7 +46,7 @@ public class FurnaceRecipeRenderer extends IRecipeRenderer.RecipeRendererBase<Fu
         ItemStack output = recipe.getRecipeOutput();
 
         int x2 = guiLeft + 135;
-        GuiHelper.drawItemStack(output, x2, y);
+        GuiHelper.drawItemStack(stack, output, x2, y);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x2, y, 15, 15))
             tooltips = GuiHelper.getTooltip(output);
 

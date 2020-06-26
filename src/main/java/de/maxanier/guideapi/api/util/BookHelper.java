@@ -16,6 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.ForgeI18n;
@@ -40,12 +42,12 @@ public class BookHelper {
     private final String modid;
     private final String baseKey;
     private final Function<IRecipe<?>, IRecipeRenderer> recipeRendererSupplier;
-    private final BiFunction<String, Object[], String> localizer;
+    private final BiFunction<String, Object[], ITextComponent> localizer;
     private final Function<Block, String> blockNameMapper;
     private final Function<Item, String> itemNameMapper;
-    private Map<ResourceLocation, EntryAbstract> links = Maps.newHashMap();
+    private final Map<ResourceLocation, EntryAbstract> links = Maps.newHashMap();
 
-    private BookHelper(String modid, String baseKey, Function<IRecipe<?>, IRecipeRenderer> recipeRendererSupplier, BiFunction<String, Object[], String> localizer, Function<Block, String> blockNameMapper, Function<Item, String> itemNameMapper) {
+    private BookHelper(String modid, String baseKey, Function<IRecipe<?>, IRecipeRenderer> recipeRendererSupplier, BiFunction<String, Object[], ITextComponent> localizer, Function<Block, String> blockNameMapper, Function<Item, String> itemNameMapper) {
         LOGGER = LogManager.getLogger("BookHelper_" + modid);
         this.modid = modid;
         this.baseKey = baseKey;
@@ -165,7 +167,7 @@ public class BookHelper {
         return new ItemInfoBuilder(this, Ingredient.fromItems(blocks), new ItemStack(i0), name, true);
     }
 
-    public String localize(String key, Object... formats) {
+    public ITextComponent localize(String key, Object... formats) {
         return localizer.apply(key, formats);
     }
 
@@ -190,7 +192,7 @@ public class BookHelper {
         private final String modid;
         private String baseKey;
         private Function<IRecipe<?>, IRecipeRenderer> recipeRendererSupplier = PageIRecipe::getRenderer;
-        private BiFunction<String, Object[], String> localizer = ForgeI18n::parseMessage;
+        private BiFunction<String, Object[], ITextComponent> localizer = TranslationTextComponent::new;
         private Function<Block, String> blockNameMapper = (block -> block.getRegistryName().getPath());
         private Function<Item, String> itemNameMapper = (item -> item.getRegistryName().getPath());
 
@@ -245,7 +247,7 @@ public class BookHelper {
          * @param localizer Accept translation key and formats
          * @return this
          */
-        public BookHelper.Builder setLocalizer(BiFunction<String, Object[], String> localizer) {
+        public BookHelper.Builder setLocalizer(BiFunction<String, Object[], ITextComponent> localizer) {
             this.localizer = localizer;
             return this;
         }

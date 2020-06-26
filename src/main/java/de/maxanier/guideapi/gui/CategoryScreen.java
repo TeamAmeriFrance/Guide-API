@@ -54,7 +54,7 @@ public class CategoryScreen extends BaseScreen {
         field_230706_i_.getTextureManager().bindTexture(pageTexture); //minecraft
         func_238474_b_(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
         field_230706_i_.getTextureManager().bindTexture(outlineTexture);
-        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
+        drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
         entryPage = MathHelper.clamp(entryPage, 0, entryWrapperMap.size() - 1);
 

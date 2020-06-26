@@ -19,7 +19,7 @@ public class ShapedRecipesRenderer extends CraftingRecipeRenderer<ShapedRecipe> 
 
     @Override
     public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler) {
-        super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj, cycler);
+        super.draw(stack, book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj, cycler);
         for (int y = 0; y < recipe.getRecipeHeight(); y++) {
             for (int x = 0; x < recipe.getRecipeWidth(); x++) {
                 int i = y * recipe.getRecipeWidth() + x;
@@ -28,7 +28,7 @@ public class ShapedRecipesRenderer extends CraftingRecipeRenderer<ShapedRecipe> 
 
                 Ingredient ingredient = recipe.getIngredients().get(i);
                 cycler.getCycledIngredientStack(ingredient, i).ifPresent(s -> {
-                    GuiHelper.drawItemStack(s, stackX, stackY);
+                    GuiHelper.drawItemStack(stack, s, stackX, stackY);
                     if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
                         tooltips = GuiHelper.getTooltip(s);
                 });

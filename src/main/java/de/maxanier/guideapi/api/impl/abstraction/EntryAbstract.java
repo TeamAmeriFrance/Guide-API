@@ -21,9 +21,9 @@ public abstract class EntryAbstract {
     public final List<IPage> pageList;
     public final String name;
 
-    public EntryAbstract(List<IPage> pageList, String name) {
+    public EntryAbstract(List<IPage> pageList, String unlocName) {
         this.pageList = pageList;
-        this.name = name;
+        this.name = unlocName;
     }
 
     public EntryAbstract(String name) {

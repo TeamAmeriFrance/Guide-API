@@ -80,7 +80,7 @@ public class EventHandler {
                 break;
             }
         }
-        MatrixStack stack = event.getStack();
+        MatrixStack stack = event.getMatrixStack();
 
         if (book == null)
             return;

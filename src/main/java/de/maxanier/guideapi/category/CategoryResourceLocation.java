@@ -32,7 +32,7 @@ public class CategoryResourceLocation extends Category {
     @OnlyIn(Dist.CLIENT)
     public void draw(MatrixStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
         Minecraft.getInstance().getTextureManager().bindTexture(resourceLocation);
-        GuiHelper.drawSizedIconWithoutColor(categoryX, categoryY, 48, 48, 0);
+        GuiHelper.drawSizedIconWithoutColor(stack, categoryX, categoryY, 48, 48, 0);
     }
 
     @Override

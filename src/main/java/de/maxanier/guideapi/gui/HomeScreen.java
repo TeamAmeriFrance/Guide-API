@@ -43,7 +43,7 @@ public class HomeScreen extends BaseScreen {
         field_230706_i_.getTextureManager().bindTexture(pageTexture);
         func_238474_b_(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
         field_230706_i_.getTextureManager().bindTexture(outlineTexture);
-        drawTexturedModalRectWithColor(guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
+        drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
         func_238471_a_(stack, field_230712_o_, TextHelper.localize(book.getHeader()).replace("\\n", "\n").replace("&", "\u00a7"), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
 
         categoryPage = MathHelper.clamp(categoryPage, 0, categoryWrapperMap.size() - 1);

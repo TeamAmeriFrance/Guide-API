@@ -24,6 +24,8 @@ import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -48,10 +50,10 @@ public class TestBook implements IGuideBook {
         Map<ResourceLocation, EntryAbstract> entries = Maps.newHashMap();
 
         List<IPage> pages = Lists.newArrayList();
-        pages.add(new PageText("Hello, this is\nsome text with a new line."));
-        pages.add(new PageText("Hello, this is some text without a new line. It is long so it should probably be automaticall wrapped"));
-        pages.addAll(PageHelper.pagesForLongText("Hello, this is some text. It is very long so it should be split across multiple pages. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."));
-        pages.addAll(PageHelper.pagesForLongText("Hello, this is some text. It is very long so it should be split across multiple pages. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.", Items.COAL_BLOCK));
+        pages.add(new PageText(new StringTextComponent("Hello, this is\nsome text with a new line.")));
+        pages.add(new PageText(new StringTextComponent("Hello, this is some text without a new line. It is long so it should probably be automaticall wrapped")));
+        pages.addAll(PageHelper.pagesForLongText(new StringTextComponent("Hello, this is some text. It is very long so it should be split across multiple pages. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.")));
+        pages.addAll(PageHelper.pagesForLongText(new StringTextComponent("Hello, this is some text. It is very long so it should be split across multiple pages. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."), Items.COAL_BLOCK));
 
         pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "stone")));
         pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "charcoal")));
@@ -60,9 +62,9 @@ public class TestBook implements IGuideBook {
 
         pages.add(new PageIRecipe(new ShapedRecipe(new ResourceLocation(GuideMod.ID, "test11"), "test", 1, 1, NonNullList.from(Ingredient.EMPTY, Ingredient.fromStacks(new ItemStack(Items.PUMPKIN))), new ItemStack(Blocks.OAK_LOG))));
         pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "acacia_fence")));
-        pages.add(new PageItemStack("These are all logs", Ingredient.fromTag(ItemTags.LOGS)));
-        pages.add(new PageTextImage("guideapi.test.string", new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"), true));
-        pages.add(new PageTextImage("guideapi.test.string", new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"), false));
+        pages.add(new PageItemStack(new StringTextComponent("These are all logs"), Ingredient.fromTag(ItemTags.LOGS)));
+        pages.add(new PageTextImage(new TranslationTextComponent("guideapi.test.string"), new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"), true));
+        pages.add(new PageTextImage(new TranslationTextComponent("guideapi.test.string"), new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"), false));
         pages.add(new PageImage(new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png")));
 
 

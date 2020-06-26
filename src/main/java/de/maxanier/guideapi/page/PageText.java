@@ -8,26 +8,28 @@ import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
 import de.maxanier.guideapi.api.util.PageHelper;
 import de.maxanier.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.util.text.ITextProperties;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.ForgeI18n;
+
+import java.util.Objects;
 
 
 public class PageText extends Page {
 
-    public String draw;
+    public ITextProperties draw;
     private final int yOffset;
 
     /**
      * @param draw    - Text to draw. Checks for localization.
      * @param yOffset - How many pixels to offset the text on the Y value
      */
-    public PageText(String draw, int yOffset) {
+    public PageText(ITextProperties draw, int yOffset) {
         this.draw = draw;
         this.yOffset = yOffset;
     }
 
-    public PageText(String draw) {
+    public PageText(ITextProperties draw) {
         this(draw, 5);
     }
 
@@ -35,7 +37,7 @@ public class PageText extends Page {
     @OnlyIn(Dist.CLIENT)
     public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
 
-        PageHelper.drawFormattedText(guiLeft + 44, guiTop + 12 + yOffset, guiBase, ForgeI18n.getPattern(draw));
+        PageHelper.drawFormattedText(stack, guiLeft + 44, guiTop + 12 + yOffset, guiBase, draw);
 
     }
 
@@ -48,7 +50,7 @@ public class PageText extends Page {
         PageText pageText = (PageText) o;
 
         if (yOffset != pageText.yOffset) return false;
-        return draw != null ? draw.equals(pageText.draw) : pageText.draw == null;
+        return Objects.equals(draw, pageText.draw);
     }
 
     @Override
