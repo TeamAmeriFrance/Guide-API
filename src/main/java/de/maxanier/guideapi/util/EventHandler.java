@@ -1,7 +1,7 @@
 package de.maxanier.guideapi.util;
 
-import com.google.common.base.Strings;
 import com.google.common.collect.Multimap;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.GuideConfig;
 import de.maxanier.guideapi.GuideMod;
 import de.maxanier.guideapi.api.GuideAPI;
@@ -10,7 +10,6 @@ import de.maxanier.guideapi.api.IGuideLinked;
 import de.maxanier.guideapi.api.IInfoRenderer;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
-import de.maxanier.guideapi.api.util.TextHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -23,7 +22,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -34,6 +35,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.ItemHandlerHelper;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
 
 @Mod.EventBusSubscriber(modid = GuideMod.ID)
@@ -78,26 +80,28 @@ public class EventHandler {
                 break;
             }
         }
+        MatrixStack stack = event.getStack();
 
         if (book == null)
             return;
         BlockPos rayTracePos = ((BlockRayTraceResult) rayTrace).getPos();
         BlockState state = world.getBlockState(rayTracePos);
-        String linkedEntry = null;
+        @Nullable
+        TextComponent linkedEntry = null;
         if (state.getBlock() instanceof IGuideLinked) {
             IGuideLinked linked = (IGuideLinked) state.getBlock();
             ResourceLocation entryKey = linked.getLinkedEntry(world, rayTracePos, player, held);
             if (entryKey != null) {
                 for (CategoryAbstract category : book.getCategoryList()) {
                     if (category.entries.containsKey(entryKey)) {
-                        linkedEntry = category.getEntry(entryKey).getLocalizedName();
+                        linkedEntry = category.getEntry(entryKey).getName();
                         break;
                     }
                 }
             }
         }
 
-        if (!Strings.isNullOrEmpty(linkedEntry)) {
+        if (linkedEntry != null) {
             FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
 
             int drawX = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 10;
@@ -107,14 +111,14 @@ public class EventHandler {
 
             drawY -= 2;
             drawX += 20;
-            fontRenderer.drawStringWithShadow(TextFormatting.WHITE + linkedEntry, drawX, drawY, 0);
-            fontRenderer.drawStringWithShadow(TextFormatting.WHITE.toString() + TextFormatting.ITALIC.toString() + TextHelper.localize("guideapi.text.linked.open"), drawX, drawY + 12, 0);
+            fontRenderer.func_238407_a_(stack, linkedEntry.func_240699_a_(TextFormatting.WHITE), drawX, drawY, 0);
+            fontRenderer.func_238407_a_(stack, new TranslationTextComponent("guideapi.text.linked.open").func_240701_a_(TextFormatting.WHITE, TextFormatting.ITALIC), drawX, drawY + 12, 0);
         }
 
         if (state.getBlock() instanceof IInfoRenderer.Block) {
             IInfoRenderer infoRenderer = ((IInfoRenderer.Block) state.getBlock()).getInfoRenderer(book, world, rayTracePos, state, rayTrace, player);
             if (book == ((IInfoRenderer.Block) state.getBlock()).getBook() && infoRenderer != null)
-                infoRenderer.drawInformation(book, world, rayTracePos, state, rayTrace, player);
+                infoRenderer.drawInformation(stack, book, world, rayTracePos, state, rayTrace, player);
         }
 
         Multimap<Block, IInfoRenderer> bookRenderers = GuideAPI.getInfoRenderers().get(book);
@@ -123,7 +127,7 @@ public class EventHandler {
 
         Collection<IInfoRenderer> renderers = bookRenderers.get(state.getBlock());
         for (IInfoRenderer renderer : renderers)
-            renderer.drawInformation(book, world, rayTracePos, state, rayTrace, player);
+            renderer.drawInformation(stack, book, world, rayTracePos, state, rayTrace, player);
     }
 
     public static CompoundNBT getModTag(PlayerEntity player, String modName) {

@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.wrapper;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
@@ -46,13 +47,13 @@ public class EntryWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void draw(int mouseX, int mouseY, BaseScreen gui) {
-        entry.draw(book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getInstance().fontRenderer);
+    public void draw(MatrixStack stack, int mouseX, int mouseY, BaseScreen gui) {
+        entry.draw(stack, book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getInstance().fontRenderer);
     }
 
     @Override
-    public void drawExtras(int mouseX, int mouseY, BaseScreen gui) {
-        entry.drawExtras(book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getInstance().fontRenderer);
+    public void drawExtras(MatrixStack stack, int mouseX, int mouseY, BaseScreen gui) {
+        entry.drawExtras(stack, book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getInstance().fontRenderer);
     }
 
     @Override

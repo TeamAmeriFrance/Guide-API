@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.page;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
@@ -17,7 +18,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class PageItemStack extends PageText {
 
     public Ingredient ingredient;
-    private IngredientCycler ingredientCycler = new IngredientCycler();
+    private final IngredientCycler ingredientCycler = new IngredientCycler();
 
 
     public PageItemStack(String draw, Ingredient ingredient) {
@@ -52,10 +53,10 @@ public class PageItemStack extends PageText {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+    public void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         ingredientCycler.tick(guiBase.getMinecraft());
-        ingredientCycler.getCycledIngredientStack(ingredient, 0).ifPresent(stack -> {
-            GuiHelper.drawScaledItemStack(stack, guiLeft + 101, guiTop + 20, 3);
+        ingredientCycler.getCycledIngredientStack(ingredient, 0).ifPresent(s -> {
+            GuiHelper.drawScaledItemStack(s, guiLeft + 101, guiTop + 20, 3);
         });
     }
 

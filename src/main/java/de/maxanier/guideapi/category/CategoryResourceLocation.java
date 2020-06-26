@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.category;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.Category;
 import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
@@ -29,16 +30,16 @@ public class CategoryResourceLocation extends Category {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
+    public void draw(MatrixStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
         Minecraft.getInstance().getTextureManager().bindTexture(resourceLocation);
         GuiHelper.drawSizedIconWithoutColor(categoryX, categoryY, 48, 48, 0);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
+    public void drawExtras(MatrixStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
         if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight))
-            guiBase.renderTooltip(this.getTooltip(), mouseX, mouseY);
+            guiBase.func_238654_b_(stack, this.getTooltip(), mouseX, mouseY);
     }
 
     @Override

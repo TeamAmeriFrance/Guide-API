@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.page;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.SubTexture;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.Page;
@@ -30,7 +31,7 @@ public class PageBrewingRecipe extends Page {
     public Ingredient input;
     public ItemStack output;
 
-    private IngredientCycler cycler = new IngredientCycler();
+    private final IngredientCycler cycler = new IngredientCycler();
 
     /**
      * Your brewing recipe - what you pass to BrewingRecipeRegistry.addRecipe
@@ -57,7 +58,7 @@ public class PageBrewingRecipe extends Page {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+    public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         cycler.tick(guiBase.getMinecraft());
 
         int xStart = guiLeft + 88;
@@ -68,7 +69,7 @@ public class PageBrewingRecipe extends Page {
         List<ITextComponent> badTip = new ArrayList<>();
         badTip.add(new TranslationTextComponent("guideapi.text.brewing.error"));
 
-        guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("guideapi.text.brewing.brew"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
+        guiBase.drawCenteredStringWithoutShadow(stack, fontRendererObj, TextHelper.localizeEffect("guideapi.text.brewing.brew"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
         //int xmiddle =  guiLeft + guiBase.xSize / 2 - 6;
         int x = xStart + 25;//since item stack is approx 16 wide
@@ -76,8 +77,8 @@ public class PageBrewingRecipe extends Page {
         //start input
         int finalX = x;
         int finalY = y;
-        cycler.getCycledIngredientStack(ingredient, 0).ifPresent(stack -> {
-            GuiHelper.drawItemStack(stack, finalX, finalY);
+        cycler.getCycledIngredientStack(ingredient, 0).ifPresent(s -> {
+            GuiHelper.drawItemStack(s, finalX, finalY);
         });
 
         List<ITextComponent> tooltip = null;
@@ -111,10 +112,10 @@ public class PageBrewingRecipe extends Page {
             tooltip = output.getItem() == Item.getItemFromBlock(Blocks.BARRIER) ? badTip : GuiHelper.getTooltip(output);
 
         if (output.getItem() == Item.getItemFromBlock(Blocks.BARRIER))
-            guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("guideapi.text.brewing.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
+            guiBase.drawCenteredStringWithoutShadow(stack, fontRendererObj, TextHelper.localizeEffect("guideapi.text.brewing.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
 
         if (tooltip != null)
-            guiBase.drawHoveringTextComponents(tooltip, mouseX, mouseY);
+            guiBase.func_238654_b_(stack, tooltip, mouseX, mouseY);
     }
 
 

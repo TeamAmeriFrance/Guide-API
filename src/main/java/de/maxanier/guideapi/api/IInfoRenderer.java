@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.api;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.impl.Book;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,7 +34,7 @@ public interface IInfoRenderer {
      * @param rayTrace - A RayTraceResult containing data about the block currently looked at
      * @param player   - The player looking at the block
      */
-    void drawInformation(Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player);
+    void drawInformation(MatrixStack stack, Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player);
 
     /**
      * You can implement this in your block. However, this of course creates a hard dependency on GuideAPI

@@ -1,5 +1,7 @@
 package de.maxanier.guideapi.api.impl;
 
+import com.google.common.collect.Lists;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.IPage;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
@@ -11,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextProperties;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -30,22 +33,28 @@ public class Entry extends EntryAbstract {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+    public void draw(MatrixStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
 
 
         // Cutting code ripped from GuiButtonExt#drawButton(...)
-        String entryName = getLocalizedName();
-        int strWidth = fontRendererObj.getStringWidth(entryName);
+        ITextProperties entryName = getName();
+        int strWidth = fontRendererObj.func_238414_a_(entryName);
         int ellipsisWidth = fontRendererObj.getStringWidth("...");
 
+
+        //Trim string if to long
         if (strWidth > guiBase.xSize - 80 && strWidth > ellipsisWidth)
-            entryName = fontRendererObj.trimStringToWidth(entryName, guiBase.xSize - 80 - ellipsisWidth).trim() + "...";
+            entryName = fontRendererObj.func_238417_a_(entryName, guiBase.xSize - 80 - ellipsisWidth);
+
+
+        //Append dots
+        entryName = ITextProperties.func_240655_a_(entryName, ITextProperties.func_240652_a_("..."));
 
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight)) {
-            fontRendererObj.drawString(entryName, entryX + 12, entryY + 1, new Color(206, 206, 206).getRGB());
-            fontRendererObj.drawString(entryName, entryX + 12, entryY, 0x423EBC);
+            fontRendererObj.func_238422_b_(stack, entryName, entryX + 12, entryY + 1, new Color(206, 206, 206).getRGB());
+            fontRendererObj.func_238422_b_(stack, entryName, entryX + 12, entryY, 0x423EBC);
         } else {
-            fontRendererObj.drawString(entryName, entryX + 12, entryY, 0);
+            fontRendererObj.func_238422_b_(stack, entryName, entryX + 12, entryY, 0);
         }
 
 
@@ -53,18 +62,18 @@ public class Entry extends EntryAbstract {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+    public void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
 
 
         // Cutting code ripped from GuiButtonExt#drawButton(...)
-        int strWidth = fontRendererObj.getStringWidth(getLocalizedName());
+        int strWidth = fontRendererObj.func_238414_a_(getName());
         boolean cutString = false;
 
         if (strWidth > guiBase.xSize - 80 && strWidth > fontRendererObj.getStringWidth("..."))
             cutString = true;
 
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight) && cutString) {
-            guiBase.renderTooltip(getLocalizedName(), entryX, entryY + 12);
+            guiBase.func_238654_b_(stack, Lists.newArrayList(getName()), entryX, entryY + 12);
         }
 
 

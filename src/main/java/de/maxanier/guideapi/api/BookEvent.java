@@ -4,7 +4,6 @@ import de.maxanier.guideapi.api.impl.Book;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.eventbus.api.Cancelable;
@@ -51,7 +50,7 @@ public class BookEvent extends Event {
     @Cancelable
     public static class Open extends BookEvent {
 
-        private static final ITextComponent DEFAULT_CANCEL = new TranslationTextComponent("text.open.failed").setStyle(new Style().setColor(TextFormatting.RED));
+        private static final ITextComponent DEFAULT_CANCEL = new TranslationTextComponent("text.open.failed").func_240699_a_(TextFormatting.RED);
 
         private ITextComponent canceledText = DEFAULT_CANCEL;
 

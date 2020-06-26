@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.page;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.Page;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
@@ -15,7 +16,7 @@ import net.minecraftforge.fml.ForgeI18n;
 public class PageText extends Page {
 
     public String draw;
-    private int yOffset;
+    private final int yOffset;
 
     /**
      * @param draw    - Text to draw. Checks for localization.
@@ -32,7 +33,7 @@ public class PageText extends Page {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+    public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
 
         PageHelper.drawFormattedText(guiLeft + 44, guiTop + 12 + yOffset, guiBase, ForgeI18n.getPattern(draw));
 

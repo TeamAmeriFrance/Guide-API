@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.entry;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.IPage;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.Entry;
@@ -15,26 +16,26 @@ import java.util.List;
 
 public class EntryItemStack extends Entry {
 
-    public ItemStack stack;
+    public ItemStack itemStack;
 
     public EntryItemStack(List<IPage> pageList, String name, ItemStack stack) {
         super(pageList, name);
-        this.stack = stack;
+        this.itemStack = stack;
     }
 
 
     public EntryItemStack(String name, ItemStack stack) {
         super(name);
-        this.stack = stack;
+        this.itemStack = stack;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-        if (stack != null)
-            GuiHelper.drawScaledItemStack(stack, entryX + 2, entryY, 0.5F);
+    public void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+        if (itemStack != null)
+            GuiHelper.drawScaledItemStack(itemStack, entryX + 2, entryY, 0.5F);
 
-        super.drawExtras(book, category, entryX, entryY, entryWidth, entryHeight, mouseX, mouseY, guiBase, fontRendererObj);
+        super.drawExtras(stack, book, category, entryX, entryY, entryWidth, entryHeight, mouseX, mouseY, guiBase, fontRendererObj);
     }
 
     @Override
@@ -45,13 +46,13 @@ public class EntryItemStack extends Entry {
 
         EntryItemStack that = (EntryItemStack) o;
 
-        return stack != null ? stack.equals(that.stack) : that.stack == null;
+        return itemStack != null ? itemStack.equals(that.itemStack) : that.itemStack == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (stack != null ? stack.hashCode() : 0);
+        result = 31 * result + (itemStack != null ? itemStack.hashCode() : 0);
         return result;
     }
 }

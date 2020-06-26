@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.info;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.IInfoRenderer;
 import de.maxanier.guideapi.api.impl.Book;
 import net.minecraft.block.BlockState;
@@ -28,8 +29,8 @@ public class InfoRendererImage implements IInfoRenderer {
     }
 
     @Override
-    public void drawInformation(Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player) {
+    public void drawInformation(MatrixStack stack, Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player) {
         Minecraft.getInstance().textureManager.bindTexture(image);
-        AbstractGui.blit(Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 20, Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 - imageHeight / 2, imageX, imageY, imageWidth, imageHeight, imageWidth, imageHeight);
+        AbstractGui.func_238463_a_(stack, Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 20, Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 - imageHeight / 2, imageX, imageY, imageWidth, imageHeight, imageWidth, imageHeight);
     }
 }

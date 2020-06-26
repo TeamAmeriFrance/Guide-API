@@ -1,6 +1,7 @@
 package de.maxanier.guideapi.api;
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
@@ -17,10 +18,10 @@ import java.util.List;
 public interface IRecipeRenderer {
 
     @OnlyIn(Dist.CLIENT)
-    void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler);
+    void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler);
 
     @OnlyIn(Dist.CLIENT)
-    void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj);
+    void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj);
 
     abstract class RecipeRendererBase<T extends IRecipe<?>> implements IRecipeRenderer {
 
@@ -34,8 +35,8 @@ public interface IRecipeRenderer {
 
 
         @Override
-        public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-            guiBase.drawHoveringTextComponents(tooltips, mouseX, mouseY);
+        public void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+            guiBase.func_238654_b_(stack, tooltips, mouseX, mouseY);
             tooltips.clear();
         }
     }

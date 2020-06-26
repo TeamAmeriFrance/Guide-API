@@ -1,14 +1,16 @@
 package de.maxanier.guideapi.api.impl.abstraction;
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.IPage;
 import de.maxanier.guideapi.api.impl.Book;
-import de.maxanier.guideapi.api.util.TextHelper;
 import de.maxanier.guideapi.gui.BaseScreen;
 import de.maxanier.guideapi.gui.CategoryScreen;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -45,15 +47,15 @@ public abstract class EntryAbstract {
         this.pageList.removeAll(pages);
     }
 
-    public String getLocalizedName() {
-        return TextHelper.localizeEffect(name);
+    @OnlyIn(Dist.CLIENT)
+    public abstract void draw(MatrixStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer renderer);
+
+    @OnlyIn(Dist.CLIENT)
+    public abstract void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer renderer);
+
+    public TextComponent getName() {
+        return new TranslationTextComponent(name);
     }
-
-    @OnlyIn(Dist.CLIENT)
-    public abstract void draw(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer renderer);
-
-    @OnlyIn(Dist.CLIENT)
-    public abstract void drawExtras(Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer renderer);
 
     public abstract boolean canSee(PlayerEntity player, ItemStack bookStack);
 

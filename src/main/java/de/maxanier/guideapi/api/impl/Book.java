@@ -5,6 +5,7 @@ import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.util.LogHelper;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TranslationTextComponent;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.awt.*;
@@ -66,8 +67,8 @@ public class Book {
         return this.categories;
     }
 
-    public String getTitle() {
-        return this.title;
+    public TranslationTextComponent getTitle() {
+        return new TranslationTextComponent(this.title);
     }
 
     public String getItemName() {

@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.page.reciperenderer;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
@@ -17,7 +18,7 @@ public class ShapedRecipesRenderer extends CraftingRecipeRenderer<ShapedRecipe> 
     }
 
     @Override
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler) {
+    public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler) {
         super.draw(book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj, cycler);
         for (int y = 0; y < recipe.getRecipeHeight(); y++) {
             for (int x = 0; x < recipe.getRecipeWidth(); x++) {
@@ -26,10 +27,10 @@ public class ShapedRecipesRenderer extends CraftingRecipeRenderer<ShapedRecipe> 
                 int stackY = (y + 1) * 17 + (guiTop + 38) + y;
 
                 Ingredient ingredient = recipe.getIngredients().get(i);
-                cycler.getCycledIngredientStack(ingredient, i).ifPresent(stack -> {
-                    GuiHelper.drawItemStack(stack, stackX, stackY);
+                cycler.getCycledIngredientStack(ingredient, i).ifPresent(s -> {
+                    GuiHelper.drawItemStack(s, stackX, stackY);
                     if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
-                        tooltips = GuiHelper.getTooltip(stack);
+                        tooltips = GuiHelper.getTooltip(s);
                 });
             }
         }

@@ -3,14 +3,16 @@ package de.maxanier.guideapi.api.impl.abstraction;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.impl.Book;
-import de.maxanier.guideapi.api.util.TextHelper;
 import de.maxanier.guideapi.gui.BaseScreen;
 import de.maxanier.guideapi.gui.HomeScreen;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -119,24 +121,24 @@ public abstract class CategoryAbstract {
         return this;
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public abstract void draw(MatrixStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem);
+
+    @OnlyIn(Dist.CLIENT)
+    public abstract void drawExtras(MatrixStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem);
+
     /**
      * Obtains a localized copy of this category's name.
      *
      * @return a localized copy of this category's name.
      */
-    public String getLocalizedName() {
-        return TextHelper.localizeEffect(name);
+    public ITextComponent getName() {
+        return new TranslationTextComponent(name);
     }
 
-    public List<String> getTooltip() {
-        return Lists.newArrayList(getLocalizedName());
+    public List<ITextComponent> getTooltip() {
+        return Lists.newArrayList(getName());
     }
-
-    @OnlyIn(Dist.CLIENT)
-    public abstract void draw(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem);
-
-    @OnlyIn(Dist.CLIENT)
-    public abstract void drawExtras(Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem);
 
     public abstract boolean canSee(PlayerEntity player, ItemStack bookStack);
 

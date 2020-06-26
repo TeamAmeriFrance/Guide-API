@@ -8,11 +8,12 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.GL11;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 
 
@@ -191,11 +192,15 @@ public class GuiHelper {
         Minecraft mc = Minecraft.getInstance();
         List<ITextComponent> list = stack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? TooltipFlags.ADVANCED : TooltipFlags.NORMAL);
         for (int k = 0; k < list.size(); ++k) {
-            if (k == 0) {
-                list.get(k).applyTextStyle(stack.getRarity().color);
-            } else {
-                list.get(k).applyTextStyle(TextFormatting.GRAY);
+            ITextComponent c = list.get(k);
+            if (c instanceof IFormattableTextComponent) {
+                if (k == 0) {
+                    ((IFormattableTextComponent) c).func_240699_a_(stack.getRarity().color); //applyTextComponent
+                } else {
+                    ((IFormattableTextComponent) c).func_240699_a_(TextFormatting.GRAY);
+                }
             }
+
         }
         return list;
     }

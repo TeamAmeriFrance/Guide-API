@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.page.reciperenderer;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.IRecipeRenderer;
 import de.maxanier.guideapi.api.SubTexture;
 import de.maxanier.guideapi.api.impl.Book;
@@ -24,21 +25,21 @@ public class FurnaceRecipeRenderer extends IRecipeRenderer.RecipeRendererBase<Fu
     }
 
     @Override
-    public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler) {
+    public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler) {
         SubTexture.FURNACE_GRID.draw(guiLeft + 90, guiTop + 71);
 
-        guiBase.drawCenteredString(fontRendererObj, TextHelper.localizeEffect("guideapi.text.furnace.smelting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
+        guiBase.func_238471_a_(stack, fontRendererObj, TextHelper.localizeEffect("guideapi.text.furnace.smelting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
         int x = guiLeft + 92;
         int y = guiTop + 77;
 
         Ingredient input = recipe.getIngredients().get(0);
-        cycler.getCycledIngredientStack(input, 0).ifPresent(stack -> {
-            GuiHelper.drawItemStack(stack, x, y);
+        cycler.getCycledIngredientStack(input, 0).ifPresent(s -> {
+            GuiHelper.drawItemStack(s, x, y);
 
             List<ITextComponent> tooltip = null;
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
-                tooltips = GuiHelper.getTooltip(stack);
+                tooltips = GuiHelper.getTooltip(s);
         });
 
 
