@@ -6,16 +6,16 @@ import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
 import de.maxanier.guideapi.api.util.GuiHelper;
 import de.maxanier.guideapi.api.util.IngredientCycler;
-import de.maxanier.guideapi.api.util.TextHelper;
 import de.maxanier.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class ShapelessRecipesRenderer extends CraftingRecipeRenderer<ShapelessRecipe> {
 
     public ShapelessRecipesRenderer(ShapelessRecipe recipe) {
-        super(recipe);
+        super(recipe, new TranslationTextComponent("guideapi.text.crafting.shapeless"));
     }
 
     @Override
@@ -38,8 +38,4 @@ public class ShapelessRecipesRenderer extends CraftingRecipeRenderer<ShapelessRe
         }
     }
 
-    @Override
-    protected String getRecipeName() {
-        return TextHelper.localizeEffect("guideapi.text.crafting.shapeless");
-    }
 }

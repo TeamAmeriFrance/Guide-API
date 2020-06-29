@@ -33,7 +33,7 @@ public class EntryItemStack extends Entry {
     @OnlyIn(Dist.CLIENT)
     public void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         if (itemStack != null)
-            GuiHelper.drawScaledItemStack(stack, itemStack, entryX + 2, entryY, 0.5F);
+            GuiHelper.drawScaledItemStack(stack, itemStack, entryX + 2, entryY, 0.5f);
 
         super.drawExtras(stack, book, category, entryX, entryY, entryWidth, entryHeight, mouseX, mouseY, guiBase, fontRendererObj);
     }

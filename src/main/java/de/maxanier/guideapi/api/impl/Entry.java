@@ -43,12 +43,12 @@ public class Entry extends EntryAbstract {
 
 
         //Trim string if to long
-        if (strWidth > guiBase.xSize - 80 && strWidth > ellipsisWidth)
+        if (strWidth > guiBase.xSize - 80 && strWidth > ellipsisWidth) {
             entryName = fontRendererObj.func_238417_a_(entryName, guiBase.xSize - 80 - ellipsisWidth);
+            //Append dots
+            entryName = ITextProperties.func_240655_a_(entryName, ITextProperties.func_240652_a_("..."));
+        }
 
-
-        //Append dots
-        entryName = ITextProperties.func_240655_a_(entryName, ITextProperties.func_240652_a_("..."));
 
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight)) {
             fontRendererObj.func_238422_b_(stack, entryName, entryX + 12, entryY + 1, new Color(206, 206, 206).getRGB());

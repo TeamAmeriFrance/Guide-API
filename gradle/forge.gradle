@@ -50,7 +50,7 @@ minecraft {
         client {
             taskName 'runClient1'
             main 'net.minecraftforge.userdev.LaunchTesting'
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             workingDirectory project.file('run/client1').canonicalPath
             jvmArg '-ea:de.maxanier...'
@@ -65,7 +65,7 @@ minecraft {
         }
         server = {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
             workingDirectory project.file('run/server').canonicalPath
             jvmArg '-ea:de.maxanier...'
 

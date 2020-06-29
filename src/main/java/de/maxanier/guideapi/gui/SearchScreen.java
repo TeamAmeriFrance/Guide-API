@@ -41,7 +41,7 @@ public class SearchScreen extends BaseScreen {
                 if (!entry.canSee(player, bookStack))
                     continue;
 
-                if (Strings.isNullOrEmpty(query) || entry.getName().getUnformattedComponentText().toLowerCase(Locale.ENGLISH).contains(query.toLowerCase(Locale.ENGLISH)))
+                if (Strings.isNullOrEmpty(query) || entry.getName().getString().toLowerCase(Locale.ENGLISH).contains(query.toLowerCase(Locale.ENGLISH)))
                     discovered.add(Pair.of(entry, category));
             }
         }

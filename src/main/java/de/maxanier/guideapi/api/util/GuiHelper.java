@@ -38,12 +38,14 @@ public class GuiHelper {
     }
 
     /**
+     * MatrixStack isn't used yet as vanilla ItemRenderer does not use it yet.
+     *
      * @param stack - The itemstack to be drawn
      * @param x     - The position on the x-axis to draw the itemstack
      * @param y     - The position on the y-axis to draw the itemstack
      */
     public static void drawItemStack(MatrixStack mStack, ItemStack stack, int x, int y) {
-        mStack.push();
+        RenderSystem.pushMatrix();
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderHelper.enableStandardItemLighting();
@@ -52,30 +54,32 @@ public class GuiHelper {
         render.renderItemAndEffectIntoGUI(stack, x, y);
         render.renderItemOverlayIntoGUI(Minecraft.getInstance().fontRenderer, stack, x, y, null);
         RenderHelper.disableStandardItemLighting();
-        mStack.pop();
+        RenderSystem.popMatrix();
         RenderSystem.disableLighting();
     }
 
     /**
+     * MatrixStack isn't used yet as vanilla ItemRenderer does not use it yet.
      * @param stack - The itemstack to be drawn
      * @param x     - The position on the x-axis to draw the itemstack
      * @param y     - The position on the y-axis to draw the itemstack
      * @param scale - The scale with which to draw the itemstack
      */
     public static void drawScaledItemStack(MatrixStack mStack, ItemStack stack, int x, int y, float scale) {
-        mStack.push();
+        RenderSystem.pushMatrix();
+        RenderSystem.scalef(scale, scale, 1f);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        mStack.scale(scale, scale, 1.0F);
         RenderHelper.enableStandardItemLighting();
         RenderSystem.enableRescaleNormal();
         RenderSystem.enableDepthTest();//enableDepth?
         render.renderItemAndEffectIntoGUI(stack, (int) (x / scale), (int) (y / scale));
         RenderHelper.disableStandardItemLighting();
-        mStack.pop();
+        RenderSystem.popMatrix();
     }
 
     /**
+     * MatrixStack isn't used yet as vanilla ItemRenderer does not use it yet.
      * @param x      - The position on the x-axis to draw the icon
      * @param y      - The position on the y-axis to draw the icon
      * @param width  - The width of the icon
@@ -83,7 +87,7 @@ public class GuiHelper {
      * @param zLevel -
      */
     public static void drawIconWithoutColor(MatrixStack mStack, int x, int y, int width, int height, float zLevel) {
-        mStack.push();
+        RenderSystem.pushMatrix();
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderHelper.enableStandardItemLighting();
@@ -98,10 +102,11 @@ public class GuiHelper {
         tessellator.getBuffer().pos(x, y, zLevel).tex(0f, 0f).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        mStack.pop();
+        RenderSystem.popMatrix();
     }
 
     /**
+     * MatrixStack isn't used yet as vanilla ItemRenderer does not use it yet.
      * @param x      - The position on the x-axis to draw the icon
      * @param y      - The position on the y-axis to draw the icon
      * @param width  - The width of the icon
@@ -110,7 +115,7 @@ public class GuiHelper {
      * @param color  - The color the icon will have
      */
     public static void drawIconWithColor(MatrixStack mStack, int x, int y, int width, int height, float zLevel, Color color) {
-        mStack.push();
+        RenderSystem.pushMatrix();
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderHelper.enableStandardItemLighting();
@@ -127,10 +132,11 @@ public class GuiHelper {
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mStack.pop();
+        RenderSystem.popMatrix();
     }
 
     /**
+     * MatrixStack isn't used yet as vanilla ItemRenderer does not use it yet.
      * @param x      - The position on the x-axis to draw the icon
      * @param y      - The position on the y-axis to draw the icon
      * @param width  - The width of the icon
@@ -138,12 +144,12 @@ public class GuiHelper {
      * @param zLevel -
      */
     public static void drawSizedIconWithoutColor(MatrixStack mStack, int x, int y, int width, int height, float zLevel) {
-        mStack.push();
+        RenderSystem.pushMatrix();
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderSystem.color4f(1F, 1F, 1F, 1F);
-        mStack.scale(0.5f, 0.5f, 0.5f);
-        mStack.translate(x, y, zLevel);
+        RenderSystem.scalef(0.5f, 0.5f, 0.5f);
+        RenderSystem.translatef(x, y, zLevel);
         RenderHelper.enableStandardItemLighting();
         RenderSystem.disableLighting();
         RenderSystem.enableRescaleNormal();
@@ -156,10 +162,11 @@ public class GuiHelper {
         tessellator.getBuffer().pos(x, y, zLevel).tex(0, 0).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        mStack.pop();
+        RenderSystem.popMatrix();
     }
 
     /**
+     * MatrixStack isn't used yet as vanilla ItemRenderer does not use it yet.
      * @param x      - The position on the x-axis to draw the icon
      * @param y      - The position on the y-axis to draw the icon
      * @param width  - The width of the icon
@@ -167,12 +174,12 @@ public class GuiHelper {
      * @param color  - The color the icon will have
      */
     public static void drawSizedIconWithColor(MatrixStack mStack, int x, int y, int width, int height, float zLevel, Color color) {
-        mStack.push();
+        RenderSystem.pushMatrix();
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        mStack.scale(0.5f, 0.5f, 0.5f);
+        RenderSystem.scalef(0.5f, 0.5f, 0.5f);
         RenderSystem.color4f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
-        mStack.translate(x, y, zLevel);
+        RenderSystem.translatef(x, y, zLevel);
         RenderHelper.enableStandardItemLighting();
         RenderSystem.disableLighting();
         RenderSystem.enableRescaleNormal();
@@ -185,7 +192,7 @@ public class GuiHelper {
         tessellator.getBuffer().pos(x, y, zLevel).tex(0, 0).endVertex();
         tessellator.draw();
         RenderHelper.disableStandardItemLighting();
-        mStack.pop();
+        RenderSystem.popMatrix();
     }
 
     @SuppressWarnings("unchecked")

@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.text.ITextProperties;
+import net.minecraft.util.text.StringTextComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,20 +36,20 @@ public class PageHelper {
         FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
         int firstCount = firstHeight / fontRenderer.FONT_HEIGHT;
         int count = subsequentHeight / fontRenderer.FONT_HEIGHT;
-        List<ITextProperties> lines = new ArrayList<>(fontRenderer.func_238425_b_(text, lineWidth)); //TODO Make sure to also split at manually specified newlines
+        List<ITextProperties> lines = new ArrayList<>(fontRenderer.func_238425_b_(text, lineWidth));
         List<ITextProperties> pages = new ArrayList<>();
 
         List<ITextProperties> pageLines = lines.size() > firstCount ? lines.subList(0, firstCount) : lines;
-        pages.add(ITextProperties.func_240654_a_(pageLines));
-        //pages.add(StringUtils.join(pageLines, "\n"));
+        pages.add(combineWithNewLine(pageLines));
         pageLines.clear();
         while (lines.size() > 0) {
             pageLines = lines.size() > count ? lines.subList(0, count) : lines;
-            pages.add(ITextProperties.func_240654_a_(pageLines));
+            pages.add(combineWithNewLine(pageLines));
             pageLines.clear();
         }
         return pages;
     }
+
 
     /**
      * Spread the text over multiple pages if necessary. Display ingredient at first page
@@ -77,7 +78,7 @@ public class PageHelper {
     public static void drawFormattedText(MatrixStack stack, int x, int y, BaseScreen guiBase, ITextProperties toDraw) {
         FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
 
-        List<ITextProperties> cutLines = fontRenderer.func_238425_b_(toDraw, 170); //Split at new line? TODO
+        List<ITextProperties> cutLines = fontRenderer.func_238425_b_(toDraw, 170);
         for (ITextProperties cut : cutLines) {
             fontRenderer.func_238422_b_(stack, cut, x, y, 0);
             y += 10;
@@ -123,5 +124,21 @@ public class PageHelper {
         if (recipe1.equals(recipe2)) return true;
         return recipe1.getRecipeOutput().isItemEqual(recipe2.getRecipeOutput());
 //        if (recipe1.getRecipeSize() != recipe2.getRecipeSize()) return false;//FN was removed, there is no size now
+    }
+
+
+    /**
+     * @param elements The list ist not used itself, but the elements are passed to the new ITextProperties
+     * @return a new ITextProperties that combines the given elements with a newline in between
+     */
+    private static ITextProperties combineWithNewLine(List<ITextProperties> elements) {
+        ITextProperties newLine = new StringTextComponent("\n");
+        List<ITextProperties> copy = new ArrayList<>(elements.size() * 2);
+        for (int i = 0; i < elements.size() - 1; i++) {
+            copy.add(elements.get(i));
+            copy.add(newLine);
+        }
+        copy.add(elements.get(elements.size() - 1));
+        return ITextProperties.func_240654_a_(copy);
     }
 }

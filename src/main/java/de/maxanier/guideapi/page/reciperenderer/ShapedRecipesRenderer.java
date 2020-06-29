@@ -10,11 +10,12 @@ import de.maxanier.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipe;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class ShapedRecipesRenderer extends CraftingRecipeRenderer<ShapedRecipe> {
 
     public ShapedRecipesRenderer(ShapedRecipe recipe) {
-        super(recipe);
+        super(recipe, new TranslationTextComponent("guideapi.text.crafting.shaped"));
     }
 
     @Override
