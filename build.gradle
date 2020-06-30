@@ -1,145 +1,75 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven { url = "http://files.minecraftforge.net/maven" }
-        maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
-    }
-    dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-    }
-}
-
 plugins {
-    id 'com.matthewprenger.cursegradle' version '1.1.2'
-    id "net.minecraftforge.gradle.forge" version "2.0.2"
+    id 'fabric-loom' version '0.4.29'
+    id 'maven-publish'
 }
 
-apply plugin: 'maven-publish'
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
-def build_number = 'CUSTOM'
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
 
-if (System.getenv('BUILD_NUMBER') != null)
-    build_number = System.getenv('BUILD_NUMBER')
-
-group = package_group
-archivesBaseName = mod_name
-version = "${mc_version}-${mod_version}-${build_number}"
-
-repositories {
-    maven { url = "http://dvs1.progwml6.com/files/maven" }
+minecraft {
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
-}
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
 
-minecraft {
-    version = "${mc_version}-${forge_version}"
-    runDir = "run"
-
-    replace "@VERSION@", project.version
-    replaceIn "GuideMod.java"
-    replace "@API_VERSION@", "${api_version}"
-    replaceIn "package-info.java"
-
-    if (project.hasProperty('mappings_version'))
-        mappings = project.mappings_version
+    modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
 processResources {
     inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
 
     from(sourceSets.main.resources.srcDirs) {
-        include '**/*.info'
-        include '**/*.properties'
+        include "fabric.mod.json"
+        expand "version": project.version
+    }
 
-        expand 'version': project.version, 'mcversion': project.minecraft.version
-    }
     from(sourceSets.main.resources.srcDirs) {
-        exclude '**/*.info'
-        exclude '**/*.properties'
+        exclude "fabric.mod.json"
     }
+}
+
+// ensure that the encoding is set to UTF-8, no matter what the system default is
+// this fixes some edge cases with special characters not displaying correctly
+// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+// if it is present.
+// If you remove this task, sources will not be generated.
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = "sources"
+    from sourceSets.main.allSource
 }
 
 jar {
-    classifier = ''
-    manifest.mainAttributes(
-            "Built-By": System.getProperty('user.name'),
-            "Created-By": "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})",
-            "Implementation-Title": project.name,
-            "Implementation-Version": project.version
-    )
-    exclude 'amerifrance/guideapi/test/**/*'
+    from "LICENSE"
 }
 
-// API jar
-task apiJar(type: Jar) {
-    from sourceSets.main.allSource
-    from sourceSets.main.output
-    include 'amerifrance/guideapi/api/**/*'
-    classifier = 'api'
-}
-
-tasks.build.dependsOn apiJar
-
-tasks.withType(JavaCompile) { task ->
-    task.options.encoding = 'UTF-8'
-}
-
+// configure the maven publication
 publishing {
-    tasks.publish.dependsOn 'build'
     publications {
         mavenJava(MavenPublication) {
-            artifact jar
-            artifact sourceJar
-        }
-    }
-    repositories {
-        if (project.hasProperty('maven_repo')) {
-            maven { url maven_repo }
-        } else {
-            mavenLocal()
-        }
-    }
-}
-
-String getChangelogText() {
-    def changelogFile = new File('changelog.txt')
-    if (!changelogFile.exists())
-        return ""
-    String str = ''
-    String separator = '---'
-    int lineCount = 0
-    boolean done = false
-    changelogFile.eachLine {
-        if (done || it == null) {
-            return
-        }
-        if (lineCount < 3) {
-            lineCount++
-            if (it.startsWith(separator)) {
-                return
+            // add all the jars that should be included when publishing to maven
+            artifact(remapJar) {
+                builtBy remapJar
+            }
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
             }
         }
-        if (!it.startsWith(separator)) {
-            str += "$it" + (lineCount < 3 ? ':\n\n' : '\n')
-            return
-        }
-        done = true // once we go past the first version block, parse no more
     }
-    return str
-}
 
-curseforge {
-    if (project.hasProperty('curse_key'))
-        apiKey = project.curse_key
- 
-    project {
-        id = "${curse_id}"
-        changelog = getChangelogText()
-        releaseType = 'beta'
- 
-        addArtifact sourceJar
+    // select the repositories you want to publish to
+    repositories {
+        // uncomment to publish to the local maven
+        // mavenLocal()
     }
 }

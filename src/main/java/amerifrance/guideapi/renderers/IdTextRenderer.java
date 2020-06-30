@@ -1,0 +1,47 @@
+package amerifrance.guideapi.renderers;
+
+import amerifrance.guideapi.api.IdTextProvider;
+import amerifrance.guideapi.gui.GuideGui;
+import amerifrance.guideapi.utils.Area;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.StringRenderable;
+
+import java.util.List;
+
+public class IdTextRenderer<T extends IdTextProvider> implements Renderer<T> {
+
+    private static final int HOVER_COLOR = 0xffffff;
+
+    @Override
+    public void render(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y, float delta) {
+        List<StringRenderable> lines = guideGui.getTextRenderer().wrapLines(new LiteralText(object.getText()), guideGui.getGuiWidth());
+
+        int yPosition = y;
+        for (StringRenderable line : lines) {
+            guideGui.getTextRenderer().draw(matrixStack, line, x, yPosition, 0);
+
+            yPosition += guideGui.getTextRenderer().fontHeight;
+        }
+    }
+
+    @Override
+    public void hover(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y, int mouseX, int mouseY) {
+        List<StringRenderable> lines = guideGui.getTextRenderer().wrapLines(new LiteralText(object.getText()), guideGui.getGuiWidth());
+
+        int yPosition = y;
+        for (StringRenderable line : lines) {
+            guideGui.getTextRenderer().draw(matrixStack, line, x, yPosition, HOVER_COLOR);
+
+            yPosition += guideGui.getTextRenderer().fontHeight;
+        }
+    }
+
+    @Override
+    public Area getArea(T object, GuideGui guideGui) {
+        TextRenderer textRenderer = guideGui.getTextRenderer();
+
+        return new Area(textRenderer.getWidth(object.getText()), textRenderer.fontHeight);
+    }
+}

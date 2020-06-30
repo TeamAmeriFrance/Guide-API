@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "guide-api",
+  "version": "${version}",
+  "name": "Guide Api",
+  "authors": [
+    "TehNut", "Tombenpotter"
+  ],
+  "license": "CC0-1.0",
+  "icon": "assets/guide-api/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "amerifrance.guideapi.GuideApi"
+    ]
+  },
+  "mixins": [
+    "guide-api.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.8.8+build.202",
+    "fabric": "*",
+    "minecraft": "1.16.1"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.amerifrance.guideapi.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
