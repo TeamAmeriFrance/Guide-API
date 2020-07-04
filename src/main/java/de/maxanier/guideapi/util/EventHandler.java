@@ -22,7 +22,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.TextComponent;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.ITextProperties;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -87,7 +88,7 @@ public class EventHandler {
         BlockPos rayTracePos = ((BlockRayTraceResult) rayTrace).getPos();
         BlockState state = world.getBlockState(rayTracePos);
         @Nullable
-        TextComponent linkedEntry = null;
+        ITextProperties linkedEntry = null;
         if (state.getBlock() instanceof IGuideLinked) {
             IGuideLinked linked = (IGuideLinked) state.getBlock();
             ResourceLocation entryKey = linked.getLinkedEntry(world, rayTracePos, player, held);
@@ -111,7 +112,7 @@ public class EventHandler {
 
             drawY -= 2;
             drawX += 20;
-            fontRenderer.func_238407_a_(stack, linkedEntry.func_240699_a_(TextFormatting.WHITE), drawX, drawY, 0);
+            fontRenderer.func_238407_a_(stack, linkedEntry instanceof IFormattableTextComponent ? ((IFormattableTextComponent) linkedEntry).func_240699_a_(TextFormatting.WHITE) : linkedEntry, drawX, drawY, 0);
             fontRenderer.func_238407_a_(stack, new TranslationTextComponent("guideapi.text.linked.open").func_240701_a_(TextFormatting.WHITE, TextFormatting.ITALIC), drawX, drawY + 12, 0);
         }
 

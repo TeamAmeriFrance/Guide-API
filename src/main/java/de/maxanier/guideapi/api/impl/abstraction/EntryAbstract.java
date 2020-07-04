@@ -9,8 +9,7 @@ import de.maxanier.guideapi.gui.CategoryScreen;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -19,14 +18,14 @@ import java.util.List;
 public abstract class EntryAbstract {
 
     public final List<IPage> pageList;
-    public final String name;
+    public final ITextComponent name;
 
-    public EntryAbstract(List<IPage> pageList, String unlocName) {
+    public EntryAbstract(List<IPage> pageList, ITextComponent name) {
         this.pageList = pageList;
-        this.name = unlocName;
+        this.name = name;
     }
 
-    public EntryAbstract(String name) {
+    public EntryAbstract(ITextComponent name) {
         this(Lists.newArrayList(), name);
     }
 
@@ -53,8 +52,8 @@ public abstract class EntryAbstract {
     @OnlyIn(Dist.CLIENT)
     public abstract void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer renderer);
 
-    public TextComponent getName() {
-        return new TranslationTextComponent(name);
+    public ITextComponent getName() {
+        return name;
     }
 
     public abstract boolean canSee(PlayerEntity player, ItemStack bookStack);

@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import org.apache.logging.log4j.LogManager;
 
@@ -89,7 +90,7 @@ public class ItemInfoBuilder {
             }
         }
         if (links != null) bookHelper.addLinks(pages, links);
-        entries.put(new ResourceLocation(base), new EntryItemStack(pages, customName ? base : mainStack.getTranslationKey(), mainStack));
+        entries.put(new ResourceLocation(base), new EntryItemStack(pages, new TranslationTextComponent(customName ? base : mainStack.getTranslationKey()), mainStack));
     }
 
     /**

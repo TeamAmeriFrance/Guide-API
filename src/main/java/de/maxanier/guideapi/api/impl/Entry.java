@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.ITextProperties;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -23,11 +24,11 @@ import java.util.List;
 public class Entry extends EntryAbstract {
 
 
-    public Entry(List<IPage> pageList, String unlocName) {
-        super(pageList, unlocName);
+    public Entry(List<IPage> pageList, ITextComponent name) {
+        super(pageList, name);
     }
 
-    public Entry(String name) {
+    public Entry(ITextComponent name) {
         super(name);
     }
 

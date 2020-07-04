@@ -68,7 +68,7 @@ public class TestBook implements IGuideBook {
         pages.add(new PageImage(new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png")));
 
 
-        Entry entry = new EntryItemStack(pages, "guideapi.test.entry", new ItemStack(Items.POTATO));
+        Entry entry = new EntryItemStack(pages, new TranslationTextComponent("guideapi.test.entry"), new ItemStack(Items.POTATO));
         entries.put(new ResourceLocation(GuideMod.ID, "entry"), entry);
         categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.ACACIA_DOOR)));
         categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.PUMPKIN)));

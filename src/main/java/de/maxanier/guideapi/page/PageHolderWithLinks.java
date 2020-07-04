@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.ITextProperties;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -102,7 +103,7 @@ public class PageHolderWithLinks implements IPage {
         int ll = guiLeft + guiBase.xSize - 5;
         int y = guiTop + 10;
         for (Link l : links) {
-            ITextComponent t = l.getDisplayName();
+            ITextProperties t = l.getDisplayName();
             fontRendererObj.func_238407_a_(stack, t, ll, y, 0xFFFFFF);
             if (l.width == 0) {
                 l.width = fontRendererObj.func_238414_a_(t);

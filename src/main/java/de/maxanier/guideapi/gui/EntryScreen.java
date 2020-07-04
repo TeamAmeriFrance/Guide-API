@@ -17,7 +17,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TranslationTextComponent;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
@@ -40,7 +39,7 @@ public class EntryScreen extends BaseScreen {
     public int pageNumber;
 
     public EntryScreen(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack) {
-        super(new TranslationTextComponent(entry.name), player, bookStack);
+        super(entry.name, player, bookStack);
         this.book = book;
         this.category = category;
         this.entry = entry;

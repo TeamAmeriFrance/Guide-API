@@ -10,6 +10,7 @@ import de.maxanier.guideapi.gui.BaseScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -19,12 +20,12 @@ public class EntryResourceLocation extends Entry {
 
     public ResourceLocation image;
 
-    public EntryResourceLocation(List<IPage> pageList, String name, ResourceLocation resourceLocation) {
+    public EntryResourceLocation(List<IPage> pageList, ITextComponent name, ResourceLocation resourceLocation) {
         super(pageList, name);
         this.image = resourceLocation;
     }
 
-    public EntryResourceLocation(String name, ResourceLocation image) {
+    public EntryResourceLocation(ITextComponent name, ResourceLocation image) {
         super(name);
         this.image = image;
     }

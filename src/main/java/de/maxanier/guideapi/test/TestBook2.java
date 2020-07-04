@@ -43,7 +43,7 @@ public class TestBook2 implements IGuideBook {
 
     private void buildContent(List<CategoryAbstract> categories) {
         CategoryAbstract testCategory = new CategoryItemStack("guideapi.test.category", new ItemStack(Items.BLUE_BANNER)).withKeyBase("guideapi");
-        testCategory.addEntry("entry", new EntryItemStack("guideapi.test.entry", new ItemStack(Items.POTATO)));
+        testCategory.addEntry("entry", new EntryItemStack(new TranslationTextComponent("guideapi.test.entry"), new ItemStack(Items.POTATO)));
         testCategory.getEntry("entry").addPage(new PageText(new StringTextComponent("Hello, this is\nsome text")));
         //testCategory.getEntry("entry").addPage(new PageFurnaceRecipe(Blocks.COBBLESTONE));
         //testCategory.getEntry("entry").addPage(PageIRecipe.newShaped(new ItemStack(Items.ACACIA_BOAT), "X X", "XXX", 'X', new ItemStack(Blocks.ACACIA_PLANKS, 1, 4)));
@@ -52,7 +52,7 @@ public class TestBook2 implements IGuideBook {
         testCategory.getEntry("entry").addPage(new PageJsonRecipe(new ResourceLocation("bread")));
         testCategory.getEntry("entry").addPage(new PageJsonRecipe(new ResourceLocation("redstone")));
         testCategory.getEntry("entry").addPageList(PageHelper.pagesForLongText(new TranslationTextComponent("guideapi.test.format")));
-        testCategory.addEntry("unicode", new EntryItemStack("Творческая книга", new ItemStack(Items.BEEF)));
+        testCategory.addEntry("unicode", new EntryItemStack(new StringTextComponent("Творческая книга"), new ItemStack(Items.BEEF)));
         testCategory.getEntry("unicode").addPage(new PageText(new StringTextComponent("Творческая книга \u0F06")));
         categories.add(testCategory);
     }

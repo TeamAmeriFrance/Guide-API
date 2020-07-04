@@ -9,6 +9,7 @@ import de.maxanier.guideapi.api.util.GuiHelper;
 import de.maxanier.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -18,13 +19,13 @@ public class EntryItemStack extends Entry {
 
     public ItemStack itemStack;
 
-    public EntryItemStack(List<IPage> pageList, String unlocName, ItemStack stack) {
-        super(pageList, unlocName);
+    public EntryItemStack(List<IPage> pageList, ITextComponent name, ItemStack stack) {
+        super(pageList, name);
         this.itemStack = stack;
     }
 
 
-    public EntryItemStack(String name, ItemStack stack) {
+    public EntryItemStack(ITextComponent name, ItemStack stack) {
         super(name);
         this.itemStack = stack;
     }
