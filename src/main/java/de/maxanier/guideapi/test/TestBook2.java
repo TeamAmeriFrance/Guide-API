@@ -35,14 +35,14 @@ public class TestBook2 implements IGuideBook {
     @Override
     public Book buildBook() {
         BookBinder binder = new BookBinder(new ResourceLocation(GuideMod.ID, "test_book2"));
-        binder.setAuthor("TehNut").setColor(new Color(80, 50, 5)).setItemName("Display Name").setHeader("Hello there").setSpawnWithBook().setGuideTitle("Title message").setContentProvider(this::buildContent);
+        binder.setAuthor(new StringTextComponent("TehNut")).setColor(new Color(80, 50, 5)).setItemName(new StringTextComponent("Display Name")).setHeader(new StringTextComponent("Hello there")).setSpawnWithBook().setGuideTitle(new StringTextComponent("Title message")).setContentProvider(this::buildContent);
 
 
         return (book = binder.build());
     }
 
     private void buildContent(List<CategoryAbstract> categories) {
-        CategoryAbstract testCategory = new CategoryItemStack("guideapi.test.category", new ItemStack(Items.BLUE_BANNER)).withKeyBase("guideapi");
+        CategoryAbstract testCategory = new CategoryItemStack(new TranslationTextComponent("guideapi.test.category"), new ItemStack(Items.BLUE_BANNER)).withKeyBase("guideapi");
         testCategory.addEntry("entry", new EntryItemStack(new TranslationTextComponent("guideapi.test.entry"), new ItemStack(Items.POTATO)));
         testCategory.getEntry("entry").addPage(new PageText(new StringTextComponent("Hello, this is\nsome text")));
         //testCategory.getEntry("entry").addPage(new PageFurnaceRecipe(Blocks.COBBLESTONE));

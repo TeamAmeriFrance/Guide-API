@@ -12,7 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -22,15 +21,15 @@ import java.util.Map;
 public abstract class CategoryAbstract {
 
     public final Map<ResourceLocation, EntryAbstract> entries;
-    public final String name;
+    public final ITextComponent name;
     private String keyBase;
 
-    public CategoryAbstract(Map<ResourceLocation, EntryAbstract> entries, String name) {
+    public CategoryAbstract(Map<ResourceLocation, EntryAbstract> entries, ITextComponent name) {
         this.entries = entries;
         this.name = name;
     }
 
-    public CategoryAbstract(String name) {
+    public CategoryAbstract(ITextComponent name) {
         this(Maps.newLinkedHashMap(), name);
     }
 
@@ -102,7 +101,7 @@ public abstract class CategoryAbstract {
      */
     public EntryAbstract getEntry(String key) {
         if (Strings.isNullOrEmpty(keyBase))
-            throw new RuntimeException("keyBase in category with name '" + name + "' must be set.");
+            throw new RuntimeException("keyBase in category with name '" + name.getString() + "' must be set.");
 
         return getEntry(new ResourceLocation(keyBase, key));
     }
@@ -133,7 +132,7 @@ public abstract class CategoryAbstract {
      * @return a localized copy of this category's name.
      */
     public ITextComponent getName() {
-        return new TranslationTextComponent(name);
+        return name;
     }
 
     public List<ITextComponent> getTooltip() {

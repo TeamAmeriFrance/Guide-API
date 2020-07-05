@@ -4,7 +4,6 @@ import com.google.common.collect.HashMultimap;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
-import de.maxanier.guideapi.api.util.TextHelper;
 import de.maxanier.guideapi.button.ButtonNext;
 import de.maxanier.guideapi.button.ButtonPrev;
 import de.maxanier.guideapi.button.ButtonSearch;
@@ -44,7 +43,7 @@ public class HomeScreen extends BaseScreen {
         func_238474_b_(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
         field_230706_i_.getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
-        drawCenteredStringWithoutShadow(stack, field_230712_o_, TextHelper.localize(book.getHeader()).replace("\\n", "\n").replace("&", "\u00a7"), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
+        drawCenteredStringWithoutShadow(stack, field_230712_o_, book.getHeader(), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
 
         categoryPage = MathHelper.clamp(categoryPage, 0, categoryWrapperMap.size() - 1);
 

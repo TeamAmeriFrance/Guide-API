@@ -9,6 +9,7 @@ import de.maxanier.guideapi.gui.BaseScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -18,12 +19,12 @@ public class CategoryResourceLocation extends Category {
 
     public ResourceLocation resourceLocation;
 
-    public CategoryResourceLocation(Map<ResourceLocation, EntryAbstract> entries, String unlocCategoryName, ResourceLocation resourceLocation) {
-        super(entries, unlocCategoryName);
+    public CategoryResourceLocation(Map<ResourceLocation, EntryAbstract> entries, ITextComponent name, ResourceLocation resourceLocation) {
+        super(entries, name);
         this.resourceLocation = resourceLocation;
     }
 
-    public CategoryResourceLocation(String name, ResourceLocation resourceLocation) {
+    public CategoryResourceLocation(ITextComponent name, ResourceLocation resourceLocation) {
         super(name);
         this.resourceLocation = resourceLocation;
     }

@@ -38,6 +38,7 @@ public class ItemInfoBuilder {
     private ItemStack[] brewingStacks;
 
     /**
+     * @param name       name used for translation keys
      * @param ingredient The relevant item stack. Used for display and strings.
      * @param block      If this entry is a about a block or not
      */

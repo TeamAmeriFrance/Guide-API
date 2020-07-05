@@ -9,6 +9,7 @@ import de.maxanier.guideapi.gui.BaseScreen;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -18,12 +19,12 @@ public class CategoryItemStack extends Category {
 
     public ItemStack itemStack;
 
-    public CategoryItemStack(Map<ResourceLocation, EntryAbstract> entries, String name, ItemStack stack) {
+    public CategoryItemStack(Map<ResourceLocation, EntryAbstract> entries, ITextComponent name, ItemStack stack) {
         super(entries, name);
         this.itemStack = stack;
     }
 
-    public CategoryItemStack(String name, ItemStack stack) {
+    public CategoryItemStack(ITextComponent name, ItemStack stack) {
         super(name);
         this.itemStack = stack;
     }

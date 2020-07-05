@@ -41,7 +41,7 @@ public class TestBook implements IGuideBook {
     @Override
     public Book buildBook() {
         BookBinder binder = new BookBinder(new ResourceLocation(GuideMod.ID, "test_book"));
-        binder.setAuthor("TehNut").setColor(Color.PINK).setItemName("Display Name").setHeader("Hello there").setGuideTitle("Title message").setSpawnWithBook().setContentProvider(this::buildContent);
+        binder.setAuthor(new StringTextComponent("TehNut")).setColor(Color.PINK).setItemName(new StringTextComponent("Display Name")).setHeader(new StringTextComponent("Hello there")).setGuideTitle(new StringTextComponent("Title message")).setSpawnWithBook().setContentProvider(this::buildContent);
         return (book = binder.build());
     }
 
@@ -70,12 +70,12 @@ public class TestBook implements IGuideBook {
 
         Entry entry = new EntryItemStack(pages, new TranslationTextComponent("guideapi.test.entry"), new ItemStack(Items.POTATO));
         entries.put(new ResourceLocation(GuideMod.ID, "entry"), entry);
-        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.ACACIA_DOOR)));
-        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.PUMPKIN)));
-        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.WOODEN_AXE)));
-        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.SPRUCE_WOOD)));
-        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.BONE_MEAL)));
-        categories.add(new CategoryItemStack(entries, "guideapi.test.category", new ItemStack(Items.WHEAT)));
+        categories.add(new CategoryItemStack(entries, new TranslationTextComponent("guideapi.test.category"), new ItemStack(Items.ACACIA_DOOR)));
+        categories.add(new CategoryItemStack(entries, new TranslationTextComponent("guideapi.test.category"), new ItemStack(Items.PUMPKIN)));
+        categories.add(new CategoryItemStack(entries, new TranslationTextComponent("guideapi.test.category"), new ItemStack(Items.WOODEN_AXE)));
+        categories.add(new CategoryItemStack(entries, new TranslationTextComponent("guideapi.test.category"), new ItemStack(Items.SPRUCE_WOOD)));
+        categories.add(new CategoryItemStack(entries, new TranslationTextComponent("guideapi.test.category"), new ItemStack(Items.BONE_MEAL)));
+        categories.add(new CategoryItemStack(entries, new TranslationTextComponent("guideapi.test.category"), new ItemStack(Items.WHEAT)));
 
     }
 }

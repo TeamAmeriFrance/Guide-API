@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.Tags;
 
@@ -39,7 +40,7 @@ public class TestBook3 implements IGuideBook {
     @Override
     public Book buildBook() {
         BookBinder binder = new BookBinder(new ResourceLocation(GuideMod.ID, "test_book3"));
-        binder.setAuthor("Maxanier").setColor(new Color(80, 50, 5)).setItemName("Display Name").setHeader("Hello there").setSpawnWithBook().setGuideTitle("Title message").setContentProvider(this::buildContent);
+        binder.setAuthor(new StringTextComponent("Maxanier")).setColor(new Color(80, 50, 5)).setItemName(new StringTextComponent("Display Name")).setHeader(new StringTextComponent("Hello there")).setSpawnWithBook().setGuideTitle(new StringTextComponent("Title message")).setContentProvider(this::buildContent);
         book = binder.build();
         return book;
     }
@@ -52,13 +53,13 @@ public class TestBook3 implements IGuideBook {
     private void buildContent(List<CategoryAbstract> categories) {
         BookHelper helper = new BookHelper.Builder(GuideMod.ID).setBaseKey("guideapi.test").build();
 
-        CategoryAbstract blocks = new CategoryItemStack("Blocks", new ItemStack(Blocks.STONE)).withKeyBase(GuideMod.ID);
+        CategoryAbstract blocks = new CategoryItemStack(new StringTextComponent("Blocks"), new ItemStack(Blocks.STONE)).withKeyBase(GuideMod.ID);
         Map<ResourceLocation, EntryAbstract> blockEntries = new LinkedHashMap<>();
         helper.info(Blocks.COAL_BLOCK, Blocks.IRON_BLOCK, Blocks.GOLD_BLOCK).recipes(new ResourceLocation("minecraft", "coal_block"), new ResourceLocation("iron_block"), new ResourceLocation("gold_block")).useCustomEntryName().setKeyName("compressed_blocks").setLinks(new ResourceLocation("guideapi.test.items.ingots")).setFormats(9).build(blockEntries);
         blocks.addEntries(blockEntries);
         categories.add(blocks);
 
-        CategoryAbstract items = new CategoryItemStack("Items", new ItemStack(Items.IRON_AXE)).withKeyBase(GuideMod.ID);
+        CategoryAbstract items = new CategoryItemStack(new StringTextComponent("Items"), new ItemStack(Items.IRON_AXE)).withKeyBase(GuideMod.ID);
         Map<ResourceLocation, EntryAbstract> itemEntries = new LinkedHashMap<>();
         helper.info(Items.APPLE).build(itemEntries);
         helper.info(false, Ingredient.fromTag(Tags.Items.INGOTS), new ItemStack(Items.IRON_INGOT)).useCustomEntryName().recipes(new ResourceLocation("minecraft", "iron_ingot"), new ResourceLocation("gold_ingot")).setKeyName("ingots").setLinks(new ResourceLocation("guideapi.test.blocks.compressed_blocks")).build(itemEntries);

@@ -17,7 +17,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TranslationTextComponent;
 import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nullable;
@@ -40,7 +39,7 @@ public class CategoryScreen extends BaseScreen {
     public EntryAbstract startEntry;
 
     public CategoryScreen(Book book, CategoryAbstract category, PlayerEntity player, ItemStack bookStack, @Nullable EntryAbstract startEntry) {
-        super(new TranslationTextComponent(category.name), player, bookStack);
+        super(category.name, player, bookStack);
         this.book = book;
         this.category = category;
         this.pageTexture = book.getPageTexture();

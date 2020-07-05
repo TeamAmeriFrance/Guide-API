@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -18,11 +19,11 @@ import java.util.Map;
 
 public class Category extends CategoryAbstract {
 
-    public Category(Map<ResourceLocation, EntryAbstract> entryList, String name) {
+    public Category(Map<ResourceLocation, EntryAbstract> entryList, ITextComponent name) {
         super(entryList, name);
     }
 
-    public Category(String name) {
+    public Category(ITextComponent name) {
         super(name);
     }
 

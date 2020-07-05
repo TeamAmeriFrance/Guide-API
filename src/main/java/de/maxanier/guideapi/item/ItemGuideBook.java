@@ -1,13 +1,11 @@
 package de.maxanier.guideapi.item;
 
-import com.google.common.base.Strings;
 import de.maxanier.guideapi.GuideMod;
 import de.maxanier.guideapi.api.BookEvent;
 import de.maxanier.guideapi.api.IGuideItem;
 import de.maxanier.guideapi.api.IGuideLinked;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
-import de.maxanier.guideapi.api.util.TextHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
@@ -19,7 +17,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -106,16 +103,18 @@ public class ItemGuideBook extends Item implements IGuideItem {
     }
 
     @Override
-    public ITextComponent getDisplayName(ItemStack stack) {
-        return !Strings.isNullOrEmpty(book.getItemName()) ? new TranslationTextComponent(getBook(stack).getItemName()) : super.getDisplayName(stack);
+    public void addInformation(ItemStack stack, World playerIn, List<ITextComponent> tooltip, ITooltipFlag advanced) {
+        if (book.getAuthor() != null) {
+            tooltip.add(book.getAuthor());
+            if (advanced == TooltipFlags.ADVANCED) {
+                tooltip.add(new StringTextComponent(book.getRegistryName().toString()));
+            }
+        }
     }
 
     @Override
-    public void addInformation(ItemStack stack, World playerIn, List<ITextComponent> tooltip, ITooltipFlag advanced) {
-        if (!Strings.isNullOrEmpty(book.getAuthor()))
-            tooltip.add(new StringTextComponent(TextHelper.localizeEffect(book.getAuthor())));
-        if (!Strings.isNullOrEmpty(book.getAuthor()) && (advanced == TooltipFlags.ADVANCED))
-            tooltip.add(new StringTextComponent(book.getRegistryName().toString()));
+    public ITextComponent getDisplayName(ItemStack stack) {
+        return getBook(stack).getItemName() != null ? getBook(stack).getItemName() : super.getDisplayName(stack);
     }
 
     // IGuideItem

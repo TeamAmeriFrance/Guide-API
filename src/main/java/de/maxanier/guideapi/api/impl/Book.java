@@ -5,7 +5,7 @@ import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.util.LogHelper;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.ITextComponent;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.awt.*;
@@ -17,10 +17,10 @@ public class Book {
 
     private final List<CategoryAbstract> categories = new ArrayList<>();
     private final Consumer<List<CategoryAbstract>> contentProvider;
-    private final String title;
-    private final String header;
-    private final String itemName;
-    private final String author;
+    private final ITextComponent title;
+    private final ITextComponent header;
+    private final ITextComponent itemName;
+    private final ITextComponent author;
     private final ResourceLocation pageTexture;
     private final ResourceLocation outlineTexture;
     private final Color color;
@@ -30,7 +30,7 @@ public class Book {
     private boolean isInitialized;
 
 
-    protected Book(Consumer<List<CategoryAbstract>> contentProvider, String title, String header, String displayName, String author, ResourceLocation pageTexture, ResourceLocation outlineTexture, Color color, boolean spawnWithBook, ResourceLocation registryName, ItemGroup creativeTab) {
+    protected Book(Consumer<List<CategoryAbstract>> contentProvider, ITextComponent title, ITextComponent header, ITextComponent displayName, ITextComponent author, ResourceLocation pageTexture, ResourceLocation outlineTexture, Color color, boolean spawnWithBook, ResourceLocation registryName, ItemGroup creativeTab) {
         this.contentProvider = contentProvider;
         this.title = title;
         this.header = header;
@@ -67,20 +67,20 @@ public class Book {
         return this.categories;
     }
 
-    public TranslationTextComponent getTitle() {
-        return new TranslationTextComponent(this.title);
+    public ITextComponent getAuthor() {
+        return this.author;
     }
 
-    public String getItemName() {
-        return this.itemName;
-    }
-
-    public String getHeader() {
+    public ITextComponent getHeader() {
         return this.header;
     }
 
-    public String getAuthor() {
-        return this.author;
+    public ITextComponent getItemName() {
+        return this.itemName;
+    }
+
+    public ITextComponent getTitle() {
+        return this.title;
     }
 
     public ResourceLocation getPageTexture() {

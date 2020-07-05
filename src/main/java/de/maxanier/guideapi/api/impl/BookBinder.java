@@ -1,14 +1,18 @@
 package de.maxanier.guideapi.api.impl;
 
-import com.google.common.base.Strings;
 import de.maxanier.guideapi.GuideMod;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.forgespi.language.IModInfo;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.List;
 import java.util.function.Consumer;
@@ -17,10 +21,14 @@ public class BookBinder {
 
     private final ResourceLocation registryName;
     private Consumer<List<CategoryAbstract>> contentProvider;
-    private String guideTitle = "item.guideapi.book";
-    private String header;
-    private String itemName;
-    private String author;
+    @Nonnull
+    private ITextComponent guideTitle = new TranslationTextComponent("item.guideapi.book");
+    @Nullable
+    private ITextComponent header;
+    @Nullable
+    private ITextComponent itemName;
+    @Nullable
+    private ITextComponent author;
     private ResourceLocation pageTexture = new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png");
     private ResourceLocation outlineTexture = new ResourceLocation(GuideMod.ID, "textures/gui/book_greyscale.png");
     private Color color = new Color(171, 70, 30);
@@ -50,40 +58,25 @@ public class BookBinder {
     }
 
     /**
-     * Sets the title of this book to be displayed in the GUI.
+     * Constructs a book from the given data. Will modify specific values if not set so they have defaults.
      *
-     * @param guideTitle The title of this guide.
-     * @return the builder instance for chaining.
+     * @return a constructed book.
      */
-    public BookBinder setGuideTitle(String guideTitle) {
-        this.guideTitle = guideTitle;
-        return this;
-    }
+    public Book build() {
+        if (author == null)
+            this.author = new StringTextComponent(ModList.get().getModContainerById(registryName.getNamespace()).map(ModContainer::getModInfo).map(IModInfo::getDisplayName).orElse("Unknown"));
 
-    /**
-     * Sets the header text of this book. The header is displayed at the top of the home page above the category listing.
-     * <p>
-     * By default, this is the same as {@link #guideTitle}.
-     *
-     * @param header The header text to display.
-     * @return the builder instance for chaining.
-     */
-    public BookBinder setHeader(String header) {
-        this.header = header;
-        return this;
-    }
+        if (header == null)
+            this.header = guideTitle;
 
-    /**
-     * Sets the unlocalized name for the item containing this book.
-     * <p>
-     * By default, this is the same as {@link #guideTitle}.
-     *
-     * @param itemName The unlocalized name for this item.
-     * @return the builder instance for chaining.
-     */
-    public BookBinder setItemName(String itemName) {
-        this.itemName = itemName;
-        return this;
+        if (this.itemName == null)
+            this.itemName = guideTitle;
+
+        if (contentProvider == null) {
+            throw new IllegalStateException("Content supplier of book " + registryName.toString() + " must be provided");
+        }
+
+        return new Book(contentProvider, guideTitle, header, itemName, author, pageTexture, outlineTexture, color, spawnWithBook, registryName, creativeTab);
     }
 
     /**
@@ -95,8 +88,67 @@ public class BookBinder {
      * @param author The author of this book.
      * @return the builder instance for chaining.
      */
-    public BookBinder setAuthor(String author) {
+    public BookBinder setAuthor(ITextComponent author) {
         this.author = author;
+        return this;
+    }
+
+    /**
+     * Sets the title of this book to be displayed in the GUI.
+     *
+     * @param guideTitle The title of this guide.
+     * @return the builder instance for chaining.
+     */
+    public BookBinder setGuideTitle(ITextComponent guideTitle) {
+        this.guideTitle = guideTitle;
+        return this;
+    }
+
+    /**
+     * Sets the title of this book to be displayed in the GUI.
+     *
+     * @param translationKey The translation key for the title of this guide.
+     * @return the builder instance for chaining.
+     */
+    public BookBinder setGuideTitleKey(String translationKey) {
+        return this.setGuideTitle(new TranslationTextComponent(translationKey));
+    }
+
+    /**
+     * Sets the header text of this book. The header is displayed at the top of the home page above the category listing.
+     * <p>
+     * By default, this is the same as {@link #guideTitle}.
+     *
+     * @param header The header text to display.
+     * @return the builder instance for chaining.
+     */
+    public BookBinder setHeader(ITextComponent header) {
+        this.header = header;
+        return this;
+    }
+
+    /**
+     * Sets the header text of this book. The header is displayed at the top of the home page above the category listing.
+     * <p>
+     * By default, this is the same as {@link #guideTitle}.
+     *
+     * @param translationKey The translation key for the header text to display.
+     * @return the builder instance for chaining.
+     */
+    public BookBinder setHeaderKey(String translationKey) {
+        return this.setHeader(new TranslationTextComponent(translationKey));
+    }
+
+    /**
+     * Sets the unlocalized name for the item containing this book.
+     * <p>
+     * By default, this is the same as {@link #guideTitle}.
+     *
+     * @param itemName The name for this item.
+     * @return the builder instance for chaining.
+     */
+    public BookBinder setItemName(ITextComponent itemName) {
+        this.itemName = itemName;
         return this;
     }
 
@@ -179,24 +231,14 @@ public class BookBinder {
     }
 
     /**
-     * Constructs a book from the given data. Will modify specific values if not set so they have defaults.
+     * Sets the unlocalized name for the item containing this book.
+     * <p>
+     * By default, this is the same as {@link #guideTitle}.
      *
-     * @return a constructed book.
+     * @param translationKey The translation key for the name for this item.
+     * @return the builder instance for chaining.
      */
-    public Book build() {
-        if (Strings.isNullOrEmpty(author))
-            this.author = ModList.get().getModContainerById(registryName.getNamespace()).map(ModContainer::getModInfo).map(IModInfo::getDisplayName).orElse("Unknown");
-
-        if (header == null)
-            this.header = guideTitle;
-
-        if (this.itemName == null)
-            this.itemName = guideTitle.substring(5);
-
-        if (contentProvider == null) {
-            throw new IllegalStateException("Content supplier of book " + registryName.toString() + " must be provided");
-        }
-
-        return new Book(contentProvider, guideTitle, header, itemName, author, pageTexture, outlineTexture, color, spawnWithBook, registryName, creativeTab);
+    public BookBinder setItemNameKey(String translationKey) {
+        return this.setItemName(new TranslationTextComponent(translationKey));
     }
 }
