@@ -30,7 +30,6 @@ public class APISetter {
             Field books = GuideAPI.class.getDeclaredField("BOOKS");
             books.setAccessible(true);
             Map<ResourceLocation, Book> BOOKS = (Map<ResourceLocation, Book>) books.get(null);
-            BOOKS.clear();
             BOOKS.put(book.getRegistryName(), book);
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,7 +48,6 @@ public class APISetter {
             Field stacks = GuideAPI.class.getDeclaredField("BOOK_TO_STACK");
             stacks.setAccessible(true);
             Map<Book, ItemStack> BOOK_TO_STACK = (Map<Book, ItemStack>) stacks.get(null);
-            BOOK_TO_STACK.clear();
             BOOK_TO_STACK.put(book, stack);
         } catch (Exception e) {
             e.printStackTrace();
