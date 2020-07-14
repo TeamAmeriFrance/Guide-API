@@ -65,7 +65,9 @@ public class APISetter {
         try {
             Field indexedBooks = GuideAPI.class.getDeclaredField("indexedBooks");
             indexedBooks.setAccessible(true);
-            indexedBooks.set(null, books);
+            List<Book> list = (List<Book>) indexedBooks.get(null);
+            list.clear();
+            list.addAll(books);
         } catch (Exception e) {
             e.printStackTrace();
         }
