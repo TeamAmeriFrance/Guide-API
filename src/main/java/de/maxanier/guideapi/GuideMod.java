@@ -11,11 +11,11 @@ import de.maxanier.guideapi.util.AnnotationHandler;
 import de.maxanier.guideapi.util.ReloadCommand;
 import net.minecraft.command.CommandSource;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -36,7 +36,7 @@ public class GuideMod {
         GuideAPI.initialize();
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
-        MinecraftForge.EVENT_BUS.addListener(this::onServerStarting);
+        MinecraftForge.EVENT_BUS.addListener(this::onRegisterCommands);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
@@ -64,9 +64,9 @@ public class GuideMod {
         }
     }
 
-    private void onServerStarting(FMLServerStartingEvent event) {
+    private void onRegisterCommands(RegisterCommandsEvent event) {
         if (inDev) {
-            event.getCommandDispatcher().register(LiteralArgumentBuilder.<CommandSource>literal("guide-api-vp").then(ReloadCommand.register()));
+            event.getDispatcher().register(LiteralArgumentBuilder.<CommandSource>literal("guide-api-vp").then(ReloadCommand.register()));
         }
     }
 }
