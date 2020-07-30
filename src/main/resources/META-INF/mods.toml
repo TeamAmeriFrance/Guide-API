@@ -1,6 +1,7 @@
 modLoader="javafml"
 loaderVersion="[27,)"
 issueTrackerURL="https://github.com/maxanier/Guide-API/issues"
+licence="MIT"
 
 [[mods]]
     modId="guideapi-vp"
