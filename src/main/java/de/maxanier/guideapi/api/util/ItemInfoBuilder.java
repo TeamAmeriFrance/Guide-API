@@ -36,6 +36,7 @@ public class ItemInfoBuilder {
     private List<ResourceLocation> recipes = Collections.emptyList();
     @Nullable
     private ItemStack[] brewingStacks;
+    private final List<IPage> additionalPages = new ArrayList<>();
 
     /**
      * @param name       name used for translation keys
@@ -90,6 +91,7 @@ public class ItemInfoBuilder {
                 }
             }
         }
+        pages.addAll(this.additionalPages);
         if (links != null) bookHelper.addLinks(pages, links);
         entries.put(new ResourceLocation(base), new EntryItemStack(pages, new TranslationTextComponent(customName ? base : mainStack.getTranslationKey()), mainStack));
     }
@@ -146,6 +148,14 @@ public class ItemInfoBuilder {
      */
     public ItemInfoBuilder useCustomEntryName() {
         customName = true;
+        return this;
+    }
+
+    /**
+     * Add pages that are placed at the end of the entry
+     */
+    public ItemInfoBuilder customPages(IPage... additionalPages) {
+        this.additionalPages.addAll(Arrays.asList(additionalPages));
         return this;
     }
 }
