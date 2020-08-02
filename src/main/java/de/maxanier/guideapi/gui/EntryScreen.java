@@ -52,7 +52,9 @@ public class EntryScreen extends BaseScreen {
     @Override
     public void closeScreen() {
         super.closeScreen();
-
+        for (IPage page : this.entry.pageList) {
+            page.onClose();
+        }
         ResourceLocation key = null;
         for (Map.Entry<ResourceLocation, EntryAbstract> mapEntry : category.entries.entrySet())
             if (mapEntry.getValue().equals(entry))

@@ -17,11 +17,14 @@ import de.maxanier.guideapi.entry.EntryItemStack;
 import de.maxanier.guideapi.page.*;
 import de.maxanier.guideapi.page.reciperenderer.ShapedRecipesRenderer;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
@@ -66,6 +69,12 @@ public class TestBook implements IGuideBook {
         pages.add(new PageTextImage(new TranslationTextComponent("guideapi.test.string"), new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"), true));
         pages.add(new PageTextImage(new TranslationTextComponent("guideapi.test.string"), new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"), false));
         pages.add(new PageImage(new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png")));
+        pages.add(new PageEntity(EntityType.BLAZE));
+        pages.add(new PageEntity((world) -> {
+            ZombieEntity z = EntityType.ZOMBIE.create(world);
+            z.setHeldItem(Hand.MAIN_HAND, new ItemStack(Items.IRON_SWORD));
+            return z;
+        }, new StringTextComponent("This is a zombie")));
 
 
         Entry entry = new EntryItemStack(pages, new TranslationTextComponent("guideapi.test.entry"), new ItemStack(Items.POTATO));
