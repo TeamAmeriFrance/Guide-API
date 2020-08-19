@@ -6,11 +6,11 @@ import de.maxanier.guideapi.api.SubTexture;
 import de.maxanier.guideapi.api.button.ButtonGuideAPI;
 import de.maxanier.guideapi.api.util.GuiHelper;
 import de.maxanier.guideapi.gui.BaseScreen;
+import de.maxanier.guideapi.util.GuiUtilsCopy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.fml.client.gui.GuiUtils;
 
 public class ButtonSearch extends ButtonGuideAPI {
 
@@ -27,7 +27,7 @@ public class ButtonSearch extends ButtonGuideAPI {
             RenderSystem.disableLighting();
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) { //x,y,width,height
                 SubTexture.MAGNIFYING_GLASS.draw(stack, x, y + 1);
-                GuiUtils.drawHoveringText(stack, getHoveringText(), mouseX, mouseY, guiBase.width, guiBase.height, -1, Minecraft.getInstance().fontRenderer);
+                GuiUtilsCopy.drawHoveringText(stack, getHoveringText(), mouseX, mouseY, guiBase.width, guiBase.height, -1, Minecraft.getInstance().fontRenderer);
             } else {
                 SubTexture.MAGNIFYING_GLASS.draw(stack, x, y);
             }

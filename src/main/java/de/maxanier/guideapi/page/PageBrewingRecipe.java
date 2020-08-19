@@ -115,7 +115,7 @@ public class PageBrewingRecipe extends Page {
             guiBase.drawCenteredStringWithoutShadow(stack, fontRendererObj, TextHelper.localizeEffect("guideapi.text.brewing.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
 
         if (tooltip != null)
-            guiBase.renderTooltip(stack, tooltip, mouseX, mouseY);
+            guiBase.func_243308_b(stack, tooltip, mouseX, mouseY);
     }
 
 

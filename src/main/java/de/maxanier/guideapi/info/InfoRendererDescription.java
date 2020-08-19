@@ -9,10 +9,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.ITextProperties;
 import net.minecraft.world.World;
 
 import java.awt.*;
@@ -43,8 +43,8 @@ public class InfoRendererDescription implements IInfoRenderer {
 
         int y = 0;
 
-        List<ITextProperties> cutLines = fontRenderer.func_238425_b_(description, 100 * scaleMulti); //func_238425_b_ //Split at new line somehow
-        for (ITextProperties cut : cutLines) {
+        List<IReorderingProcessor> cutLines = fontRenderer.func_238425_b_(description, 100 * scaleMulti); //func_238425_b_ //Split at new line somehow
+        for (IReorderingProcessor cut : cutLines) {
             fontRenderer.func_238407_a_(stack, cut, (Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 20) * scaleMulti, (((Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 - 10) - y) * scaleMulti) + yOffset, Color.WHITE.getRGB());
             y -= 10 / scaleMulti;
         }

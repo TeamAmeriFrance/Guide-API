@@ -12,15 +12,15 @@ import de.maxanier.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.text.ITextProperties;
+import net.minecraft.util.text.ITextComponent;
 
 public abstract class CraftingRecipeRenderer<T extends IRecipe<?>> extends IRecipeRenderer.RecipeRendererBase<T> {
 
 
-    private final ITextProperties title;
-    private ITextProperties customDisplay;
+    private final ITextComponent title;
+    private ITextComponent customDisplay;
 
-    public CraftingRecipeRenderer(T recipe, ITextProperties title) {
+    public CraftingRecipeRenderer(T recipe, ITextComponent title) {
         super(recipe);
         this.title = title;
     }
@@ -30,7 +30,7 @@ public abstract class CraftingRecipeRenderer<T extends IRecipe<?>> extends IReci
 
         SubTexture.CRAFTING_GRID.draw(stack, guiLeft + 68, guiTop + 53);
 
-        ITextProperties recipeName = customDisplay == null ? title : customDisplay;
+        ITextComponent recipeName = customDisplay == null ? title : customDisplay;
         guiBase.drawCenteredStringWithoutShadow(stack, fontRendererObj, recipeName, guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
         int outputX = guiLeft + 148;
@@ -49,7 +49,7 @@ public abstract class CraftingRecipeRenderer<T extends IRecipe<?>> extends IReci
 //        return subItems.get(getRandomizedCycle(position, subItems.size()));
 //    }
 
-    public void setCustomTitle(ITextProperties customDisplay) {
+    public void setCustomTitle(ITextComponent customDisplay) {
         this.customDisplay = customDisplay;
     }
 

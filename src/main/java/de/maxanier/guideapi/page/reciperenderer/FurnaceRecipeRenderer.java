@@ -14,14 +14,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.ITextProperties;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.List;
 
 
 public class FurnaceRecipeRenderer extends IRecipeRenderer.RecipeRendererBase<FurnaceRecipe> {
-    private final ITextProperties title = new TranslationTextComponent("guideapi.text.furnance.smelting");
+    private final ITextComponent title = new TranslationTextComponent("guideapi.text.furnace.smelting");
     public FurnaceRecipeRenderer(FurnaceRecipe recipe) {
         super(recipe);
     }

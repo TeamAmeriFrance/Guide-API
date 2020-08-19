@@ -13,8 +13,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.ITextProperties;
+import net.minecraft.util.text.LanguageMap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -50,12 +52,12 @@ public class Entry extends EntryAbstract {
             entryName = ITextProperties.func_240655_a_(entryName, ITextProperties.func_240652_a_("..."));
         }
 
-
+        IReorderingProcessor entryNameRe = LanguageMap.getInstance().func_241870_a(entryName);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight)) {
-            fontRendererObj.func_238422_b_(stack, entryName, entryX + 12, entryY + 1, new Color(206, 206, 206).getRGB());
-            fontRendererObj.func_238422_b_(stack, entryName, entryX + 12, entryY, 0x423EBC);
+            fontRendererObj.func_238422_b_(stack, entryNameRe, entryX + 12, entryY + 1, new Color(206, 206, 206).getRGB());
+            fontRendererObj.func_238422_b_(stack, entryNameRe, entryX + 12, entryY, 0x423EBC);
         } else {
-            fontRendererObj.func_238422_b_(stack, entryName, entryX + 12, entryY, 0);
+            fontRendererObj.func_238422_b_(stack, entryNameRe, entryX + 12, entryY, 0);
         }
 
 
@@ -74,7 +76,7 @@ public class Entry extends EntryAbstract {
             cutString = true;
 
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight) && cutString) {
-            guiBase.renderTooltip(stack, Lists.newArrayList(getName()), entryX, entryY + 12);
+            guiBase.func_243308_b(stack, Lists.newArrayList(getName()), entryX, entryY + 12);
         }
 
 

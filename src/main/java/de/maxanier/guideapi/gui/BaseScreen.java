@@ -9,8 +9,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.ITextProperties;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
@@ -41,11 +41,18 @@ public class BaseScreen extends Screen {
         RenderHelper.disableStandardItemLighting();
     }
 
-    public void drawCenteredStringWithoutShadow(MatrixStack matrixStack, FontRenderer fontRendererObj, ITextProperties string, int x, int y, int color) {
+    public void drawCenteredStringWithoutShadow(MatrixStack matrixStack, FontRenderer fontRendererObj, IReorderingProcessor string, int x, int y, int color) {
         RenderHelper.disableStandardItemLighting();
-        fontRendererObj.func_238422_b_(matrixStack, string, x - fontRendererObj.func_238414_a_(string) / 2f, y, color); //drawString
+        fontRendererObj.func_238422_b_(matrixStack, string, x - fontRendererObj.func_243245_a(string) / 2f, y, color); //drawString
         RenderHelper.disableStandardItemLighting();
     }
+
+    public void drawCenteredStringWithoutShadow(MatrixStack matrixStack, FontRenderer fontRendererObj, ITextComponent string, int x, int y, int color) {
+        RenderHelper.disableStandardItemLighting();
+        fontRendererObj.func_243248_b(matrixStack, string, x - fontRendererObj.func_238414_a_(string) / 2f, y, color); //drawString
+        RenderHelper.disableStandardItemLighting();
+    }
+
 
     public void drawTexturedModalRectWithColor(MatrixStack stack, int x, int y, int textureX, int textureY, int width, int height, Color color) {
         stack.push();
@@ -81,6 +88,4 @@ public class BaseScreen extends Screen {
             return super.keyPressed(p_keyPressed_1_, p_keyPressed_2_, p_keyPressed_3_);
         }
     }
-
-
 }

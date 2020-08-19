@@ -12,8 +12,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.text.ITextProperties;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.Style;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +38,7 @@ public class PageHelper {
         FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
         int firstCount = firstHeight / fontRenderer.FONT_HEIGHT;
         int count = subsequentHeight / fontRenderer.FONT_HEIGHT;
-        List<ITextProperties> lines = new ArrayList<>(fontRenderer.func_238425_b_(text, lineWidth));
+        List<ITextProperties> lines = new ArrayList<>(fontRenderer.func_238420_b_().func_238362_b_(text, lineWidth, Style.EMPTY));
         List<ITextProperties> pages = new ArrayList<>();
 
         List<ITextProperties> pageLines = lines.size() > firstCount ? lines.subList(0, firstCount) : lines;
@@ -78,8 +80,8 @@ public class PageHelper {
     public static void drawFormattedText(MatrixStack stack, int x, int y, BaseScreen guiBase, ITextProperties toDraw) {
         FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
 
-        List<ITextProperties> cutLines = fontRenderer.func_238425_b_(toDraw, 170);
-        for (ITextProperties cut : cutLines) {
+        List<IReorderingProcessor> cutLines = fontRenderer.func_238425_b_(toDraw, 170);
+        for (IReorderingProcessor cut : cutLines) {
             fontRenderer.func_238422_b_(stack, cut, x, y, 0);
             y += 10;
         }

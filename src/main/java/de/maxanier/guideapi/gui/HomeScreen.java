@@ -136,7 +136,7 @@ public class HomeScreen extends BaseScreen {
         blit(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
         minecraft.getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
-        drawCenteredStringWithoutShadow(stack, font, book.getHeader(), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
+        drawCenteredStringWithoutShadow(stack, font, book.getHeader().func_241878_f(), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
 
         categoryPage = MathHelper.clamp(categoryPage, 0, categoryWrapperMap.size() - 1);
 
