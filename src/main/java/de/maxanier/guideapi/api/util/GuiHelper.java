@@ -203,9 +203,9 @@ public class GuiHelper {
             ITextComponent c = list.get(k);
             if (c instanceof IFormattableTextComponent) {
                 if (k == 0) {
-                    ((IFormattableTextComponent) c).func_240699_a_(stack.getRarity().color); //applyTextComponent
+                    ((IFormattableTextComponent) c).mergeStyle(stack.getRarity().color); //applyTextComponent
                 } else {
-                    ((IFormattableTextComponent) c).func_240699_a_(TextFormatting.GRAY);
+                    ((IFormattableTextComponent) c).mergeStyle(TextFormatting.GRAY);
                 }
             }
 

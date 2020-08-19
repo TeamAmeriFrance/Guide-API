@@ -32,12 +32,12 @@ public class BaseScreen extends Screen {
         super(title);
         this.player = player;
         this.bookStack = bookStack;
-        this.publicZLevel = this.func_230927_p_(); //getBlitOffset
+        this.publicZLevel = this.getBlitOffset(); //getBlitOffset
     }
 
     public void drawCenteredStringWithoutShadow(MatrixStack matrixStack, FontRenderer fontRendererObj, String string, int x, int y, int color) {
         RenderHelper.disableStandardItemLighting();
-        fontRendererObj.func_238421_b_(matrixStack, string, x - fontRendererObj.getStringWidth(string) / 2f, y, color); //drawString
+        fontRendererObj.drawString(matrixStack, string, x - fontRendererObj.getStringWidth(string) / 2f, y, color); //drawString
         RenderHelper.disableStandardItemLighting();
     }
 
@@ -67,20 +67,20 @@ public class BaseScreen extends Screen {
     }
 
     @Override
-    public boolean func_231046_a_(int p_keyPressed_1_, int p_keyPressed_2_, int p_keyPressed_3_) { //KeyPressed
-        if (field_230706_i_ != null && (p_keyPressed_1_ == GLFW.GLFW_KEY_ESCAPE || p_keyPressed_1_ == this.field_230706_i_.gameSettings.keyBindInventory.getKey().getKeyCode())) { //minecraft
-            this.func_231175_as__(); //onClose
-            this.field_230706_i_.setGameFocused(true);
-            return true;
-        } else {
-            return super.func_231046_a_(p_keyPressed_1_, p_keyPressed_2_, p_keyPressed_3_);
-        }
-    }
-
-    @Override
-    public boolean func_231177_au__() {
+    public boolean isPauseScreen() {
         return false;
     } //IsPauseScreen
+
+    @Override
+    public boolean keyPressed(int p_keyPressed_1_, int p_keyPressed_2_, int p_keyPressed_3_) { //KeyPressed
+        if (minecraft != null && (p_keyPressed_1_ == GLFW.GLFW_KEY_ESCAPE || p_keyPressed_1_ == this.minecraft.gameSettings.keyBindInventory.getKey().getKeyCode())) { //minecraft
+            this.closeScreen(); //onClose
+            this.minecraft.setGameFocused(true);
+            return true;
+        } else {
+            return super.keyPressed(p_keyPressed_1_, p_keyPressed_2_, p_keyPressed_3_);
+        }
+    }
 
 
 }

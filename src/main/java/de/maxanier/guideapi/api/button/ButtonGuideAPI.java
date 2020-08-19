@@ -18,7 +18,7 @@ public class ButtonGuideAPI extends Button {
 
     public List<ITextComponent> getHoveringText() {
         ArrayList<ITextComponent> list = new ArrayList<>();
-        list.add(func_230458_i_());
+        list.add(getMessage());
         return list;
     }
 }

@@ -19,17 +19,17 @@ public class ButtonSearch extends ButtonGuideAPI {
     }
 
     @Override
-    public void func_230431_b_(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
-        if (this.field_230694_p_) {
+    public void renderButton(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+        if (this.visible) {
             RenderHelper.enableStandardItemLighting();
             RenderSystem.enableBlend();
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableLighting();
-            if (GuiHelper.isMouseBetween(mouseX, mouseY, field_230690_l_, field_230691_m_, field_230688_j_, field_230689_k_)) { //x,y,width,height
-                SubTexture.MAGNIFYING_GLASS.draw(stack, field_230690_l_, field_230691_m_ + 1);
-                GuiUtils.drawHoveringText(stack, getHoveringText(), mouseX, mouseY, guiBase.field_230708_k_, guiBase.field_230709_l_, -1, Minecraft.getInstance().fontRenderer);
+            if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) { //x,y,width,height
+                SubTexture.MAGNIFYING_GLASS.draw(stack, x, y + 1);
+                GuiUtils.drawHoveringText(stack, getHoveringText(), mouseX, mouseY, guiBase.width, guiBase.height, -1, Minecraft.getInstance().fontRenderer);
             } else {
-                SubTexture.MAGNIFYING_GLASS.draw(stack, field_230690_l_, field_230691_m_);
+                SubTexture.MAGNIFYING_GLASS.draw(stack, x, y);
             }
             RenderSystem.disableBlend();
             RenderHelper.disableStandardItemLighting();

@@ -50,7 +50,7 @@ public class BookEvent extends Event {
     @Cancelable
     public static class Open extends BookEvent {
 
-        private static final ITextComponent DEFAULT_CANCEL = new TranslationTextComponent("text.open.failed").func_240699_a_(TextFormatting.RED);
+        private static final ITextComponent DEFAULT_CANCEL = new TranslationTextComponent("text.open.failed").mergeStyle(TextFormatting.RED);
 
         private ITextComponent canceledText = DEFAULT_CANCEL;
 

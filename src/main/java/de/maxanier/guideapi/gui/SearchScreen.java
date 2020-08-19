@@ -74,63 +74,58 @@ public class SearchScreen extends BaseScreen {
     }
 
     @Override
-    public void func_230430_a_(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
-        field_230706_i_.getTextureManager().bindTexture(pageTexture);
-        func_238474_b_(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
-        field_230706_i_.getTextureManager().bindTexture(outlineTexture);
-        drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
-
-        func_238467_a_(stack, searchField.field_230690_l_ - 1, searchField.field_230691_m_ - 1, searchField.field_230690_l_ + searchField.getAdjustedWidth() + 1, searchField.field_230691_m_ + searchField.getHeight() + 1, new Color(166, 166, 166, 128).getRGB());
-        func_238467_a_(stack, searchField.field_230690_l_, searchField.field_230691_m_, searchField.field_230690_l_ + searchField.getAdjustedWidth(), searchField.field_230691_m_ + searchField.getHeight(), new Color(58, 58, 58, 128).getRGB());
-        searchField.func_230430_a_(stack, mouseX, mouseY, partialTicks);
-
-        int entryX = guiLeft + renderXOffset;
-        int entryY = guiTop + renderYOffset;
-
-        if (searchResults.size() != 0 && currentPage >= 0 && currentPage < searchResults.size()) {
-            List<Pair<EntryAbstract, CategoryAbstract>> pageResults = searchResults.get(currentPage);
-            for (Pair<EntryAbstract, CategoryAbstract> entry : pageResults) {
-                entry.getLeft().draw(stack, book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, field_230712_o_);
-                entry.getLeft().drawExtras(stack, book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, field_230712_o_);
-
-                if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, 4 * xSize / 6, 10)) {
-                    if (GLFW.glfwGetKey(field_230706_i_.getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) == GLFW.GLFW_PRESS)
-                        GuiUtils.drawHoveringText(stack, entry.getRight().getTooltip(), mouseX, mouseY, field_230708_k_, field_230709_l_, 300, field_230712_o_);
-                }
-
-                entryY += 13;
-            }
-        }
-
-        buttonPrev.field_230694_p_ = currentPage != 0;
-        buttonNext.field_230694_p_ = currentPage != searchResults.size() - 1 && !searchResults.isEmpty();
-
-        super.func_230430_a_(stack, mouseX, mouseY, partialTicks);
-    }
-
-    @Override
-    public boolean func_231042_a_(char p_charTyped_1_, int p_charTyped_2_) {
-        if (this.searchField.func_231042_a_(p_charTyped_1_, p_charTyped_2_)) {
+    public boolean charTyped(char p_charTyped_1_, int p_charTyped_2_) {
+        if (this.searchField.charTyped(p_charTyped_1_, p_charTyped_2_)) {
             this.updateSearch();
             return true;
         }
-        return super.func_231042_a_(p_charTyped_1_, p_charTyped_2_);
+        return super.charTyped(p_charTyped_1_, p_charTyped_2_);
     }
 
     @Override
-    public boolean func_231043_a_(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double movement) {
-        if (movement < 0 && buttonNext.field_230694_p_ && currentPage <= searchResults.size())
-            currentPage++;
-        else if (movement > 0 && buttonPrev.field_230694_p_ && currentPage > 0)
-            currentPage--;
+    public void init() {
 
-        return movement != 0 || super.func_231043_a_(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
+        guiLeft = (this.width - this.xSize) / 2;
+        guiTop = (this.height - this.ySize) / 2;
 
+        addButton(new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
+            minecraft.displayGuiScreen(parent);
+
+        }, this));
+        addButton(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
+            if (currentPage <= searchResults.size() - 1)
+                currentPage++;
+        }, this));
+        addButton(buttonPrev = new ButtonPrev(guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn) -> {
+            if (currentPage > 0)
+                currentPage--;
+        }, this));
+
+        searchField = new TextFieldWidget(font, guiLeft + 43, guiTop + 12, 100, 10, new TranslationTextComponent("guideapi.button.search"));
+        searchField.setEnableBackgroundDrawing(false);
+        searchField.changeFocus(true); //changeFocus
+        searchResults = getMatches(book, null, player, bookStack);
     }
 
     @Override
-    public boolean func_231044_a_(double mouseX, double mouseY, int typeofClick) {
-        if (!super.func_231044_a_(mouseX, mouseY, typeofClick)) {
+    public boolean keyPressed(int keyCode, int p_keyPressed_2_, int p_keyPressed_3_) {
+        if (!searchField.isFocused()) {
+            return super.keyPressed(keyCode, p_keyPressed_2_, p_keyPressed_3_);
+        }
+
+        if (keyCode == GLFW.GLFW_KEY_ESCAPE)
+            searchField.changeFocus(false);
+
+        if (searchField.keyPressed(keyCode, p_keyPressed_2_, p_keyPressed_3_)) {
+            this.updateSearch();
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int typeofClick) {
+        if (!super.mouseClicked(mouseX, mouseY, typeofClick)) {
             if (typeofClick == 0) {
                 int entryX = guiLeft + renderXOffset;
                 int entryY = guiTop + renderYOffset;
@@ -145,19 +140,19 @@ public class SearchScreen extends BaseScreen {
                     }
                 }
             } else if (typeofClick == 1) {
-                if (GuiHelper.isMouseBetween(mouseX, mouseY, searchField.field_230690_l_, searchField.field_230691_m_, searchField.getAdjustedWidth(), searchField.getHeight())) {
+                if (GuiHelper.isMouseBetween(mouseX, mouseY, searchField.x, searchField.y, searchField.getAdjustedWidth(), searchField.getHeight())) {
                     searchField.setText("");
                     lastQuery = "";
                     searchResults = getMatches(book, "", player, bookStack);
                     return true;
                 } else {
-                    field_230706_i_.displayGuiScreen(parent);
+                    minecraft.displayGuiScreen(parent);
                     return true;
                 }
             }
 
 
-            return searchField.func_231044_a_(mouseX, mouseY, typeofClick);
+            return searchField.mouseClicked(mouseX, mouseY, typeofClick);
         }
         return true;
 
@@ -174,43 +169,48 @@ public class SearchScreen extends BaseScreen {
     }
 
     @Override
-    public boolean func_231046_a_(int keyCode, int p_keyPressed_2_, int p_keyPressed_3_) {
-        if (!searchField.func_230999_j_()) {
-            return super.func_231046_a_(keyCode, p_keyPressed_2_, p_keyPressed_3_);
-        }
+    public boolean mouseScrolled(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double movement) {
+        if (movement < 0 && buttonNext.visible && currentPage <= searchResults.size())
+            currentPage++;
+        else if (movement > 0 && buttonPrev.visible && currentPage > 0)
+            currentPage--;
 
-        if (keyCode == GLFW.GLFW_KEY_ESCAPE)
-            searchField.func_231049_c__(false);
+        return movement != 0 || super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
 
-        if (searchField.func_231046_a_(keyCode, p_keyPressed_2_, p_keyPressed_3_)) {
-            this.updateSearch();
-        }
-
-        return true;
     }
 
     @Override
-    public void func_231160_c_() {
+    public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+        minecraft.getTextureManager().bindTexture(pageTexture);
+        blit(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
+        minecraft.getTextureManager().bindTexture(outlineTexture);
+        drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
-        guiLeft = (this.field_230708_k_ - this.xSize) / 2;
-        guiTop = (this.field_230709_l_ - this.ySize) / 2;
+        fill(stack, searchField.x - 1, searchField.y - 1, searchField.x + searchField.getAdjustedWidth() + 1, searchField.y + searchField.getHeight() + 1, new Color(166, 166, 166, 128).getRGB());
+        fill(stack, searchField.x, searchField.y, searchField.x + searchField.getAdjustedWidth(), searchField.y + searchField.getHeight(), new Color(58, 58, 58, 128).getRGB());
+        searchField.render(stack, mouseX, mouseY, partialTicks);
 
-        func_230480_a_(new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
-            field_230706_i_.displayGuiScreen(parent);
+        int entryX = guiLeft + renderXOffset;
+        int entryY = guiTop + renderYOffset;
 
-        }, this));
-        func_230480_a_(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
-            if (currentPage <= searchResults.size() - 1)
-                currentPage++;
-        }, this));
-        func_230480_a_(buttonPrev = new ButtonPrev(guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn) -> {
-            if (currentPage > 0)
-                currentPage--;
-        }, this));
+        if (searchResults.size() != 0 && currentPage >= 0 && currentPage < searchResults.size()) {
+            List<Pair<EntryAbstract, CategoryAbstract>> pageResults = searchResults.get(currentPage);
+            for (Pair<EntryAbstract, CategoryAbstract> entry : pageResults) {
+                entry.getLeft().draw(stack, book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, font);
+                entry.getLeft().drawExtras(stack, book, entry.getRight(), entryX, entryY, 4 * xSize / 6, 10, mouseX, mouseY, this, font);
 
-        searchField = new TextFieldWidget(field_230712_o_, guiLeft + 43, guiTop + 12, 100, 10, new TranslationTextComponent("guideapi.button.search"));
-        searchField.setEnableBackgroundDrawing(false);
-        searchField.func_231049_c__(true); //changeFocus
-        searchResults = getMatches(book, null, player, bookStack);
+                if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, 4 * xSize / 6, 10)) {
+                    if (GLFW.glfwGetKey(minecraft.getMainWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT) == GLFW.GLFW_PRESS)
+                        GuiUtils.drawHoveringText(stack, entry.getRight().getTooltip(), mouseX, mouseY, width, height, 300, font);
+                }
+
+                entryY += 13;
+            }
+        }
+
+        buttonPrev.visible = currentPage != 0;
+        buttonNext.visible = currentPage != searchResults.size() - 1 && !searchResults.isEmpty();
+
+        super.render(stack, mouseX, mouseY, partialTicks);
     }
 }

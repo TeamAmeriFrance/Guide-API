@@ -188,7 +188,7 @@ public class PageHolderWithLinks implements IPage {
                 Throwable throwable = throwable1.getCause();
                 LOGGER.error("Couldn't open link: {}", link);
                 LOGGER.catching(throwable);
-                player.sendMessage(ForgeHooks.newChatWithLinks("Couldn't open link: " + link.toString()), Util.field_240973_b_);
+                player.sendMessage(ForgeHooks.newChatWithLinks("Couldn't open link: " + link.toString()), Util.DUMMY_UUID);
             }
         }
     }

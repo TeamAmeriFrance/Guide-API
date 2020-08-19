@@ -39,7 +39,7 @@ public class CategoryItemStack extends Category {
     @OnlyIn(Dist.CLIENT)
     public void drawExtras(MatrixStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
         if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight))
-            guiBase.func_238654_b_(stack, this.getTooltip(), mouseX, mouseY);
+            guiBase.renderTooltip(stack, this.getTooltip(), mouseX, mouseY);
     }
 
     @Override

@@ -49,100 +49,35 @@ public class CategoryScreen extends BaseScreen {
     }
 
     @Override
-    public void func_230430_a_(MatrixStack stack, int mouseX, int mouseY, float renderPartialTicks) { //render
-        field_230706_i_.getTextureManager().bindTexture(pageTexture); //minecraft
-        func_238474_b_(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
-        field_230706_i_.getTextureManager().bindTexture(outlineTexture);
-        drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
+    public void closeScreen() { //onClose
+        super.closeScreen();
 
-        entryPage = MathHelper.clamp(entryPage, 0, entryWrapperMap.size() - 1);
-
-        for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
-            if (wrapper.canPlayerSee()) {
-                wrapper.draw(stack, mouseX, mouseY, this);
-                wrapper.drawExtras(stack, mouseX, mouseY, this);
-            }
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                wrapper.onHoverOver(mouseX, mouseY);
-            }
-        }
-
-        drawCenteredStringWithoutShadow(stack, field_230712_o_ /*fontRenderer*/, String.format("%d/%d", entryPage + 1, entryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
-        func_238472_a_(stack, field_230712_o_, category.getName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
-
-        buttonPrev.field_230694_p_ = entryPage != 0; //visible
-        buttonNext.field_230694_p_ = entryPage != entryWrapperMap.asMap().size() - 1 && !entryWrapperMap.asMap().isEmpty();
-
-        super.func_230430_a_(stack, mouseX, mouseY, renderPartialTicks);
+        PacketHandler.INSTANCE.sendToServer(new PacketSyncCategory(book.getCategoryList().indexOf(category), entryPage));
     }
 
     @Override
-    public boolean func_231043_a_(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double movement) { //mouseScrolled
-        if (movement < 0)
-            nextPage();
-        else if (movement > 0)
-            prevPage();
-
-        return movement != 0 || super.func_231043_a_(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
-    }
-
-    @Override
-    public boolean func_231044_a_(double mouseX, double mouseY, int typeofClick) { //mouseClicked
-        boolean ret = super.func_231044_a_(mouseX, mouseY, typeofClick);
-
-        for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
-            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
-                if (typeofClick == 0) wrapper.entry.onLeftClicked(book, category, mouseX, mouseY, player, this);
-                else if (typeofClick == 1)
-                    wrapper.entry.onRightClicked(book, category, mouseX, mouseY, player, this);
-            }
-        }
-
-        if (typeofClick == 1)
-            this.field_230706_i_.displayGuiScreen(new HomeScreen(book, player, bookStack)); //minecraft
-        return ret;
-    }
-
-    @Override
-    public boolean func_231046_a_(int keyCode, int p_keyPressed_2_, int p_keyPressed_3_) { //keyPressed
-        if (keyCode == GLFW.GLFW_KEY_BACKSPACE || keyCode == this.field_230706_i_.gameSettings.keyBindUseItem.getKey().getKeyCode()) { //minecraft
-            this.field_230706_i_.displayGuiScreen(new HomeScreen(book, player, bookStack));
-            return true;
-        } else if ((keyCode == GLFW.GLFW_KEY_UP || keyCode == GLFW.GLFW_KEY_RIGHT) && entryPage + 1 < entryWrapperMap.asMap().size()) {
-
-
-            nextPage();
-            return true;
-        } else if ((keyCode == GLFW.GLFW_KEY_DOWN || keyCode == GLFW.GLFW_KEY_LEFT) && entryPage > 0) {
-            prevPage();
-            return true;
-        }
-        return super.func_231046_a_(keyCode, p_keyPressed_2_, p_keyPressed_3_);
-    }
-
-    @Override
-    public void func_231160_c_() { //Init
+    public void init() { //Init
         this.entryWrapperMap.clear();
 
-        guiLeft = (this.field_230708_k_ - this.xSize) / 2; //width
-        guiTop = (this.field_230709_l_ - this.ySize) / 2; //Height
+        guiLeft = (this.width - this.xSize) / 2; //width
+        guiTop = (this.height - this.ySize) / 2; //Height
 
         //addButton
-        func_230480_a_(buttonBack = new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
-            this.field_230706_i_.displayGuiScreen(new HomeScreen(book, player, bookStack)); //minecraft
+        addButton(buttonBack = new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
+            this.minecraft.displayGuiScreen(new HomeScreen(book, player, bookStack)); //minecraft
         }, this));
-        func_230480_a_(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
+        addButton(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
             if (entryPage + 1 < entryWrapperMap.asMap().size()) {
                 nextPage();
             }
         }, this));
-        func_230480_a_(buttonPrev = new ButtonPrev(guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn) -> {
+        addButton(buttonPrev = new ButtonPrev(guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn) -> {
             if (entryPage > 0) {
                 prevPage();
             }
         }, this));
-        func_230480_a_(buttonSearch = new ButtonSearch((guiLeft + xSize / 6) - 25, guiTop + 5, (btn) -> {
-            this.field_230706_i_.displayGuiScreen(new SearchScreen(book, player, bookStack, this));
+        addButton(buttonSearch = new ButtonSearch((guiLeft + xSize / 6) - 25, guiTop + 5, (btn) -> {
+            this.minecraft.displayGuiScreen(new SearchScreen(book, player, bookStack, this));
         }, this));
 
         int eX = guiLeft + 37;
@@ -152,7 +87,7 @@ public class CategoryScreen extends BaseScreen {
         List<EntryAbstract> entries = Lists.newArrayList(category.entries.values());
         for (EntryAbstract entry : entries) {
             entry.onInit(book, category, this, player, bookStack);
-            entryWrapperMap.put(pageNumber, new EntryWrapper(this, book, category, entry, eX, eY, 4 * xSize / 6, 10, player, this.field_230712_o_, bookStack));
+            entryWrapperMap.put(pageNumber, new EntryWrapper(this, book, category, entry, eX, eY, 4 * xSize / 6, 10, player, this.font, bookStack));
             if (entry.equals(this.startEntry)) {
                 this.startEntry = null;
                 this.entryPage = pageNumber;
@@ -169,10 +104,75 @@ public class CategoryScreen extends BaseScreen {
     }
 
     @Override
-    public void func_231175_as__() { //onClose
-        super.func_231175_as__();
+    public boolean keyPressed(int keyCode, int p_keyPressed_2_, int p_keyPressed_3_) { //keyPressed
+        if (keyCode == GLFW.GLFW_KEY_BACKSPACE || keyCode == this.minecraft.gameSettings.keyBindUseItem.getKey().getKeyCode()) { //minecraft
+            this.minecraft.displayGuiScreen(new HomeScreen(book, player, bookStack));
+            return true;
+        } else if ((keyCode == GLFW.GLFW_KEY_UP || keyCode == GLFW.GLFW_KEY_RIGHT) && entryPage + 1 < entryWrapperMap.asMap().size()) {
 
-        PacketHandler.INSTANCE.sendToServer(new PacketSyncCategory(book.getCategoryList().indexOf(category), entryPage));
+
+            nextPage();
+            return true;
+        } else if ((keyCode == GLFW.GLFW_KEY_DOWN || keyCode == GLFW.GLFW_KEY_LEFT) && entryPage > 0) {
+            prevPage();
+            return true;
+        }
+        return super.keyPressed(keyCode, p_keyPressed_2_, p_keyPressed_3_);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int typeofClick) { //mouseClicked
+        boolean ret = super.mouseClicked(mouseX, mouseY, typeofClick);
+
+        for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
+            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
+                if (typeofClick == 0) wrapper.entry.onLeftClicked(book, category, mouseX, mouseY, player, this);
+                else if (typeofClick == 1)
+                    wrapper.entry.onRightClicked(book, category, mouseX, mouseY, player, this);
+            }
+        }
+
+        if (typeofClick == 1)
+            this.minecraft.displayGuiScreen(new HomeScreen(book, player, bookStack)); //minecraft
+        return ret;
+    }
+
+    @Override
+    public boolean mouseScrolled(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double movement) { //mouseScrolled
+        if (movement < 0)
+            nextPage();
+        else if (movement > 0)
+            prevPage();
+
+        return movement != 0 || super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
+    }
+
+    @Override
+    public void render(MatrixStack stack, int mouseX, int mouseY, float renderPartialTicks) { //render
+        minecraft.getTextureManager().bindTexture(pageTexture); //minecraft
+        blit(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
+        minecraft.getTextureManager().bindTexture(outlineTexture);
+        drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
+
+        entryPage = MathHelper.clamp(entryPage, 0, entryWrapperMap.size() - 1);
+
+        for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
+            if (wrapper.canPlayerSee()) {
+                wrapper.draw(stack, mouseX, mouseY, this);
+                wrapper.drawExtras(stack, mouseX, mouseY, this);
+            }
+            if (wrapper.isMouseOnWrapper(mouseX, mouseY) && wrapper.canPlayerSee()) {
+                wrapper.onHoverOver(mouseX, mouseY);
+            }
+        }
+
+        drawCenteredStringWithoutShadow(stack, font /*fontRenderer*/, String.format("%d/%d", entryPage + 1, entryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        drawCenteredString(stack, font, category.getName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
+
+        buttonPrev.visible = entryPage != 0; //visible
+        buttonNext.visible = entryPage != entryWrapperMap.asMap().size() - 1 && !entryWrapperMap.asMap().isEmpty();
+
+        super.render(stack, mouseX, mouseY, renderPartialTicks);
     }
 
     public void nextPage() {

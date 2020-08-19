@@ -74,7 +74,7 @@ public class Entry extends EntryAbstract {
             cutString = true;
 
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight) && cutString) {
-            guiBase.func_238654_b_(stack, Lists.newArrayList(getName()), entryX, entryY + 12);
+            guiBase.renderTooltip(stack, Lists.newArrayList(getName()), entryX, entryY + 12);
         }
 
 
