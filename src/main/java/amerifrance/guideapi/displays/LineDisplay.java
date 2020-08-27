@@ -61,7 +61,7 @@ public class LineDisplay<T extends IdTextProvider & ParentOf<U>, U extends Rende
                 object.getRenderer().render(object, guideGui, matrixStack, x, y, delta);
 
                 Area area = object.getRenderer().getArea(object, guideGui);
-                if (MouseHelper.isInRect(x, y, area.getWidth(), area.getHeight(), mouseX, mouseY)) {
+                if (MouseHelper.isInArea(x, y, area, mouseX, mouseY)) {
                     object.getRenderer().hover(object, guideGui, matrixStack, x, y, mouseX, mouseY);
 
                     if (object instanceof DisplayProvider)
