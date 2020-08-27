@@ -4,18 +4,18 @@ import amerifrance.guideapi.api.*;
 import amerifrance.guideapi.displays.Display;
 import amerifrance.guideapi.renderers.Renderer;
 
-public class Element implements IdTextProvider, ChildOf<Page>, DisplayProvider, RendererProvider<Element> {
+public class Element implements IdTextProvider, ChildOf<Entry>, DisplayProvider, RendererProvider<Element> {
 
     private String id;
     private String name;
-    private Page page;
+    private Entry entry;
     private Display display;
     private Renderer<Element> renderer;
 
-    public Element(String id, String name, Page page, Renderer<Element> renderer) {
+    public Element(String id, String name, Entry entry, Renderer<Element> renderer) {
         this.id = id;
         this.name = name;
-        this.page = page;
+        this.entry = entry;
         this.renderer = renderer;
     }
 
@@ -30,8 +30,8 @@ public class Element implements IdTextProvider, ChildOf<Page>, DisplayProvider, 
     }
 
     @Override
-    public Page getParent() {
-        return page;
+    public Entry getParent() {
+        return entry;
     }
 
     @Override

@@ -1,21 +1,38 @@
 package amerifrance.guideapi.displays;
 
-import amerifrance.guideapi.api.IdTextProvider;
+import amerifrance.guideapi.api.*;
+import amerifrance.guideapi.gui.GuideGui;
+import amerifrance.guideapi.gui.TextButton;
 import amerifrance.guideapi.utils.Area;
 import amerifrance.guideapi.utils.MouseHelper;
-import amerifrance.guideapi.gui.GuideGui;
-import amerifrance.guideapi.api.DisplayProvider;
-import amerifrance.guideapi.api.ParentOf;
-import amerifrance.guideapi.api.RendererProvider;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class LineDisplay<T extends IdTextProvider & ParentOf<U>, U extends RendererProvider<U> & DisplayProvider> extends HistoryBaseDisplay {
-
     private final T object;
+    private final Multimap<Integer, U> pages;
+
+    private int currentPage;
+
+    private Button previousButton;
+    private Button nextButton;
 
     public LineDisplay(T object) {
         this.object = object;
+        this.pages = ArrayListMultimap.create();
+    }
+
+    @Override
+    public void init(GuideGui guideGui, int top, int left, int width, int height) {
+        super.init(guideGui, top, left, width, height);
+
+        this.pages.clear();
+        this.computePages(guideGui);
+
+        this.previousButton = new TextButton(() -> currentPage--, "Previous", left, top + height);
+        this.nextButton = new TextButton(() -> currentPage++, "Next", left + width, top + height);
     }
 
     @Override
@@ -23,6 +40,12 @@ public class LineDisplay<T extends IdTextProvider & ParentOf<U>, U extends Rende
         super.draw(guideGui, matrixStack, mouseX, mouseY, delta);
 
         TextRenderer textRenderer = guideGui.getTextRenderer();
+
+        if (currentPage > 0)
+            previousButton.draw(textRenderer, matrixStack, mouseX, mouseY);
+
+        if (currentPage < pages.keySet().size() - 1)
+            nextButton.draw(textRenderer, matrixStack, mouseX, mouseY);
 
         textRenderer.draw(matrixStack,
                 object.getText(),
@@ -33,7 +56,7 @@ public class LineDisplay<T extends IdTextProvider & ParentOf<U>, U extends Rende
         int x = guideGui.getLeft();
         int y = guideGui.getTop() + textRenderer.fontHeight * 2;
 
-        for (U object : object.getChildren()) {
+        for (U object : pages.get(currentPage)) {
             if (object.getViewingRequirement().canView()) {
                 object.getRenderer().render(object, guideGui, matrixStack, x, y, delta);
 
@@ -45,6 +68,40 @@ public class LineDisplay<T extends IdTextProvider & ParentOf<U>, U extends Rende
                 }
 
                 y += area.getHeight();
+            }
+        }
+    }
+
+    @Override
+    public boolean mouseClicked(GuideGui guideGui, double mouseX, double mouseY, int button) {
+        TextRenderer textRenderer = guideGui.getTextRenderer();
+
+        if (currentPage > 0 && previousButton.mouseOver(textRenderer, mouseX, mouseY)) {
+            return previousButton.click();
+        }
+        if (currentPage < pages.keySet().size() - 1 && nextButton.mouseOver(textRenderer, mouseX, mouseY)) {
+            return nextButton.click();
+        }
+
+        return super.mouseClicked(guideGui, mouseX, mouseY, button);
+    }
+
+    private void computePages(GuideGui guideGui) {
+        int page = 0;
+        int y = guideGui.getTop() + guideGui.getTextRenderer().fontHeight * 2;
+
+        for (U object : object.getChildren()) {
+            if (object.getViewingRequirement().canView()) {
+                Area area = object.getRenderer().getArea(object, guideGui);
+
+                if (y + area.getHeight() < guideGui.getGuiHeight()) {
+                    y += area.getHeight();
+                } else {
+                    page++;
+                    y = guideGui.getTop() + guideGui.getTextRenderer().fontHeight * 2;
+                }
+
+                pages.put(page, object);
             }
         }
     }

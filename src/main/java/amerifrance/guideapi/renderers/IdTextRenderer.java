@@ -42,6 +42,8 @@ public class IdTextRenderer<T extends IdTextProvider> implements Renderer<T> {
     public Area getArea(T object, GuideGui guideGui) {
         TextRenderer textRenderer = guideGui.getTextRenderer();
 
-        return new Area(textRenderer.getWidth(object.getText()), textRenderer.fontHeight);
+        List<StringRenderable> lines = textRenderer.wrapLines(new LiteralText(object.getText()), guideGui.getGuiWidth());
+
+        return new Area(textRenderer.getWidth(lines.get(0)), textRenderer.fontHeight * lines.size());
     }
 }

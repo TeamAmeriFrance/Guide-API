@@ -1,8 +1,9 @@
 package amerifrance.guideapi.displays;
 
-import amerifrance.guideapi.utils.MouseHelper;
+import amerifrance.guideapi.api.Button;
 import amerifrance.guideapi.api.DisplayProvider;
 import amerifrance.guideapi.gui.GuideGui;
+import amerifrance.guideapi.gui.TextButton;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 
@@ -11,13 +12,11 @@ public abstract class HistoryBaseDisplay implements Display {
 
     protected DisplayProvider hovered;
 
-    private int backButtonX;
-    private int backButtonY;
+    private Button backButton;
 
     @Override
     public void init(GuideGui guideGui, int top, int left, int width, int height) {
-        backButtonX = left + width;
-        backButtonY = top;
+        backButton = new TextButton(guideGui::back, "Back", left + width, top);
     }
 
     @Override
@@ -27,11 +26,7 @@ public abstract class HistoryBaseDisplay implements Display {
 
         //FIXME Temporary
         if (!guideGui.getHistory().isEmpty()) {
-            textRenderer.draw(matrixStack, BACK_BUTTON_TEXT, backButtonX, backButtonY, 0);
-
-            if (MouseHelper.isInRect(backButtonX, backButtonY, textRenderer.getWidth(BACK_BUTTON_TEXT), textRenderer.fontHeight, mouseX, mouseY)) {
-                textRenderer.draw(matrixStack, BACK_BUTTON_TEXT, backButtonX, backButtonY, 0xffffff);
-            }
+            backButton.draw(textRenderer, matrixStack, mouseX, mouseY);
         }
     }
 
@@ -39,9 +34,8 @@ public abstract class HistoryBaseDisplay implements Display {
     public boolean mouseClicked(GuideGui guideGui, double mouseX, double mouseY, int button) {
         TextRenderer textRenderer = guideGui.getTextRenderer();
 
-        if (MouseHelper.isInRect(backButtonX, backButtonY, textRenderer.getWidth(BACK_BUTTON_TEXT), textRenderer.fontHeight, mouseX, mouseY)) {
-            guideGui.back();
-            return true;
+        if (backButton.mouseOver(textRenderer, mouseX, mouseY)) {
+            return backButton.click();
         }
 
         if (hovered != null) {

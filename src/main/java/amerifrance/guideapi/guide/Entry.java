@@ -11,21 +11,21 @@ import java.util.function.Consumer;
 
 import static com.google.common.collect.Maps.newLinkedHashMap;
 
-public class Entry implements IdTextProvider, ChildOf<Category>, ParentOf<Page>, DisplayProvider, RendererProvider<Entry> {
+public class Entry implements IdTextProvider, ChildOf<Category>, ParentOf<Element>, DisplayProvider, RendererProvider<Entry> {
 
     private String id;
     private String name;
     private Category category;
     private Display display;
     private Renderer<Entry> renderer;
-    private Map<String, Page> pages;
+    private Map<String, Element> elements;
 
     public Entry(String id, String name, Category category, Renderer<Entry> renderer, Consumer<Entry> $) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.renderer = renderer;
-        this.pages = newLinkedHashMap();
+        this.elements = newLinkedHashMap();
 
         $.accept(this);
     }
@@ -46,18 +46,18 @@ public class Entry implements IdTextProvider, ChildOf<Category>, ParentOf<Page>,
     }
 
     @Override
-    public List<Page> getChildren() {
-        return Lists.newArrayList(pages.values());
+    public List<Element> getChildren() {
+        return Lists.newArrayList(elements.values());
     }
 
     @Override
-    public void add(Page child) {
-        pages.put(child.getId(), child);
+    public void add(Element child) {
+        elements.put(child.getId(), child);
     }
 
     @Override
-    public Page getChild(String id) {
-        return pages.getOrDefault(id, null);
+    public Element getChild(String id) {
+        return elements.getOrDefault(id, null);
     }
 
     @Override
