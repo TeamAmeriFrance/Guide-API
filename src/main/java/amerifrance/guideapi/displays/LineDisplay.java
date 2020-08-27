@@ -10,7 +10,7 @@ import com.google.common.collect.Multimap;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 
-public class LineDisplay<T extends IdTextProvider & ParentOf<U>, U extends RendererProvider<U> & DisplayProvider> extends HistoryBaseDisplay {
+public class LineDisplay<T extends IdTextProvider & ParentOf<U>, U extends RendererProvider<U>> extends HistoryBaseDisplay {
     private final T object;
     private final Multimap<Integer, U> pages;
 
@@ -64,7 +64,8 @@ public class LineDisplay<T extends IdTextProvider & ParentOf<U>, U extends Rende
                 if (MouseHelper.isInRect(x, y, area.getWidth(), area.getHeight(), mouseX, mouseY)) {
                     object.getRenderer().hover(object, guideGui, matrixStack, x, y, mouseX, mouseY);
 
-                    hovered = object;
+                    if (object instanceof DisplayProvider)
+                        hovered = (DisplayProvider) object;
                 }
 
                 y += area.getHeight();

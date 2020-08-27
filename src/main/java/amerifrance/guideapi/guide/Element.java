@@ -4,7 +4,7 @@ import amerifrance.guideapi.api.*;
 import amerifrance.guideapi.displays.Display;
 import amerifrance.guideapi.renderers.Renderer;
 
-public class Element implements IdTextProvider, ChildOf<Entry>, DisplayProvider, RendererProvider<Element> {
+public class Element implements IdTextProvider, ChildOf<Entry>, RendererProvider<Element> {
 
     private String id;
     private String name;
@@ -37,16 +37,6 @@ public class Element implements IdTextProvider, ChildOf<Entry>, DisplayProvider,
     @Override
     public Renderer<Element> getRenderer() {
         return renderer;
-    }
-
-    @Override
-    public Display getDisplay() {
-        return display;
-    }
-
-    @Override
-    public void setDisplay(Display display) {
-        this.display = display;
     }
 
     @Override

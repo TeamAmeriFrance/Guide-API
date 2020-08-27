@@ -8,8 +8,6 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 
 public abstract class HistoryBaseDisplay implements Display {
-    private static final String BACK_BUTTON_TEXT = "Back";
-
     protected DisplayProvider hovered;
 
     private Button backButton;
@@ -24,7 +22,6 @@ public abstract class HistoryBaseDisplay implements Display {
         hovered = null;
         TextRenderer textRenderer = guideGui.getTextRenderer();
 
-        //FIXME Temporary
         if (!guideGui.getHistory().isEmpty()) {
             backButton.draw(textRenderer, matrixStack, mouseX, mouseY);
         }
