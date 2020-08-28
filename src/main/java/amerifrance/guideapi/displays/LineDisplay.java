@@ -95,13 +95,12 @@ public class LineDisplay<T extends IdTextProvider & ParentOf<U>, U extends Rende
             if (object.getViewingRequirement().canView()) {
                 Area area = object.getRenderer().getArea(object, guideGui);
 
-                if (y + area.getHeight() < guideGui.getGuiHeight()) {
-                    y += area.getHeight();
-                } else {
+                if (y + area.getHeight() > guideGui.getGuiHeight()) {
                     page++;
                     y = guideGui.getTop() + guideGui.getTextRenderer().fontHeight * 2;
                 }
 
+                y += area.getHeight();
                 pages.put(page, object);
             }
         }
