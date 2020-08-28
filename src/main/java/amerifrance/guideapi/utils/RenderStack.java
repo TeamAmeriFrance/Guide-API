@@ -11,43 +11,67 @@ import net.minecraft.item.ItemStack;
 
 public class RenderStack {
 
-    public final static int DRAW_SIZE = 15;
-    public final static int TOOLTIP_Y_OFFSET = 10;
+    public static final int DRAW_SIZE = 15;
+    public static final int TOOLTIP_Y_OFFSET = 10;
 
     private final ItemStack itemStack;
     private final int scale;
+    private final int x;
+    private final int y;
 
-    public RenderStack(ItemStack itemStack, int scale) {
+    public RenderStack(ItemStack itemStack, int scale, int x, int y) {
         this.itemStack = itemStack;
         this.scale = scale;
+        this.x = x;
+        this.y = y;
+    }
+
+    public RenderStack(ItemStack itemStack, int x, int y) {
+        this(itemStack, 1, x, y);
+    }
+
+    public RenderStack(Item item, int scale, int x, int y) {
+        this(new ItemStack(item), scale, x, y);
+    }
+
+    public RenderStack(Item item, int x, int y) {
+        this(item, 1, x, y);
+    }
+
+    public RenderStack(ItemStack itemStack, int scale) {
+        this(itemStack, scale, 0, 0);
     }
 
     public RenderStack(ItemStack itemStack) {
-        this(itemStack, 1);
+        this(itemStack, 0, 0);
     }
 
     public RenderStack(Item item, int scale) {
-        this(new ItemStack(item), scale);
+        this(item, scale, 0, 0);
     }
 
     public RenderStack(Item item) {
-        this(item, 1);
+        this(item, 0, 0);
     }
 
-    public void render(Screen screen, MatrixStack matrixStack, int x, int y) {
-        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GlStateManager.scalef(scale, scale, scale);
+    public void render(Screen screen, MatrixStack matrixStack) {
+        if (itemStack != ItemStack.EMPTY) {
+            GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GlStateManager.scalef(scale, scale, scale);
 
-        DiffuseLighting.enable();
+            DiffuseLighting.enable();
 
-        renderItemStack(x, y);
+            renderItemStack(x, y);
 
-        DiffuseLighting.disable();
-        GlStateManager.scalef(1F / scale, 1F / scale, 1F / scale);
+            DiffuseLighting.disable();
+            GlStateManager.scalef(1F / scale, 1F / scale, 1F / scale);
+        }
     }
 
     public void hover(Screen screen, MatrixStack matrixStack, int mouseX, int mouseY) {
-        renderTooltip(screen, matrixStack, mouseX, mouseY);
+        if (itemStack != ItemStack.EMPTY) {
+            screen.renderTooltip(matrixStack, screen.getTooltipFromItem(itemStack), mouseX, mouseY + TOOLTIP_Y_OFFSET);
+        }
     }
 
     public Area getArea() {
@@ -62,6 +86,14 @@ public class RenderStack {
         return scale;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     private void renderItemStack(int x, int y) {
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
 
@@ -69,7 +101,4 @@ public class RenderStack {
         itemRenderer.renderGuiItemOverlay(MinecraftClient.getInstance().textRenderer, itemStack, x / scale, y / scale);
     }
 
-    private void renderTooltip(Screen screen, MatrixStack matrixStack, int x, int y) {
-        screen.renderTooltip(matrixStack, screen.getTooltipFromItem(itemStack), x, y + TOOLTIP_Y_OFFSET);
-    }
 }

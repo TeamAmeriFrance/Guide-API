@@ -11,19 +11,26 @@ import net.minecraft.text.LiteralText;
 
 public class ItemstackRenderer<T extends IdTextProvider> implements Renderer<T> {
 
-    private final RenderStack renderStack;
+    private final ItemStack itemStack;
+    private RenderStack renderStack;
 
     public ItemstackRenderer(ItemStack itemStack) {
+        this.itemStack = itemStack;
         this.renderStack = new RenderStack(itemStack, 2);
     }
 
     public ItemstackRenderer(Item item) {
-        this.renderStack = new RenderStack(item, 2);
+        this(new ItemStack(item));
+    }
+
+    @Override
+    public void init(T object, GuideGui guideGui, int x, int y) {
+        renderStack = new RenderStack(itemStack, 2, x, y);
     }
 
     @Override
     public void render(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y, float delta) {
-        renderStack.render(guideGui, matrixStack, x, y);
+        renderStack.render(guideGui, matrixStack);
     }
 
     @Override

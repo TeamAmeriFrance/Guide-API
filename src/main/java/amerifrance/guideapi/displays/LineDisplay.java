@@ -28,11 +28,27 @@ public class LineDisplay<T extends IdTextProvider & ParentOf<U>, U extends Rende
     public void init(GuideGui guideGui, int top, int left, int width, int height) {
         super.init(guideGui, top, left, width, height);
 
+        TextRenderer textRenderer = guideGui.getTextRenderer();
+
         this.pages.clear();
         this.computePages(guideGui);
 
+        //FIXME Lang for buttons
         this.previousButton = new TextButton(() -> currentPage--, "Previous", left, top + height);
         this.nextButton = new TextButton(() -> currentPage++, "Next", left + width, top + height);
+
+        int x = guideGui.getLeft();
+
+        pages.keySet().forEach(pageNumber -> {
+            int y = guideGui.getTop() + textRenderer.fontHeight * 2;
+            for (U object : pages.get(pageNumber)) {
+                if (object.getViewingRequirement().canView()) {
+                    object.getRenderer().init(object, guideGui, x, y);
+
+                    y += object.getRenderer().getArea(object, guideGui).getHeight();
+                }
+            }
+        });
     }
 
     @Override
