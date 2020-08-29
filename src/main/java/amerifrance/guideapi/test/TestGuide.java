@@ -7,7 +7,7 @@ import amerifrance.guideapi.guide.Entry;
 import amerifrance.guideapi.guide.Guide;
 import amerifrance.guideapi.renderers.IdTextRenderer;
 import amerifrance.guideapi.renderers.ItemstackRenderer;
-import amerifrance.guideapi.renderers.ShapedRecipeRenderer;
+import amerifrance.guideapi.renderers.CraftingRecipeRenderer;
 import net.minecraft.item.Items;
 
 public class TestGuide {
@@ -57,9 +57,15 @@ public class TestGuide {
                                         ));
                                         entry.add(new Element(
                                                 "fifth_element",
-                                                "This is a test recipe",
+                                                "This is a test shaped recipe",
                                                 entry,
-                                                new ShapedRecipeRenderer<>(Items.DIAMOND_PICKAXE)
+                                                new CraftingRecipeRenderer<>(Items.DIAMOND_PICKAXE)
+                                        ));
+                                        entry.add(new Element(
+                                                "sixth",
+                                                "This is a test shapeless recipe",
+                                                entry,
+                                                new CraftingRecipeRenderer<>(Items.ACACIA_PRESSURE_PLATE)
                                         ));
                                     }
                             ));
