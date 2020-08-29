@@ -8,7 +8,9 @@ import com.google.common.collect.Lists;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 
@@ -29,20 +31,21 @@ public class CraftingRecipeRenderer<T> extends RecipeRenderer<T> {
     public void init(T object, GuideGui guideGui, int x, int y) {
         recipePairs = Lists.newArrayList();
 
-        getRecipes(RecipeType.CRAFTING, output).forEach(recipe -> {
+        for (Recipe recipe : getRecipes(RecipeType.CRAFTING, output)) {
             List<RenderStack> recipeIngredients = Lists.newArrayList();
             DefaultedList<Ingredient> previewInputs = recipe.getPreviewInputs();
 
-            int outputX = x + 4 * RenderStack.DRAW_SIZE;
-            int outputY = y + 1 * RenderStack.DRAW_SIZE;
-            RenderStack outputStack = new RenderStack(recipe.getOutput(), outputX, outputY);
-
             for (int i = 0; i < previewInputs.size(); i++) {
-                ItemStack[] matchingStacks = previewInputs.get(i).getMatchingStacksClient();
-
                 int xPos = x + (i % 3) * RenderStack.DRAW_SIZE;
                 int yPos = y + (i / 3) * RenderStack.DRAW_SIZE;
 
+                if (recipe instanceof ShapedRecipe)
+                    xPos = x + (i % ((ShapedRecipe) recipe).getWidth()) * RenderStack.DRAW_SIZE;
+
+                if (recipe instanceof ShapedRecipe && previewInputs.size() > 3)
+                    yPos = y + (i / ((ShapedRecipe) recipe).getHeight()) * RenderStack.DRAW_SIZE;
+
+                ItemStack[] matchingStacks = previewInputs.get(i).getMatchingStacksClient();
                 if (matchingStacks.length > 0) {
                     recipeIngredients.add(new RenderStack(matchingStacks, xPos, yPos));
                 } else {
@@ -50,8 +53,12 @@ public class CraftingRecipeRenderer<T> extends RecipeRenderer<T> {
                 }
             }
 
+            int outputX = x + 4 * RenderStack.DRAW_SIZE;
+            int outputY = y + 1 * RenderStack.DRAW_SIZE;
+            RenderStack outputStack = new RenderStack(recipe.getOutput(), outputX, outputY);
+
             recipePairs.add(new RecipePair(recipeIngredients, outputStack));
-        });
+        }
     }
 
     @Override

@@ -61,12 +61,12 @@ public class TestGuide {
                                                 new CraftingRecipeRenderer<>(Items.DIAMOND_PICKAXE)
                                         ));
                                         entry.add(new Element(
-                                                "sixth",
+                                                "sixth_element",
                                                 entry,
                                                 new CraftingRecipeRenderer<>(Items.ACACIA_PRESSURE_PLATE)
                                         ));
                                         entry.add(new Element(
-                                                "seventh",
+                                                "seventh_element",
                                                 entry,
                                                 new CraftingRecipeRenderer<>(Items.CRAFTING_TABLE)
                                         ));

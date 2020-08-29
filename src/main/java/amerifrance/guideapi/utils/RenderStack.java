@@ -12,14 +12,11 @@ import net.minecraft.item.ItemStack;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class RenderStack {
 
     public static final int DRAW_SIZE = 15;
     public static final int TOOLTIP_Y_OFFSET = 10;
-
-    private static final Random random = new Random();
 
     private final List<ItemStack> itemStacks;
     private final int scale;
