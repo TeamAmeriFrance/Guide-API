@@ -65,6 +65,11 @@ public class TestGuide {
                                                 entry,
                                                 new CraftingRecipeRenderer<>(Items.ACACIA_PRESSURE_PLATE)
                                         ));
+                                        entry.add(new Element(
+                                                "seventh",
+                                                entry,
+                                                new CraftingRecipeRenderer<>(Items.CRAFTING_TABLE)
+                                        ));
                                     }
                             ));
                         }

@@ -9,21 +9,50 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public class RenderStack {
 
     public static final int DRAW_SIZE = 15;
     public static final int TOOLTIP_Y_OFFSET = 10;
 
-    private final ItemStack itemStack;
+    private static final Random random = new Random();
+
+    private final List<ItemStack> itemStacks;
     private final int scale;
     private final int x;
     private final int y;
 
-    public RenderStack(ItemStack itemStack, int scale, int x, int y) {
-        this.itemStack = itemStack;
+    private int currentDisplayedIndex;
+
+    public RenderStack(List<ItemStack> itemStacks, int scale, int x, int y) {
+        this.itemStacks = itemStacks;
         this.scale = scale;
         this.x = x;
         this.y = y;
+
+        if (itemStacks.size() == 0) {
+            itemStacks.add(ItemStack.EMPTY);
+        }
+    }
+
+    public RenderStack(List<ItemStack> itemStacks, int x, int y) {
+        this(itemStacks, 1, x, y);
+    }
+
+    public RenderStack(ItemStack[] itemStacks, int scale, int x, int y) {
+        this(Arrays.asList(itemStacks), scale, x, y);
+    }
+
+    public RenderStack(ItemStack[] itemStacks, int x, int y) {
+        this(itemStacks, 1, x, y);
+    }
+
+    public RenderStack(ItemStack itemStack, int scale, int x, int y) {
+        this(Collections.singletonList(itemStack), scale, x, y);
     }
 
     public RenderStack(ItemStack itemStack, int x, int y) {
@@ -55,31 +84,33 @@ public class RenderStack {
     }
 
     public void render(Screen screen, MatrixStack matrixStack) {
+        if (itemStacks.size() > 1)
+            currentDisplayedIndex = (int) ((System.currentTimeMillis() / 1000) % itemStacks.size());
+
+        ItemStack itemStack = itemStacks.get(currentDisplayedIndex);
         if (itemStack != ItemStack.EMPTY) {
             GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            GlStateManager.scalef(scale, scale, scale);
+            GlStateManager.scalef(getScale(), getScale(), getScale());
 
             DiffuseLighting.enable();
 
-            renderItemStack(x, y);
+            renderItemStack(itemStack, x, y);
 
             DiffuseLighting.disable();
-            GlStateManager.scalef(1F / scale, 1F / scale, 1F / scale);
+            GlStateManager.scalef(1F / getScale(), 1F / getScale(), 1F / getScale());
         }
     }
 
     public void hover(Screen screen, MatrixStack matrixStack, int mouseX, int mouseY) {
+        ItemStack itemStack = itemStacks.get(currentDisplayedIndex);
+
         if (itemStack != ItemStack.EMPTY) {
             screen.renderTooltip(matrixStack, screen.getTooltipFromItem(itemStack), mouseX, mouseY + TOOLTIP_Y_OFFSET);
         }
     }
 
     public Area getArea() {
-        return new Area(DRAW_SIZE * scale, DRAW_SIZE * scale);
-    }
-
-    public ItemStack getItemStack() {
-        return itemStack;
+        return new Area(DRAW_SIZE * getScale(), DRAW_SIZE * getScale());
     }
 
     public int getScale() {
@@ -94,11 +125,10 @@ public class RenderStack {
         return y;
     }
 
-    private void renderItemStack(int x, int y) {
+    private void renderItemStack(ItemStack itemStack, int x, int y) {
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
 
         itemRenderer.renderInGui(itemStack, x / scale, y / scale);
         itemRenderer.renderGuiItemOverlay(MinecraftClient.getInstance().textRenderer, itemStack, x / scale, y / scale);
     }
-
 }
