@@ -1,6 +1,6 @@
 package amerifrance.guideapi.renderers;
 
-import amerifrance.guideapi.api.IdTextProvider;
+import amerifrance.guideapi.api.TextProvider;
 import amerifrance.guideapi.gui.GuideGui;
 import amerifrance.guideapi.utils.Area;
 import net.minecraft.client.font.TextRenderer;
@@ -10,7 +10,7 @@ import net.minecraft.text.StringRenderable;
 
 import java.util.List;
 
-public class IdTextRenderer<T extends IdTextProvider> implements Renderer<T> {
+public class StringRenderer<T extends TextProvider> implements Renderer<T> {
 
     private static final int HOVER_COLOR = 0xffffff;
 

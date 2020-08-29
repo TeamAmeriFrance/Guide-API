@@ -1,8 +1,9 @@
 package amerifrance.guideapi.guide;
 
+import amerifrance.guideapi.api.IdProvider;
 import amerifrance.guideapi.displays.Display;
 import amerifrance.guideapi.api.DisplayProvider;
-import amerifrance.guideapi.api.IdTextProvider;
+import amerifrance.guideapi.api.TextProvider;
 import amerifrance.guideapi.api.ParentOf;
 import com.google.common.collect.Lists;
 
@@ -12,7 +13,7 @@ import java.util.function.Consumer;
 
 import static com.google.common.collect.Maps.newLinkedHashMap;
 
-public class Guide implements IdTextProvider, ParentOf<Category>, DisplayProvider {
+public class Guide implements IdProvider, TextProvider, ParentOf<Category>, DisplayProvider {
 
     private String id;
     private String name;

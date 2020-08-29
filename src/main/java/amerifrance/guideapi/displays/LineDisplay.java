@@ -10,7 +10,7 @@ import com.google.common.collect.Multimap;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 
-public class LineDisplay<T extends IdTextProvider & ParentOf<U>, U extends RendererProvider<U>> extends HistoryBaseDisplay {
+public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends RendererProvider<U>> extends HistoryBaseDisplay {
     private final T object;
     private final Multimap<Integer, U> pages;
 

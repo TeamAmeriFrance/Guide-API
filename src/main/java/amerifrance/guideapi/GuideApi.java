@@ -24,7 +24,6 @@ public class GuideApi implements ModInitializer {
     public static final List<Guide> GUIDES = newArrayList();
     public static final List<Item> GUIDE_ITEMS = newArrayList();
 
-
     @Override
     public void onInitialize() {
         GUIDES.add(TestGuide.TEST_GUIDE_1);

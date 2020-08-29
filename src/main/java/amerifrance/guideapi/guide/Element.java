@@ -1,15 +1,13 @@
 package amerifrance.guideapi.guide;
 
 import amerifrance.guideapi.api.*;
-import amerifrance.guideapi.displays.Display;
 import amerifrance.guideapi.renderers.Renderer;
 
-public class Element implements IdTextProvider, ChildOf<Entry>, RendererProvider<Element> {
+public class Element implements IdProvider, TextProvider, ChildOf<Entry>, RendererProvider<Element> {
 
     private String id;
     private String name;
     private Entry entry;
-    private Display display;
     private Renderer<Element> renderer;
 
     public Element(String id, String name, Entry entry, Renderer<Element> renderer) {
@@ -17,6 +15,10 @@ public class Element implements IdTextProvider, ChildOf<Entry>, RendererProvider
         this.name = name;
         this.entry = entry;
         this.renderer = renderer;
+    }
+
+    public Element(String id, Entry entry, Renderer<Element> renderer) {
+        this(id, "", entry, renderer);
     }
 
     @Override

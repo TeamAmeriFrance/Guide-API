@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 
 import static com.google.common.collect.Maps.newLinkedHashMap;
 
-public class Entry implements IdTextProvider, ChildOf<Category>, ParentOf<Element>, DisplayProvider, RendererProvider<Entry> {
+public class Entry implements IdProvider, TextProvider, ChildOf<Category>, ParentOf<Element>, DisplayProvider, RendererProvider<Entry> {
 
     private String id;
     private String name;

@@ -1,6 +1,6 @@
 package amerifrance.guideapi.renderers;
 
-import amerifrance.guideapi.api.IdTextProvider;
+import amerifrance.guideapi.api.TextProvider;
 import amerifrance.guideapi.gui.GuideGui;
 import amerifrance.guideapi.utils.Area;
 import amerifrance.guideapi.utils.RenderStack;
@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
 
-public class ItemstackRenderer<T extends IdTextProvider> implements Renderer<T> {
+public class ItemstackRenderer<T extends TextProvider> implements Renderer<T> {
 
     private final ItemStack itemStack;
     private RenderStack renderStack;
