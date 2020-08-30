@@ -21,8 +21,8 @@ public abstract class RecipeRenderer<T> implements Renderer<T> {
     @Override
     public void render(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y, float delta) {
         Area area = getArea(object, guideGui);
-        Gradient.VERTICAL.draw(x, y, area.getWidth(), area.getHeight(), Color.WHITE.getRGB(), Color.YELLOW.getRGB());
 
+        Gradient.VERTICAL.draw(x, y, area.getWidth(), area.getHeight(), Color.WHITE.getRGB(), Color.YELLOW.getRGB());
         drawRecipe(guideGui, matrixStack, getRecipePairToDraw());
     }
 

@@ -5,10 +5,12 @@ import amerifrance.guideapi.guide.Category;
 import amerifrance.guideapi.guide.Element;
 import amerifrance.guideapi.guide.Entry;
 import amerifrance.guideapi.guide.Guide;
+import amerifrance.guideapi.renderers.CookingRecipeRenderer;
 import amerifrance.guideapi.renderers.CraftingRecipeRenderer;
 import amerifrance.guideapi.renderers.ItemstackRenderer;
 import amerifrance.guideapi.renderers.StringRenderer;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.RecipeType;
 
 public class TestGuide {
 
@@ -69,6 +71,26 @@ public class TestGuide {
                                                 "seventh_element",
                                                 entry,
                                                 new CraftingRecipeRenderer<>(Items.CRAFTING_TABLE)
+                                        ));
+                                        entry.add(new Element(
+                                                "eighth_element",
+                                                entry,
+                                                new CookingRecipeRenderer<>(Items.CHARCOAL, RecipeType.SMELTING)
+                                        ));
+                                        entry.add(new Element(
+                                                "ninth_element",
+                                                entry,
+                                                new CookingRecipeRenderer<>(Items.GOLD_NUGGET, RecipeType.BLASTING)
+                                        ));
+                                        entry.add(new Element(
+                                                "tenth_element",
+                                                entry,
+                                                new CookingRecipeRenderer<>(Items.COOKED_BEEF, RecipeType.SMOKING)
+                                        ));
+                                        entry.add(new Element(
+                                                "eleverth_element",
+                                                entry,
+                                                new CookingRecipeRenderer<>(Items.COOKED_SALMON, RecipeType.CAMPFIRE_COOKING)
                                         ));
                                     }
                             ));
