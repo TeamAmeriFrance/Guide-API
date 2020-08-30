@@ -5,10 +5,7 @@ import amerifrance.guideapi.guide.Category;
 import amerifrance.guideapi.guide.Element;
 import amerifrance.guideapi.guide.Entry;
 import amerifrance.guideapi.guide.Guide;
-import amerifrance.guideapi.renderers.CookingRecipeRenderer;
-import amerifrance.guideapi.renderers.CraftingRecipeRenderer;
-import amerifrance.guideapi.renderers.ItemstackRenderer;
-import amerifrance.guideapi.renderers.StringRenderer;
+import amerifrance.guideapi.renderers.*;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeType;
 
@@ -91,6 +88,11 @@ public class TestGuide {
                                                 "eleverth_element",
                                                 entry,
                                                 new CookingRecipeRenderer<>(Items.COOKED_SALMON, RecipeType.CAMPFIRE_COOKING)
+                                        ));
+                                        entry.add(new Element(
+                                                "twelfth_element",
+                                                entry,
+                                                new CuttingRecipeRenderer<>(Items.STONE_BRICK_STAIRS)
                                         ));
                                     }
                             ));

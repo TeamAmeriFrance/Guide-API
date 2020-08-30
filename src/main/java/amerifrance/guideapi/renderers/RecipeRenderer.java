@@ -28,7 +28,7 @@ public abstract class RecipeRenderer<T> implements Renderer<T> {
 
     @Override
     public void init(T object, GuideGui guideGui, int x, int y) {
-        initRecipe(object, guideGui, x, y + getDescriptionArea(object, guideGui).getHeight());
+        initRecipe(object, guideGui, x, y + getDescriptionArea(guideGui).getHeight());
     }
 
     @Override
@@ -47,7 +47,7 @@ public abstract class RecipeRenderer<T> implements Renderer<T> {
 
     @Override
     public Area getArea(T object, GuideGui guideGui) {
-        Area descriptionArea = getDescriptionArea(object, guideGui);
+        Area descriptionArea = getDescriptionArea(guideGui);
         Area recipeArea = getRecipeArea(object, guideGui);
 
         return new Area(Math.max(descriptionArea.getWidth(), recipeArea.getWidth()),
@@ -81,6 +81,7 @@ public abstract class RecipeRenderer<T> implements Renderer<T> {
             recipePair.getOutput().hover(guideGui, matrixStack, mouseX, mouseY);
     }
 
+    //FIXME LANG FILE
     private String getRecipeTypeDescription(RecipeType<?> recipeType) {
         if (recipeType == RecipeType.CRAFTING)
             return "CRAFTING";
@@ -92,11 +93,15 @@ public abstract class RecipeRenderer<T> implements Renderer<T> {
             return "SMOKING";
         if (recipeType == RecipeType.CAMPFIRE_COOKING)
             return "CAMPFIRE COOKING";
+        if (recipeType == RecipeType.STONECUTTING)
+            return "STONECUTTING";
+        if (recipeType == RecipeType.SMITHING)
+            return "SMITHING";
 
         return "";
     }
 
-    private Area getDescriptionArea(T object, GuideGui guideGui) {
-        return new Area(guideGui.getTextRenderer().getWidth(recipeTypeDescription), 2 * guideGui.getFontHeight());
+    private Area getDescriptionArea(GuideGui guideGui) {
+        return new Area(guideGui.getTextRenderer().getWidth(recipeTypeDescription), (int) (1.5F * guideGui.getFontHeight()));
     }
 }
