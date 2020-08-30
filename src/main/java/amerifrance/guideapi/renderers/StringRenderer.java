@@ -22,7 +22,7 @@ public class StringRenderer<T extends TextProvider> implements Renderer<T> {
         for (StringRenderable line : lines) {
             guideGui.getTextRenderer().draw(matrixStack, line, x, yPosition, 0);
 
-            yPosition += guideGui.getTextRenderer().fontHeight;
+            yPosition += guideGui.getFontHeight();
         }
     }
 
@@ -34,7 +34,7 @@ public class StringRenderer<T extends TextProvider> implements Renderer<T> {
         for (StringRenderable line : lines) {
             guideGui.getTextRenderer().draw(matrixStack, line, x, yPosition, HOVER_COLOR);
 
-            yPosition += guideGui.getTextRenderer().fontHeight;
+            yPosition += guideGui.getFontHeight();
         }
     }
 
@@ -44,6 +44,6 @@ public class StringRenderer<T extends TextProvider> implements Renderer<T> {
 
         List<StringRenderable> lines = textRenderer.wrapLines(new LiteralText(object.getText()), guideGui.getGuiWidth());
 
-        return new Area(textRenderer.getWidth(lines.get(0)), textRenderer.fontHeight * lines.size());
+        return new Area(textRenderer.getWidth(lines.get(0)), guideGui.getFontHeight() * lines.size());
     }
 }

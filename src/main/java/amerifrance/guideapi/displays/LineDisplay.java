@@ -40,7 +40,7 @@ public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends Rendere
         int x = guideGui.getLeft();
 
         pages.keySet().forEach(pageNumber -> {
-            int y = guideGui.getTop() + textRenderer.fontHeight * 2;
+            int y = guideGui.getTop() + guideGui.getFontHeight() * 2;
             for (U object : pages.get(pageNumber)) {
                 if (object.getViewingRequirement().canView()) {
                     object.getRenderer().init(object, guideGui, x, y);
@@ -70,7 +70,7 @@ public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends Rendere
                 0);
 
         int x = guideGui.getLeft();
-        int y = guideGui.getTop() + textRenderer.fontHeight * 2;
+        int y = guideGui.getTop() + guideGui.getFontHeight() * 2;
 
         for (U object : pages.get(currentPage)) {
             if (object.getViewingRequirement().canView()) {
@@ -105,15 +105,15 @@ public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends Rendere
 
     private void computePages(GuideGui guideGui) {
         int page = 0;
-        int y = guideGui.getTop() + guideGui.getTextRenderer().fontHeight * 2;
+        int y = guideGui.getTop() + guideGui.getFontHeight() * 2;
 
         for (U object : object.getChildren()) {
             if (object.getViewingRequirement().canView()) {
                 Area area = object.getRenderer().getArea(object, guideGui);
 
-                if (y + area.getHeight() > guideGui.getGuiHeight()) {
+                if (y + area.getHeight() > guideGui.getTop() + guideGui.getGuiHeight()) {
                     page++;
-                    y = guideGui.getTop() + guideGui.getTextRenderer().fontHeight * 2;
+                    y = guideGui.getTop() + guideGui.getFontHeight() * 2;
                 }
 
                 y += area.getHeight();

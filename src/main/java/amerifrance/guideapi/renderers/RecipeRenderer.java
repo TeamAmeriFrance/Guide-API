@@ -97,6 +97,6 @@ public abstract class RecipeRenderer<T> implements Renderer<T> {
     }
 
     private Area getDescriptionArea(T object, GuideGui guideGui) {
-        return new Area(guideGui.getTextRenderer().getWidth(recipeTypeDescription), 2 * guideGui.getTextRenderer().fontHeight);
+        return new Area(guideGui.getTextRenderer().getWidth(recipeTypeDescription), 2 * guideGui.getFontHeight());
     }
 }

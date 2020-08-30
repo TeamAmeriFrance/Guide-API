@@ -1,7 +1,7 @@
 package amerifrance.guideapi.gui;
 
-import amerifrance.guideapi.guide.Guide;
 import amerifrance.guideapi.displays.Display;
+import amerifrance.guideapi.guide.Guide;
 import amerifrance.guideapi.utils.Gradient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -102,6 +102,10 @@ public class GuideGui extends Screen {
 
     public TextRenderer getTextRenderer() {
         return textRenderer;
+    }
+
+    public int getFontHeight() {
+        return getTextRenderer().fontHeight;
     }
 
     public int getGuiWidth() {
