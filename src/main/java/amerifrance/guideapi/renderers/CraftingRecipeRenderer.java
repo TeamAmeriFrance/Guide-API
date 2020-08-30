@@ -16,16 +16,18 @@ import java.util.List;
 public class CraftingRecipeRenderer<T> extends RecipeRenderer<T> {
 
     private static final Identifier TEXTURE = new Identifier("textures/gui/container/crafting_table.png");
+    private static final Area AREA = new Area(RenderStack.DRAW_SIZE * 5, RenderStack.DRAW_SIZE * 3);
 
     private final Item output;
     private List<RecipePair> recipePairs;
 
     public CraftingRecipeRenderer(Item output) {
+        super(RecipeType.CRAFTING);
         this.output = output;
     }
 
     @Override
-    public void init(T object, GuideGui guideGui, int x, int y) {
+    public void initRecipe(T object, GuideGui guideGui, int x, int y) {
         recipePairs = Lists.newArrayList();
 
         for (Recipe<?> recipe : getRecipes(RecipeType.CRAFTING, output)) {
@@ -61,8 +63,8 @@ public class CraftingRecipeRenderer<T> extends RecipeRenderer<T> {
     }
 
     @Override
-    public Area getArea(T object, GuideGui guideGui) {
-        return new Area(RenderStack.DRAW_SIZE * 5, RenderStack.DRAW_SIZE * 3);
+    public Area getRecipeArea(T object, GuideGui guideGui) {
+        return AREA;
     }
 
     @Override
