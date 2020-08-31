@@ -13,12 +13,13 @@ import static com.google.common.collect.Maps.newLinkedHashMap;
 
 public class Category implements IdProvider, TextProvider, ChildOf<Guide>, ParentOf<Entry>, DisplayProvider, RendererProvider<Category> {
 
-    private String id;
-    private String name;
-    private Guide guide;
+    private final String id;
+    private final String name;
+    private final Guide guide;
+    private final Renderer<Category> renderer;
+    private final Map<String, Entry> entries;
+
     private Display display;
-    private Renderer<Category> renderer;
-    private Map<String, Entry> entries;
 
     public Category(String id, String name, Guide guide, Renderer<Category> renderer, Consumer<Category> $) {
         this.id = id;

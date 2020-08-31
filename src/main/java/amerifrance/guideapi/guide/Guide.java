@@ -15,10 +15,11 @@ import static com.google.common.collect.Maps.newLinkedHashMap;
 
 public class Guide implements IdProvider, TextProvider, ParentOf<Category>, DisplayProvider {
 
-    private String id;
-    private String name;
+    private final String id;
+    private final String name;
+    private final Map<String, Category> categories;
+
     private Display display;
-    private Map<String, Category> categories;
 
     public Guide(String id, String name, Consumer<Guide> $) {
         this.id = id;

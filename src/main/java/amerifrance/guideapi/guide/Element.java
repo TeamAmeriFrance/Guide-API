@@ -11,10 +11,10 @@ import java.util.List;
 
 public class Element implements IdProvider, TextProvider, ChildOf<Entry>, RendererProvider<Element>, MultipageProvider<Element> {
 
-    private String id;
-    private String name;
-    private Entry entry;
-    private Renderer<Element> renderer;
+    private final String id;
+    private final String name;
+    private final Entry entry;
+    private final Renderer<Element> renderer;
 
     public Element(String id, String name, Entry entry, Renderer<Element> renderer) {
         this.id = id;
