@@ -12,13 +12,13 @@ import java.util.List;
 public class Element implements IdProvider, TextProvider, ChildOf<Entry>, RendererProvider<Element>, MultipageProvider<Element> {
 
     private final String id;
-    private final String name;
+    private final String text;
     private final Entry entry;
     private final Renderer<Element> renderer;
 
-    public Element(String id, String name, Entry entry, Renderer<Element> renderer) {
+    public Element(String id, String text, Entry entry, Renderer<Element> renderer) {
         this.id = id;
-        this.name = name;
+        this.text = text;
         this.entry = entry;
         this.renderer = renderer;
     }
@@ -34,7 +34,7 @@ public class Element implements IdProvider, TextProvider, ChildOf<Entry>, Render
 
     @Override
     public String getText() {
-        return name;
+        return text;
     }
 
     @Override
@@ -56,24 +56,23 @@ public class Element implements IdProvider, TextProvider, ChildOf<Entry>, Render
     public List<Element> split(GuideGui guideGui, int x, int y) {
         if (y + getRenderer().getArea(this, guideGui).getHeight() > guideGui.getDrawEndHeight()) {
             int yPos = y + guideGui.getFontHeight();
-            StringBuilder text = new StringBuilder();
+            StringBuilder stringBuilder = new StringBuilder();
             List<Element> list = Lists.newArrayList();
 
             for (StringRenderable line : guideGui.wrapLines(getText(), guideGui.getGuiWidth())) {
                 yPos += guideGui.getFontHeight();
 
                 if (yPos > guideGui.getDrawEndHeight()) {
-                    list.add(new Element(id + "_" + list.size(), text.toString(), entry, renderer));
+                    list.add(new Element(id + "_" + list.size(), stringBuilder.toString(), entry, renderer));
 
-                    text = new StringBuilder();
+                    stringBuilder = new StringBuilder();
                     yPos = guideGui.getDrawStartHeight();
                 }
 
-                text.append(line.getString());
+                stringBuilder.append(line.getString());
             }
 
-            list.add(new Element(id + "_" + list.size(), text.toString(), entry, renderer));
-
+            list.add(new Element(id + "_" + list.size(), stringBuilder.toString(), entry, renderer));
             return list;
         }
 
