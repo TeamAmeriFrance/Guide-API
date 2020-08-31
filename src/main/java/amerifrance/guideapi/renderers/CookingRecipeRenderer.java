@@ -3,7 +3,7 @@ package amerifrance.guideapi.renderers;
 import amerifrance.guideapi.gui.GuideGui;
 import amerifrance.guideapi.utils.Area;
 import amerifrance.guideapi.utils.RecipeWrapper;
-import amerifrance.guideapi.utils.RenderStack;
+import amerifrance.guideapi.gui.RenderStack;
 import com.google.common.collect.Lists;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;

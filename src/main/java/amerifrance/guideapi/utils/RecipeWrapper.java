@@ -1,5 +1,6 @@
 package amerifrance.guideapi.utils;
 
+import amerifrance.guideapi.gui.RenderStack;
 import net.minecraft.recipe.Recipe;
 
 import java.util.List;

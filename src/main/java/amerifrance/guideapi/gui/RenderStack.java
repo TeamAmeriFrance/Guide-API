@@ -1,5 +1,6 @@
-package amerifrance.guideapi.utils;
+package amerifrance.guideapi.gui;
 
+import amerifrance.guideapi.utils.Area;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;

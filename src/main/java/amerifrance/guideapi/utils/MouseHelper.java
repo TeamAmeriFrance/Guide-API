@@ -1,5 +1,7 @@
 package amerifrance.guideapi.utils;
 
+import amerifrance.guideapi.gui.RenderStack;
+
 public class MouseHelper {
 
     public static boolean isInRect(int x, int y, int width, int height, double mouseX, double mouseY) {
