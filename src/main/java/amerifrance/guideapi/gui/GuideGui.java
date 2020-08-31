@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.StringRenderable;
 import net.minecraft.text.Style;
 
 import java.awt.*;
@@ -80,10 +81,6 @@ public class GuideGui extends Screen {
         super.renderTextHoverEffect(matrices, style, i, j);
     }
 
-    public void drawCenteredString(MatrixStack matrices, String text, float x, float y, int color) {
-        textRenderer.draw(matrices, text, x - textRenderer.getWidth(text) / 2F, y, color);
-    }
-
     public void show(Display display) {
         history.add(0, currentDisplay);
 
@@ -110,6 +107,30 @@ public class GuideGui extends Screen {
 
     public int getFontHeight() {
         return getTextRenderer().fontHeight;
+    }
+
+    public int getStringWidth(String string) {
+        return textRenderer.getWidth(string);
+    }
+
+    public int getStringWidth(StringRenderable stringRenderable) {
+        return textRenderer.getWidth(stringRenderable);
+    }
+
+    public void drawCenteredString(MatrixStack matrices, String text, float x, float y, int color) {
+        textRenderer.draw(matrices, text, x - textRenderer.getWidth(text) / 2F, y, color);
+    }
+
+    public List<StringRenderable> wrapLines(String string, int width) {
+        return textRenderer.wrapLines(new LiteralText(string), width);
+    }
+
+    public void drawString(MatrixStack matrixStack, String text, float x, float y, int color) {
+        textRenderer.draw(matrixStack, text, x, y, color);
+    }
+
+    public void drawString(MatrixStack matrixStack, StringRenderable text, float x, float y, int color) {
+        textRenderer.draw(matrixStack, text, x, y, color);
     }
 
     public int getGuiWidth() {

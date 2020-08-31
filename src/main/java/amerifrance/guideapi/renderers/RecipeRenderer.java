@@ -5,7 +5,6 @@ import amerifrance.guideapi.utils.Area;
 import amerifrance.guideapi.utils.Gradient;
 import amerifrance.guideapi.utils.MouseHelper;
 import amerifrance.guideapi.utils.RecipeWrapper;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.Recipe;
@@ -60,8 +59,8 @@ public abstract class RecipeRenderer<T> implements Renderer<T> {
 
     public abstract RecipeWrapper getRecipePairToDraw();
 
-    protected List<Recipe<?>> getRecipes(RecipeType<?> recipeType, Item output) {
-        RecipeManager recipeManager = MinecraftClient.getInstance().world.getRecipeManager();
+    protected List<Recipe<?>> getRecipes(GuideGui guideGui, RecipeType<?> recipeType, Item output) {
+        RecipeManager recipeManager = guideGui.getMinecraftClient().world.getRecipeManager();
         return recipeManager.values().stream()
                 .filter(recipe -> recipe.getType() == recipeType && recipe.getOutput().getItem() == output)
                 .collect(Collectors.toList());

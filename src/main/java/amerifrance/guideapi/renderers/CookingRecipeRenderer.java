@@ -33,7 +33,7 @@ public class CookingRecipeRenderer<T> extends RecipeRenderer<T> {
     public void initRecipe(T object, GuideGui guideGui, int x, int y) {
         recipeWrappers = Lists.newArrayList();
 
-        for (Recipe<?> recipe : getRecipes(recipeType, output)) {
+        for (Recipe<?> recipe : getRecipes(guideGui, recipeType, output)) {
             AbstractCookingRecipe cookingRecipe = (AbstractCookingRecipe) recipe;
 
             List<RenderStack> recipeIngredients = Lists.newArrayList();

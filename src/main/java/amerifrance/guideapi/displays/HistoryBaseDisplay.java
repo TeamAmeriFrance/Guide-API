@@ -4,7 +4,6 @@ import amerifrance.guideapi.api.Button;
 import amerifrance.guideapi.api.DisplayProvider;
 import amerifrance.guideapi.gui.GuideGui;
 import amerifrance.guideapi.gui.TextButton;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 
 public abstract class HistoryBaseDisplay implements Display {
@@ -20,20 +19,16 @@ public abstract class HistoryBaseDisplay implements Display {
     @Override
     public void draw(GuideGui guideGui, MatrixStack matrixStack, int mouseX, int mouseY, float delta) {
         hovered = null;
-        TextRenderer textRenderer = guideGui.getTextRenderer();
 
         if (!guideGui.getHistory().isEmpty()) {
-            backButton.draw(textRenderer, matrixStack, mouseX, mouseY);
+            backButton.draw(guideGui.getTextRenderer(), matrixStack, mouseX, mouseY);
         }
     }
 
     @Override
     public boolean mouseClicked(GuideGui guideGui, double mouseX, double mouseY, int button) {
-        TextRenderer textRenderer = guideGui.getTextRenderer();
-
-        if (backButton.mouseOver(textRenderer, mouseX, mouseY)) {
+        if (backButton.mouseOver(guideGui.getTextRenderer(), mouseX, mouseY))
             return backButton.click();
-        }
 
         if (hovered != null) {
             guideGui.show(hovered.getDisplay());
