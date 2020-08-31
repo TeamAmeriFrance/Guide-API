@@ -133,6 +133,14 @@ public class GuideGui extends Screen {
         textRenderer.draw(matrixStack, text, x, y, color);
     }
 
+    public int getDrawStartHeight() {
+        return getTop() + getFontHeight() * 2;
+    }
+
+    public int getDrawEndHeight() {
+        return getTop() + getGuiHeight();
+    }
+
     public int getGuiWidth() {
         return GUI_WIDTH;
     }

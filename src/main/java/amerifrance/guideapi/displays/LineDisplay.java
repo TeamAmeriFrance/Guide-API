@@ -9,6 +9,9 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.util.math.MatrixStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends RendererProvider<U>> extends HistoryBaseDisplay {
     private final T object;
     private final Multimap<Integer, U> pages;
@@ -27,8 +30,8 @@ public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends Rendere
     public void init(GuideGui guideGui, int top, int left, int width, int height) {
         super.init(guideGui, top, left, width, height);
 
-        this.pages.clear();
-        this.computePages(guideGui);
+        pages.clear();
+        computePages(guideGui);
 
         //FIXME Lang for buttons
         this.previousButton = new TextButton(() -> currentPage--, "Previous", left, top + height);
@@ -37,7 +40,7 @@ public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends Rendere
         int x = guideGui.getLeft();
 
         pages.keySet().forEach(pageNumber -> {
-            int y = guideGui.getTop() + guideGui.getFontHeight() * 2;
+            int y = guideGui.getDrawStartHeight();
             for (U object : pages.get(pageNumber)) {
                 if (object.getViewingRequirement().canView()) {
                     object.getRenderer().init(object, guideGui, x, y);
@@ -65,7 +68,7 @@ public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends Rendere
                 0);
 
         int x = guideGui.getLeft();
-        int y = guideGui.getTop() + guideGui.getFontHeight() * 2;
+        int y = guideGui.getDrawStartHeight();
 
         for (U object : pages.get(currentPage)) {
             if (object.getViewingRequirement().canView()) {
@@ -97,19 +100,28 @@ public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends Rendere
 
     private void computePages(GuideGui guideGui) {
         int page = 0;
-        int y = guideGui.getTop() + guideGui.getFontHeight() * 2;
+        int y = guideGui.getDrawStartHeight();
 
-        for (U object : object.getChildren()) {
-            if (object.getViewingRequirement().canView()) {
-                Area area = object.getRenderer().getArea(object, guideGui);
+        for (U child : object.getChildren()) {
+            if (child.getViewingRequirement().canView()) {
+                List<U> items = Collections.singletonList(child);
 
-                if (y + area.getHeight() > guideGui.getTop() + guideGui.getGuiHeight()) {
-                    page++;
-                    y = guideGui.getTop() + guideGui.getFontHeight() * 2;
+                if (child instanceof MultipageProvider<?>) {
+                    MultipageProvider<U> multipageProvider = (MultipageProvider<U>) child;
+                    items = multipageProvider.split(guideGui, guideGui.getLeft(), y);
                 }
 
-                y += area.getHeight();
-                pages.put(page, object);
+                for (U u : items) {
+                    Area area = u.getRenderer().getArea(u, guideGui);
+
+                    if (y + area.getHeight() > guideGui.getDrawEndHeight()) {
+                        page++;
+                        y = guideGui.getDrawStartHeight();
+                    }
+
+                    y += area.getHeight();
+                    pages.put(page, u);
+                }
             }
         }
     }
