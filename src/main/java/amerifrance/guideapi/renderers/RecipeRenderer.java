@@ -4,7 +4,7 @@ import amerifrance.guideapi.gui.GuideGui;
 import amerifrance.guideapi.utils.Area;
 import amerifrance.guideapi.utils.Gradient;
 import amerifrance.guideapi.utils.MouseHelper;
-import amerifrance.guideapi.utils.RecipePair;
+import amerifrance.guideapi.utils.RecipeWrapper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
@@ -37,7 +37,7 @@ public abstract class RecipeRenderer<T> implements Renderer<T> {
 
         Gradient.VERTICAL.draw(x, y, area.getWidth(), area.getHeight(), Color.WHITE.getRGB(), Color.YELLOW.getRGB());
         drawRecipe(guideGui, matrixStack, getRecipePairToDraw());
-        guideGui.getTextRenderer().draw(matrixStack, recipeTypeDescription, x, y, 0);
+        guideGui.drawCenteredString(matrixStack, recipeTypeDescription, x + area.getWidth() / 2, y, 0);
     }
 
     @Override
@@ -58,7 +58,7 @@ public abstract class RecipeRenderer<T> implements Renderer<T> {
 
     public abstract Area getRecipeArea(T object, GuideGui guideGui);
 
-    public abstract RecipePair getRecipePairToDraw();
+    public abstract RecipeWrapper getRecipePairToDraw();
 
     protected List<Recipe<?>> getRecipes(RecipeType<?> recipeType, Item output) {
         RecipeManager recipeManager = MinecraftClient.getInstance().world.getRecipeManager();
@@ -67,18 +67,18 @@ public abstract class RecipeRenderer<T> implements Renderer<T> {
                 .collect(Collectors.toList());
     }
 
-    private void drawRecipe(GuideGui guideGui, MatrixStack matrixStack, RecipePair recipePair) {
-        recipePair.getInputs().forEach(renderStack -> renderStack.render(guideGui, matrixStack));
-        recipePair.getOutput().render(guideGui, matrixStack);
+    private void drawRecipe(GuideGui guideGui, MatrixStack matrixStack, RecipeWrapper recipeWrapper) {
+        recipeWrapper.getInputs().forEach(renderStack -> renderStack.render(guideGui, matrixStack));
+        recipeWrapper.getOutput().render(guideGui, matrixStack);
     }
 
-    private void hoverRecipe(GuideGui guideGui, MatrixStack matrixStack, int mouseX, int mouseY, RecipePair recipePair) {
-        recipePair.getInputs().stream()
+    private void hoverRecipe(GuideGui guideGui, MatrixStack matrixStack, int mouseX, int mouseY, RecipeWrapper recipeWrapper) {
+        recipeWrapper.getInputs().stream()
                 .filter(renderStack -> MouseHelper.isInRenderStack(renderStack, mouseX, mouseY))
                 .forEach(renderStack -> renderStack.hover(guideGui, matrixStack, mouseX, mouseY));
 
-        if (MouseHelper.isInRenderStack(recipePair.getOutput(), mouseX, mouseY))
-            recipePair.getOutput().hover(guideGui, matrixStack, mouseX, mouseY);
+        if (MouseHelper.isInRenderStack(recipeWrapper.getOutput(), mouseX, mouseY))
+            recipeWrapper.getOutput().hover(guideGui, matrixStack, mouseX, mouseY);
     }
 
     //FIXME LANG FILE
@@ -92,7 +92,7 @@ public abstract class RecipeRenderer<T> implements Renderer<T> {
         if (recipeType == RecipeType.SMOKING)
             return "SMOKING";
         if (recipeType == RecipeType.CAMPFIRE_COOKING)
-            return "CAMPFIRE COOKING";
+            return "CAMPFIRE";
         if (recipeType == RecipeType.STONECUTTING)
             return "STONECUTTING";
         if (recipeType == RecipeType.SMITHING)

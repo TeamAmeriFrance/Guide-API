@@ -80,6 +80,10 @@ public class GuideGui extends Screen {
         super.renderTextHoverEffect(matrices, style, i, j);
     }
 
+    public void drawCenteredString(MatrixStack matrices, String text, float x, float y, int color) {
+        textRenderer.draw(matrices, text, x - textRenderer.getWidth(text) / 2F, y, color);
+    }
+
     public void show(Display display) {
         history.add(0, currentDisplay);
 

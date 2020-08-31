@@ -2,7 +2,7 @@ package amerifrance.guideapi.renderers;
 
 import amerifrance.guideapi.gui.GuideGui;
 import amerifrance.guideapi.utils.Area;
-import amerifrance.guideapi.utils.RecipePair;
+import amerifrance.guideapi.utils.RecipeWrapper;
 import amerifrance.guideapi.utils.RenderStack;
 import com.google.common.collect.Lists;
 import net.minecraft.item.Item;
@@ -19,7 +19,7 @@ public class CraftingRecipeRenderer<T> extends RecipeRenderer<T> {
     private static final Area AREA = new Area(RenderStack.DRAW_SIZE * 5, RenderStack.DRAW_SIZE * 3);
 
     private final Item output;
-    private List<RecipePair> recipePairs;
+    private List<RecipeWrapper> recipeWrappers;
 
     public CraftingRecipeRenderer(Item output) {
         super(RecipeType.CRAFTING);
@@ -28,7 +28,7 @@ public class CraftingRecipeRenderer<T> extends RecipeRenderer<T> {
 
     @Override
     public void initRecipe(T object, GuideGui guideGui, int x, int y) {
-        recipePairs = Lists.newArrayList();
+        recipeWrappers = Lists.newArrayList();
 
         for (Recipe<?> recipe : getRecipes(recipeType, output)) {
             CraftingRecipe craftingRecipe = (CraftingRecipe) recipe;
@@ -58,7 +58,7 @@ public class CraftingRecipeRenderer<T> extends RecipeRenderer<T> {
             int outputY = y + 1 * RenderStack.DRAW_SIZE;
             RenderStack outputStack = new RenderStack(craftingRecipe.getOutput(), outputX, outputY);
 
-            recipePairs.add(new RecipePair(recipeIngredients, outputStack));
+            recipeWrappers.add(new RecipeWrapper(recipe, recipeIngredients, outputStack));
         }
     }
 
@@ -68,12 +68,12 @@ public class CraftingRecipeRenderer<T> extends RecipeRenderer<T> {
     }
 
     @Override
-    public RecipePair getRecipePairToDraw() {
-        if (recipePairs.size() > 1) {
+    public RecipeWrapper getRecipePairToDraw() {
+        if (recipeWrappers.size() > 1) {
             int time = (int) (System.currentTimeMillis() / 1000);
-            return recipePairs.get(time % recipePairs.size());
+            return recipeWrappers.get(time % recipeWrappers.size());
         }
 
-        return recipePairs.get(0);
+        return recipeWrappers.get(0);
     }
 }

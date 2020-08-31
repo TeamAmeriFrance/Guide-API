@@ -28,8 +28,6 @@ public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends Rendere
     public void init(GuideGui guideGui, int top, int left, int width, int height) {
         super.init(guideGui, top, left, width, height);
 
-        TextRenderer textRenderer = guideGui.getTextRenderer();
-
         this.pages.clear();
         this.computePages(guideGui);
 
