@@ -15,16 +15,15 @@ public class Entry implements IdProvider, TextProvider, ChildOf<Category>, Paren
 
     private final String id;
     private final String name;
-    private final Category category;
     private final Renderer<Entry> renderer;
     private final Map<String, Element> elements;
 
+    private Category category;
     private Display display;
 
-    public Entry(String id, String name, Category category, Renderer<Entry> renderer, Consumer<Entry> $) {
+    public Entry(String id, String name, Renderer<Entry> renderer, Consumer<Entry> $) {
         this.id = id;
         this.name = name;
-        this.category = category;
         this.renderer = renderer;
         this.elements = newLinkedHashMap();
 
@@ -47,12 +46,18 @@ public class Entry implements IdProvider, TextProvider, ChildOf<Category>, Paren
     }
 
     @Override
+    public void setParent(Category parent) {
+        this.category = parent;
+    }
+
+    @Override
     public List<Element> getChildren() {
         return Lists.newArrayList(elements.values());
     }
 
     @Override
     public void add(Element child) {
+        child.setParent(this);
         elements.put(child.getId(), child);
     }
 

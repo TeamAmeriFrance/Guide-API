@@ -13,18 +13,18 @@ public class Element implements IdProvider, TextProvider, ChildOf<Entry>, Render
 
     private final String id;
     private final String text;
-    private final Entry entry;
     private final Renderer<Element> renderer;
 
-    public Element(String id, String text, Entry entry, Renderer<Element> renderer) {
+    private Entry entry;
+
+    public Element(String id, String text, Renderer<Element> renderer) {
         this.id = id;
         this.text = text;
-        this.entry = entry;
         this.renderer = renderer;
     }
 
-    public Element(String id, Entry entry, Renderer<Element> renderer) {
-        this(id, "", entry, renderer);
+    public Element(String id, Renderer<Element> renderer) {
+        this(id, "", renderer);
     }
 
     @Override
@@ -40,6 +40,11 @@ public class Element implements IdProvider, TextProvider, ChildOf<Entry>, Render
     @Override
     public Entry getParent() {
         return entry;
+    }
+
+    @Override
+    public void setParent(Entry parent) {
+        this.entry = parent;
     }
 
     @Override
@@ -63,7 +68,7 @@ public class Element implements IdProvider, TextProvider, ChildOf<Entry>, Render
                 yPos += guideGui.getFontHeight();
 
                 if (yPos > guideGui.getDrawEndHeight()) {
-                    list.add(new Element(id + "_" + list.size(), stringBuilder.toString(), entry, renderer));
+                    list.add(new Element(id + "_" + list.size(), stringBuilder.toString(), renderer));
 
                     stringBuilder = new StringBuilder();
                     yPos = guideGui.getDrawStartHeight();
@@ -72,7 +77,7 @@ public class Element implements IdProvider, TextProvider, ChildOf<Entry>, Render
                 stringBuilder.append(line.getString());
             }
 
-            list.add(new Element(id + "_" + list.size(), stringBuilder.toString(), entry, renderer));
+            list.add(new Element(id + "_" + list.size(), stringBuilder.toString(), renderer));
             return list;
         }
 

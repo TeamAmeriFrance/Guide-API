@@ -15,16 +15,15 @@ public class Category implements IdProvider, TextProvider, ChildOf<Guide>, Paren
 
     private final String id;
     private final String name;
-    private final Guide guide;
     private final Renderer<Category> renderer;
     private final Map<String, Entry> entries;
 
+    private Guide guide;
     private Display display;
 
-    public Category(String id, String name, Guide guide, Renderer<Category> renderer, Consumer<Category> $) {
+    public Category(String id, String name, Renderer<Category> renderer, Consumer<Category> $) {
         this.id = id;
         this.name = name;
-        this.guide = guide;
         this.renderer = renderer;
         this.entries = newLinkedHashMap();
 
@@ -47,12 +46,18 @@ public class Category implements IdProvider, TextProvider, ChildOf<Guide>, Paren
     }
 
     @Override
+    public void setParent(Guide parent) {
+        this.guide = parent;
+    }
+
+    @Override
     public List<Entry> getChildren() {
         return Lists.newArrayList(entries.values());
     }
 
     @Override
     public void add(Entry child) {
+        child.setParent(this);
         entries.put(child.getId(), child);
     }
 
