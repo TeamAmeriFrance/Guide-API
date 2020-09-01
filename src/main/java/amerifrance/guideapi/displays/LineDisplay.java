@@ -2,9 +2,9 @@ package amerifrance.guideapi.displays;
 
 import amerifrance.guideapi.api.*;
 import amerifrance.guideapi.gui.GuideGui;
+import amerifrance.guideapi.gui.RenderGuideObject;
 import amerifrance.guideapi.gui.TextButton;
 import amerifrance.guideapi.utils.Area;
-import amerifrance.guideapi.utils.MouseHelper;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.util.math.MatrixStack;
@@ -14,41 +14,25 @@ import java.util.List;
 
 public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends RendererProvider<U>> extends HistoryBaseDisplay {
     private final T object;
-    private final Multimap<Integer, U> pages;
 
     private int currentPage;
-
     private Button previousButton;
     private Button nextButton;
+    private Multimap<Integer, RenderGuideObject<U>> pages;
 
     public LineDisplay(T object) {
         this.object = object;
-        this.pages = ArrayListMultimap.create();
     }
 
     @Override
     public void init(GuideGui guideGui, int top, int left, int width, int height) {
         super.init(guideGui, top, left, width, height);
 
-        pages.clear();
-        computePages(guideGui);
+        pages = computePagesAndPositions(guideGui);
 
-        //FIXME Lang for buttons
+        //FIXME Lang for buttons or icons
         this.previousButton = new TextButton(() -> currentPage--, "Previous", left, top + height);
         this.nextButton = new TextButton(() -> currentPage++, "Next", left + width, top + height);
-
-        int x = guideGui.getLeft();
-
-        pages.keySet().forEach(pageNumber -> {
-            int y = guideGui.getDrawStartHeight();
-            for (U object : pages.get(pageNumber)) {
-                if (object.getViewingRequirement().canView()) {
-                    object.getRenderer().init(object, guideGui, x, y);
-
-                    y += object.getRenderer().getArea(object, guideGui).getHeight();
-                }
-            }
-        });
     }
 
     @Override
@@ -61,28 +45,16 @@ public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends Rendere
         if (currentPage < pages.keySet().size() - 1)
             nextButton.draw(guideGui.getTextRenderer(), matrixStack, mouseX, mouseY);
 
-        guideGui.drawCenteredString(matrixStack,
-                object.getText(),
-                guideGui.getLeft() + guideGui.getGuiWidth() / 2F,
-                guideGui.getTop(),
-                0);
+        guideGui.drawCenteredString(matrixStack, object.getText(), guideGui.getLeft() + guideGui.getGuiWidth() / 2F, guideGui.getTop(), 0);
 
-        int x = guideGui.getLeft();
-        int y = guideGui.getDrawStartHeight();
+        pages.get(currentPage).forEach(renderGuideObject -> renderGuideObject.render(guideGui, matrixStack, delta));
 
-        for (U object : pages.get(currentPage)) {
-            if (object.getViewingRequirement().canView()) {
-                object.getRenderer().render(object, guideGui, matrixStack, x, y, delta);
+        for (RenderGuideObject<U> renderGuideObject : pages.get(currentPage)) {
+            if (renderGuideObject.isHovering(guideGui, mouseX, mouseY)) {
+                renderGuideObject.hover(guideGui, matrixStack, mouseX, mouseY);
 
-                Area area = object.getRenderer().getArea(object, guideGui);
-                if (MouseHelper.isInArea(x, y, area, mouseX, mouseY)) {
-                    object.getRenderer().hover(object, guideGui, matrixStack, x, y, mouseX, mouseY);
-
-                    if (object instanceof DisplayProvider)
-                        hovered = (DisplayProvider) object;
-                }
-
-                y += area.getHeight();
+                if (renderGuideObject.getObject() instanceof DisplayProvider)
+                    hovered = (DisplayProvider) renderGuideObject.getObject();
             }
         }
     }
@@ -98,31 +70,37 @@ public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends Rendere
         return super.mouseClicked(guideGui, mouseX, mouseY, button);
     }
 
-    private void computePages(GuideGui guideGui) {
+    private Multimap<Integer, RenderGuideObject<U>> computePagesAndPositions(GuideGui guideGui) {
         int page = 0;
+        final int x = guideGui.getLeft();
         int y = guideGui.getDrawStartHeight();
+        Multimap<Integer, RenderGuideObject<U>> pages = ArrayListMultimap.create();
 
         for (U child : object.getChildren()) {
             if (child.getViewingRequirement().canView()) {
-                List<U> items = Collections.singletonList(child);
-
-                if (child instanceof MultipageProvider<?>) {
-                    MultipageProvider<U> multipageProvider = (MultipageProvider<U>) child;
-                    items = multipageProvider.split(guideGui, guideGui.getLeft(), y);
-                }
-
-                for (U u : items) {
+                for (U u : splitChildIfMultipage(guideGui, child, y)) {
                     Area area = u.getRenderer().getArea(u, guideGui);
-
                     if (y + area.getHeight() > guideGui.getDrawEndHeight()) {
                         page++;
                         y = guideGui.getDrawStartHeight();
                     }
 
+                    u.getRenderer().init(u, guideGui, x, y);
+                    pages.put(page, new RenderGuideObject<>(u, x, y));
+
                     y += area.getHeight();
-                    pages.put(page, u);
                 }
             }
         }
+
+        return pages;
+    }
+
+    private List<U> splitChildIfMultipage(GuideGui guideGui, U child, int y) {
+        if (child instanceof MultipageProvider<?>) {
+            return ((MultipageProvider<U>) child).split(guideGui, guideGui.getLeft(), y);
+        }
+
+        return Collections.singletonList(child);
     }
 }
