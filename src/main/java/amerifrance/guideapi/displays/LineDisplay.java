@@ -45,7 +45,7 @@ public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends Rendere
         if (currentPage < pages.keySet().size() - 1)
             nextButton.draw(guideGui.getTextRenderer(), matrixStack, mouseX, mouseY);
 
-        guideGui.drawCenteredString(matrixStack, object.getText(), guideGui.getLeft() + guideGui.getGuiWidth() / 2F, guideGui.getTop(), 0);
+        guideGui.drawCenteredString(matrixStack, object.getText(), guideGui.getLeft() + GuideGui.GUI_WIDTH / 2F, guideGui.getTop(), 0);
 
         pages.get(currentPage).forEach(renderGuideObject -> renderGuideObject.render(guideGui, matrixStack, delta));
 

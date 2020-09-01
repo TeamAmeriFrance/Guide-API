@@ -18,7 +18,7 @@ import java.util.List;
 
 public class CookingRecipeRenderer<T> extends RecipeRenderer<T> {
 
-    private static final Identifier TEXTURE = new Identifier("textures/gui/container/crafting_table.png");
+    private static final Identifier TEXTURE = new Identifier("assets/guideapi/textures/container/crafting_table.png");
 
     private final Item output;
 

@@ -64,7 +64,7 @@ public class Element implements IdProvider, TextProvider, ChildOf<Entry>, Render
             StringBuilder stringBuilder = new StringBuilder();
             List<Element> list = Lists.newArrayList();
 
-            for (StringRenderable line : guideGui.wrapLines(getText(), guideGui.getGuiWidth())) {
+            for (StringRenderable line : guideGui.wrapLines(getText(), GuideGui.GUI_WIDTH)) {
                 yPos += guideGui.getFontHeight();
 
                 if (yPos > guideGui.getDrawEndHeight()) {

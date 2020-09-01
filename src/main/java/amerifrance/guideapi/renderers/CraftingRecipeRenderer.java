@@ -15,7 +15,7 @@ import java.util.List;
 
 public class CraftingRecipeRenderer<T> extends RecipeRenderer<T> {
 
-    private static final Identifier TEXTURE = new Identifier("textures/gui/container/crafting_table.png");
+    private static final Identifier TEXTURE = new Identifier("assets/guideapi/textures/container/crafting_table.png");
     private static final Area AREA = new Area(RenderStack.DRAW_SIZE * 5, RenderStack.DRAW_SIZE * 3);
 
     private final Item output;

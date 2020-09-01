@@ -14,7 +14,7 @@ public class StringRenderer<T extends TextProvider> implements Renderer<T> {
 
     @Override
     public void render(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y, float delta) {
-        List<StringRenderable> lines = guideGui.wrapLines(object.getText(), guideGui.getGuiWidth());
+        List<StringRenderable> lines = guideGui.wrapLines(object.getText(), GuideGui.GUI_WIDTH);
 
         int yPosition = y;
         for (StringRenderable line : lines) {
@@ -26,7 +26,7 @@ public class StringRenderer<T extends TextProvider> implements Renderer<T> {
 
     @Override
     public void hover(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y, int mouseX, int mouseY) {
-        List<StringRenderable> lines = guideGui.wrapLines(object.getText(), guideGui.getGuiWidth());
+        List<StringRenderable> lines = guideGui.wrapLines(object.getText(), GuideGui.GUI_WIDTH);
 
         int yPosition = y;
         for (StringRenderable line : lines) {
@@ -38,7 +38,7 @@ public class StringRenderer<T extends TextProvider> implements Renderer<T> {
 
     @Override
     public Area getArea(T object, GuideGui guideGui) {
-        List<StringRenderable> lines = guideGui.wrapLines(object.getText(), guideGui.getGuiWidth());
+        List<StringRenderable> lines = guideGui.wrapLines(object.getText(), GuideGui.GUI_WIDTH);
 
         return new Area(guideGui.getStringWidth(lines.get(0)), guideGui.getFontHeight() * lines.size());
     }

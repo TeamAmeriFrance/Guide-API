@@ -10,14 +10,16 @@ import java.awt.*;
 
 public class GraphicalElement {
 
-    public static final GraphicalElement BUTTON_NEXT = new GraphicalElement(new Identifier("guideapi", "textures/gui/widgets.png"), new Rectangle(0, 0, 18, 10));
-    public static final GraphicalElement BUTTON_NEXT_HOVER = new GraphicalElement(new Identifier("guideapi", "textures/gui/widgets.png"), new Rectangle(0, 10, 18, 10));
-    public static final GraphicalElement BUTTON_PREVIOUS = new GraphicalElement(new Identifier("guideapi", "textures/gui/widgets.png"), new Rectangle(18, 0, 18, 10));
-    public static final GraphicalElement BUTTON_PREVIOUS_HOVER = new GraphicalElement(new Identifier("guideapi", "textures/gui/widgets.png"), new Rectangle(18, 10, 18, 10));
-    public static final GraphicalElement BUTTON_BACK = new GraphicalElement(new Identifier("guideapi", "textures/gui/widgets.png"), new Rectangle(36, 0, 18, 10));
-    public static final GraphicalElement BUTTON_BACK_HOVER = new GraphicalElement(new Identifier("guideapi", "textures/gui/widgets.png"), new Rectangle(36, 10, 18, 10));
-    public static final GraphicalElement BUTTON_SEARCH = new GraphicalElement(new Identifier("guideapi", "textures/gui/widgets.png"), new Rectangle(0, 20, 14, 14));
-    public static final GraphicalElement BLANK_PAGE = new GraphicalElement(new Identifier("guideapi", "textures/gui/widgets.png"), new Rectangle(54, 0, 132, 165));
+    public static final GraphicalElement BUTTON_NEXT = new GraphicalElement(new Identifier("guideapi", "textures/widgets.png"), new Rectangle(0, 0, 18, 10));
+    public static final GraphicalElement BUTTON_NEXT_HOVER = new GraphicalElement(new Identifier("guideapi", "textures/widgets.png"), new Rectangle(0, 10, 18, 10));
+    public static final GraphicalElement BUTTON_PREVIOUS = new GraphicalElement(new Identifier("guideapi", "textures/widgets.png"), new Rectangle(18, 0, 18, 10));
+    public static final GraphicalElement BUTTON_PREVIOUS_HOVER = new GraphicalElement(new Identifier("guideapi", "textures/widgets.png"), new Rectangle(18, 10, 18, 10));
+    public static final GraphicalElement BUTTON_BACK = new GraphicalElement(new Identifier("guideapi", "textures/widgets.png"), new Rectangle(36, 0, 18, 10));
+    public static final GraphicalElement BUTTON_BACK_HOVER = new GraphicalElement(new Identifier("guideapi", "textures/widgets.png"), new Rectangle(36, 10, 18, 10));
+    public static final GraphicalElement BUTTON_SEARCH = new GraphicalElement(new Identifier("guideapi", "textures/widgets.png"), new Rectangle(0, 20, 14, 14));
+    public static final GraphicalElement BLANK_PAGE = new GraphicalElement(new Identifier("guideapi", "textures/widgets.png"), new Rectangle(54, 0, 132, 165));
+
+    public static final GraphicalElement BACKGROUND = new GraphicalElement(new Identifier("guideapi", "textures/gui/background.png"), new Rectangle(0, 0, 170, 215));
 
     private final Identifier location;
     private final Rectangle area;

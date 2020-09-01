@@ -2,7 +2,6 @@ package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.displays.Display;
 import amerifrance.guideapi.guide.Guide;
-import amerifrance.guideapi.utils.Gradient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.Screen;
@@ -11,18 +10,26 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.StringRenderable;
 import net.minecraft.text.Style;
+import net.minecraft.util.Identifier;
 
-import java.awt.*;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
 public class GuideGui extends Screen {
 
-    private final Guide guide;
+    public final static int GUI_WIDTH = 170;
+    public final static int GUI_HEIGHT = 215;
 
-    private final int GUI_WIDTH = 170;
-    private final int GUI_HEIGHT = 215;
+    public static final int BACKGROUD_GUI_DELTA = 10;
+    public final static int BACKGROUND_TEXTURE_WIDTH = GUI_WIDTH + BACKGROUD_GUI_DELTA;
+    public final static int BACKGROUND_TEXTURE_HEIGHT = GUI_HEIGHT + BACKGROUD_GUI_DELTA;
+
+    private static final RenderElement GUIDE_BACKGROUND = new RenderElement(
+            new Identifier("guideapi", "textures/gui/background.png"),
+            0, 0, BACKGROUND_TEXTURE_WIDTH, BACKGROUND_TEXTURE_HEIGHT);
+
+    private final Guide guide;
 
     private int top;
     private int left;
@@ -54,7 +61,9 @@ public class GuideGui extends Screen {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        Gradient.VERTICAL.draw(left, top, GUI_WIDTH, GUI_HEIGHT, Color.RED.getRGB(), Color.BLUE.getRGB());
+        GUIDE_BACKGROUND.render(this,
+                matrices, client.getTextureManager(),
+                left - BACKGROUD_GUI_DELTA, top - BACKGROUD_GUI_DELTA / 2);
 
         currentDisplay.draw(this, matrices, mouseX, mouseY, delta);
 
@@ -138,15 +147,7 @@ public class GuideGui extends Screen {
     }
 
     public int getDrawEndHeight() {
-        return getTop() + getGuiHeight();
-    }
-
-    public int getGuiWidth() {
-        return GUI_WIDTH;
-    }
-
-    public int getGuiHeight() {
-        return GUI_HEIGHT;
+        return getTop() + GUI_HEIGHT;
     }
 
     public int getTop() {
