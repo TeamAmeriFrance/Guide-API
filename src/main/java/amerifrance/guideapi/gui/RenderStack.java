@@ -16,7 +16,7 @@ import java.util.List;
 
 public class RenderStack {
 
-    public static final int DRAW_SIZE = 15;
+    public static final int DRAW_SIZE = 16;
     public static final int TOOLTIP_Y_OFFSET = 10;
 
     private final List<ItemStack> itemStacks;

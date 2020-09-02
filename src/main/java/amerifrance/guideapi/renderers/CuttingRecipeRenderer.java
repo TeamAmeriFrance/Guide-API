@@ -5,6 +5,7 @@ import amerifrance.guideapi.utils.Area;
 import amerifrance.guideapi.utils.RecipeWrapper;
 import amerifrance.guideapi.gui.RenderStack;
 import com.google.common.collect.Lists;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.*;
@@ -23,6 +24,11 @@ public class CuttingRecipeRenderer<T> extends RecipeRenderer<T> {
     public CuttingRecipeRenderer(Item output) {
         super(RecipeType.STONECUTTING);
         this.output = output;
+    }
+
+    @Override
+    public void renderRecipeBackground(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y) {
+
     }
 
     @Override

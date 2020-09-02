@@ -2,7 +2,6 @@ package amerifrance.guideapi.renderers;
 
 import amerifrance.guideapi.gui.GuideGui;
 import amerifrance.guideapi.utils.Area;
-import amerifrance.guideapi.utils.Gradient;
 import amerifrance.guideapi.utils.MouseHelper;
 import amerifrance.guideapi.utils.RecipeWrapper;
 import net.minecraft.client.util.math.MatrixStack;
@@ -10,12 +9,14 @@ import net.minecraft.item.Item;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.Identifier;
 
-import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class RecipeRenderer<T> implements Renderer<T> {
+
+    protected static final Identifier RECIPE_ELEMENTS = new Identifier("guideapi", "textures/gui/recipe_elements.png");
 
     protected final RecipeType<?> recipeType;
     protected final String recipeTypeDescription;
@@ -32,11 +33,10 @@ public abstract class RecipeRenderer<T> implements Renderer<T> {
 
     @Override
     public void render(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y, float delta) {
-        Area area = getArea(object, guideGui);
+        renderRecipeBackground(object, guideGui, matrixStack, x, y + getDescriptionArea(guideGui).getHeight());
 
-        Gradient.VERTICAL.draw(x, y, area.getWidth(), area.getHeight(), Color.WHITE.getRGB(), Color.YELLOW.getRGB());
         drawRecipe(guideGui, matrixStack, getRecipePairToDraw());
-        guideGui.drawCenteredString(matrixStack, recipeTypeDescription, x + area.getWidth() / 2, y, 0);
+        guideGui.drawCenteredString(matrixStack, recipeTypeDescription, x + getArea(object, guideGui).getWidth() / 2, y, 0);
     }
 
     @Override
@@ -52,6 +52,8 @@ public abstract class RecipeRenderer<T> implements Renderer<T> {
         return new Area(Math.max(descriptionArea.getWidth(), recipeArea.getWidth()),
                 descriptionArea.getHeight() + recipeArea.getHeight());
     }
+
+    public abstract void renderRecipeBackground(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y);
 
     public abstract void initRecipe(T object, GuideGui guideGui, int x, int y);
 
