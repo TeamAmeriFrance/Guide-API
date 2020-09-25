@@ -41,7 +41,7 @@ public class Entry extends EntryAbstract {
 
         // Cutting code ripped from GuiButtonExt#drawButton(...)
         ITextProperties entryName = getName();
-        int strWidth = fontRendererObj.func_238414_a_(entryName);
+        int strWidth = fontRendererObj.getStringPropertyWidth(entryName);
         int ellipsisWidth = fontRendererObj.getStringWidth("...");
 
 
@@ -69,7 +69,7 @@ public class Entry extends EntryAbstract {
 
 
         // Cutting code ripped from GuiButtonExt#drawButton(...)
-        int strWidth = fontRendererObj.func_238414_a_(getName());
+        int strWidth = fontRendererObj.getStringPropertyWidth(getName());
         boolean cutString = false;
 
         if (strWidth > guiBase.xSize - 80 && strWidth > fontRendererObj.getStringWidth("..."))

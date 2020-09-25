@@ -121,7 +121,7 @@ jar {
     manifest {
         attributes([
                 "FMLAT": "accesstransformer.cfg",
-                "Specification-Title": "vampirism",
+                "Specification-Title": "guideapi-vp",
                 "Specification-Vendor": "maxanier",
                 "Specification-Version": "1", // We are version 1 of ourselves
                 "Implementation-Title": project.name,

@@ -38,7 +38,7 @@ public class PageHelper {
         FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
         int firstCount = firstHeight / fontRenderer.FONT_HEIGHT;
         int count = subsequentHeight / fontRenderer.FONT_HEIGHT;
-        List<ITextProperties> lines = new ArrayList<>(fontRenderer.func_238420_b_().func_238362_b_(text, lineWidth, Style.EMPTY));
+        List<ITextProperties> lines = new ArrayList<>(fontRenderer.getCharacterManager().func_238362_b_(text, lineWidth, Style.EMPTY));
         List<ITextProperties> pages = new ArrayList<>();
 
         List<ITextProperties> pageLines = lines.size() > firstCount ? lines.subList(0, firstCount) : lines;
@@ -80,7 +80,7 @@ public class PageHelper {
     public static void drawFormattedText(MatrixStack stack, int x, int y, BaseScreen guiBase, ITextProperties toDraw) {
         FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
 
-        List<IReorderingProcessor> cutLines = fontRenderer.func_238425_b_(toDraw, 170);
+        List<IReorderingProcessor> cutLines = fontRenderer.trimStringToWidth(toDraw, 170);
         for (IReorderingProcessor cut : cutLines) {
             fontRenderer.func_238422_b_(stack, cut, x, y, 0);
             y += 10;

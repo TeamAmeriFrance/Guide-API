@@ -101,7 +101,7 @@ public class GuiUtilsCopy {
             int tooltipTextWidth = 0;
 
             for (ITextComponent textLine : textLines) {
-                int textLineWidth = font.func_238414_a_(textLine);
+                int textLineWidth = font.getStringPropertyWidth(textLine);
                 if (textLineWidth > tooltipTextWidth)
                     tooltipTextWidth = textLineWidth;
             }
@@ -132,7 +132,7 @@ public class GuiUtilsCopy {
                 List<IReorderingProcessor> wrappedTextLines = new ArrayList<>();
                 for (int i = 0; i < textLines.size(); i++) {
                     ITextProperties textLine = textLines.get(i);
-                    List<IReorderingProcessor> wrappedLine = font.func_238425_b_(textLine, tooltipTextWidth);
+                    List<IReorderingProcessor> wrappedLine = font.trimStringToWidth(textLine, tooltipTextWidth);
                     if (i == 0)
                         titleLinesCount = wrappedLine.size();
 

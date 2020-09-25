@@ -49,7 +49,7 @@ public class BaseScreen extends Screen {
 
     public void drawCenteredStringWithoutShadow(MatrixStack matrixStack, FontRenderer fontRendererObj, ITextComponent string, int x, int y, int color) {
         RenderHelper.disableStandardItemLighting();
-        fontRendererObj.func_243248_b(matrixStack, string, x - fontRendererObj.func_238414_a_(string) / 2f, y, color); //drawString
+        fontRendererObj.func_243248_b(matrixStack, string, x - fontRendererObj.getStringPropertyWidth(string) / 2f, y, color); //drawString
         RenderHelper.disableStandardItemLighting();
     }
 

@@ -140,7 +140,7 @@ public class SearchScreen extends BaseScreen {
                     }
                 }
             } else if (typeofClick == 1) {
-                if (GuiHelper.isMouseBetween(mouseX, mouseY, searchField.x, searchField.y, searchField.getAdjustedWidth(), searchField.getWidth_CLASH()/*get_height*/)) {
+                if (GuiHelper.isMouseBetween(mouseX, mouseY, searchField.x, searchField.y, searchField.getAdjustedWidth(), searchField.getHeightRealms())) {
                     searchField.setText("");
                     lastQuery = "";
                     searchResults = getMatches(book, "", player, bookStack);
@@ -186,8 +186,8 @@ public class SearchScreen extends BaseScreen {
         minecraft.getTextureManager().bindTexture(outlineTexture);
         drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
-        fill(stack, searchField.x - 1, searchField.y - 1, searchField.x + searchField.getAdjustedWidth() + 1, searchField.y + searchField.getWidth_CLASH()/*get_height*/ + 1, new Color(166, 166, 166, 128).getRGB());
-        fill(stack, searchField.x, searchField.y, searchField.x + searchField.getAdjustedWidth(), searchField.y + searchField.getWidth_CLASH()/*get_height*/, new Color(58, 58, 58, 128).getRGB());
+        fill(stack, searchField.x - 1, searchField.y - 1, searchField.x + searchField.getAdjustedWidth() + 1, searchField.y + searchField.getHeightRealms() + 1, new Color(166, 166, 166, 128).getRGB());
+        fill(stack, searchField.x, searchField.y, searchField.x + searchField.getAdjustedWidth(), searchField.y + searchField.getHeightRealms(), new Color(58, 58, 58, 128).getRGB());
         searchField.render(stack, mouseX, mouseY, partialTicks);
 
         int entryX = guiLeft + renderXOffset;

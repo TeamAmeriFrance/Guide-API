@@ -79,7 +79,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
 
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
-        if (!context.getWorld().isRemote || !context.func_225518_g_())
+        if (!context.getWorld().isRemote || !context.hasSecondaryUseForPlayer())
             return ActionResultType.PASS;
 
         ItemStack stack = context.getItem();

@@ -105,7 +105,7 @@ public class PageHolderWithLinks implements IPage {
             ITextComponent t = l.getDisplayName();
             fontRendererObj.func_243246_a(stack, t, ll, y, 0xFFFFFF);
             if (l.width == 0) {
-                l.width = fontRendererObj.func_238414_a_(t);
+                l.width = fontRendererObj.getStringPropertyWidth(t);
             }
             y += 20;
         }
