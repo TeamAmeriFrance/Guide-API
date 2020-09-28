@@ -31,6 +31,7 @@ public class TestGuide {
                                         entry.setDisplay(new LineDisplay<>(entry));
                                         entry.add(new Element("first", "Yummy, steak!", new ItemstackRenderer<>(Items.COOKED_BEEF)));
                                         entry.add(new Element("second", "This is a cooked steak", new StringRenderer<>()));
+                                        entry.add(new Element("break", new LineBreakRenderer<>()));
                                         entry.add(new Element("third", "Two lines for our steak! It deserves at least this much.", new StringRenderer<>()));
                                         entry.add(new Element("fourth", LOREM_IPSUM, new StringRenderer<>()));
                                         entry.add(new Element("fifth", new CraftingRecipeRenderer<>(Items.DIAMOND_PICKAXE)));
@@ -45,6 +46,7 @@ public class TestGuide {
                             ));
                         }
                 ));
+
                 guide.add(new Category("second_category",
                         "Second test category",
                         new ItemstackRenderer<>(Items.DIAMOND_BLOCK),
