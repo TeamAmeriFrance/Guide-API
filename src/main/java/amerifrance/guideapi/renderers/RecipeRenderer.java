@@ -1,5 +1,6 @@
 package amerifrance.guideapi.renderers;
 
+import amerifrance.guideapi.api.Renderer;
 import amerifrance.guideapi.gui.GuideGui;
 import amerifrance.guideapi.utils.Area;
 import amerifrance.guideapi.utils.MouseHelper;

@@ -2,7 +2,7 @@ package amerifrance.guideapi.guide;
 
 import amerifrance.guideapi.api.*;
 import amerifrance.guideapi.displays.Display;
-import amerifrance.guideapi.renderers.Renderer;
+import amerifrance.guideapi.api.Renderer;
 import com.google.common.collect.Lists;
 
 import java.util.List;

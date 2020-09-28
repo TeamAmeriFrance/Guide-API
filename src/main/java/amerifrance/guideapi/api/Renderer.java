@@ -1,4 +1,4 @@
-package amerifrance.guideapi.renderers;
+package amerifrance.guideapi.api;
 
 import amerifrance.guideapi.gui.GuideGui;
 import amerifrance.guideapi.utils.Area;

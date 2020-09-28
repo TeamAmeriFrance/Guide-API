@@ -2,7 +2,7 @@ package amerifrance.guideapi.guide;
 
 import amerifrance.guideapi.api.*;
 import amerifrance.guideapi.gui.GuideGui;
-import amerifrance.guideapi.renderers.Renderer;
+import amerifrance.guideapi.api.Renderer;
 import com.google.common.collect.Lists;
 import net.minecraft.text.StringRenderable;
 
