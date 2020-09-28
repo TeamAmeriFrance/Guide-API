@@ -2,17 +2,36 @@ package amerifrance.guideapi.displays;
 
 import amerifrance.guideapi.api.*;
 import amerifrance.guideapi.gui.GuideGui;
+import amerifrance.guideapi.gui.ImageButton;
+import amerifrance.guideapi.gui.RenderElement;
 import amerifrance.guideapi.gui.RenderGuideObject;
-import amerifrance.guideapi.gui.TextButton;
 import amerifrance.guideapi.utils.Area;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 
 import java.util.Collections;
 import java.util.List;
 
 public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends RendererProvider<U>> extends HistoryBaseDisplay {
+
+    private static final RenderElement PREVIOUS_BUTTON_RENDER = new RenderElement(
+            new Identifier("guideapi", "textures/gui/background.png"),
+            0, 225, 18, 10);
+
+    private static final RenderElement PREVIOUS_BUTTON_HOVER_RENDER = new RenderElement(
+            new Identifier("guideapi", "textures/gui/background.png"),
+            18, 225, 18, 10);
+
+    private static final RenderElement NEXT_BUTTON_RENDER = new RenderElement(
+            new Identifier("guideapi", "textures/gui/background.png"),
+            36, 225, 18, 10);
+
+    private static final RenderElement NEXT_BUTTON_HOVER_RENDER = new RenderElement(
+            new Identifier("guideapi", "textures/gui/background.png"),
+            54, 225, 18, 10);
+
     private final T object;
 
     private int currentPage;
@@ -30,9 +49,14 @@ public class LineDisplay<T extends TextProvider & ParentOf<U>, U extends Rendere
 
         pages = computePagesAndPositions(guideGui);
 
-        //FIXME Lang for buttons or icons
-        this.previousButton = new TextButton(() -> currentPage--, "Previous", left, top + height);
-        this.nextButton = new TextButton(() -> currentPage++, "Next", left + width, top + height);
+        this.previousButton = new ImageButton(() -> currentPage--,
+                guideGui,
+                PREVIOUS_BUTTON_RENDER, PREVIOUS_BUTTON_HOVER_RENDER,
+                left, guideGui.getDrawEndHeight());
+        this.nextButton = new ImageButton(() -> currentPage++,
+                guideGui,
+                NEXT_BUTTON_RENDER, NEXT_BUTTON_HOVER_RENDER,
+                left + width - NEXT_BUTTON_RENDER.getArea().getWidth(), guideGui.getDrawEndHeight());
     }
 
     @Override

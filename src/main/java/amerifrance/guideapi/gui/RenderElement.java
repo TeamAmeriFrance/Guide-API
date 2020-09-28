@@ -26,4 +26,8 @@ public class RenderElement {
         textureManager.bindTexture(identifier);
         screen.drawTexture(matrixStack, x, y, u, v, area.getWidth(), area.getHeight());
     }
+
+    public Area getArea() {
+        return area;
+    }
 }

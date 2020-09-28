@@ -3,17 +3,30 @@ package amerifrance.guideapi.displays;
 import amerifrance.guideapi.api.Button;
 import amerifrance.guideapi.api.DisplayProvider;
 import amerifrance.guideapi.gui.GuideGui;
-import amerifrance.guideapi.gui.TextButton;
+import amerifrance.guideapi.gui.ImageButton;
+import amerifrance.guideapi.gui.RenderElement;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 
 public abstract class HistoryBaseDisplay implements Display {
+    private static final RenderElement BACK_BUTTON_RENDER = new RenderElement(
+            new Identifier("guideapi", "textures/gui/background.png"),
+            72, 225, 18, 10);
+
+    private static final RenderElement BACK_BUTTON_HOVER_RENDER = new RenderElement(
+            new Identifier("guideapi", "textures/gui/background.png"),
+            90, 225, 18, 10);
+
     protected DisplayProvider hovered;
 
     private Button backButton;
 
     @Override
     public void init(GuideGui guideGui, int top, int left, int width, int height) {
-        backButton = new TextButton(guideGui::back, "Back", left + width, top);
+        this.backButton = new ImageButton(guideGui::back,
+                guideGui,
+                BACK_BUTTON_RENDER, BACK_BUTTON_HOVER_RENDER,
+                left, top);
     }
 
     @Override
