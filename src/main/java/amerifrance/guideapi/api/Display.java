@@ -1,4 +1,4 @@
-package amerifrance.guideapi.displays;
+package amerifrance.guideapi.api;
 
 import amerifrance.guideapi.gui.GuideGui;
 import net.minecraft.client.util.math.MatrixStack;
@@ -10,5 +10,5 @@ public interface Display {
 
     boolean mouseClicked(GuideGui guideGui, double mouseX, double mouseY, int button);
 
-    boolean mousesScrolled(GuideGui guideGui, double mouseX, double mouseY, double amount);
+    boolean mouseScrolled(GuideGui guideGui, double mouseX, double mouseY, double amount);
 }

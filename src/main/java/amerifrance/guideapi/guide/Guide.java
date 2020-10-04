@@ -4,7 +4,7 @@ import amerifrance.guideapi.api.DisplayProvider;
 import amerifrance.guideapi.api.IdProvider;
 import amerifrance.guideapi.api.ParentOf;
 import amerifrance.guideapi.api.TextProvider;
-import amerifrance.guideapi.displays.Display;
+import amerifrance.guideapi.api.Display;
 import com.google.common.collect.Lists;
 
 import java.util.List;

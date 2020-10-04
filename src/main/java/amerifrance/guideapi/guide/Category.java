@@ -1,7 +1,7 @@
 package amerifrance.guideapi.guide;
 
 import amerifrance.guideapi.api.*;
-import amerifrance.guideapi.displays.Display;
+import amerifrance.guideapi.api.Display;
 import amerifrance.guideapi.renderers.StringRenderer;
 import com.google.common.collect.Lists;
 

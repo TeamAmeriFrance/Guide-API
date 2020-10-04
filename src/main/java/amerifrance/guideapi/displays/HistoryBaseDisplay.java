@@ -1,6 +1,7 @@
 package amerifrance.guideapi.displays;
 
 import amerifrance.guideapi.api.Button;
+import amerifrance.guideapi.api.Display;
 import amerifrance.guideapi.api.DisplayProvider;
 import amerifrance.guideapi.gui.GuideGui;
 import amerifrance.guideapi.gui.ImageButton;
@@ -53,7 +54,7 @@ public abstract class HistoryBaseDisplay implements Display {
     }
 
     @Override
-    public boolean mousesScrolled(GuideGui guideGui, double mouseX, double mouseY, double amount) {
+    public boolean mouseScrolled(GuideGui guideGui, double mouseX, double mouseY, double amount) {
         return false;
     }
 }

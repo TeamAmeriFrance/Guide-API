@@ -1,6 +1,6 @@
 package amerifrance.guideapi.gui;
 
-import amerifrance.guideapi.displays.Display;
+import amerifrance.guideapi.api.Display;
 import amerifrance.guideapi.guide.Guide;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -77,7 +77,7 @@ public class GuideGui extends Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-        return currentDisplay.mousesScrolled(this, mouseX, mouseY, amount);
+        return currentDisplay.mouseScrolled(this, mouseX, mouseY, amount);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class GuideGui extends Screen {
         if (history.isEmpty())
             return;
 
-        show(history.get(0));
+        currentDisplay = history.get(0);
         history.remove(0);
     }
 
