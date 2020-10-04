@@ -29,7 +29,6 @@ public class CuttingRecipeRenderer extends RecipeRenderer {
 
     @Override
     public void renderRecipeBackground(GuideGui guideGui, MatrixStack matrixStack, int x, int y) {
-
     }
 
     @Override

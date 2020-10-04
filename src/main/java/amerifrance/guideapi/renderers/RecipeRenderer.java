@@ -27,6 +27,14 @@ public abstract class RecipeRenderer implements Renderer {
         this.recipeTypeDescription = getRecipeTypeDescription(recipeType);
     }
 
+    public abstract void renderRecipeBackground(GuideGui guideGui, MatrixStack matrixStack, int x, int y);
+
+    public abstract void initRecipe(GuideGui guideGui, int x, int y);
+
+    public abstract Area getRecipeArea(GuideGui guideGui);
+
+    public abstract RecipeWrapper getRecipePairToDraw();
+
     @Override
     public void init(GuideGui guideGui, int x, int y) {
         initRecipe(guideGui, x, y + getDescriptionArea(guideGui).getHeight());
@@ -53,14 +61,6 @@ public abstract class RecipeRenderer implements Renderer {
         return new Area(Math.max(descriptionArea.getWidth(), recipeArea.getWidth()),
                 descriptionArea.getHeight() + recipeArea.getHeight());
     }
-
-    public abstract void renderRecipeBackground(GuideGui guideGui, MatrixStack matrixStack, int x, int y);
-
-    public abstract void initRecipe(GuideGui guideGui, int x, int y);
-
-    public abstract Area getRecipeArea(GuideGui guideGui);
-
-    public abstract RecipeWrapper getRecipePairToDraw();
 
     protected List<Recipe<?>> getRecipes(GuideGui guideGui, RecipeType<?> recipeType, Item output) {
         RecipeManager recipeManager = guideGui.getMinecraftClient().world.getRecipeManager();

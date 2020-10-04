@@ -7,6 +7,13 @@ import net.minecraft.client.util.math.MatrixStack;
 
 public class LineBreakRenderer implements Renderer {
 
+    private Area area;
+
+    @Override
+    public void init(GuideGui guideGui, int x, int y) {
+        this.area = new Area(GuideGui.GUI_WIDTH, guideGui.getFontHeight());
+    }
+
     @Override
     public void render(GuideGui guideGui, MatrixStack matrixStack, int x, int y, float delta) {
     }
@@ -17,6 +24,6 @@ public class LineBreakRenderer implements Renderer {
 
     @Override
     public Area getArea(GuideGui guideGui) {
-        return new Area(GuideGui.GUI_WIDTH, guideGui.getFontHeight());
+        return area;
     }
 }

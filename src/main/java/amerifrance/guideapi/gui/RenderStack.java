@@ -23,6 +23,7 @@ public class RenderStack {
     private final int scale;
     private final int x;
     private final int y;
+    private final Area area;
 
     private int currentDisplayedIndex;
 
@@ -35,6 +36,8 @@ public class RenderStack {
         if (itemStacks.size() == 0) {
             itemStacks.add(ItemStack.EMPTY);
         }
+
+        this.area = new Area(DRAW_SIZE * scale, DRAW_SIZE * scale);
     }
 
     public RenderStack(List<ItemStack> itemStacks, int x, int y) {
@@ -108,7 +111,7 @@ public class RenderStack {
     }
 
     public Area getArea() {
-        return new Area(DRAW_SIZE * getScale(), DRAW_SIZE * getScale());
+        return area;
     }
 
     public int getScale() {

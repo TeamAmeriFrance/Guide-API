@@ -18,6 +18,7 @@ public class StringRenderer implements Renderer, MultipageProvider {
     private final boolean underlineOnHover;
 
     private List<LiteralText> lines;
+    private Area area;
 
     public StringRenderer(String text, boolean underlineOnHover) {
         this.text = text;
@@ -33,6 +34,7 @@ public class StringRenderer implements Renderer, MultipageProvider {
         this.lines = guideGui.wrapLines(text, GuideGui.GUI_WIDTH).stream()
                 .map(stringRenderable -> new LiteralText(stringRenderable.getString()))
                 .collect(Collectors.toList());
+        this.area = new Area(GuideGui.GUI_WIDTH, guideGui.getFontHeight() * lines.size());
     }
 
     @Override
@@ -56,7 +58,7 @@ public class StringRenderer implements Renderer, MultipageProvider {
 
     @Override
     public Area getArea(GuideGui guideGui) {
-        return new Area(GuideGui.GUI_WIDTH, guideGui.getFontHeight() * lines.size());
+        return area;
     }
 
     @Override
