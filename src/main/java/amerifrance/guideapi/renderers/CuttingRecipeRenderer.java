@@ -1,21 +1,22 @@
 package amerifrance.guideapi.renderers;
 
 import amerifrance.guideapi.gui.GuideGui;
+import amerifrance.guideapi.gui.RenderStack;
 import amerifrance.guideapi.utils.Area;
 import amerifrance.guideapi.utils.RecipeWrapper;
-import amerifrance.guideapi.gui.RenderStack;
 import com.google.common.collect.Lists;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.*;
-import net.minecraft.util.Identifier;
+import net.minecraft.recipe.CuttingRecipe;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
 
 import java.util.List;
 
-public class CuttingRecipeRenderer<T> extends RecipeRenderer<T> {
+public class CuttingRecipeRenderer extends RecipeRenderer {
 
-    private static final Identifier TEXTURE = new Identifier("assets/guideapi/textures/container/crafting_table.png");
     private static final Area AREA = new Area(RenderStack.DRAW_SIZE * 3, RenderStack.DRAW_SIZE);
 
     private final Item output;
@@ -27,12 +28,12 @@ public class CuttingRecipeRenderer<T> extends RecipeRenderer<T> {
     }
 
     @Override
-    public void renderRecipeBackground(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y) {
+    public void renderRecipeBackground(GuideGui guideGui, MatrixStack matrixStack, int x, int y) {
 
     }
 
     @Override
-    public void initRecipe(T object, GuideGui guideGui, int x, int y) {
+    public void initRecipe(GuideGui guideGui, int x, int y) {
         recipeWrappers = Lists.newArrayList();
 
         for (Recipe<?> recipe : getRecipes(guideGui, recipeType, output)) {
@@ -56,7 +57,7 @@ public class CuttingRecipeRenderer<T> extends RecipeRenderer<T> {
     }
 
     @Override
-    public Area getRecipeArea(T object, GuideGui guideGui) {
+    public Area getRecipeArea(GuideGui guideGui) {
         return AREA;
     }
 

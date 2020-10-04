@@ -1,23 +1,29 @@
 package amerifrance.guideapi.gui;
 
-import amerifrance.guideapi.api.RendererProvider;
+import amerifrance.guideapi.api.Renderer;
 import amerifrance.guideapi.utils.MouseHelper;
 import net.minecraft.client.util.math.MatrixStack;
 
-public class RenderGuideObject<T extends RendererProvider<T>> {
+public class RenderGuideObject {
 
-    private final T object;
+    private final Object object;
+    private final Renderer renderer;
     private final int x;
     private final int y;
 
-    public RenderGuideObject(T object, int x, int y) {
+    public RenderGuideObject(Object object, Renderer renderer, int x, int y) {
         this.object = object;
+        this.renderer = renderer;
         this.x = x;
         this.y = y;
     }
 
-    public T getObject() {
+    public Object getObject() {
         return object;
+    }
+
+    public Renderer getRenderer() {
+        return renderer;
     }
 
     public int getX() {
@@ -29,14 +35,14 @@ public class RenderGuideObject<T extends RendererProvider<T>> {
     }
 
     public void render(GuideGui guideGui, MatrixStack matrixStack, float delta) {
-        object.getRenderer().render(object, guideGui, matrixStack, x, y, delta);
+        renderer.render(guideGui, matrixStack, x, y, delta);
     }
 
     public void hover(GuideGui guideGui, MatrixStack matrixStack, int mouseX, int mouseY) {
-        object.getRenderer().hover(object, guideGui, matrixStack, x, y, mouseX, mouseY);
+        renderer.hover(guideGui, matrixStack, x, y, mouseX, mouseY);
     }
 
     public boolean isHovering(GuideGui guideGui, int mouseX, int mouseY) {
-        return MouseHelper.isInArea(x, y, object.getRenderer().getArea(object, guideGui), mouseX, mouseY);
+        return MouseHelper.isInArea(x, y, renderer.getArea(guideGui), mouseX, mouseY);
     }
 }

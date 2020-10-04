@@ -1,29 +1,27 @@
 package amerifrance.guideapi.guide;
 
 import amerifrance.guideapi.api.*;
-import amerifrance.guideapi.gui.GuideGui;
-import amerifrance.guideapi.api.Renderer;
-import com.google.common.collect.Lists;
-import net.minecraft.text.StringRenderable;
+import amerifrance.guideapi.renderers.StringRenderer;
 
-import java.util.Collections;
-import java.util.List;
-
-public class Element implements IdProvider, TextProvider, ChildOf<Entry>, RendererProvider<Element>, MultipageProvider<Element> {
+public class Element implements IdProvider, TextProvider, ChildOf<Entry>, RendererProvider {
 
     private final String id;
     private final String text;
-    private final Renderer<Element> renderer;
+    private final Renderer renderer;
 
     private Entry entry;
 
-    public Element(String id, String text, Renderer<Element> renderer) {
+    public Element(String id, String text, Renderer renderer) {
         this.id = id;
         this.text = text;
         this.renderer = renderer;
     }
 
-    public Element(String id, Renderer<Element> renderer) {
+    public Element(String id, String text) {
+        this(id, text, new StringRenderer(text));
+    }
+
+    public Element(String id, Renderer renderer) {
         this(id, "", renderer);
     }
 
@@ -48,39 +46,12 @@ public class Element implements IdProvider, TextProvider, ChildOf<Entry>, Render
     }
 
     @Override
-    public Renderer<Element> getRenderer() {
+    public Renderer getRenderer() {
         return renderer;
     }
 
     @Override
     public ViewingRequirement getViewingRequirement() {
         return () -> true;
-    }
-
-    @Override
-    public List<Element> split(GuideGui guideGui, int x, int y) {
-        if (y + getRenderer().getArea(this, guideGui).getHeight() > guideGui.getDrawEndHeight()) {
-            int yPos = y + guideGui.getFontHeight();
-            StringBuilder stringBuilder = new StringBuilder();
-            List<Element> list = Lists.newArrayList();
-
-            for (StringRenderable line : guideGui.wrapLines(getText(), GuideGui.GUI_WIDTH)) {
-                yPos += guideGui.getFontHeight();
-
-                if (yPos > guideGui.getDrawEndHeight()) {
-                    list.add(new Element(id + "_" + list.size(), stringBuilder.toString(), renderer));
-
-                    stringBuilder = new StringBuilder();
-                    yPos = guideGui.getDrawStartHeight();
-                }
-
-                stringBuilder.append(line.getString());
-            }
-
-            list.add(new Element(id + "_" + list.size(), stringBuilder.toString(), renderer));
-            return list;
-        }
-
-        return Collections.singletonList(this);
     }
 }

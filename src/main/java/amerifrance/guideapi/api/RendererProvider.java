@@ -1,7 +1,7 @@
 package amerifrance.guideapi.api;
 
-public interface RendererProvider<T> {
-    Renderer<T> getRenderer();
+public interface RendererProvider {
+    Renderer getRenderer();
 
     ViewingRequirement getViewingRequirement();
 }

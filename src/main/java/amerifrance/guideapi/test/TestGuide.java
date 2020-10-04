@@ -20,28 +20,26 @@ public class TestGuide {
                 guide.add(new Category(
                         "first_category",
                         "First test category",
-                        new StringRenderer<>(),
                         category -> {
                             category.setDisplay(new LineDisplay<>(category));
                             category.add(new Entry(
                                     "first_entry",
                                     "First test entry",
-                                    new StringRenderer<>(),
                                     entry -> {
                                         entry.setDisplay(new LineDisplay<>(entry));
-                                        entry.add(new Element("first", "Yummy, steak!", new ItemstackRenderer<>(Items.COOKED_BEEF)));
-                                        entry.add(new Element("second", "This is a cooked steak", new StringRenderer<>()));
-                                        entry.add(new Element("break", new LineBreakRenderer<>()));
-                                        entry.add(new Element("third", "Two lines for our steak! It deserves at least this much.", new StringRenderer<>()));
-                                        entry.add(new Element("fourth", LOREM_IPSUM, new StringRenderer<>()));
-                                        entry.add(new Element("fifth", new CraftingRecipeRenderer<>(Items.DIAMOND_PICKAXE)));
-                                        entry.add(new Element("sixth", new CraftingRecipeRenderer<>(Items.ACACIA_PRESSURE_PLATE)));
-                                        entry.add(new Element("seventh", new CraftingRecipeRenderer<>(Items.CRAFTING_TABLE)));
+                                        entry.add(new Element("first", new ItemstackRenderer(Items.COOKED_BEEF, "Yummy, steak!")));
+                                        entry.add(new Element("second", "This is a cooked steak"));
+                                        entry.add(new Element("break", new LineBreakRenderer()));
+                                        entry.add(new Element("third", "Two lines for our steak! It deserves at least this much."));
+                                        entry.add(new Element("fourth", LOREM_IPSUM));
+                                        entry.add(new Element("fifth", new CraftingRecipeRenderer(Items.DIAMOND_PICKAXE)));
+                                        entry.add(new Element("sixth", new CraftingRecipeRenderer(Items.ACACIA_PRESSURE_PLATE)));
+                                        entry.add(new Element("seventh", new CraftingRecipeRenderer(Items.CRAFTING_TABLE)));
                                         entry.add(new Element("eighth", new CookingRecipeRenderer<>(Items.CHARCOAL, RecipeType.SMELTING)));
                                         entry.add(new Element("ninth", new CookingRecipeRenderer<>(Items.GOLD_NUGGET, RecipeType.BLASTING)));
                                         entry.add(new Element("tenth", new CookingRecipeRenderer<>(Items.COOKED_BEEF, RecipeType.SMOKING)));
                                         entry.add(new Element("eleverth", new CookingRecipeRenderer<>(Items.COOKED_SALMON, RecipeType.CAMPFIRE_COOKING)));
-                                        entry.add(new Element("twelfth", new CuttingRecipeRenderer<>(Items.STONE_BRICK_STAIRS)));
+                                        entry.add(new Element("twelfth", new CuttingRecipeRenderer(Items.STONE_BRICK_STAIRS)));
                                     }
                             ));
                         }
@@ -49,7 +47,7 @@ public class TestGuide {
 
                 guide.add(new Category("second_category",
                         "Second test category",
-                        new ItemstackRenderer<>(Items.DIAMOND_BLOCK),
+                        new ItemstackRenderer(Items.DIAMOND_BLOCK, "Second test category"),
                         category -> category.setDisplay(new LineDisplay<>(category))));
             });
 }

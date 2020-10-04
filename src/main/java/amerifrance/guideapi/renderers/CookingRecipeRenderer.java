@@ -16,7 +16,7 @@ import net.minecraft.recipe.RecipeType;
 
 import java.util.List;
 
-public class CookingRecipeRenderer<T> extends RecipeRenderer<T> {
+public class CookingRecipeRenderer<T> extends RecipeRenderer {
 
     private static final RenderElement COOKING_BACKGROUND = new RenderElement(RECIPE_ELEMENTS, 0, 104, 68, 28);
 
@@ -30,7 +30,7 @@ public class CookingRecipeRenderer<T> extends RecipeRenderer<T> {
     }
 
     @Override
-    public void initRecipe(T object, GuideGui guideGui, int x, int y) {
+    public void initRecipe(GuideGui guideGui, int x, int y) {
         recipeWrappers = Lists.newArrayList();
 
         for (Recipe<?> recipe : getRecipes(guideGui, recipeType, output)) {
@@ -54,10 +54,10 @@ public class CookingRecipeRenderer<T> extends RecipeRenderer<T> {
     }
 
     @Override
-    public void render(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y, float delta) {
-        super.render(object, guideGui, matrixStack, x, y, delta);
+    public void render(GuideGui guideGui, MatrixStack matrixStack, int x, int y, float delta) {
+        super.render(guideGui, matrixStack, x, y, delta);
 
-        Area area = getArea(object, guideGui);
+        Area area = getArea(guideGui);
         float xPos = x + RenderStack.DRAW_SIZE * 1.5F;
         int yPos = y + area.getHeight() - guideGui.getFontHeight();
         AbstractCookingRecipe cookingRecipe = (AbstractCookingRecipe) getRecipePairToDraw().getRecipe();
@@ -67,12 +67,12 @@ public class CookingRecipeRenderer<T> extends RecipeRenderer<T> {
     }
 
     @Override
-    public void renderRecipeBackground(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y) {
+    public void renderRecipeBackground(GuideGui guideGui, MatrixStack matrixStack, int x, int y) {
         COOKING_BACKGROUND.render(guideGui, matrixStack, guideGui.getMinecraftClient().getTextureManager(), x, y);
     }
 
     @Override
-    public Area getRecipeArea(T object, GuideGui guideGui) {
+    public Area getRecipeArea(GuideGui guideGui) {
         return new Area(68, 28 + guideGui.getFontHeight());
     }
 

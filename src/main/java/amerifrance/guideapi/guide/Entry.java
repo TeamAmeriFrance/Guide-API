@@ -2,7 +2,7 @@ package amerifrance.guideapi.guide;
 
 import amerifrance.guideapi.api.*;
 import amerifrance.guideapi.displays.Display;
-import amerifrance.guideapi.api.Renderer;
+import amerifrance.guideapi.renderers.StringRenderer;
 import com.google.common.collect.Lists;
 
 import java.util.List;
@@ -11,23 +11,27 @@ import java.util.function.Consumer;
 
 import static com.google.common.collect.Maps.newLinkedHashMap;
 
-public class Entry implements IdProvider, TextProvider, ChildOf<Category>, ParentOf<Element>, DisplayProvider, RendererProvider<Entry> {
+public class Entry implements IdProvider, TextProvider, ChildOf<Category>, ParentOf<Element>, DisplayProvider, RendererProvider {
 
     private final String id;
     private final String name;
-    private final Renderer<Entry> renderer;
+    private final Renderer renderer;
     private final Map<String, Element> elements;
 
     private Category category;
     private Display display;
 
-    public Entry(String id, String name, Renderer<Entry> renderer, Consumer<Entry> $) {
+    public Entry(String id, String name, Renderer renderer, Consumer<Entry> $) {
         this.id = id;
         this.name = name;
         this.renderer = renderer;
         this.elements = newLinkedHashMap();
 
         $.accept(this);
+    }
+
+    public Entry(String id, String name, Consumer<Entry> $) {
+        this(id, name, new StringRenderer(name, true), $);
     }
 
     @Override
@@ -67,7 +71,7 @@ public class Entry implements IdProvider, TextProvider, ChildOf<Category>, Paren
     }
 
     @Override
-    public Renderer<Entry> getRenderer() {
+    public Renderer getRenderer() {
         return renderer;
     }
 

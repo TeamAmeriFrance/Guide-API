@@ -102,7 +102,7 @@ public class GuideGui extends Screen {
         if (history.isEmpty())
             return;
 
-        currentDisplay = history.get(0);
+        show(history.get(0));
         history.remove(0);
     }
 

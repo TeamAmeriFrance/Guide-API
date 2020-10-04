@@ -14,7 +14,7 @@ import net.minecraft.util.collection.DefaultedList;
 
 import java.util.List;
 
-public class CraftingRecipeRenderer<T> extends RecipeRenderer<T> {
+public class CraftingRecipeRenderer extends RecipeRenderer {
 
     private static final RenderElement CRAFTING_BACKGROUND = new RenderElement(RECIPE_ELEMENTS, 0, 48, 102, 56);
     private static final Area AREA = new Area(102, 56);
@@ -29,12 +29,12 @@ public class CraftingRecipeRenderer<T> extends RecipeRenderer<T> {
     }
 
     @Override
-    public void renderRecipeBackground(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y) {
+    public void renderRecipeBackground(GuideGui guideGui, MatrixStack matrixStack, int x, int y) {
         CRAFTING_BACKGROUND.render(guideGui, matrixStack, guideGui.getMinecraftClient().getTextureManager(), x, y);
     }
 
     @Override
-    public void initRecipe(T object, GuideGui guideGui, int x, int y) {
+    public void initRecipe(GuideGui guideGui, int x, int y) {
         recipeWrappers = Lists.newArrayList();
 
         for (Recipe<?> recipe : getRecipes(guideGui, recipeType, output)) {
@@ -73,7 +73,7 @@ public class CraftingRecipeRenderer<T> extends RecipeRenderer<T> {
     }
 
     @Override
-    public Area getRecipeArea(T object, GuideGui guideGui) {
+    public Area getRecipeArea(GuideGui guideGui) {
         return AREA;
     }
 

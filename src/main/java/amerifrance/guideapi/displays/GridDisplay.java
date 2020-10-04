@@ -7,7 +7,7 @@ import amerifrance.guideapi.api.ParentOf;
 import amerifrance.guideapi.api.RendererProvider;
 import net.minecraft.client.util.math.MatrixStack;
 
-public class GridDisplay<T extends TextProvider & ParentOf<U>, U extends RendererProvider<U> & DisplayProvider> extends HistoryBaseDisplay {
+public class GridDisplay<T extends TextProvider & ParentOf<U>, U extends RendererProvider & DisplayProvider> extends HistoryBaseDisplay {
 
     private final T object;
 

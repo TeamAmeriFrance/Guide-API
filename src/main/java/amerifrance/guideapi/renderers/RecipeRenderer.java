@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class RecipeRenderer<T> implements Renderer<T> {
+public abstract class RecipeRenderer implements Renderer {
 
     protected static final Identifier RECIPE_ELEMENTS = new Identifier("guideapi", "textures/gui/recipe_elements.png");
 
@@ -28,37 +28,37 @@ public abstract class RecipeRenderer<T> implements Renderer<T> {
     }
 
     @Override
-    public void init(T object, GuideGui guideGui, int x, int y) {
-        initRecipe(object, guideGui, x, y + getDescriptionArea(guideGui).getHeight());
+    public void init(GuideGui guideGui, int x, int y) {
+        initRecipe(guideGui, x, y + getDescriptionArea(guideGui).getHeight());
     }
 
     @Override
-    public void render(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y, float delta) {
-        renderRecipeBackground(object, guideGui, matrixStack, x, y + getDescriptionArea(guideGui).getHeight());
+    public void render(GuideGui guideGui, MatrixStack matrixStack, int x, int y, float delta) {
+        renderRecipeBackground(guideGui, matrixStack, x, y + getDescriptionArea(guideGui).getHeight());
 
         drawRecipe(guideGui, matrixStack, getRecipePairToDraw());
-        guideGui.drawCenteredString(matrixStack, recipeTypeDescription, x + getArea(object, guideGui).getWidth() / 2, y, 0);
+        guideGui.drawCenteredString(matrixStack, recipeTypeDescription, x + getArea(guideGui).getWidth() / 2, y, 0);
     }
 
     @Override
-    public void hover(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y, int mouseX, int mouseY) {
+    public void hover(GuideGui guideGui, MatrixStack matrixStack, int x, int y, int mouseX, int mouseY) {
         hoverRecipe(guideGui, matrixStack, mouseX, mouseY, getRecipePairToDraw());
     }
 
     @Override
-    public Area getArea(T object, GuideGui guideGui) {
+    public Area getArea(GuideGui guideGui) {
         Area descriptionArea = getDescriptionArea(guideGui);
-        Area recipeArea = getRecipeArea(object, guideGui);
+        Area recipeArea = getRecipeArea(guideGui);
 
         return new Area(Math.max(descriptionArea.getWidth(), recipeArea.getWidth()),
                 descriptionArea.getHeight() + recipeArea.getHeight());
     }
 
-    public abstract void renderRecipeBackground(T object, GuideGui guideGui, MatrixStack matrixStack, int x, int y);
+    public abstract void renderRecipeBackground(GuideGui guideGui, MatrixStack matrixStack, int x, int y);
 
-    public abstract void initRecipe(T object, GuideGui guideGui, int x, int y);
+    public abstract void initRecipe(GuideGui guideGui, int x, int y);
 
-    public abstract Area getRecipeArea(T object, GuideGui guideGui);
+    public abstract Area getRecipeArea(GuideGui guideGui);
 
     public abstract RecipeWrapper getRecipePairToDraw();
 
