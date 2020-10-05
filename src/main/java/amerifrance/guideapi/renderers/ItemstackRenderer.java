@@ -15,34 +15,49 @@ import java.util.List;
 
 public class ItemstackRenderer implements Renderer {
 
+    private static final int DEFAULT_SCALE = 2;
     private final ItemStack itemStack;
+    private final int scale;
 
     private List<Text> hoverText;
     private RenderStack renderStack;
 
-    public ItemstackRenderer(ItemStack itemStack) {
+    public ItemstackRenderer(ItemStack itemStack, int scale) {
         this.itemStack = itemStack;
-        this.renderStack = new RenderStack(itemStack, 2);
+        this.renderStack = new RenderStack(itemStack, scale);
+        this.scale = scale;
+    }
+
+    public ItemstackRenderer(ItemStack itemStack) {
+        this(itemStack, DEFAULT_SCALE);
     }
 
     public ItemstackRenderer(Item item) {
         this(new ItemStack(item));
     }
 
-    public ItemstackRenderer(ItemStack itemStack, String hoverText) {
-        this(itemStack);
+    public ItemstackRenderer(ItemStack itemStack, String hoverText, int scale) {
+        this(itemStack, scale);
 
         this.hoverText = Collections.singletonList(new LiteralText(hoverText));
     }
 
+    public ItemstackRenderer(ItemStack itemStack, String hoverText) {
+        this(itemStack, hoverText, DEFAULT_SCALE);
+    }
+
+    public ItemstackRenderer(Item item, String hoverText, int scale) {
+        this(new ItemStack(item), hoverText, scale);
+    }
+
     public ItemstackRenderer(Item item, String hoverText) {
-        this(new ItemStack(item), hoverText);
+        this(item, hoverText, DEFAULT_SCALE);
     }
 
     @Override
     public void init(GuideGui guideGui, int x, int y) {
         if (hoverText == null) hoverText = guideGui.getTooltipFromItem(itemStack);
-        renderStack = new RenderStack(itemStack, 2, x, y);
+        renderStack = new RenderStack(itemStack, scale, x, y);
     }
 
     @Override

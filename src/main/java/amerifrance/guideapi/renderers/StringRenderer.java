@@ -35,7 +35,7 @@ public class StringRenderer implements Renderer, MultipageProvider {
                 .map(stringRenderable -> new LiteralText(stringRenderable.getString()))
                 .collect(Collectors.toList());
 
-        if (lines.size() == 0)
+        if (lines.size() == 1)
             this.area = new Area(guideGui.getStringWidth(lines.get(0)), guideGui.getFontHeight() * lines.size());
         else
             this.area = new Area(GuideGui.GUI_WIDTH, guideGui.getFontHeight() * lines.size());

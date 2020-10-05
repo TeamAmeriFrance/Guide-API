@@ -1,7 +1,7 @@
 package amerifrance.guideapi.test;
 
-import amerifrance.guideapi.displays.LineDisplay;
 import amerifrance.guideapi.displays.FixedShapeDisplay;
+import amerifrance.guideapi.displays.LineDisplay;
 import amerifrance.guideapi.guide.Category;
 import amerifrance.guideapi.guide.Element;
 import amerifrance.guideapi.guide.Entry;
@@ -17,10 +17,11 @@ public class TestGuide {
             "first_guide",
             "First test guide",
             guide -> {
-                guide.setDisplay(new FixedShapeDisplay<>(guide, "X X", " X ", "X X"));
+                guide.setDisplay(new FixedShapeDisplay<>(guide, true, "X X", " X ", "X X"));
                 guide.add(new Category(
                         "first_category",
                         "First test category",
+                        new ItemstackRenderer(Items.DIRT, "First test category"),
                         category -> {
                             category.setDisplay(new LineDisplay<>(category));
                             category.add(new Entry(
@@ -52,8 +53,8 @@ public class TestGuide {
                         category -> category.setDisplay(new LineDisplay<>(category))));
 
                 guide.add(new Category("third_category",
-                        "Thrid test category",
-                        new ItemstackRenderer(Items.STONE, "Thrid test category"),
+                        "Third test category",
+                        new ItemstackRenderer(Items.STONE, "Third test category"),
                         category -> category.setDisplay(new LineDisplay<>(category))));
 
                 guide.add(new Category("fourth_category",
