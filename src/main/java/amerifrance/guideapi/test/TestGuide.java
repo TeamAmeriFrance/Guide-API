@@ -1,6 +1,7 @@
 package amerifrance.guideapi.test;
 
 import amerifrance.guideapi.displays.LineDisplay;
+import amerifrance.guideapi.displays.FixedShapeDisplay;
 import amerifrance.guideapi.guide.Category;
 import amerifrance.guideapi.guide.Element;
 import amerifrance.guideapi.guide.Entry;
@@ -16,7 +17,7 @@ public class TestGuide {
             "first_guide",
             "First test guide",
             guide -> {
-                guide.setDisplay(new LineDisplay<>(guide));
+                guide.setDisplay(new FixedShapeDisplay<>(guide, "X X"));
                 guide.add(new Category(
                         "first_category",
                         "First test category",
