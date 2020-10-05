@@ -17,7 +17,7 @@ public class TestGuide {
             "first_guide",
             "First test guide",
             guide -> {
-                guide.setDisplay(new FixedShapeDisplay<>(guide, "X X"));
+                guide.setDisplay(new FixedShapeDisplay<>(guide, "X X", " X ", "X X"));
                 guide.add(new Category(
                         "first_category",
                         "First test category",
@@ -48,7 +48,22 @@ public class TestGuide {
 
                 guide.add(new Category("second_category",
                         "Second test category",
-                        new ItemstackRenderer(Items.DIAMOND_BLOCK, "Second test category"),
+                        new ItemstackRenderer(Items.OAK_LOG, "Second test category"),
+                        category -> category.setDisplay(new LineDisplay<>(category))));
+
+                guide.add(new Category("third_category",
+                        "Thrid test category",
+                        new ItemstackRenderer(Items.STONE, "Thrid test category"),
+                        category -> category.setDisplay(new LineDisplay<>(category))));
+
+                guide.add(new Category("fourth_category",
+                        "Fourth test category",
+                        new ItemstackRenderer(Items.GOLD_BLOCK, "Fourth test category"),
+                        category -> category.setDisplay(new LineDisplay<>(category))));
+
+                guide.add(new Category("fifth_category",
+                        "Fifth test category",
+                        new ItemstackRenderer(Items.DIAMOND_BLOCK, "Fifth test category"),
                         category -> category.setDisplay(new LineDisplay<>(category))));
             });
 }
