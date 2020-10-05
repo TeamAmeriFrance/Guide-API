@@ -38,10 +38,10 @@ public class TestGuide {
                                         entry.add(new Element("fifth", new CraftingRecipeRenderer(Items.DIAMOND_PICKAXE)));
                                         entry.add(new Element("sixth", new CraftingRecipeRenderer(Items.ACACIA_PRESSURE_PLATE)));
                                         entry.add(new Element("seventh", new CraftingRecipeRenderer(Items.CRAFTING_TABLE)));
-                                        entry.add(new Element("eighth", new CookingRecipeRenderer<>(Items.CHARCOAL, RecipeType.SMELTING)));
-                                        entry.add(new Element("ninth", new CookingRecipeRenderer<>(Items.GOLD_NUGGET, RecipeType.BLASTING)));
-                                        entry.add(new Element("tenth", new CookingRecipeRenderer<>(Items.COOKED_BEEF, RecipeType.SMOKING)));
-                                        entry.add(new Element("eleverth", new CookingRecipeRenderer<>(Items.COOKED_SALMON, RecipeType.CAMPFIRE_COOKING)));
+                                        entry.add(new Element("eighth", new CookingRecipeRenderer(Items.CHARCOAL, RecipeType.SMELTING)));
+                                        entry.add(new Element("ninth", new CookingRecipeRenderer(Items.GOLD_NUGGET, RecipeType.BLASTING)));
+                                        entry.add(new Element("tenth", new CookingRecipeRenderer(Items.COOKED_BEEF, RecipeType.SMOKING)));
+                                        entry.add(new Element("eleverth", new CookingRecipeRenderer(Items.COOKED_SALMON, RecipeType.CAMPFIRE_COOKING)));
                                         entry.add(new Element("twelfth", new CuttingRecipeRenderer(Items.STONE_BRICK_STAIRS)));
                                     }
                             ));

@@ -16,7 +16,7 @@ import net.minecraft.recipe.RecipeType;
 
 import java.util.List;
 
-public class CookingRecipeRenderer<T> extends RecipeRenderer {
+public class CookingRecipeRenderer extends RecipeRenderer {
 
     private static final RenderElement COOKING_BACKGROUND = new RenderElement(RECIPE_ELEMENTS, 0, 104, 68, 28);
 
