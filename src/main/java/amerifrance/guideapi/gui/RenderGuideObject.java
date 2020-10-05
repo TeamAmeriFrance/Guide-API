@@ -1,25 +1,30 @@
 package amerifrance.guideapi.gui;
 
 import amerifrance.guideapi.api.Renderer;
+import amerifrance.guideapi.api.RendererProvider;
 import amerifrance.guideapi.utils.MouseHelper;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class RenderGuideObject {
 
-    private final Object object;
+    private final RendererProvider rendererProvider;
     private final Renderer renderer;
     private final int x;
     private final int y;
 
-    public RenderGuideObject(Object object, Renderer renderer, int x, int y) {
-        this.object = object;
+    public RenderGuideObject(RendererProvider rendererProvider, Renderer renderer, int x, int y) {
+        this.rendererProvider = rendererProvider;
         this.renderer = renderer;
         this.x = x;
         this.y = y;
     }
 
-    public Object getObject() {
-        return object;
+    public RenderGuideObject(RendererProvider rendererProvider, int x, int y) {
+        this(rendererProvider, rendererProvider.getRenderer(), x, y);
+    }
+
+    public RendererProvider getObject() {
+        return rendererProvider;
     }
 
     public Renderer getRenderer() {
