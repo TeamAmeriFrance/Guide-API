@@ -31,8 +31,9 @@ public class TestGuide {
                                         entry.setDisplay(new LineDisplay<>(entry));
                                         entry.add(new Element("first", new ItemstackRenderer(Items.COOKED_BEEF, "Yummy, steak!")));
                                         entry.add(new Element("second", "This is a cooked steak"));
-                                        entry.add(new Element("break", new LineBreakRenderer()));
+                                        entry.add(new Element("linebreak", new LineBreakRenderer()));
                                         entry.add(new Element("third", "Two lines for our steak! It deserves at least this much."));
+                                        entry.add(new Element("pagebreak", new PageBreakRenderer()));
                                         entry.add(new Element("fourth", LOREM_IPSUM));
                                         entry.add(new Element("fifth", new CraftingRecipeRenderer(Items.DIAMOND_PICKAXE)));
                                         entry.add(new Element("sixth", new CraftingRecipeRenderer(Items.ACACIA_PRESSURE_PLATE)));
