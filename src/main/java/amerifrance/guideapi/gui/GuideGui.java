@@ -48,8 +48,8 @@ public class GuideGui extends Screen {
     public void init() {
         top = client.getWindow().getScaledHeight() / 2 - GUI_HEIGHT / 2;
         left = client.getWindow().getScaledWidth() / 2 - GUI_WIDTH / 2;
-        width = GUI_WIDTH;
-        height = GUI_HEIGHT;
+        height = top + BACKGROUND_TEXTURE_HEIGHT;
+        width = left + BACKGROUND_TEXTURE_WIDTH;
 
         currentDisplay.init(this, top, left, GUI_WIDTH, GUI_HEIGHT);
     }
