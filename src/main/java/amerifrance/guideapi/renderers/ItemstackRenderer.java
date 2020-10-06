@@ -4,6 +4,7 @@ import amerifrance.guideapi.api.Renderer;
 import amerifrance.guideapi.gui.GuideGui;
 import amerifrance.guideapi.gui.RenderStack;
 import amerifrance.guideapi.utils.Area;
+import jdk.internal.jline.internal.Nullable;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,7 +16,8 @@ import java.util.List;
 
 public class ItemstackRenderer implements Renderer {
 
-    private static final int DEFAULT_SCALE = 2;
+    public static final int DEFAULT_SCALE = 2;
+
     private final ItemStack itemStack;
     private final int scale;
 
@@ -32,25 +34,29 @@ public class ItemstackRenderer implements Renderer {
         this(itemStack, DEFAULT_SCALE);
     }
 
-    public ItemstackRenderer(Item item) {
-        this(new ItemStack(item));
+    public ItemstackRenderer(Item item, int scale) {
+        this(new ItemStack(item), scale);
     }
 
-    public ItemstackRenderer(ItemStack itemStack, String hoverText, int scale) {
+    public ItemstackRenderer(Item item) {
+        this(item, DEFAULT_SCALE);
+    }
+
+    public ItemstackRenderer(ItemStack itemStack, @Nullable String hoverText, int scale) {
         this(itemStack, scale);
 
         this.hoverText = Collections.singletonList(new LiteralText(hoverText));
     }
 
-    public ItemstackRenderer(ItemStack itemStack, String hoverText) {
+    public ItemstackRenderer(ItemStack itemStack, @Nullable String hoverText) {
         this(itemStack, hoverText, DEFAULT_SCALE);
     }
 
-    public ItemstackRenderer(Item item, String hoverText, int scale) {
+    public ItemstackRenderer(Item item, @Nullable String hoverText, int scale) {
         this(new ItemStack(item), hoverText, scale);
     }
 
-    public ItemstackRenderer(Item item, String hoverText) {
+    public ItemstackRenderer(Item item, @Nullable String hoverText) {
         this(item, hoverText, DEFAULT_SCALE);
     }
 

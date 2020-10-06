@@ -1,4 +1,4 @@
-package amerifrance.guideapi.deserialization.registry;
+package amerifrance.guideapi.deserialization;
 
 import amerifrance.guideapi.api.Deserializer;
 import com.google.common.collect.Maps;

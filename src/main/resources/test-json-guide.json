@@ -39,7 +39,7 @@
             "elements": [
               {
                 "id": "test_json_element",
-                "text": "Test JSON Element",
+                "name": "Test JSON Element",
                 "deserializer": "ELEMENT",
                 "renderer": {
                   "deserializer": "TEXT",
