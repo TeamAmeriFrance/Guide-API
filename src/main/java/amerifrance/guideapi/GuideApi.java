@@ -1,8 +1,11 @@
 package amerifrance.guideapi;
 
 
+import amerifrance.guideapi.deserialization.*;
+import amerifrance.guideapi.deserialization.registry.DeserializerRegistry;
 import amerifrance.guideapi.guide.Guide;
 import amerifrance.guideapi.test.TestGuide;
+import com.google.common.io.Resources;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -10,6 +13,8 @@ import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -27,6 +32,22 @@ public class GuideApi implements ModInitializer {
     @Override
     public void onInitialize() {
         GUIDES.add(TestGuide.TEST_GUIDE_1);
+
+        String json = "";
+        try {
+            json = Resources.toString(Resources.getResource("test-json-guide.json"), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        DeserializerRegistry.register("GUIDE", new GuideDeserializer());
+        DeserializerRegistry.register("CATEGORY", new CategoryDeserializer());
+        DeserializerRegistry.register("ENTRY", new EntryDeserializer());
+        DeserializerRegistry.register("ELEMENT", new ElementDeserializer());
+        DeserializerRegistry.register("LINE_DISPLAY", new LineDisplayDeserializer());
+        DeserializerRegistry.register("TEXT", new StringRendererDeserializer());
+
+        GUIDES.add(new GuideDeserializer().deserialize(json));
 
         GUIDES.forEach(guide -> {
             //TODO allow Guide class to give item

@@ -1,0 +1,57 @@
+{
+  "guide": {
+    "id": "test_json_guide",
+    "name": "Test JSON Guide",
+    "display": {
+      "deserializer": "LINE_DISPLAY",
+      "parameters": {}
+    },
+    "categories": [
+      {
+        "id": "test_json_category",
+        "name": "Test JSON Category",
+        "deserializer": "CATEGORY",
+        "renderer": {
+          "deserializer": "TEXT",
+          "parameters": {
+            "text": "Test JSON Category"
+          }
+        },
+        "display": {
+          "deserializer": "LINE_DISPLAY",
+          "parameters": {}
+        },
+        "entries": [
+          {
+            "id": "test_json_entry",
+            "name": "Test JSON Entry",
+            "deserializer": "ENTRY",
+            "renderer": {
+              "deserializer": "TEXT",
+              "parameters": {
+                "text": "Test JSON Entry"
+              }
+            },
+            "display": {
+              "deserializer": "LINE_DISPLAY",
+              "parameters": {}
+            },
+            "elements": [
+              {
+                "id": "test_json_element",
+                "text": "Test JSON Element",
+                "deserializer": "ELEMENT",
+                "renderer": {
+                  "deserializer": "TEXT",
+                  "parameters": {
+                    "text": "Test JSON Element"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
