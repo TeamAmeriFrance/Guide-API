@@ -3,8 +3,7 @@
     "id": "test_json_guide",
     "name": "Test JSON Guide",
     "display": {
-      "deserializer": "LINE_DISPLAY",
-      "parameters": {}
+      "deserializer": "LINE_DISPLAY"
     },
     "categories": [
       {
@@ -12,14 +11,17 @@
         "name": "Test JSON Category",
         "deserializer": "CATEGORY",
         "renderer": {
-          "deserializer": "TEXT",
+          "deserializer": "ITEM",
           "parameters": {
-            "text": "Test JSON Category"
+            "item": "minecraft:gold_ingot"
           }
         },
         "display": {
-          "deserializer": "LINE_DISPLAY",
-          "parameters": {}
+          "deserializer": "FIXED_SHAPE_DISPLAY",
+          "parameters": {
+            "shape": [" X "],
+            "centerRenderers": true
+          }
         },
         "entries": [
           {

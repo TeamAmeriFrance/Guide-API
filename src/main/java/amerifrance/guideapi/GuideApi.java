@@ -2,6 +2,7 @@ package amerifrance.guideapi;
 
 
 import amerifrance.guideapi.deserialization.DeserializerRegistry;
+import amerifrance.guideapi.deserialization.displays.FixedShapeDisplayDeserializer;
 import amerifrance.guideapi.deserialization.displays.LineDisplayDeserializer;
 import amerifrance.guideapi.deserialization.guide.CategoryDeserializer;
 import amerifrance.guideapi.deserialization.guide.ElementDeserializer;
@@ -50,6 +51,7 @@ public class GuideApi implements ModInitializer {
         DeserializerRegistry.register("ENTRY", new EntryDeserializer());
         DeserializerRegistry.register("ELEMENT", new ElementDeserializer());
         DeserializerRegistry.register("LINE_DISPLAY", new LineDisplayDeserializer());
+        DeserializerRegistry.register("FIXED_SHAPE_DISPLAY", new FixedShapeDisplayDeserializer());
         DeserializerRegistry.register("TEXT", new StringRendererDeserializer());
         DeserializerRegistry.register("ITEM", new ItemstackRendererDeserializer());
         DeserializerRegistry.register("PAGE_BREAK", new PageBreakRendererDeserializer());
