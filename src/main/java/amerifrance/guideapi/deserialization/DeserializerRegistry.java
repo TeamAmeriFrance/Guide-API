@@ -9,10 +9,10 @@ public class DeserializerRegistry {
     private static final Map<String, Deserializer> registry = Maps.newLinkedHashMap();
 
     public static void register(String key, Deserializer deserializer) {
-        registry.put(key, deserializer);
+        registry.put(key.toLowerCase(), deserializer);
     }
 
     public static Deserializer get(String key) {
-        return registry.get(key);
+        return registry.get(key.toLowerCase());
     }
 }
