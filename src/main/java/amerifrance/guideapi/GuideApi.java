@@ -51,6 +51,7 @@ public class GuideApi implements ModInitializer {
         DeserializerRegistry.register("ELEMENT", new ElementDeserializer());
         DeserializerRegistry.register("LINE_DISPLAY", new LineDisplayDeserializer());
         DeserializerRegistry.register("TEXT", new StringRendererDeserializer());
+        DeserializerRegistry.register("ITEM", new ItemstackRendererDeserializer());
         DeserializerRegistry.register("PAGE_BREAK", new PageBreakRendererDeserializer());
         DeserializerRegistry.register("LINE_BREAK", new LineBreakRendererDeserializer());
         DeserializerRegistry.register("CRAFTING_RECIPE", new CraftingRecipeRendererDeserializer());

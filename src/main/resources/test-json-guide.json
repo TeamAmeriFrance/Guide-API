@@ -38,13 +38,52 @@
             },
             "elements": [
               {
-                "id": "test_json_element",
+                "id": "test_json_text",
                 "name": "Test JSON Element",
                 "deserializer": "ELEMENT",
                 "renderer": {
                   "deserializer": "TEXT",
                   "parameters": {
                     "text": "Test JSON Element"
+                  }
+                }
+              }, {
+                "id": "test_json_itemstack",
+                "name": "Test JSON Item",
+                "deserializer": "ELEMENT",
+                "renderer": {
+                  "deserializer": "ITEM",
+                  "parameters": {
+                    "item": "minecraft:cooked_porkchop",
+                    "hoverText": "Test hover text"
+                  }
+                }
+              }, {
+                "id": "test_json_crafting",
+                "name": "Test JSON Crafting",
+                "deserializer": "ELEMENT",
+                "renderer": {
+                  "deserializer": "CRAFTING_RECIPE",
+                  "parameters": {
+                    "item": "minecraft:iron_door"
+                  }
+                }
+              }, {
+                "id": "test_json_line_break",
+                "name": "Test JSON Line Break",
+                "deserializer": "ELEMENT",
+                "renderer": {
+                  "deserializer": "LINE_BREAK"
+                }
+              }, {
+                "id": "test_json_cooking",
+                "name": "Test JSON Cooking",
+                "deserializer": "ELEMENT",
+                "renderer": {
+                  "deserializer": "COOKING_RECIPE",
+                  "parameters": {
+                    "type": "SMELTING",
+                    "item": "minecraft:charcoal"
                   }
                 }
               }

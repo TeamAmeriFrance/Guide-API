@@ -45,7 +45,7 @@ public class ItemstackRenderer implements Renderer {
     public ItemstackRenderer(ItemStack itemStack, @Nullable String hoverText, int scale) {
         this(itemStack, scale);
 
-        this.hoverText = Collections.singletonList(new LiteralText(hoverText));
+        this.hoverText = hoverText != null ? Collections.singletonList(new LiteralText(hoverText)) : null;
     }
 
     public ItemstackRenderer(ItemStack itemStack, @Nullable String hoverText) {
