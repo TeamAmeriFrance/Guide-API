@@ -1,16 +1,13 @@
 package amerifrance.guideapi;
 
 
+import amerifrance.guideapi.deserialization.DeserializerRegistry;
 import amerifrance.guideapi.deserialization.displays.LineDisplayDeserializer;
 import amerifrance.guideapi.deserialization.guide.CategoryDeserializer;
 import amerifrance.guideapi.deserialization.guide.ElementDeserializer;
 import amerifrance.guideapi.deserialization.guide.EntryDeserializer;
 import amerifrance.guideapi.deserialization.guide.GuideDeserializer;
-import amerifrance.guideapi.deserialization.DeserializerRegistry;
-import amerifrance.guideapi.deserialization.renderers.ItemstackRendererDeserializer;
-import amerifrance.guideapi.deserialization.renderers.LineBreakRendererDeserializer;
-import amerifrance.guideapi.deserialization.renderers.PageBreakRendererDeserializer;
-import amerifrance.guideapi.deserialization.renderers.StringRendererDeserializer;
+import amerifrance.guideapi.deserialization.renderers.*;
 import amerifrance.guideapi.guide.Guide;
 import amerifrance.guideapi.test.TestGuide;
 import com.google.common.io.Resources;
@@ -56,7 +53,9 @@ public class GuideApi implements ModInitializer {
         DeserializerRegistry.register("TEXT", new StringRendererDeserializer());
         DeserializerRegistry.register("PAGE_BREAK", new PageBreakRendererDeserializer());
         DeserializerRegistry.register("LINE_BREAK", new LineBreakRendererDeserializer());
-        DeserializerRegistry.register("ITEM", new ItemstackRendererDeserializer());
+        DeserializerRegistry.register("CRAFTING_RECIPE", new CraftingRecipeRendererDeserializer());
+        DeserializerRegistry.register("COOKING_RECIPE", new CookingRecipeRendererDeserializer());
+        DeserializerRegistry.register("CUTTING_RECIPE", new CuttingRecipeRendererDeserializer());
 
         GUIDES.add(new GuideDeserializer().deserialize(json));
 
