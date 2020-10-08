@@ -2,10 +2,12 @@ package amerifrance.guideapi.deserialization.guide;
 
 import amerifrance.guideapi.api.Renderer;
 import amerifrance.guideapi.deserialization.JsonDeserializer;
+import amerifrance.guideapi.deserialization.RegisterDeserializer;
 import amerifrance.guideapi.guide.Element;
 import amerifrance.guideapi.utils.JsonHelper;
 import com.google.gson.JsonObject;
 
+@RegisterDeserializer("ELEMENT")
 public class ElementDeserializer implements JsonDeserializer {
 
     @Override

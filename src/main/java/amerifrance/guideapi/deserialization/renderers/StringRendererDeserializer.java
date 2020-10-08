@@ -1,9 +1,11 @@
 package amerifrance.guideapi.deserialization.renderers;
 
 import amerifrance.guideapi.deserialization.JsonDeserializer;
+import amerifrance.guideapi.deserialization.RegisterDeserializer;
 import amerifrance.guideapi.renderers.StringRenderer;
 import com.google.gson.JsonObject;
 
+@RegisterDeserializer("TEXT")
 public class StringRendererDeserializer implements JsonDeserializer {
 
     private static final String TEXT = "text";

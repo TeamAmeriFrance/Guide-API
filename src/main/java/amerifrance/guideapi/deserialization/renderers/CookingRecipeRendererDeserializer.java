@@ -1,6 +1,7 @@
 package amerifrance.guideapi.deserialization.renderers;
 
 import amerifrance.guideapi.deserialization.JsonDeserializer;
+import amerifrance.guideapi.deserialization.RegisterDeserializer;
 import amerifrance.guideapi.renderers.CookingRecipeRenderer;
 import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
@@ -8,6 +9,7 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+@RegisterDeserializer("COOKING_RECIPE")
 public class CookingRecipeRendererDeserializer implements JsonDeserializer {
 
     private static final String ITEM = "item";

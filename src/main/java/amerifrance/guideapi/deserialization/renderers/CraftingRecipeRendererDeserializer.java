@@ -1,12 +1,14 @@
 package amerifrance.guideapi.deserialization.renderers;
 
 import amerifrance.guideapi.deserialization.JsonDeserializer;
+import amerifrance.guideapi.deserialization.RegisterDeserializer;
 import amerifrance.guideapi.renderers.CraftingRecipeRenderer;
 import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+@RegisterDeserializer("CRAFTING_RECIPE")
 public class CraftingRecipeRendererDeserializer implements JsonDeserializer {
 
     private static final String ITEM = "item";

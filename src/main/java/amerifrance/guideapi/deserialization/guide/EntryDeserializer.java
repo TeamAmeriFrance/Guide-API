@@ -3,6 +3,7 @@ package amerifrance.guideapi.deserialization.guide;
 import amerifrance.guideapi.api.Display;
 import amerifrance.guideapi.api.Renderer;
 import amerifrance.guideapi.deserialization.JsonDeserializer;
+import amerifrance.guideapi.deserialization.RegisterDeserializer;
 import amerifrance.guideapi.guide.Element;
 import amerifrance.guideapi.guide.Entry;
 import amerifrance.guideapi.utils.JsonHelper;
@@ -11,6 +12,7 @@ import com.google.gson.JsonObject;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RegisterDeserializer("ENTRY")
 public class EntryDeserializer implements JsonDeserializer {
 
     private static final String ELEMENTS = "elements";

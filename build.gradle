@@ -1,7 +1,20 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:5.0.0"
+    }
+}
+
 plugins {
     id 'fabric-loom' version '0.4.29'
     id 'maven-publish'
 }
+
+apply plugin: 'com.github.johnrengelman.shadow'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -9,6 +22,9 @@ targetCompatibility = JavaVersion.VERSION_1_8
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
+
+tasks.remapJar.dependsOn(shadowJar)
+(tasks.remapJar.input).set(shadowJar.archivePath)
 
 minecraft {
 }
@@ -19,6 +35,8 @@ dependencies {
     modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
 
     modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    compile "org.reflections:reflections:0.9.12"
 }
 
 processResources {
@@ -49,6 +67,12 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
+shadowJar {
+    dependencies {
+        include(dependency("org.reflections:reflections:0.9.12"))
+    }
+}
+
 jar {
     from "LICENSE"
 }
@@ -63,6 +87,9 @@ publishing {
             }
             artifact(sourcesJar) {
                 builtBy remapSourcesJar
+            }
+            artifact(shadowJar) {
+                builtBy remapJar
             }
         }
     }

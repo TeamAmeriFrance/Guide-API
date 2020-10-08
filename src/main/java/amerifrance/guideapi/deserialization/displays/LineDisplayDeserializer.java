@@ -2,8 +2,10 @@ package amerifrance.guideapi.deserialization.displays;
 
 import amerifrance.guideapi.api.TextProvider;
 import amerifrance.guideapi.deserialization.JsonDeserializer;
+import amerifrance.guideapi.deserialization.RegisterDeserializer;
 import amerifrance.guideapi.displays.LineDisplay;
 
+@RegisterDeserializer("LINE_DISPLAY")
 public class LineDisplayDeserializer implements JsonDeserializer {
 
     @Override

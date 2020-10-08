@@ -1,11 +1,13 @@
 package amerifrance.guideapi.deserialization.renderers;
 
 import amerifrance.guideapi.deserialization.JsonDeserializer;
+import amerifrance.guideapi.deserialization.RegisterDeserializer;
 import amerifrance.guideapi.gui.RenderElement;
 import amerifrance.guideapi.renderers.TextureRenderer;
 import com.google.gson.JsonObject;
 import net.minecraft.util.Identifier;
 
+@RegisterDeserializer("TEXTURE")
 public class TextureRendererDeserializer implements JsonDeserializer {
 
     private static final String IMAGE = "image";

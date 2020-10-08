@@ -2,13 +2,7 @@ package amerifrance.guideapi;
 
 
 import amerifrance.guideapi.deserialization.DeserializerRegistry;
-import amerifrance.guideapi.deserialization.displays.FixedShapeDisplayDeserializer;
-import amerifrance.guideapi.deserialization.displays.LineDisplayDeserializer;
-import amerifrance.guideapi.deserialization.guide.CategoryDeserializer;
-import amerifrance.guideapi.deserialization.guide.ElementDeserializer;
-import amerifrance.guideapi.deserialization.guide.EntryDeserializer;
 import amerifrance.guideapi.deserialization.guide.GuideDeserializer;
-import amerifrance.guideapi.deserialization.renderers.*;
 import amerifrance.guideapi.guide.Guide;
 import amerifrance.guideapi.test.TestGuide;
 import com.google.common.io.Resources;
@@ -39,27 +33,14 @@ public class GuideApi implements ModInitializer {
     public void onInitialize() {
         GUIDES.add(TestGuide.TEST_GUIDE_1);
 
+        DeserializerRegistry.register();
+
         String json = "";
         try {
             json = Resources.toString(Resources.getResource("test-json-guide.json"), StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        DeserializerRegistry.register("GUIDE", new GuideDeserializer());
-        DeserializerRegistry.register("CATEGORY", new CategoryDeserializer());
-        DeserializerRegistry.register("ENTRY", new EntryDeserializer());
-        DeserializerRegistry.register("ELEMENT", new ElementDeserializer());
-        DeserializerRegistry.register("LINE_DISPLAY", new LineDisplayDeserializer());
-        DeserializerRegistry.register("FIXED_SHAPE_DISPLAY", new FixedShapeDisplayDeserializer());
-        DeserializerRegistry.register("TEXT", new StringRendererDeserializer());
-        DeserializerRegistry.register("IMAGE", new TextureRendererDeserializer());
-        DeserializerRegistry.register("ITEM", new ItemstackRendererDeserializer());
-        DeserializerRegistry.register("PAGE_BREAK", new PageBreakRendererDeserializer());
-        DeserializerRegistry.register("LINE_BREAK", new LineBreakRendererDeserializer());
-        DeserializerRegistry.register("CRAFTING_RECIPE", new CraftingRecipeRendererDeserializer());
-        DeserializerRegistry.register("COOKING_RECIPE", new CookingRecipeRendererDeserializer());
-        DeserializerRegistry.register("CUTTING_RECIPE", new CuttingRecipeRendererDeserializer());
 
         GUIDES.add(new GuideDeserializer().deserialize(json));
 

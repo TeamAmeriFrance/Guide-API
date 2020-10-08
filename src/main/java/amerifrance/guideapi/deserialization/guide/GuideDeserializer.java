@@ -2,6 +2,7 @@ package amerifrance.guideapi.deserialization.guide;
 
 import amerifrance.guideapi.api.Display;
 import amerifrance.guideapi.deserialization.JsonDeserializer;
+import amerifrance.guideapi.deserialization.RegisterDeserializer;
 import amerifrance.guideapi.guide.Category;
 import amerifrance.guideapi.guide.Guide;
 import amerifrance.guideapi.utils.JsonHelper;
@@ -10,6 +11,7 @@ import com.google.gson.JsonObject;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RegisterDeserializer("GUIDE")
 public class GuideDeserializer implements JsonDeserializer {
 
     private static final String GUIDE = "guide";

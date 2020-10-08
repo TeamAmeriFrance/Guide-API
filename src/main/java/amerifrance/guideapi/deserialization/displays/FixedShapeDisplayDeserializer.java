@@ -2,6 +2,7 @@ package amerifrance.guideapi.deserialization.displays;
 
 import amerifrance.guideapi.api.TextProvider;
 import amerifrance.guideapi.deserialization.JsonDeserializer;
+import amerifrance.guideapi.deserialization.RegisterDeserializer;
 import amerifrance.guideapi.displays.FixedShapeDisplay;
 import amerifrance.guideapi.utils.JsonHelper;
 import com.google.gson.JsonObject;
@@ -10,6 +11,7 @@ import com.google.gson.JsonPrimitive;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RegisterDeserializer("FIXED_SHAPE_DISPLAY")
 public class FixedShapeDisplayDeserializer implements JsonDeserializer {
 
     private static final String CENTER_RENDERERS = "centerRenderers";

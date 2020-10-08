@@ -31,7 +31,8 @@
             "renderer": {
               "deserializer": "TEXT",
               "parameters": {
-                "text": "Test JSON Entry"
+                "text": "Test JSON Entry",
+                "underlineOnHover": true
               }
             },
             "display": {
