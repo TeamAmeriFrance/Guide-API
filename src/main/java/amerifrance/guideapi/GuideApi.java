@@ -53,6 +53,7 @@ public class GuideApi implements ModInitializer {
         DeserializerRegistry.register("LINE_DISPLAY", new LineDisplayDeserializer());
         DeserializerRegistry.register("FIXED_SHAPE_DISPLAY", new FixedShapeDisplayDeserializer());
         DeserializerRegistry.register("TEXT", new StringRendererDeserializer());
+        DeserializerRegistry.register("IMAGE", new TextureRendererDeserializer());
         DeserializerRegistry.register("ITEM", new ItemstackRendererDeserializer());
         DeserializerRegistry.register("PAGE_BREAK", new PageBreakRendererDeserializer());
         DeserializerRegistry.register("LINE_BREAK", new LineBreakRendererDeserializer());
