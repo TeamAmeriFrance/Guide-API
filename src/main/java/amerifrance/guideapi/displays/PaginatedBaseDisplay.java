@@ -30,6 +30,7 @@ public abstract class PaginatedBaseDisplay<T extends TextProvider & ParentOf<U>,
     protected final T object;
 
     private int currentPage;
+    private float pageCenterX;
     private Button previousButton;
     private Button nextButton;
     private Multimap<Integer, RenderGuideObject> pages;
@@ -45,6 +46,7 @@ public abstract class PaginatedBaseDisplay<T extends TextProvider & ParentOf<U>,
         super.init(guideGui, top, left, width, height);
 
         pages = computePagesAndPositions(guideGui);
+        pageCenterX = guideGui.getLeft() + GuideGui.GUI_WIDTH / 2F;
 
         this.previousButton = new ImageButton(() -> currentPage--,
                 guideGui,
@@ -66,7 +68,10 @@ public abstract class PaginatedBaseDisplay<T extends TextProvider & ParentOf<U>,
         if (currentPage < pages.keySet().size() - 1)
             nextButton.draw(guideGui.getTextRenderer(), matrixStack, mouseX, mouseY);
 
-        guideGui.drawCenteredString(matrixStack, object.getText(), guideGui.getLeft() + GuideGui.GUI_WIDTH / 2F, guideGui.getTop(), 0);
+        guideGui.drawCenteredString(matrixStack, object.getText(), pageCenterX, guideGui.getTop(), 0);
+
+        if (pages.keySet().size() > 1)
+            guideGui.drawCenteredString(matrixStack, (currentPage + 1) + "/" + pages.keySet().size(), pageCenterX, guideGui.getDrawEndHeight(), 0);
 
         pages.get(currentPage).forEach(renderGuideObject -> renderGuideObject.render(guideGui, matrixStack, delta));
 
