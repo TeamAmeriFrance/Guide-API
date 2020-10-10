@@ -1,4 +1,4 @@
-package amerifrance.guideapi.deserialization;
+package amerifrance.guideapi.api;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

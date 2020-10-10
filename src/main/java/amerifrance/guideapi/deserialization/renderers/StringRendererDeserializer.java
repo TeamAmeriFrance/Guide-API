@@ -1,7 +1,7 @@
 package amerifrance.guideapi.deserialization.renderers;
 
 import amerifrance.guideapi.deserialization.JsonDeserializer;
-import amerifrance.guideapi.deserialization.RegisterDeserializer;
+import amerifrance.guideapi.api.RegisterDeserializer;
 import amerifrance.guideapi.renderers.StringRenderer;
 import com.google.gson.JsonObject;
 

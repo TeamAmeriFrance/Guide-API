@@ -2,7 +2,7 @@ package amerifrance.guideapi.deserialization.displays;
 
 import amerifrance.guideapi.api.TextProvider;
 import amerifrance.guideapi.deserialization.JsonDeserializer;
-import amerifrance.guideapi.deserialization.RegisterDeserializer;
+import amerifrance.guideapi.api.RegisterDeserializer;
 import amerifrance.guideapi.displays.FixedShapeDisplay;
 import amerifrance.guideapi.utils.JsonHelper;
 import com.google.gson.JsonObject;

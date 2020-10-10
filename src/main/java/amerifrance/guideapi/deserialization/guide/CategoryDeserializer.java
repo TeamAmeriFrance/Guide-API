@@ -3,7 +3,7 @@ package amerifrance.guideapi.deserialization.guide;
 import amerifrance.guideapi.api.Display;
 import amerifrance.guideapi.api.Renderer;
 import amerifrance.guideapi.deserialization.JsonDeserializer;
-import amerifrance.guideapi.deserialization.RegisterDeserializer;
+import amerifrance.guideapi.api.RegisterDeserializer;
 import amerifrance.guideapi.guide.Category;
 import amerifrance.guideapi.guide.Entry;
 import amerifrance.guideapi.utils.JsonHelper;
