@@ -2,9 +2,9 @@ package amerifrance.guideapi;
 
 
 import amerifrance.guideapi.deserialization.DeserializerRegistry;
-import amerifrance.guideapi.deserialization.guide.GuideDeserializer;
 import amerifrance.guideapi.guide.Guide;
 import amerifrance.guideapi.test.TestGuide;
+import amerifrance.guideapi.utils.JsonHelper;
 import com.google.common.io.Resources;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
@@ -31,18 +31,9 @@ public class GuideApi implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        GUIDES.add(TestGuide.TEST_GUIDE_1);
-
         DeserializerRegistry.register();
 
-        String json = "";
-        try {
-            json = Resources.toString(Resources.getResource("test-json-guide.json"), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        GUIDES.add(new GuideDeserializer().deserialize(json));
+        registerTestGuides();
 
         GUIDES.forEach(guide -> {
             //TODO allow Guide class to give item
@@ -52,5 +43,16 @@ public class GuideApi implements ModInitializer {
             Registry.register(ITEM, identifier, item);
             GUIDE_ITEMS.add(item);
         });
+    }
+
+    private void registerTestGuides() {
+        GUIDES.add(TestGuide.TEST_GUIDE_1);
+
+        try {
+            String json = Resources.toString(Resources.getResource("test-guide.json"), StandardCharsets.UTF_8);
+            GUIDES.add((Guide) JsonHelper.deserializeFromJsonString(json));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

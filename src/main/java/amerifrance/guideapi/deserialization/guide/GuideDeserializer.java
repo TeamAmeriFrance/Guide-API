@@ -14,12 +14,10 @@ import java.util.stream.Collectors;
 @RegisterDeserializer("GUIDE")
 public class GuideDeserializer implements JsonDeserializer {
 
-    private static final String GUIDE = "guide";
     private static final String CATEGORIES = "categories";
 
     public Guide deserialize(String value, Object... initParameters) {
-        JsonObject jsonObject = GSON.fromJson(value, JsonObject.class);
-        JsonObject guideJson = jsonObject.getAsJsonObject(GUIDE);
+        JsonObject guideJson = GSON.fromJson(value, JsonObject.class);
 
         String id = guideJson.get(ID).getAsString();
         String name = guideJson.get(NAME).getAsString();
