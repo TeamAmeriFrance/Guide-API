@@ -37,6 +37,11 @@ dependencies {
     modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     compile "org.reflections:reflections:0.9.12"
+    compile "com.atlassian.commonmark:commonmark:0.15.2"
+    compile "com.atlassian.commonmark:commonmark-ext-image-attributes:0.15.2"
+    compile "com.atlassian.commonmark:commonmark-ext-yaml-front-matter:0.15.2"
+    compile "org.jsoup:jsoup:1.13.1"
+
 }
 
 processResources {
@@ -70,6 +75,10 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 shadowJar {
     dependencies {
         include(dependency("org.reflections:reflections:0.9.12"))
+        include(dependency("com.atlassian.commonmark:commonmark:0.15.2"))
+        include(dependency("com.atlassian.commonmark:commonmark-ext-image-attributes:0.15.2"))
+        include(dependency("com.atlassian.commonmark:commonmark-ext-yaml-front-matter:0.15.2"))
+        include(dependency("org.jsoup:jsoup:1.13.1"))
     }
 }
 

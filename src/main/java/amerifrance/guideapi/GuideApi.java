@@ -5,6 +5,7 @@ import amerifrance.guideapi.deserialization.DeserializerRegistry;
 import amerifrance.guideapi.guide.Guide;
 import amerifrance.guideapi.test.TestGuide;
 import amerifrance.guideapi.utils.JsonHelper;
+import amerifrance.guideapi.utils.MarkdownHelper;
 import com.google.common.io.Resources;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
@@ -51,6 +52,13 @@ public class GuideApi implements ModInitializer {
         try {
             String json = Resources.toString(Resources.getResource("test-guide.json"), StandardCharsets.UTF_8);
             GUIDES.add((Guide) JsonHelper.deserializeFromJsonString(json));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            String markdown = Resources.toString(Resources.getResource("test-guide.md"), StandardCharsets.UTF_8);
+            GUIDES.add((Guide) MarkdownHelper.deserializeFromMarkdownString(markdown));
         } catch (IOException e) {
             e.printStackTrace();
         }
