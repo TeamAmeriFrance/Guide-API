@@ -1,6 +1,6 @@
-package amerifrance.guideapi.deserialization.renderers;
+package amerifrance.guideapi.deserialization.json.renderers;
 
-import amerifrance.guideapi.deserialization.JsonDeserializer;
+import amerifrance.guideapi.deserialization.json.JsonDeserializer;
 import amerifrance.guideapi.api.RegisterDeserializer;
 import amerifrance.guideapi.renderers.ItemstackRenderer;
 import com.google.gson.JsonObject;

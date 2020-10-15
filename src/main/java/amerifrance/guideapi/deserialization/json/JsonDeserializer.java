@@ -1,4 +1,4 @@
-package amerifrance.guideapi.deserialization;
+package amerifrance.guideapi.deserialization.json;
 
 import amerifrance.guideapi.api.Deserializer;
 import com.google.gson.Gson;
