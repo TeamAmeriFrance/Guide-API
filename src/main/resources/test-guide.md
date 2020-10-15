@@ -1,10 +1,3 @@
----
-key: value
-list:
-    - value 1
-    - value 2
----
-
 # Test Markdown Guide
 
 ## Test Markdown Category
@@ -18,6 +11,9 @@ More text from a markdown file after the crafting recipe
 
 `[crafting_recipe](minecraft:diamond_pickaxe)`
 `[smelting_recipe](minecraft:cooked_chicken)`
+`[blasting_recipe](minecraft:iron_nugget)`
+`[campfire_cooking_recipe](minecraft:cooked_chicken)`
+`[smoking_recipe](minecraft:cooked_cod)`
 
 ### Test Markdown Entry 2
 `[itemstack](minecraft:stick)`

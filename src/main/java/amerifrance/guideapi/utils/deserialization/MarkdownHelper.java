@@ -1,4 +1,4 @@
-package amerifrance.guideapi.utils;
+package amerifrance.guideapi.utils.deserialization;
 
 import amerifrance.guideapi.deserialization.DeserializerRegistry;
 

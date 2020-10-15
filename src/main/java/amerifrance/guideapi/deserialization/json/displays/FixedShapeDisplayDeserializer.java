@@ -4,7 +4,7 @@ import amerifrance.guideapi.api.TextProvider;
 import amerifrance.guideapi.deserialization.json.JsonDeserializer;
 import amerifrance.guideapi.api.RegisterDeserializer;
 import amerifrance.guideapi.displays.FixedShapeDisplay;
-import amerifrance.guideapi.utils.JsonHelper;
+import amerifrance.guideapi.utils.deserialization.JsonHelper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 

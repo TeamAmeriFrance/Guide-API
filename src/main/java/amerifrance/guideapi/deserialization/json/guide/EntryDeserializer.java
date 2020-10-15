@@ -6,7 +6,7 @@ import amerifrance.guideapi.deserialization.json.JsonDeserializer;
 import amerifrance.guideapi.api.RegisterDeserializer;
 import amerifrance.guideapi.guide.Element;
 import amerifrance.guideapi.guide.Entry;
-import amerifrance.guideapi.utils.JsonHelper;
+import amerifrance.guideapi.utils.deserialization.JsonHelper;
 import com.google.gson.JsonObject;
 
 import java.util.List;
