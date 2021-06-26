@@ -102,7 +102,7 @@ public class PageHolderWithLinks implements IPage {
         int y = guiTop + 10;
         for (Link l : links) {
             ITextComponent t = l.getDisplayName();
-            fontRendererObj.func_243246_a(stack, t, ll, y, 0xFFFFFF);
+            fontRendererObj.drawTextWithShadow(stack, t, ll, y, 0xFFFFFF);
             if (l.width == 0) {
                 l.width = fontRendererObj.getStringPropertyWidth(t);
             }

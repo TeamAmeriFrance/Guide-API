@@ -19,7 +19,7 @@ public class ButtonSearch extends ButtonGuideAPI {
     }
 
     @Override
-    public void renderButton(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void renderWidget(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
             RenderHelper.enableStandardItemLighting();
             RenderSystem.enableBlend();

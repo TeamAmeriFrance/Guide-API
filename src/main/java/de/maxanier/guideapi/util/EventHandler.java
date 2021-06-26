@@ -112,8 +112,8 @@ public class EventHandler {
 
             drawY -= 2;
             drawX += 20;
-            fontRenderer.func_243246_a(stack, linkedEntry instanceof IFormattableTextComponent ? ((IFormattableTextComponent) linkedEntry).mergeStyle(TextFormatting.WHITE) : linkedEntry, drawX, drawY, 0);
-            fontRenderer.func_243246_a(stack, new TranslationTextComponent("guideapi.text.linked.open").mergeStyle(TextFormatting.WHITE, TextFormatting.ITALIC), drawX, drawY + 12, 0);
+            fontRenderer.drawTextWithShadow(stack, linkedEntry instanceof IFormattableTextComponent ? ((IFormattableTextComponent) linkedEntry).mergeStyle(TextFormatting.WHITE) : linkedEntry, drawX, drawY, 0);
+            fontRenderer.drawTextWithShadow(stack, new TranslationTextComponent("guideapi.text.linked.open").mergeStyle(TextFormatting.WHITE, TextFormatting.ITALIC), drawX, drawY + 12, 0);
         }
 
         if (state.getBlock() instanceof IInfoRenderer.Block) {

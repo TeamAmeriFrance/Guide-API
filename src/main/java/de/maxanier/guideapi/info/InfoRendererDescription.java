@@ -45,7 +45,7 @@ public class InfoRendererDescription implements IInfoRenderer {
 
         List<IReorderingProcessor> cutLines = fontRenderer.trimStringToWidth(description, 100 * scaleMulti); //trimStringToWidth //Split at new line somehow
         for (IReorderingProcessor cut : cutLines) {
-            fontRenderer.func_238407_a_(stack, cut, (Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 20) * scaleMulti, (((Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 - 10) - y) * scaleMulti) + yOffset, Color.WHITE.getRGB());
+            fontRenderer.drawTextWithShadow(stack, cut, (Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 20) * scaleMulti, (((Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 - 10) - y) * scaleMulti) + yOffset, Color.WHITE.getRGB());
             y -= 10 / scaleMulti;
         }
 

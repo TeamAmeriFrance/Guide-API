@@ -20,7 +20,7 @@ public class ButtonBack extends ButtonGuideAPI {
     }
 
     @Override
-    public void renderButton(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void renderWidget(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) { //visible
             RenderHelper.enableStandardItemLighting();
             RenderSystem.enableBlend();

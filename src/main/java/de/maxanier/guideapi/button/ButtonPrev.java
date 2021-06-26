@@ -21,7 +21,7 @@ public class ButtonPrev extends ButtonGuideAPI {
     }
 
     @Override
-    public void renderButton(MatrixStack stack, int mouseX, int mouseY, float partialTicks) { //renderButton
+    public void renderWidget(MatrixStack stack, int mouseX, int mouseY, float partialTicks) { //renderButton
         if (this.visible) { //visible
             RenderHelper.enableStandardItemLighting();
             RenderSystem.enableBlend();
