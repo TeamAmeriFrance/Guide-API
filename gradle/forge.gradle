@@ -1,12 +1,6 @@
 repositories {
-//    maven {
-//        name "Mobius Repo"
-//        url "http://mobiusstrip.eu/maven"
-//    }
-    maven { url 'http://tehnut.info/maven/' }
-    maven { url 'http://chickenbones.net/maven' }
     maven {
-        url "http://dvs1.progwml6.com/files/maven"
+        url "https://dvs1.progwml6.com/files/maven"
     }
     maven {
         // location of a maven mirror for JEI files, as a fallback
@@ -19,10 +13,6 @@ repositories {
         name = "LocalForge"
         url = "../../MinecraftForge/repo/"
     }
-    maven {
-        name 'shinoow'
-        url 'https://dl.bintray.com/shinoow/maven/'
-    }
     mavenCentral()
     mavenLocal()
 }
@@ -34,11 +24,6 @@ dependencies {
             name: "forge",
             version: "${project.minecraft_version}-${project.forge_version}"
     ])
-//    runtimeOnly fg.deobf("mezz.jei:jei-${project.minecraft_version}:${project.jei_version}") //Full for runtime
-    //runtimeOnly fg.deobf("curse.maven:angel-of-vengeance:2810906")
-    //deobfCompile 'mcp.mobius.waila:Waila:' + config.waila_version
-    //deobfCompile 'Waila:Waila:1.7.1_1.11.2' //Backup Waila on curseforge
-
 
 }
 

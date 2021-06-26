@@ -8,7 +8,10 @@ if (hasProperty("beta")) {
     project.mod_version = project.mod_version + "-test+" + System.getenv().GIT_BRANCH + "." + System.getenv().GIT_COMMIT
     writeVersion()
     project.type = "test"
-} else {
+} else if(hasProperty("testing")) {
+    project.mod_version = project.mod_version + "-test+" + getDate()+"+"+testing
+    project.type = "test"
+}  else {
     project.mod_version = project.mod_version + "-alpha+" + getDate()
     project.type = "alpha"
 }

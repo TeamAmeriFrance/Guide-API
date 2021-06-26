@@ -24,11 +24,12 @@ What else?
 
 ## Useful Links
 * [CurseForge](http://minecraft.curseforge.com/mc-mods/228832-guide-api)
+* [Modrinth](https://modrinth.com/mod/guide-api)
 
 ## Original Links - Mostly still correct
 * [ReadTheDocs](http://guide-api.readthedocs.org/en/latest/)
 
-## Mods that support Guide-API
+## Mods that make use of Guide-API
 The ones we know of at least
 
 * [Vampirism](https://www.curseforge.com/minecraft/mc-mods/vampirism-become-a-vampire)
