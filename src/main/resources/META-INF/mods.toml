@@ -14,7 +14,7 @@ license = "MIT"
     updateJSONURL="https://maxanier.de/projects/guideapi/versions.json"
     displayURL="https://maxanier.de/projects/guideapi"
     logoFile="logo.png"
-    [[dependencies.guideeapi]]
+    [[dependencies.guideapi-vp]]
         modId="forge"
         mandatory=true
         versionRange="[${forge_version},)"
