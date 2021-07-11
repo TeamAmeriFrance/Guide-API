@@ -163,17 +163,22 @@ public class PageHolderWithLinks implements IPage {
     }
 
     public static class URLLink extends Link {
-        private final String name;
+        private final ITextComponent name;
         private final URI link;
 
         public URLLink(String name, URI link) {
+            this.name = new StringTextComponent(name);
+            this.link = link;
+        }
+
+        public URLLink(ITextComponent name, URI link) {
             this.name = name;
             this.link = link;
         }
 
         @Override
         public ITextComponent getDisplayName() {
-            return new StringTextComponent(name);
+            return name;
         }
 
         @Override
