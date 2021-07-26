@@ -44,7 +44,7 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onPlayerJoinWorld(EntityJoinWorldEvent event) {
-        if (!event.getEntity().world.isRemote && event.getEntity() instanceof PlayerEntity) {
+        if (!event.getEntity().level.isClientSide && event.getEntity() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) event.getEntity();
             CompoundNBT tag = getModTag(player, GuideMod.ID);
             if (GuideConfig.COMMON.canSpawnWithBook.get()) {
@@ -65,16 +65,16 @@ public class EventHandler {
         if (event.getType() != RenderGameOverlayEvent.ElementType.CROSSHAIRS)
             return;
 
-        RayTraceResult rayTrace = Minecraft.getInstance().objectMouseOver;
+        RayTraceResult rayTrace = Minecraft.getInstance().hitResult;
         if (rayTrace == null || rayTrace.getType() != RayTraceResult.Type.BLOCK)
             return;
 
         PlayerEntity player = Minecraft.getInstance().player;
-        World world = Minecraft.getInstance().world;
+        World world = Minecraft.getInstance().level;
         ItemStack held = ItemStack.EMPTY;
         Book book = null;
         for (Hand hand : Hand.values()) {
-            ItemStack heldStack = player.getHeldItem(hand);
+            ItemStack heldStack = player.getItemInHand(hand);
             if (heldStack.getItem() instanceof IGuideItem) {
                 held = heldStack;
                 book = ((IGuideItem) heldStack.getItem()).getBook(heldStack);
@@ -85,7 +85,7 @@ public class EventHandler {
 
         if (book == null)
             return;
-        BlockPos rayTracePos = ((BlockRayTraceResult) rayTrace).getPos();
+        BlockPos rayTracePos = ((BlockRayTraceResult) rayTrace).getBlockPos();
         BlockState state = world.getBlockState(rayTracePos);
         @Nullable
         ITextComponent linkedEntry = null;
@@ -103,17 +103,17 @@ public class EventHandler {
         }
 
         if (linkedEntry != null) {
-            FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+            FontRenderer fontRenderer = Minecraft.getInstance().font;
 
-            int drawX = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 10;
-            int drawY = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 - 8;
+            int drawX = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 + 10;
+            int drawY = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 - 8;
 
-            Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(held, drawX, drawY);
+            Minecraft.getInstance().getItemRenderer().renderGuiItem(held, drawX, drawY);
 
             drawY -= 2;
             drawX += 20;
-            fontRenderer.drawTextWithShadow(stack, linkedEntry instanceof IFormattableTextComponent ? ((IFormattableTextComponent) linkedEntry).mergeStyle(TextFormatting.WHITE) : linkedEntry, drawX, drawY, 0);
-            fontRenderer.drawTextWithShadow(stack, new TranslationTextComponent("guideapi.text.linked.open").mergeStyle(TextFormatting.WHITE, TextFormatting.ITALIC), drawX, drawY + 12, 0);
+            fontRenderer.drawShadow(stack, linkedEntry instanceof IFormattableTextComponent ? ((IFormattableTextComponent) linkedEntry).withStyle(TextFormatting.WHITE) : linkedEntry, drawX, drawY, 0);
+            fontRenderer.drawShadow(stack, new TranslationTextComponent("guideapi.text.linked.open").withStyle(TextFormatting.WHITE, TextFormatting.ITALIC), drawX, drawY + 12, 0);
         }
 
         if (state.getBlock() instanceof IInfoRenderer.Block) {

@@ -44,7 +44,7 @@ public class FurnaceRecipeRenderer extends IRecipeRenderer.RecipeRendererBase<Fu
         });
 
 
-        ItemStack output = recipe.getRecipeOutput();
+        ItemStack output = recipe.getResultItem();
 
         int x2 = guiLeft + 135;
         GuiHelper.drawItemStack(stack, output, x2, y);

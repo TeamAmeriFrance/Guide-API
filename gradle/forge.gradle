@@ -86,6 +86,8 @@ processResources {
     outputs.upToDateWhen { false }
 
     exclude '**/Thumbs.db'
+
+    duplicatesStrategy = 'include'
 }
 
 

@@ -33,7 +33,7 @@ public class BookBinder {
     private ResourceLocation outlineTexture = new ResourceLocation(GuideMod.ID, "textures/gui/book_greyscale.png");
     private Color color = new Color(171, 70, 30);
     private boolean spawnWithBook;
-    private ItemGroup creativeTab = ItemGroup.MISC;
+    private ItemGroup creativeTab = ItemGroup.TAB_MISC;
 
     /**
      * Creates a new {@link Book} builder which will provide a much more user-friendly interface for creating books.

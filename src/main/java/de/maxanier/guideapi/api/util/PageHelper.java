@@ -35,10 +35,10 @@ public class PageHelper {
      * @return Each list element should be drawn on a individual page. Lines are wrapped using '\n'
      */
     public static List<ITextProperties> prepareForLongText(ITextProperties text, int lineWidth, int firstHeight, int subsequentHeight) {
-        FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-        int firstCount = firstHeight / fontRenderer.FONT_HEIGHT;
-        int count = subsequentHeight / fontRenderer.FONT_HEIGHT;
-        List<ITextProperties> lines = new ArrayList<>(fontRenderer.getCharacterManager().func_238362_b_(text, lineWidth, Style.EMPTY));
+        FontRenderer fontRenderer = Minecraft.getInstance().font;
+        int firstCount = firstHeight / fontRenderer.lineHeight;
+        int count = subsequentHeight / fontRenderer.lineHeight;
+        List<ITextProperties> lines = new ArrayList<>(fontRenderer.getSplitter().splitLines(text, lineWidth, Style.EMPTY));
         List<ITextProperties> pages = new ArrayList<>();
 
         List<ITextProperties> pageLines = lines.size() > firstCount ? lines.subList(0, firstCount) : lines;
@@ -78,11 +78,11 @@ public class PageHelper {
 
 
     public static void drawFormattedText(MatrixStack stack, int x, int y, BaseScreen guiBase, ITextProperties toDraw) {
-        FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+        FontRenderer fontRenderer = Minecraft.getInstance().font;
 
-        List<IReorderingProcessor> cutLines = fontRenderer.trimStringToWidth(toDraw, 170);
+        List<IReorderingProcessor> cutLines = fontRenderer.split(toDraw, 170);
         for (IReorderingProcessor cut : cutLines) {
-            fontRenderer.func_238422_b_(stack, cut, x, y, 0);
+            fontRenderer.draw(stack, cut, x, y, 0);
             y += 10;
         }
 
@@ -112,7 +112,7 @@ public class PageHelper {
      * @return a list of IPages with the text cut to fit on page
      */
     public static List<IPage> pagesForLongText(ITextProperties text, ItemStack item) {
-        return pagesForLongText(text, Ingredient.fromStacks(item));
+        return pagesForLongText(text, Ingredient.of(item));
     }
 
     /**
@@ -124,7 +124,7 @@ public class PageHelper {
         if (recipe1 == recipe2) return true;
         if (recipe1 == null || recipe2 == null || recipe1.getClass() != recipe2.getClass()) return false;
         if (recipe1.equals(recipe2)) return true;
-        return recipe1.getRecipeOutput().isItemEqual(recipe2.getRecipeOutput());
+        return recipe1.getResultItem().sameItem(recipe2.getResultItem());
 //        if (recipe1.getRecipeSize() != recipe2.getRecipeSize()) return false;//FN was removed, there is no size now
     }
 
@@ -141,6 +141,6 @@ public class PageHelper {
             copy.add(newLine);
         }
         copy.add(elements.get(elements.size() - 1));
-        return ITextProperties.func_240654_a_(copy);
+        return ITextProperties.composite(copy);
     }
 }

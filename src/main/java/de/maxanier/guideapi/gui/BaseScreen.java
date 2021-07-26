@@ -1,6 +1,7 @@
 package de.maxanier.guideapi.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
@@ -15,8 +16,6 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
-
-import static com.mojang.blaze3d.platform.GlStateManager.disableBlend;
 
 
 public class BaseScreen extends Screen {
@@ -36,26 +35,26 @@ public class BaseScreen extends Screen {
     }
 
     public void drawCenteredStringWithoutShadow(MatrixStack matrixStack, FontRenderer fontRendererObj, String string, int x, int y, int color) {
-        RenderHelper.disableStandardItemLighting();
-        fontRendererObj.drawString(matrixStack, string, x - fontRendererObj.getStringWidth(string) / 2f, y, color); //drawString
-        RenderHelper.disableStandardItemLighting();
+        RenderHelper.turnOff();
+        fontRendererObj.draw(matrixStack, string, x - fontRendererObj.width(string) / 2f, y, color); //drawString
+        RenderHelper.turnBackOn();
     }
 
     public void drawCenteredStringWithoutShadow(MatrixStack matrixStack, FontRenderer fontRendererObj, IReorderingProcessor string, int x, int y, int color) {
-        RenderHelper.disableStandardItemLighting();
-        fontRendererObj.func_238422_b_(matrixStack, string, x - fontRendererObj.func_243245_a(string) / 2f, y, color); //drawString
-        RenderHelper.disableStandardItemLighting();
+        RenderHelper.turnOff();
+        fontRendererObj.draw(matrixStack, string, x - fontRendererObj.width(string) / 2f, y, color); //drawString
+        RenderHelper.turnBackOn();
     }
 
     public void drawCenteredStringWithoutShadow(MatrixStack matrixStack, FontRenderer fontRendererObj, ITextComponent string, int x, int y, int color) {
-        RenderHelper.disableStandardItemLighting();
-        fontRendererObj.drawText(matrixStack, string, x - fontRendererObj.getStringPropertyWidth(string) / 2f, y, color); //drawString
-        RenderHelper.disableStandardItemLighting();
+        RenderHelper.turnOff();
+        fontRendererObj.draw(matrixStack, string, x - fontRendererObj.width(string) / 2f, y, color); //drawString
+        RenderHelper.turnBackOn();
     }
 
 
     public void drawTexturedModalRectWithColor(MatrixStack stack, int x, int y, int textureX, int textureY, int width, int height, Color color) {
-        stack.push();
+        stack.pushPose();
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         float f = 0.00390625F;
@@ -63,14 +62,14 @@ public class BaseScreen extends Screen {
         RenderSystem.disableLighting();
         RenderSystem.color3f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F);
         Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getBuffer().pos(x, y + height, this.publicZLevel).tex((float) (textureX) * f, (float) (textureY + height) * f1).endVertex();
-        tessellator.getBuffer().pos(x + width, y + height, this.publicZLevel).tex((float) (textureX + width) * f, (float) (textureY + height) * f1).endVertex();
-        tessellator.getBuffer().pos(x + width, y, this.publicZLevel).tex((float) (textureX + width) * f, (float) (textureY) * f1).endVertex();
-        tessellator.getBuffer().pos(x, y, this.publicZLevel).tex((float) (textureX) * f, (float) (textureY) * f1).endVertex();
-        tessellator.draw();
-        disableBlend();
-        stack.pop();
+        tessellator.getBuilder().begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getBuilder().vertex(x, y + height, this.publicZLevel).uv((float) (textureX) * f, (float) (textureY + height) * f1).endVertex();
+        tessellator.getBuilder().vertex(x + width, y + height, this.publicZLevel).uv((float) (textureX + width) * f, (float) (textureY + height) * f1).endVertex();
+        tessellator.getBuilder().vertex(x + width, y, this.publicZLevel).uv((float) (textureX + width) * f, (float) (textureY) * f1).endVertex();
+        tessellator.getBuilder().vertex(x, y, this.publicZLevel).uv((float) (textureX) * f, (float) (textureY) * f1).endVertex();
+        tessellator.end();
+        GlStateManager._disableBlend();
+        stack.popPose();
     }
 
     @Override
@@ -80,9 +79,9 @@ public class BaseScreen extends Screen {
 
     @Override
     public boolean keyPressed(int p_keyPressed_1_, int p_keyPressed_2_, int p_keyPressed_3_) { //KeyPressed
-        if (minecraft != null && (p_keyPressed_1_ == GLFW.GLFW_KEY_ESCAPE || p_keyPressed_1_ == this.minecraft.gameSettings.keyBindInventory.getKey().getKeyCode())) { //minecraft
-            this.closeScreen(); //onClose
-            this.minecraft.setGameFocused(true);
+        if (minecraft != null && (p_keyPressed_1_ == GLFW.GLFW_KEY_ESCAPE || p_keyPressed_1_ == this.minecraft.options.keyInventory.getKey().getValue())) { //minecraft
+            this.onClose(); //onClose
+            this.minecraft.setWindowActive(true);
             return true;
         } else {
             return super.keyPressed(p_keyPressed_1_, p_keyPressed_2_, p_keyPressed_3_);

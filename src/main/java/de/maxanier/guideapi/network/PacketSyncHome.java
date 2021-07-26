@@ -38,9 +38,9 @@ public class PacketSyncHome {
         ServerPlayerEntity player = ctx.getSender();
         Validate.notNull(player);
         ctx.enqueueWork(() -> {
-            ItemStack book = player.getHeldItemOffhand();
+            ItemStack book = player.getOffhandItem();
             if (book.isEmpty() || !(book.getItem() instanceof IGuideItem))
-                book = player.getHeldItemMainhand();
+                book = player.getMainHandItem();
 
             if (!book.isEmpty() && book.getItem() instanceof IGuideItem && msg.page != -1) {
                 if (!book.hasTag())

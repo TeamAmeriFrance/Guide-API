@@ -93,7 +93,7 @@ public class ItemInfoBuilder {
         }
         pages.addAll(this.additionalPages);
         if (links != null) bookHelper.addLinks(pages, links);
-        entries.put(new ResourceLocation(base), new EntryItemStack(pages, new TranslationTextComponent(customName ? base : mainStack.getTranslationKey()), mainStack));
+        entries.put(new ResourceLocation(base), new EntryItemStack(pages, new TranslationTextComponent(customName ? base : mainStack.getDescriptionId()), mainStack));
     }
 
     /**

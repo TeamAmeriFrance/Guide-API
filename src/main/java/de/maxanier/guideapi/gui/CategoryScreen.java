@@ -49,13 +49,6 @@ public class CategoryScreen extends BaseScreen {
     }
 
     @Override
-    public void closeScreen() { //onClose
-        super.closeScreen();
-
-        PacketHandler.INSTANCE.sendToServer(new PacketSyncCategory(book.getCategoryList().indexOf(category), entryPage));
-    }
-
-    @Override
     public void init() { //Init
         this.entryWrapperMap.clear();
 
@@ -64,7 +57,7 @@ public class CategoryScreen extends BaseScreen {
 
         //addButton
         addButton(buttonBack = new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
-            this.minecraft.displayGuiScreen(new HomeScreen(book, player, bookStack)); //minecraft
+            this.minecraft.setScreen(new HomeScreen(book, player, bookStack)); //minecraft
         }, this));
         addButton(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
             if (entryPage + 1 < entryWrapperMap.asMap().size()) {
@@ -77,7 +70,7 @@ public class CategoryScreen extends BaseScreen {
             }
         }, this));
         addButton(buttonSearch = new ButtonSearch((guiLeft + xSize / 6) - 25, guiTop + 5, (btn) -> {
-            this.minecraft.displayGuiScreen(new SearchScreen(book, player, bookStack, this));
+            this.minecraft.setScreen(new SearchScreen(book, player, bookStack, this));
         }, this));
 
         int eX = guiLeft + 37;
@@ -105,8 +98,8 @@ public class CategoryScreen extends BaseScreen {
 
     @Override
     public boolean keyPressed(int keyCode, int p_keyPressed_2_, int p_keyPressed_3_) { //keyPressed
-        if (keyCode == GLFW.GLFW_KEY_BACKSPACE || keyCode == this.minecraft.gameSettings.keyBindUseItem.getKey().getKeyCode()) { //minecraft
-            this.minecraft.displayGuiScreen(new HomeScreen(book, player, bookStack));
+        if (keyCode == GLFW.GLFW_KEY_BACKSPACE || keyCode == this.minecraft.options.keyUse.getKey().getValue()) { //minecraft
+            this.minecraft.setScreen(new HomeScreen(book, player, bookStack));
             return true;
         } else if ((keyCode == GLFW.GLFW_KEY_UP || keyCode == GLFW.GLFW_KEY_RIGHT) && entryPage + 1 < entryWrapperMap.asMap().size()) {
 
@@ -133,8 +126,15 @@ public class CategoryScreen extends BaseScreen {
         }
 
         if (typeofClick == 1)
-            this.minecraft.displayGuiScreen(new HomeScreen(book, player, bookStack)); //minecraft
+            this.minecraft.setScreen(new HomeScreen(book, player, bookStack)); //minecraft
         return ret;
+    }
+
+    @Override
+    public void onClose() { //onClose
+        super.onClose();
+
+        PacketHandler.INSTANCE.sendToServer(new PacketSyncCategory(book.getCategoryList().indexOf(category), entryPage));
     }
 
     @Override
@@ -149,9 +149,9 @@ public class CategoryScreen extends BaseScreen {
 
     @Override
     public void render(MatrixStack stack, int mouseX, int mouseY, float renderPartialTicks) { //render
-        minecraft.getTextureManager().bindTexture(pageTexture); //minecraft
+        minecraft.getTextureManager().bind(pageTexture); //minecraft
         blit(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
-        minecraft.getTextureManager().bindTexture(outlineTexture);
+        minecraft.getTextureManager().bind(outlineTexture);
         drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
         entryPage = MathHelper.clamp(entryPage, 0, entryWrapperMap.size() - 1);

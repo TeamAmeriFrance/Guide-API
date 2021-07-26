@@ -62,7 +62,7 @@ public class TestBook3 implements IGuideBook {
         CategoryAbstract items = new CategoryItemStack(new StringTextComponent("Items"), new ItemStack(Items.IRON_AXE)).withKeyBase(GuideMod.ID);
         Map<ResourceLocation, EntryAbstract> itemEntries = new LinkedHashMap<>();
         helper.info(Items.APPLE).build(itemEntries);
-        helper.info(false, Ingredient.fromTag(Tags.Items.INGOTS), new ItemStack(Items.IRON_INGOT)).useCustomEntryName().recipes(new ResourceLocation("minecraft", "iron_ingot"), new ResourceLocation("gold_ingot")).setKeyName("ingots").setLinks(new ResourceLocation("guideapi.test.blocks.compressed_blocks")).build(itemEntries);
+        helper.info(false, Ingredient.of(Tags.Items.INGOTS), new ItemStack(Items.IRON_INGOT)).useCustomEntryName().recipes(new ResourceLocation("minecraft", "iron_ingot"), new ResourceLocation("gold_ingot")).setKeyName("ingots").setLinks(new ResourceLocation("guideapi.test.blocks.compressed_blocks")).build(itemEntries);
         items.addEntries(itemEntries);
         categories.add(items);
 

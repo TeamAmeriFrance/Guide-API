@@ -19,20 +19,20 @@ public class ButtonSearch extends ButtonGuideAPI {
     }
 
     @Override
-    public void renderWidget(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void renderButton(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
-            RenderHelper.enableStandardItemLighting();
+            RenderHelper.turnBackOn();
             RenderSystem.enableBlend();
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableLighting();
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) { //x,y,width,height
                 SubTexture.MAGNIFYING_GLASS.draw(stack, x, y + 1);
-                GuiUtilsCopy.drawHoveringText(stack, getHoveringText(), mouseX, mouseY, guiBase.width, guiBase.height, -1, Minecraft.getInstance().fontRenderer);
+                GuiUtilsCopy.drawHoveringText(stack, getHoveringText(), mouseX, mouseY, guiBase.width, guiBase.height, -1, Minecraft.getInstance().font);
             } else {
                 SubTexture.MAGNIFYING_GLASS.draw(stack, x, y);
             }
             RenderSystem.disableBlend();
-            RenderHelper.disableStandardItemLighting();
+            RenderHelper.turnOff();
         }
     }
 

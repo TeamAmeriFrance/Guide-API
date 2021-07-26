@@ -102,9 +102,9 @@ public class PageHolderWithLinks implements IPage {
         int y = guiTop + 10;
         for (Link l : links) {
             ITextComponent t = l.getDisplayName();
-            fontRendererObj.drawTextWithShadow(stack, t, ll, y, 0xFFFFFF);
+            fontRendererObj.drawShadow(stack, t, ll, y, 0xFFFFFF);
             if (l.width == 0) {
-                l.width = fontRendererObj.getStringPropertyWidth(t);
+                l.width = fontRendererObj.width(t);
             }
             y += 20;
         }
@@ -183,7 +183,7 @@ public class PageHolderWithLinks implements IPage {
 
         @Override
         public void onClicked(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, int page) {
-            Util.getOSType().openURI(link);
+            Util.getPlatform().openUri(link);
         }
     }
 
@@ -211,7 +211,7 @@ public class PageHolderWithLinks implements IPage {
         @OnlyIn(Dist.CLIENT)
         private void openLinkedEntry(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, EntryAbstract from, int fromPage) {
             BaseScreen screen = new LinkedEntryScreen(book, category, entry, player, bookStack, from, fromPage);
-            Minecraft.getInstance().displayGuiScreen(screen);
+            Minecraft.getInstance().setScreen(screen);
         }
     }
 

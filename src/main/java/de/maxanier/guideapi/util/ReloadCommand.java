@@ -25,11 +25,11 @@ public class ReloadCommand {
 
     public static ArgumentBuilder<CommandSource, ?> register() {
         return Commands.literal("reload")
-                .then(Commands.argument("bookid", ResourceLocationArgument.resourceLocation()).executes((context) -> {
+                .then(Commands.argument("bookid", ResourceLocationArgument.id()).executes((context) -> {
                     if (FMLEnvironment.dist != Dist.CLIENT) {
                         throw NOT_CLIENT.create();
                     }
-                    ResourceLocation id = ResourceLocationArgument.getResourceLocation(context, "bookid");
+                    ResourceLocation id = ResourceLocationArgument.getId(context, "bookid");
                     Book b = GuideAPI.getBooks().get(id);
                     if (b == null) {
                         throw BOOK_NOT_FOUND.create(id.toString());

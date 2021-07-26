@@ -9,7 +9,7 @@ buildscript {
 
 
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+'
     }
 }
 
@@ -17,13 +17,12 @@ buildscript {
 plugins {
     id 'com.matthewprenger.cursegradle' version '1.4.0'
     id 'de.undercouch.download' version '3.3.0'
-    id 'com.wynprice.cursemaven' version '2.1.1'
 }
 
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
-
+apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
 configurations {
     optionalRuntime

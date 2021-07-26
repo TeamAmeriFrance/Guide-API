@@ -32,7 +32,7 @@ public class PageItemStack extends PageText {
      * @param ingredient - ItemStack to render
      */
     public PageItemStack(ITextProperties draw, ItemStack ingredient) {
-        this(draw, Ingredient.fromStacks(ingredient));
+        this(draw, Ingredient.of(ingredient));
     }
 
     /**

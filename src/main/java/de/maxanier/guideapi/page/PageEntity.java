@@ -32,7 +32,7 @@ public class PageEntity extends Page {
     private LivingEntity e;
 
     public PageEntity(EntityType<? extends LivingEntity> entityType) {
-        this(entityType::create, entityType.getName());
+        this(entityType::create, entityType.getDescription());
     }
 
     /**
@@ -51,7 +51,7 @@ public class PageEntity extends Page {
     @Override
     public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
         if (e != null)
-            InventoryScreen.drawEntityOnScreen(guiLeft + 120, guiTop + 130, 50, (float) (guiLeft + 120) - mouseX, (float) (guiTop + 130) - mouseY, this.e);
+            InventoryScreen.renderEntityInInventory(guiLeft + 120, guiTop + 130, 50, (float) (guiLeft + 120) - mouseX, (float) (guiTop + 130) - mouseY, this.e);
     }
 
     @Override
@@ -68,6 +68,6 @@ public class PageEntity extends Page {
 
     @Override
     public void onInit(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, EntryScreen guiEntry) {
-        if (guiEntry.getMinecraft().world != null) this.e = supplier.apply(guiEntry.getMinecraft().world);
+        if (guiEntry.getMinecraft().level != null) this.e = supplier.apply(guiEntry.getMinecraft().level);
     }
 }

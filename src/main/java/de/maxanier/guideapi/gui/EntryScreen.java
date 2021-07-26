@@ -50,21 +50,6 @@ public class EntryScreen extends BaseScreen {
 
 
     @Override
-    public void closeScreen() {
-        super.closeScreen();
-        for (IPage page : this.entry.pageList) {
-            page.onClose();
-        }
-        ResourceLocation key = null;
-        for (Map.Entry<ResourceLocation, EntryAbstract> mapEntry : category.entries.entrySet())
-            if (mapEntry.getValue().equals(entry))
-                key = mapEntry.getKey();
-
-        if (key != null)
-            PacketHandler.INSTANCE.sendToServer(new PacketSyncEntry(book.getCategoryList().indexOf(category), key, pageNumber));
-    }
-
-    @Override
     public void init() {
         super.init();
         entry.onInit(book, category, null, player, bookStack);
@@ -74,7 +59,7 @@ public class EntryScreen extends BaseScreen {
         guiTop = (this.height - this.ySize) / 2;
 
         addButton(buttonBack = new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
-            this.minecraft.displayGuiScreen(new CategoryScreen(book, category, player, bookStack, entry));
+            this.minecraft.setScreen(new CategoryScreen(book, category, player, bookStack, entry));
 
         }, this));
         addButton(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
@@ -88,7 +73,7 @@ public class EntryScreen extends BaseScreen {
             }
         }, this));
         addButton(buttonSearch = new ButtonSearch((guiLeft + xSize / 6) - 25, guiTop + 5, (btn) -> {
-            this.minecraft.displayGuiScreen(new SearchScreen(book, player, bookStack, this));
+            this.minecraft.setScreen(new SearchScreen(book, player, bookStack, this));
         }, this));
 
         for (IPage page : this.entry.pageList) {
@@ -99,8 +84,8 @@ public class EntryScreen extends BaseScreen {
 
     @Override
     public boolean keyPressed(int keyCode, int p_keyPressed_2_, int p_keyPressed_3_) {
-        if (keyCode == GLFW.GLFW_KEY_BACKSPACE || keyCode == this.minecraft.gameSettings.keyBindUseItem.getKey().getKeyCode()) {
-            this.minecraft.displayGuiScreen(new CategoryScreen(book, category, player, bookStack, entry));
+        if (keyCode == GLFW.GLFW_KEY_BACKSPACE || keyCode == this.minecraft.options.keyUse.getKey().getValue()) {
+            this.minecraft.setScreen(new CategoryScreen(book, category, player, bookStack, entry));
             return true;
         } else if ((keyCode == GLFW.GLFW_KEY_UP || keyCode == GLFW.GLFW_KEY_RIGHT) && pageNumber + 1 < pageWrapperList.size()) {
             nextPage();
@@ -130,13 +115,28 @@ public class EntryScreen extends BaseScreen {
             }
 
             if (typeofClick == 1) {
-                this.minecraft.displayGuiScreen(new CategoryScreen(book, category, player, bookStack, entry));
+                this.minecraft.setScreen(new CategoryScreen(book, category, player, bookStack, entry));
                 return true;
             }
             return false;
         }
         return true;
 
+    }
+
+    @Override
+    public void onClose() {
+        super.onClose();
+        for (IPage page : this.entry.pageList) {
+            page.onClose();
+        }
+        ResourceLocation key = null;
+        for (Map.Entry<ResourceLocation, EntryAbstract> mapEntry : category.entries.entrySet())
+            if (mapEntry.getValue().equals(entry))
+                key = mapEntry.getKey();
+
+        if (key != null)
+            PacketHandler.INSTANCE.sendToServer(new PacketSyncEntry(book.getCategoryList().indexOf(category), key, pageNumber));
     }
 
     @Override
@@ -154,9 +154,9 @@ public class EntryScreen extends BaseScreen {
 
     @Override
     public void render(MatrixStack stack, int mouseX, int mouseY, float renderPartialTicks) {
-        Minecraft.getInstance().getTextureManager().bindTexture(pageTexture);
+        Minecraft.getInstance().getTextureManager().bind(pageTexture);
         blit(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
-        Minecraft.getInstance().getTextureManager().bindTexture(outlineTexture);
+        Minecraft.getInstance().getTextureManager().bind(outlineTexture);
         drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
         pageNumber = MathHelper.clamp(pageNumber, 0, pageWrapperList.size() - 1);

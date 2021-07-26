@@ -50,9 +50,9 @@ public class PacketSyncEntry {
         ServerPlayerEntity player = ctx.getSender();
         Validate.notNull(player);
         ctx.enqueueWork(() -> {
-            ItemStack book = player.getHeldItemOffhand();
+            ItemStack book = player.getOffhandItem();
             if (book.isEmpty() || !(book.getItem() instanceof IGuideItem))
-                book = player.getHeldItemMainhand();
+                book = player.getMainHandItem();
 
             if (!book.isEmpty() && book.getItem() instanceof IGuideItem) {
                 if (msg.category != -1 && !msg.entry.equals(new ResourceLocation(GuideMod.ID, "none")) && msg.page != -1) {

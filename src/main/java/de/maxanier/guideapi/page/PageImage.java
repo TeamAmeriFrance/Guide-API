@@ -27,7 +27,7 @@ public class PageImage extends Page {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-        Minecraft.getInstance().getTextureManager().bindTexture(image);
+        Minecraft.getInstance().getTextureManager().bind(image);
         GuiHelper.drawSizedIconWithoutColor(stack, guiLeft + 60, guiTop + 34, guiBase.xSize, guiBase.ySize, 1F);
     }
 

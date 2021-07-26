@@ -48,12 +48,12 @@ public class EntryWrapper extends AbstractWrapper {
 
     @Override
     public void draw(MatrixStack stack, int mouseX, int mouseY, BaseScreen gui) {
-        entry.draw(stack, book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getInstance().fontRenderer);
+        entry.draw(stack, book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getInstance().font);
     }
 
     @Override
     public void drawExtras(MatrixStack stack, int mouseX, int mouseY, BaseScreen gui) {
-        entry.drawExtras(stack, book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getInstance().fontRenderer);
+        entry.drawExtras(stack, book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getInstance().font);
     }
 
     @Override

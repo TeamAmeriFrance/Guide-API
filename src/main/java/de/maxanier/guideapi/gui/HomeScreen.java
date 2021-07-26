@@ -38,13 +38,6 @@ public class HomeScreen extends BaseScreen {
     }
 
     @Override
-    public void closeScreen() {
-        super.closeScreen();
-
-        PacketHandler.INSTANCE.sendToServer(new PacketSyncHome(categoryPage));
-    }
-
-    @Override
     public void init() {
         this.categoryWrapperMap.clear();
 
@@ -62,7 +55,7 @@ public class HomeScreen extends BaseScreen {
             }
         }, this));
         addButton(buttonSearch = new ButtonSearch((guiLeft + xSize / 6) - 25, guiTop + 5, (btn) -> {
-            minecraft.displayGuiScreen(new SearchScreen(book, player, bookStack, this));
+            minecraft.setScreen(new SearchScreen(book, player, bookStack, this));
         }, this));
 
         int cX = guiLeft + 55;
@@ -85,6 +78,13 @@ public class HomeScreen extends BaseScreen {
                 pageNumber++;
             }
         }
+    }
+
+    @Override
+    public void onClose() {
+        super.onClose();
+
+        PacketHandler.INSTANCE.sendToServer(new PacketSyncHome(categoryPage));
     }
 
     @Override
@@ -132,11 +132,11 @@ public class HomeScreen extends BaseScreen {
 
     @Override
     public void render(MatrixStack stack, int mouseX, int mouseY, float renderPartialTicks) {
-        minecraft.getTextureManager().bindTexture(pageTexture);
+        minecraft.getTextureManager().bind(pageTexture);
         blit(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
-        minecraft.getTextureManager().bindTexture(outlineTexture);
+        minecraft.getTextureManager().bind(outlineTexture);
         drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
-        drawCenteredStringWithoutShadow(stack, font, book.getHeader().func_241878_f(), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
+        drawCenteredStringWithoutShadow(stack, font, book.getHeader().getVisualOrderText(), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
 
         categoryPage = MathHelper.clamp(categoryPage, 0, categoryWrapperMap.size() - 1);
 

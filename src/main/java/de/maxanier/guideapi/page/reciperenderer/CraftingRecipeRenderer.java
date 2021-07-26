@@ -36,11 +36,11 @@ public abstract class CraftingRecipeRenderer<T extends IRecipe<?>> extends IReci
         int outputX = guiLeft + 148;
         int outputY = guiTop + 73;
 
-        ItemStack itemStack = recipe.getRecipeOutput();
+        ItemStack itemStack = recipe.getResultItem();
 
         GuiHelper.drawItemStack(stack, itemStack, outputX, outputY);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15))
-            tooltips = GuiHelper.getTooltip(recipe.getRecipeOutput());
+            tooltips = GuiHelper.getTooltip(recipe.getResultItem());
     }
 
 //    protected ItemStack getNextItem(ItemStack stack, int position) {

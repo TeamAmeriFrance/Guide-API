@@ -17,18 +17,7 @@ public class IngredientCycler {
 
     private long lastCycle = -1;
     private int cycleIdx = 0;
-    private Random rand = new Random();
-
-    public void tick(@Nonnull Minecraft mc) {
-        long time = mc.world != null ? mc.world.getGameTime() : 0;
-        if (lastCycle < 0 || lastCycle < time - 20) {
-            if (lastCycle > 0) {
-                cycleIdx++;
-                cycleIdx = Math.max(0, cycleIdx);
-            }
-            lastCycle = time;
-        }
-    }
+    private final Random rand = new Random();
 
     /**
      * Retrieves a itemstack that matches the ingredient.
@@ -40,12 +29,23 @@ public class IngredientCycler {
      * @return Optional. Can be empty if ingredient is invalid and has no matching stacks
      */
     public Optional<ItemStack> getCycledIngredientStack(@Nonnull Ingredient ingredient, int index) {
-        ItemStack[] itemStacks = ingredient.getMatchingStacks();
+        ItemStack[] itemStacks = ingredient.getItems();
         if (itemStacks.length > 0) {
             rand.setSeed(index);
             int id = (index + rand.nextInt(itemStacks.length) + cycleIdx) % itemStacks.length;
             return Optional.of(itemStacks[id]);
         }
         return Optional.empty();
+    }
+
+    public void tick(@Nonnull Minecraft mc) {
+        long time = mc.level != null ? mc.level.getGameTime() : 0;
+        if (lastCycle < 0 || lastCycle < time - 20) {
+            if (lastCycle > 0) {
+                cycleIdx++;
+                cycleIdx = Math.max(0, cycleIdx);
+            }
+            lastCycle = time;
+        }
     }
 }

@@ -60,19 +60,19 @@ public class SubTexture {
 
     @OnlyIn(Dist.CLIENT)
     public void draw(MatrixStack stack, int drawX, int drawY, float zLevel) {
-        Matrix4f matrix = stack.getLast().getMatrix();
+        Matrix4f matrix = stack.last().pose();
         final float someMagicValueFromMojang = 0.00390625F;
 
-        Minecraft.getInstance().getTextureManager().bindTexture(textureLocation);
-        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        Minecraft.getInstance().getTextureManager().bind(textureLocation);
+        GlStateManager._color4f(1.0F, 1.0F, 1.0F, 1.0F);
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder vertexbuffer = tessellator.getBuffer();
+        BufferBuilder vertexbuffer = tessellator.getBuilder();
         vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        vertexbuffer.pos(matrix, drawX, drawY + height, zLevel).tex((float) xPos * someMagicValueFromMojang, (float) (yPos + height) * someMagicValueFromMojang).endVertex();
-        vertexbuffer.pos(drawX + width, drawY + height, zLevel).tex((float) (xPos + width) * someMagicValueFromMojang, (float) (yPos + height) * someMagicValueFromMojang).endVertex();
-        vertexbuffer.pos(drawX + width, drawY, zLevel).tex((float) (xPos + width) * someMagicValueFromMojang, (float) yPos * someMagicValueFromMojang).endVertex();
-        vertexbuffer.pos(drawX, drawY, zLevel).tex((float) xPos * someMagicValueFromMojang, (float) yPos * someMagicValueFromMojang).endVertex();
-        tessellator.draw();
+        vertexbuffer.vertex(matrix, drawX, drawY + height, zLevel).uv((float) xPos * someMagicValueFromMojang, (float) (yPos + height) * someMagicValueFromMojang).endVertex();
+        vertexbuffer.vertex(drawX + width, drawY + height, zLevel).uv((float) (xPos + width) * someMagicValueFromMojang, (float) (yPos + height) * someMagicValueFromMojang).endVertex();
+        vertexbuffer.vertex(drawX + width, drawY, zLevel).uv((float) (xPos + width) * someMagicValueFromMojang, (float) yPos * someMagicValueFromMojang).endVertex();
+        vertexbuffer.vertex(drawX, drawY, zLevel).uv((float) xPos * someMagicValueFromMojang, (float) yPos * someMagicValueFromMojang).endVertex();
+        tessellator.end();
     }
 
     @OnlyIn(Dist.CLIENT)

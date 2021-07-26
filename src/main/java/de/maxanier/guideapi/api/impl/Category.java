@@ -45,7 +45,7 @@ public class Category extends CategoryAbstract {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void onLeftClicked(Book book, double mouseX, double mouseY, PlayerEntity player, ItemStack bookStack) {
-        Minecraft.getInstance().displayGuiScreen(new CategoryScreen(book, this, player, bookStack, null));
+        Minecraft.getInstance().setScreen(new CategoryScreen(book, this, player, bookStack, null));
     }
 
     @Override

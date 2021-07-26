@@ -41,23 +41,23 @@ public class Entry extends EntryAbstract {
 
         // Cutting code ripped from GuiButtonExt#drawButton(...)
         ITextProperties entryName = getName();
-        int strWidth = fontRendererObj.getStringPropertyWidth(entryName);
-        int ellipsisWidth = fontRendererObj.getStringWidth("...");
+        int strWidth = fontRendererObj.width(entryName);
+        int ellipsisWidth = fontRendererObj.width("...");
 
 
         //Trim string if to long
         if (strWidth > guiBase.xSize - 80 && strWidth > ellipsisWidth) {
-            entryName = fontRendererObj.func_238417_a_(entryName, guiBase.xSize - 80 - ellipsisWidth);
+            entryName = fontRendererObj.substrByWidth(entryName, guiBase.xSize - 80 - ellipsisWidth);
             //Append dots
-            entryName = ITextProperties.func_240655_a_(entryName, ITextProperties.func_240652_a_("..."));
+            entryName = ITextProperties.composite(entryName, ITextProperties.of("..."));
         }
 
-        IReorderingProcessor entryNameRe = LanguageMap.getInstance().func_241870_a(entryName);
+        IReorderingProcessor entryNameRe = LanguageMap.getInstance().getVisualOrder(entryName);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight)) {
-            fontRendererObj.func_238422_b_(stack, entryNameRe, entryX + 12, entryY + 1, new Color(206, 206, 206).getRGB());
-            fontRendererObj.func_238422_b_(stack, entryNameRe, entryX + 12, entryY, 0x423EBC);
+            fontRendererObj.draw(stack, entryNameRe, entryX + 12, entryY + 1, new Color(206, 206, 206).getRGB());
+            fontRendererObj.draw(stack, entryNameRe, entryX + 12, entryY, 0x423EBC);
         } else {
-            fontRendererObj.func_238422_b_(stack, entryNameRe, entryX + 12, entryY, 0);
+            fontRendererObj.draw(stack, entryNameRe, entryX + 12, entryY, 0);
         }
 
 
@@ -69,14 +69,11 @@ public class Entry extends EntryAbstract {
 
 
         // Cutting code ripped from GuiButtonExt#drawButton(...)
-        int strWidth = fontRendererObj.getStringPropertyWidth(getName());
-        boolean cutString = false;
-
-        if (strWidth > guiBase.xSize - 80 && strWidth > fontRendererObj.getStringWidth("..."))
-            cutString = true;
+        int strWidth = fontRendererObj.width(getName());
+        boolean cutString = strWidth > guiBase.xSize - 80 && strWidth > fontRendererObj.width("...");
 
         if (GuiHelper.isMouseBetween(mouseX, mouseY, entryX, entryY, entryWidth, entryHeight) && cutString) {
-            guiBase.func_243308_b(stack, Lists.newArrayList(getName()), entryX, entryY + 12);
+            guiBase.renderComponentTooltip(stack, Lists.newArrayList(getName()), entryX, entryY + 12);
         }
 
 
@@ -90,7 +87,7 @@ public class Entry extends EntryAbstract {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void onLeftClicked(Book book, CategoryAbstract category, double mouseX, double mouseY, PlayerEntity player, CategoryScreen guiCategory) {
-        Minecraft.getInstance().displayGuiScreen(new EntryScreen(book, category, this, player, guiCategory.bookStack));
+        Minecraft.getInstance().setScreen(new EntryScreen(book, category, this, player, guiCategory.bookStack));
     }
 
     @Override

@@ -48,12 +48,12 @@ public class GuiHelper {
         RenderSystem.pushMatrix();
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        RenderHelper.enableStandardItemLighting();
+        RenderHelper.turnBackOn();
         RenderSystem.enableRescaleNormal();
         RenderSystem.enableDepthTest();
-        render.renderItemAndEffectIntoGUI(stack, x, y);
-        render.renderItemOverlayIntoGUI(Minecraft.getInstance().fontRenderer, stack, x, y, null);
-        RenderHelper.disableStandardItemLighting();
+        render.renderAndDecorateItem(stack, x, y);
+        render.renderGuiItemDecorations(Minecraft.getInstance().font, stack, x, y, null);
+        RenderHelper.turnOff();
         RenderSystem.popMatrix();
         RenderSystem.disableLighting();
     }
@@ -70,11 +70,11 @@ public class GuiHelper {
         RenderSystem.scalef(scale, scale, 1f);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        RenderHelper.enableStandardItemLighting();
+        RenderHelper.turnBackOn();
         RenderSystem.enableRescaleNormal();
         RenderSystem.enableDepthTest();//enableDepth?
-        render.renderItemAndEffectIntoGUI(stack, (int) (x / scale), (int) (y / scale));
-        RenderHelper.disableStandardItemLighting();
+        render.renderAndDecorateItem(stack, (int) (x / scale), (int) (y / scale));
+        RenderHelper.turnOff();
         RenderSystem.popMatrix();
     }
 
@@ -90,18 +90,18 @@ public class GuiHelper {
         RenderSystem.pushMatrix();
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        RenderHelper.enableStandardItemLighting();
+        RenderHelper.turnBackOn();
         RenderSystem.disableLighting();
         RenderSystem.enableRescaleNormal();
         RenderSystem.enableDepthTest();
         Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0f, 1f).endVertex();
-        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1f, 1f).endVertex();
-        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1f, 0f).endVertex();
-        tessellator.getBuffer().pos(x, y, zLevel).tex(0f, 0f).endVertex();
-        tessellator.draw();
-        RenderHelper.disableStandardItemLighting();
+        tessellator.getBuilder().begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getBuilder().vertex(x, y + height, zLevel).uv(0f, 1f).endVertex();
+        tessellator.getBuilder().vertex(x + width, y + height, zLevel).uv(1f, 1f).endVertex();
+        tessellator.getBuilder().vertex(x + width, y, zLevel).uv(1f, 0f).endVertex();
+        tessellator.getBuilder().vertex(x, y, zLevel).uv(0f, 0f).endVertex();
+        tessellator.end();
+        RenderHelper.turnOff();
         RenderSystem.popMatrix();
     }
 
@@ -118,19 +118,19 @@ public class GuiHelper {
         RenderSystem.pushMatrix();
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        RenderHelper.enableStandardItemLighting();
+        RenderHelper.turnBackOn();
         RenderSystem.disableLighting();
         RenderSystem.enableRescaleNormal();
         RenderSystem.enableDepthTest();
         RenderSystem.color4f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
         Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0f, 1f).endVertex();
-        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1f, 1f).endVertex();
-        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1f, 0f).endVertex();
-        tessellator.getBuffer().pos(x, y, zLevel).tex(0f, 0f).endVertex();
-        tessellator.draw();
-        RenderHelper.disableStandardItemLighting();
+        tessellator.getBuilder().begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getBuilder().vertex(x, y + height, zLevel).uv(0f, 1f).endVertex();
+        tessellator.getBuilder().vertex(x + width, y + height, zLevel).uv(1f, 1f).endVertex();
+        tessellator.getBuilder().vertex(x + width, y, zLevel).uv(1f, 0f).endVertex();
+        tessellator.getBuilder().vertex(x, y, zLevel).uv(0f, 0f).endVertex();
+        tessellator.end();
+        RenderHelper.turnOff();
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.popMatrix();
     }
@@ -150,18 +150,18 @@ public class GuiHelper {
         RenderSystem.color4f(1F, 1F, 1F, 1F);
         RenderSystem.scalef(0.5f, 0.5f, 0.5f);
         RenderSystem.translatef(x, y, zLevel);
-        RenderHelper.enableStandardItemLighting();
+        RenderHelper.turnBackOn();
         RenderSystem.disableLighting();
         RenderSystem.enableRescaleNormal();
         RenderSystem.enableDepthTest();
         Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0f, 1f).endVertex();
-        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1f, 1).endVertex();
-        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1, 0).endVertex();
-        tessellator.getBuffer().pos(x, y, zLevel).tex(0, 0).endVertex();
-        tessellator.draw();
-        RenderHelper.disableStandardItemLighting();
+        tessellator.getBuilder().begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getBuilder().vertex(x, y + height, zLevel).uv(0f, 1f).endVertex();
+        tessellator.getBuilder().vertex(x + width, y + height, zLevel).uv(1f, 1).endVertex();
+        tessellator.getBuilder().vertex(x + width, y, zLevel).uv(1, 0).endVertex();
+        tessellator.getBuilder().vertex(x, y, zLevel).uv(0, 0).endVertex();
+        tessellator.end();
+        RenderHelper.turnOff();
         RenderSystem.popMatrix();
     }
 
@@ -180,32 +180,32 @@ public class GuiHelper {
         RenderSystem.scalef(0.5f, 0.5f, 0.5f);
         RenderSystem.color4f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F, (float) color.getAlpha() / 255F);
         RenderSystem.translatef(x, y, zLevel);
-        RenderHelper.enableStandardItemLighting();
+        RenderHelper.turnBackOn();
         RenderSystem.disableLighting();
         RenderSystem.enableRescaleNormal();
         RenderSystem.enableDepthTest();
         Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_TEX);
-        tessellator.getBuffer().pos(x, y + height, zLevel).tex(0, 1).endVertex();
-        tessellator.getBuffer().pos(x + width, y + height, zLevel).tex(1, 1).endVertex();
-        tessellator.getBuffer().pos(x + width, y, zLevel).tex(1, 0).endVertex();
-        tessellator.getBuffer().pos(x, y, zLevel).tex(0, 0).endVertex();
-        tessellator.draw();
-        RenderHelper.disableStandardItemLighting();
+        tessellator.getBuilder().begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.getBuilder().vertex(x, y + height, zLevel).uv(0, 1).endVertex();
+        tessellator.getBuilder().vertex(x + width, y + height, zLevel).uv(1, 1).endVertex();
+        tessellator.getBuilder().vertex(x + width, y, zLevel).uv(1, 0).endVertex();
+        tessellator.getBuilder().vertex(x, y, zLevel).uv(0, 0).endVertex();
+        tessellator.end();
+        RenderHelper.turnOff();
         RenderSystem.popMatrix();
     }
 
     @SuppressWarnings("unchecked")
     public static List<ITextComponent> getTooltip(ItemStack stack) {
         Minecraft mc = Minecraft.getInstance();
-        List<ITextComponent> list = stack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? TooltipFlags.ADVANCED : TooltipFlags.NORMAL);
+        List<ITextComponent> list = stack.getTooltipLines(mc.player, mc.options.advancedItemTooltips ? TooltipFlags.ADVANCED : TooltipFlags.NORMAL);
         for (int k = 0; k < list.size(); ++k) {
             ITextComponent c = list.get(k);
             if (c instanceof IFormattableTextComponent) {
                 if (k == 0) {
-                    ((IFormattableTextComponent) c).mergeStyle(stack.getRarity().color); //applyTextComponent
+                    ((IFormattableTextComponent) c).withStyle(stack.getRarity().color); //applyTextComponent
                 } else {
-                    ((IFormattableTextComponent) c).mergeStyle(TextFormatting.GRAY);
+                    ((IFormattableTextComponent) c).withStyle(TextFormatting.GRAY);
                 }
             }
 

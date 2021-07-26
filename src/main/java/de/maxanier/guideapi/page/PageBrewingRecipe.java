@@ -83,23 +83,23 @@ public class PageBrewingRecipe extends Page {
 
         List<ITextComponent> tooltip = null;
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
-            tooltip = GuiHelper.getTooltip(ingredient.getMatchingStacks()[0]);
+            tooltip = GuiHelper.getTooltip(ingredient.getItems()[0]);
 
         //the three bottles
         y += 39;
-        GuiHelper.drawItemStack(stack, input.getMatchingStacks()[0], x, y);
+        GuiHelper.drawItemStack(stack, input.getItems()[0], x, y);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
-            tooltip = GuiHelper.getTooltip(input.getMatchingStacks()[0]);
+            tooltip = GuiHelper.getTooltip(input.getItems()[0]);
         int hSpacing = 24;
         x -= hSpacing;
         y -= 8;
-        GuiHelper.drawItemStack(stack, input.getMatchingStacks()[0], x, y);
+        GuiHelper.drawItemStack(stack, input.getItems()[0], x, y);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
-            tooltip = GuiHelper.getTooltip(input.getMatchingStacks()[0]);
+            tooltip = GuiHelper.getTooltip(input.getItems()[0]);
         x += hSpacing * 2;
-        GuiHelper.drawItemStack(stack, input.getMatchingStacks()[0], x, y);
+        GuiHelper.drawItemStack(stack, input.getItems()[0], x, y);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
-            tooltip = GuiHelper.getTooltip(input.getMatchingStacks()[0]);
+            tooltip = GuiHelper.getTooltip(input.getItems()[0]);
 
         if (output.isEmpty())
             output = new ItemStack(Blocks.BARRIER);
@@ -109,13 +109,13 @@ public class PageBrewingRecipe extends Page {
         y += 31;
         GuiHelper.drawItemStack(stack, output, x, y);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
-            tooltip = output.getItem() == Item.getItemFromBlock(Blocks.BARRIER) ? badTip : GuiHelper.getTooltip(output);
+            tooltip = output.getItem() == Item.byBlock(Blocks.BARRIER) ? badTip : GuiHelper.getTooltip(output);
 
-        if (output.getItem() == Item.getItemFromBlock(Blocks.BARRIER))
+        if (output.getItem() == Item.byBlock(Blocks.BARRIER))
             guiBase.drawCenteredStringWithoutShadow(stack, fontRendererObj, TextHelper.localizeEffect("guideapi.text.brewing.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
 
         if (tooltip != null)
-            guiBase.func_243308_b(stack, tooltip, mouseX, mouseY);
+            guiBase.renderComponentTooltip(stack, tooltip, mouseX, mouseY);
     }
 
 

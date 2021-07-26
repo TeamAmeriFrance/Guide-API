@@ -101,7 +101,7 @@ public class GuiUtilsCopy {
             int tooltipTextWidth = 0;
 
             for (ITextComponent textLine : textLines) {
-                int textLineWidth = font.getStringPropertyWidth(textLine);
+                int textLineWidth = font.width(textLine);
                 if (textLineWidth > tooltipTextWidth)
                     tooltipTextWidth = textLineWidth;
             }
@@ -132,12 +132,12 @@ public class GuiUtilsCopy {
                 List<IReorderingProcessor> wrappedTextLines = new ArrayList<>();
                 for (int i = 0; i < textLines.size(); i++) {
                     ITextProperties textLine = textLines.get(i);
-                    List<IReorderingProcessor> wrappedLine = font.trimStringToWidth(textLine, tooltipTextWidth);
+                    List<IReorderingProcessor> wrappedLine = font.split(textLine, tooltipTextWidth);
                     if (i == 0)
                         titleLinesCount = wrappedLine.size();
 
                     for (IReorderingProcessor line : wrappedLine) {
-                        int lineWidth = font.func_243245_a(line);
+                        int lineWidth = font.width(line);
                         if (lineWidth > wrappedTooltipWidth)
                             wrappedTooltipWidth = lineWidth;
                         wrappedTextLines.add(line);
@@ -151,7 +151,7 @@ public class GuiUtilsCopy {
                 else
                     tooltipX = mouseX + 12;
             } else {
-                finalTexLines = textLines.stream().map(t -> LanguageMap.getInstance().func_241870_a(t)).collect(ImmutableList.toImmutableList());
+                finalTexLines = textLines.stream().map(t -> LanguageMap.getInstance().getVisualOrder(t)).collect(ImmutableList.toImmutableList());
             }
 
             int tooltipY = mouseY - 12;
@@ -170,8 +170,8 @@ public class GuiUtilsCopy {
 
             final int zLevel = 400;
 
-            mStack.push();
-            Matrix4f mat = mStack.getLast().getMatrix();
+            mStack.pushPose();
+            Matrix4f mat = mStack.last().pose();
             //TODO, lots of unnessesary GL calls here, we can buffer all these together.
             drawGradientRect(mat, zLevel, tooltipX - 3, tooltipY - 4, tooltipX + tooltipTextWidth + 3, tooltipY - 3, backgroundColor, backgroundColor);
             drawGradientRect(mat, zLevel, tooltipX - 3, tooltipY + tooltipHeight + 3, tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 4, backgroundColor, backgroundColor);
@@ -184,7 +184,7 @@ public class GuiUtilsCopy {
             drawGradientRect(mat, zLevel, tooltipX - 3, tooltipY + tooltipHeight + 2, tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 3, borderColorEnd, borderColorEnd);
 
 
-            IRenderTypeBuffer.Impl renderType = IRenderTypeBuffer.getImpl(Tessellator.getInstance().getBuffer());
+            IRenderTypeBuffer.Impl renderType = IRenderTypeBuffer.immediate(Tessellator.getInstance().getBuilder());
             mStack.translate(0.0D, 0.0D, zLevel);
 
             int tooltipTop = tooltipY;
@@ -192,7 +192,7 @@ public class GuiUtilsCopy {
             for (int lineNumber = 0; lineNumber < finalTexLines.size(); ++lineNumber) {
                 IReorderingProcessor line = finalTexLines.get(lineNumber);
                 if (line != null)
-                    font.drawEntityText(line, (float) tooltipX, (float) tooltipY, -1, true, mat, renderType, false, 0, 15728880);
+                    font.drawInBatch(line, (float) tooltipX, (float) tooltipY, -1, true, mat, renderType, false, 0, 15728880);
 
                 if (lineNumber + 1 == titleLinesCount)
                     tooltipY += 2;
@@ -200,8 +200,8 @@ public class GuiUtilsCopy {
                 tooltipY += 10;
             }
 
-            renderType.finish();
-            mStack.pop();
+            renderType.endBatch();
+            mStack.popPose();
 
 
             RenderSystem.enableDepthTest();

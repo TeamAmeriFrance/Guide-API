@@ -32,7 +32,7 @@ public class CategoryResourceLocation extends Category {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void draw(MatrixStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
-        Minecraft.getInstance().getTextureManager().bindTexture(resourceLocation);
+        Minecraft.getInstance().getTextureManager().bind(resourceLocation);
         GuiHelper.drawSizedIconWithoutColor(stack, categoryX, categoryY, 48, 48, 0);
     }
 
@@ -40,7 +40,7 @@ public class CategoryResourceLocation extends Category {
     @OnlyIn(Dist.CLIENT)
     public void drawExtras(MatrixStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
         if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight))
-            guiBase.func_243308_b(stack, this.getTooltip(), mouseX, mouseY);
+            guiBase.renderComponentTooltip(stack, this.getTooltip(), mouseX, mouseY);
     }
 
     @Override

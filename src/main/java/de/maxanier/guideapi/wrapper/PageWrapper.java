@@ -48,12 +48,12 @@ public class PageWrapper extends AbstractWrapper {
 
     @Override
     public void draw(MatrixStack stack, int mouseX, int mouseY, BaseScreen gui) {
-        page.draw(stack, book, category, entry, guiLeft, guiTop, mouseX, mouseY, gui, Minecraft.getInstance().fontRenderer);
+        page.draw(stack, book, category, entry, guiLeft, guiTop, mouseX, mouseY, gui, Minecraft.getInstance().font);
     }
 
     @Override
     public void drawExtras(MatrixStack stack, int mouseX, int mouseY, BaseScreen gui) {
-        page.drawExtras(stack, book, category, entry, guiLeft, guiTop, mouseX, mouseY, gui, Minecraft.getInstance().fontRenderer);
+        page.drawExtras(stack, book, category, entry, guiLeft, guiTop, mouseX, mouseY, gui, Minecraft.getInstance().font);
     }
 
     @Override

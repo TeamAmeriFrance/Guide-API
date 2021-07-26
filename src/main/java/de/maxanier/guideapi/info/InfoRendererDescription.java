@@ -33,24 +33,24 @@ public class InfoRendererDescription implements IInfoRenderer {
     @Override
     public void drawInformation(MatrixStack stack, Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player) {
         if (tiny) {
-            stack.push();
+            stack.pushPose();
             stack.scale(0.5F, 0.5F, 0.5F);
         }
-        FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+        FontRenderer fontRenderer = Minecraft.getInstance().font;
         int scaleMulti = tiny ? 2 : 1;
 
-        GuiHelper.drawItemStack(stack, itemStack, (Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 55) * scaleMulti, ((Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 - (tiny ? 20 : 30)) + yOffset) * scaleMulti);
+        GuiHelper.drawItemStack(stack, itemStack, (Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 + 55) * scaleMulti, ((Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 - (tiny ? 20 : 30)) + yOffset) * scaleMulti);
 
         int y = 0;
 
-        List<IReorderingProcessor> cutLines = fontRenderer.trimStringToWidth(description, 100 * scaleMulti); //trimStringToWidth //Split at new line somehow
+        List<IReorderingProcessor> cutLines = fontRenderer.split(description, 100 * scaleMulti); //trimStringToWidth //Split at new line somehow
         for (IReorderingProcessor cut : cutLines) {
-            fontRenderer.drawTextWithShadow(stack, cut, (Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 20) * scaleMulti, (((Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 - 10) - y) * scaleMulti) + yOffset, Color.WHITE.getRGB());
+            fontRenderer.drawShadow(stack, cut, (Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 + 20) * scaleMulti, (((Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 - 10) - y) * scaleMulti) + yOffset, Color.WHITE.getRGB());
             y -= 10 / scaleMulti;
         }
 
         if (tiny)
-            stack.pop();
+            stack.popPose();
     }
 
     public InfoRendererDescription setTiny(boolean tiny) {

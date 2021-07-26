@@ -33,7 +33,7 @@ public class EntryResourceLocation extends Entry {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-        Minecraft.getInstance().getTextureManager().bindTexture(image);
+        Minecraft.getInstance().getTextureManager().bind(image);
         GuiHelper.drawSizedIconWithoutColor(stack, entryX + 2, entryY, 16, 16, 1F);
 
         super.drawExtras(stack, book, category, entryX, entryY, entryWidth, entryHeight, mouseX, mouseY, guiBase, fontRendererObj);

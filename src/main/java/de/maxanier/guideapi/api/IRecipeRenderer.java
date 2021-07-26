@@ -36,7 +36,7 @@ public interface IRecipeRenderer {
 
         @Override
         public void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
-            guiBase.func_243308_b(stack, tooltips, mouseX, mouseY);
+            guiBase.renderComponentTooltip(stack, tooltips, mouseX, mouseY);
             tooltips.clear();
         }
     }

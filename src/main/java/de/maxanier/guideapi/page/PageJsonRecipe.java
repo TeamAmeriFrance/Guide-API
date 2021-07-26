@@ -39,14 +39,14 @@ public class PageJsonRecipe extends PageIRecipe {
     public void onInit(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, EntryScreen guiEntry) {
         super.onInit(book, category, entry, player, bookStack, guiEntry);
         if (recipe == null) {
-            this.recipe = Minecraft.getInstance().getConnection() == null ? null : Minecraft.getInstance().getConnection().getRecipeManager().getRecipe(recipeId).orElse(null);
+            this.recipe = Minecraft.getInstance().getConnection() == null ? null : Minecraft.getInstance().getConnection().getRecipeManager().byKey(recipeId).orElse(null);
             if (recipe == null) {
-                LogHelper.error("Cannot find recipe " + recipeId.toString());
+                LogHelper.error("Cannot find recipe " + recipeId);
             } else {
                 if (iRecipeRenderer == null) {
                     iRecipeRenderer = recipeRendererSupplier.apply(recipe);
                     if (iRecipeRenderer == null) {
-                        LogHelper.error("Did not get renderer for recipe type " + recipe.getClass().toString() + " for recipe " + recipeId.toString());
+                        LogHelper.error("Did not get renderer for recipe type " + recipe.getClass().toString() + " for recipe " + recipeId);
                     }
                 }
             }

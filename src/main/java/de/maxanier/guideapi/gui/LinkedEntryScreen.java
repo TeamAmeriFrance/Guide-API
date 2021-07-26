@@ -29,7 +29,7 @@ public class LinkedEntryScreen extends EntryScreen {
         this.addButton(this.buttonBack = new ButtonBack(this.guiLeft + this.xSize / 6, this.guiTop, (btn) -> {
             EntryScreen e = new EntryScreen(book, category, from, player, bookStack);
             e.pageNumber = fromPage;
-            this.minecraft.displayGuiScreen(e);
+            this.minecraft.setScreen(e);
         }, this));
     }
 }

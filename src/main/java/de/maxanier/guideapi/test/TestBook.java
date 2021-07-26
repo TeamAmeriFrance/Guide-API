@@ -63,16 +63,16 @@ public class TestBook implements IGuideBook {
 
         pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "stick"), recipe -> recipe instanceof ShapedRecipe ? new ShapedRecipesRenderer((ShapedRecipe) recipe) : null)); //Probably want to use your own method as render supplier and print proper logs
 
-        pages.add(new PageIRecipe(new ShapedRecipe(new ResourceLocation(GuideMod.ID, "test11"), "test", 1, 1, NonNullList.from(Ingredient.EMPTY, Ingredient.fromStacks(new ItemStack(Items.PUMPKIN))), new ItemStack(Blocks.OAK_LOG))));
+        pages.add(new PageIRecipe(new ShapedRecipe(new ResourceLocation(GuideMod.ID, "test11"), "test", 1, 1, NonNullList.of(Ingredient.EMPTY, Ingredient.of(new ItemStack(Items.PUMPKIN))), new ItemStack(Blocks.OAK_LOG))));
         pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "acacia_fence")));
-        pages.add(new PageItemStack(new StringTextComponent("These are all logs"), Ingredient.fromTag(ItemTags.LOGS)));
+        pages.add(new PageItemStack(new StringTextComponent("These are all logs"), Ingredient.of(ItemTags.LOGS)));
         pages.add(new PageTextImage(new TranslationTextComponent("guideapi.test.string"), new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"), true));
         pages.add(new PageTextImage(new TranslationTextComponent("guideapi.test.string"), new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"), false));
         pages.add(new PageImage(new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png")));
         pages.add(new PageEntity(EntityType.BLAZE));
         pages.add(new PageEntity((world) -> {
             ZombieEntity z = EntityType.ZOMBIE.create(world);
-            z.setHeldItem(Hand.MAIN_HAND, new ItemStack(Items.IRON_SWORD));
+            z.setItemInHand(Hand.MAIN_HAND, new ItemStack(Items.IRON_SWORD));
             return z;
         }, new StringTextComponent("This is a zombie")));
 

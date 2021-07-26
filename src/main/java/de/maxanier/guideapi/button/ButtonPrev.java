@@ -21,21 +21,21 @@ public class ButtonPrev extends ButtonGuideAPI {
     }
 
     @Override
-    public void renderWidget(MatrixStack stack, int mouseX, int mouseY, float partialTicks) { //renderButton
+    public void renderButton(MatrixStack stack, int mouseX, int mouseY, float partialTicks) { //renderButton
         if (this.visible) { //visible
-            RenderHelper.enableStandardItemLighting();
+            RenderHelper.turnBackOn();
             RenderSystem.enableBlend();
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableLighting();
-            Minecraft.getInstance().getTextureManager().bindTexture(new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png"));
+            Minecraft.getInstance().getTextureManager().bind(new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png"));
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) { //x,y,width,height
                 this.blit(stack, x, y + 1, 47, 214, 18, 10); //blit
-                GuiUtilsCopy.drawHoveringText(stack, getHoveringText(), mouseX, mouseY, guiBase.width, guiBase.height, -1, Minecraft.getInstance().fontRenderer);
+                GuiUtilsCopy.drawHoveringText(stack, getHoveringText(), mouseX, mouseY, guiBase.width, guiBase.height, -1, Minecraft.getInstance().font);
             } else {
                 this.blit(stack, x, y, 24, 214, 18, 10);
             }
-            GlStateManager.disableBlend();
-            RenderHelper.disableStandardItemLighting();
+            GlStateManager._disableBlend();
+            RenderHelper.turnOff();
         }
     }
 

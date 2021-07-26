@@ -101,7 +101,7 @@ public class BookHelper {
      */
     @Nullable
     public BrewingRecipe getBrewingRecipe(ItemStack stack) {
-        return (BrewingRecipe) BrewingRecipeRegistry.getRecipes().stream().filter(iBrewingRecipe -> iBrewingRecipe instanceof BrewingRecipe && ItemStack.areItemStacksEqual(((BrewingRecipe) iBrewingRecipe).getOutput(), stack)).findFirst().orElse(null);
+        return (BrewingRecipe) BrewingRecipeRegistry.getRecipes().stream().filter(iBrewingRecipe -> iBrewingRecipe instanceof BrewingRecipe && ItemStack.matches(((BrewingRecipe) iBrewingRecipe).getOutput(), stack)).findFirst().orElse(null);
     }
 
     @Nullable
@@ -136,7 +136,7 @@ public class BookHelper {
         assert items.length > 0;
         Item i0 = items[0];
         String name = itemNameMapper.apply(i0);
-        return new ItemInfoBuilder(this, Ingredient.fromItems(items), new ItemStack(i0), name, false);
+        return new ItemInfoBuilder(this, Ingredient.of(items), new ItemStack(i0), name, false);
     }
 
     /**
@@ -151,7 +151,7 @@ public class BookHelper {
         ItemStack i0 = stacks[0];
         Item item = i0.getItem();
         String name = item instanceof BlockItem ? blockNameMapper.apply(((BlockItem) item).getBlock()) : itemNameMapper.apply(item);
-        return new ItemInfoBuilder(this, Ingredient.fromStacks(stacks), i0, name, block);
+        return new ItemInfoBuilder(this, Ingredient.of(stacks), i0, name, block);
     }
 
     /**
@@ -164,7 +164,7 @@ public class BookHelper {
         assert blocks.length > 0;
         Block i0 = blocks[0];
         String name = blockNameMapper.apply(i0);
-        return new ItemInfoBuilder(this, Ingredient.fromItems(blocks), new ItemStack(i0), name, true);
+        return new ItemInfoBuilder(this, Ingredient.of(blocks), new ItemStack(i0), name, true);
     }
 
     public ITextComponent localize(String key, Object... formats) {
