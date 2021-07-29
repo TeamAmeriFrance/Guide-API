@@ -1,6 +1,6 @@
 package de.maxanier.guideapi.wrapper;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
@@ -8,9 +8,9 @@ import de.maxanier.guideapi.api.util.GuiHelper;
 import de.maxanier.guideapi.gui.BaseScreen;
 import de.maxanier.guideapi.gui.CategoryScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.gui.Font;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public class EntryWrapper extends AbstractWrapper {
 
@@ -18,12 +18,12 @@ public class EntryWrapper extends AbstractWrapper {
     public CategoryAbstract category;
     public EntryAbstract entry;
     public int x, y, width, height;
-    public PlayerEntity player;
-    public FontRenderer renderer;
+    public Player player;
+    public Font renderer;
     public CategoryScreen categoryGui;
     public ItemStack bookStack;
 
-    public EntryWrapper(CategoryScreen categoryGui, Book book, CategoryAbstract category, EntryAbstract entry, int x, int y, int width, int height, PlayerEntity player, FontRenderer renderer, ItemStack bookStack) {
+    public EntryWrapper(CategoryScreen categoryGui, Book book, CategoryAbstract category, EntryAbstract entry, int x, int y, int width, int height, Player player, Font renderer, ItemStack bookStack) {
         this.book = book;
         this.category = category;
         this.entry = entry;
@@ -47,12 +47,12 @@ public class EntryWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void draw(MatrixStack stack, int mouseX, int mouseY, BaseScreen gui) {
+    public void draw(PoseStack stack, int mouseX, int mouseY, BaseScreen gui) {
         entry.draw(stack, book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getInstance().font);
     }
 
     @Override
-    public void drawExtras(MatrixStack stack, int mouseX, int mouseY, BaseScreen gui) {
+    public void drawExtras(PoseStack stack, int mouseX, int mouseY, BaseScreen gui) {
         entry.drawExtras(stack, book, category, x, y, width, height, mouseX, mouseY, gui, Minecraft.getInstance().font);
     }
 

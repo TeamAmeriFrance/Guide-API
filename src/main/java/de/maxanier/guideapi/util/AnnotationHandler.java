@@ -26,7 +26,7 @@ public class AnnotationHandler {
         final List<ModFileScanData.AnnotationData> annotations = ModList.get().getAllScanData().stream()
                 .map(ModFileScanData::getAnnotations)
                 .flatMap(Collection::stream)
-                .filter(a -> GUIDE.equals(a.getAnnotationType()))
+                .filter(a -> GUIDE.equals(a.annotationType()))
                 .collect(Collectors.toList());
 
 
@@ -34,9 +34,9 @@ public class AnnotationHandler {
             for (ModFileScanData.AnnotationData data : annotations) {
                 try {
 
-                    EventPriority priority1 = (EventPriority) data.getAnnotationData().getOrDefault("priority", EventPriority.NORMAL);
+                    EventPriority priority1 = (EventPriority) data.annotationData().getOrDefault("priority", EventPriority.NORMAL);
                     if (priority != priority1) continue;
-                    Class<?> genericClass = Class.forName(data.getClassType().getClassName());
+                    Class<?> genericClass = Class.forName(data.clazz().getClassName());
                     if (!IGuideBook.class.isAssignableFrom(genericClass))
                         continue;
                     IGuideBook guideBook = (IGuideBook) genericClass.newInstance();
@@ -47,7 +47,7 @@ public class AnnotationHandler {
                     BOOK_CLASSES.add(Pair.of(book, guideBook));
 
                 } catch (Exception e) {
-                    LogHelper.error("Error registering book for class " + data.getClassType().getClassName());
+                    LogHelper.error("Error registering book for class " + data.clazz().getClassName());
                     e.printStackTrace();
                 }
 

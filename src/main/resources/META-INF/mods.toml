@@ -1,11 +1,11 @@
 modLoader = "javafml"
-loaderVersion = "[35,)"
+loaderVersion = "[37,)"
 issueTrackerURL = "https://github.com/maxanier/Guide-API/issues"
 license = "MIT"
 
 [[mods]]
-    modId="guideapi-vp"
-    namespace="guideapi-vp"
+    modId="guideapi_vp"
+    namespace="guideapi_vp"
     version="${version}"
     displayName="Guide-API VP"
     authors="Tombenpotter, TehNut, Maxanier"
@@ -14,7 +14,7 @@ license = "MIT"
     updateJSONURL="https://maxanier.de/projects/guideapi/versions.json"
     displayURL="https://maxanier.de/projects/guideapi"
     logoFile="logo.png"
-    [[dependencies.guideapi-vp]]
+    [[dependencies.guideapi_vp]]
         modId="forge"
         mandatory=true
         versionRange="[${forge_version},)"

@@ -1,7 +1,7 @@
 package de.maxanier.guideapi.util;
 
 import com.google.common.collect.Multimap;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.GuideConfig;
 import de.maxanier.guideapi.GuideMod;
 import de.maxanier.guideapi.api.GuideAPI;
@@ -10,26 +10,27 @@ import de.maxanier.guideapi.api.IGuideLinked;
 import de.maxanier.guideapi.api.IInfoRenderer;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.client.gui.Font;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -44,9 +45,9 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onPlayerJoinWorld(EntityJoinWorldEvent event) {
-        if (!event.getEntity().level.isClientSide && event.getEntity() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntity();
-            CompoundNBT tag = getModTag(player, GuideMod.ID);
+        if (!event.getEntity().level.isClientSide && event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity();
+            CompoundTag tag = getModTag(player, GuideMod.ID);
             if (GuideConfig.COMMON.canSpawnWithBook.get()) {
                 for (Book book : GuideAPI.getBooks().values()) {
                     ForgeConfigSpec.BooleanValue bookSpawnConfig = GuideConfig.COMMON.SPAWN_BOOKS.get(book);
@@ -61,19 +62,19 @@ public class EventHandler {
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public static void renderOverlay(RenderGameOverlayEvent.Pre event) {
-        if (event.getType() != RenderGameOverlayEvent.ElementType.CROSSHAIRS)
+    public static void renderOverlay(RenderGameOverlayEvent.PreLayer event) {
+        if (event.getOverlay() != ForgeIngameGui.CROSSHAIR_ELEMENT)
             return;
 
-        RayTraceResult rayTrace = Minecraft.getInstance().hitResult;
-        if (rayTrace == null || rayTrace.getType() != RayTraceResult.Type.BLOCK)
+        HitResult rayTrace = Minecraft.getInstance().hitResult;
+        if (rayTrace == null || rayTrace.getType() != HitResult.Type.BLOCK)
             return;
 
-        PlayerEntity player = Minecraft.getInstance().player;
-        World world = Minecraft.getInstance().level;
+        Player player = Minecraft.getInstance().player;
+        Level world = Minecraft.getInstance().level;
         ItemStack held = ItemStack.EMPTY;
         Book book = null;
-        for (Hand hand : Hand.values()) {
+        for (InteractionHand hand : InteractionHand.values()) {
             ItemStack heldStack = player.getItemInHand(hand);
             if (heldStack.getItem() instanceof IGuideItem) {
                 held = heldStack;
@@ -81,14 +82,14 @@ public class EventHandler {
                 break;
             }
         }
-        MatrixStack stack = event.getMatrixStack();
+        PoseStack stack = event.getMatrixStack();
 
         if (book == null)
             return;
-        BlockPos rayTracePos = ((BlockRayTraceResult) rayTrace).getBlockPos();
+        BlockPos rayTracePos = ((BlockHitResult) rayTrace).getBlockPos();
         BlockState state = world.getBlockState(rayTracePos);
         @Nullable
-        ITextComponent linkedEntry = null;
+        Component linkedEntry = null;
         if (state.getBlock() instanceof IGuideLinked) {
             IGuideLinked linked = (IGuideLinked) state.getBlock();
             ResourceLocation entryKey = linked.getLinkedEntry(world, rayTracePos, player, held);
@@ -103,7 +104,7 @@ public class EventHandler {
         }
 
         if (linkedEntry != null) {
-            FontRenderer fontRenderer = Minecraft.getInstance().font;
+            Font fontRenderer = Minecraft.getInstance().font;
 
             int drawX = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 + 10;
             int drawY = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 - 8;
@@ -112,8 +113,8 @@ public class EventHandler {
 
             drawY -= 2;
             drawX += 20;
-            fontRenderer.drawShadow(stack, linkedEntry instanceof IFormattableTextComponent ? ((IFormattableTextComponent) linkedEntry).withStyle(TextFormatting.WHITE) : linkedEntry, drawX, drawY, 0);
-            fontRenderer.drawShadow(stack, new TranslationTextComponent("guideapi.text.linked.open").withStyle(TextFormatting.WHITE, TextFormatting.ITALIC), drawX, drawY + 12, 0);
+            fontRenderer.drawShadow(stack, linkedEntry instanceof MutableComponent ? ((MutableComponent) linkedEntry).withStyle(ChatFormatting.WHITE) : linkedEntry, drawX, drawY, 0);
+            fontRenderer.drawShadow(stack, new TranslatableComponent("guideapi.text.linked.open").withStyle(ChatFormatting.WHITE, ChatFormatting.ITALIC), drawX, drawY + 12, 0);
         }
 
         if (state.getBlock() instanceof IInfoRenderer.Block) {
@@ -131,22 +132,22 @@ public class EventHandler {
             renderer.drawInformation(stack, book, world, rayTracePos, state, rayTrace, player);
     }
 
-    public static CompoundNBT getModTag(PlayerEntity player, String modName) {
-        CompoundNBT tag = player.getPersistentData();
-        CompoundNBT persistTag;
+    public static CompoundTag getModTag(Player player, String modName) {
+        CompoundTag tag = player.getPersistentData();
+        CompoundTag persistTag;
 
-        if (tag.contains(PlayerEntity.PERSISTED_NBT_TAG))
-            persistTag = tag.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
+        if (tag.contains(Player.PERSISTED_NBT_TAG))
+            persistTag = tag.getCompound(Player.PERSISTED_NBT_TAG);
         else {
-            persistTag = new CompoundNBT();
-            tag.put(PlayerEntity.PERSISTED_NBT_TAG, persistTag);
+            persistTag = new CompoundTag();
+            tag.put(Player.PERSISTED_NBT_TAG, persistTag);
         }
 
-        CompoundNBT modTag;
+        CompoundTag modTag;
         if (persistTag.contains(modName)) {
             modTag = persistTag.getCompound(modName);
         } else {
-            modTag = new CompoundNBT();
+            modTag = new CompoundTag();
             persistTag.put(modName, modTag);
         }
         return modTag;

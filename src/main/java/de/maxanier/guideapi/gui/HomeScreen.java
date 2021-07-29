@@ -1,7 +1,8 @@
 package de.maxanier.guideapi.gui;
 
 import com.google.common.collect.HashMultimap;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.button.ButtonNext;
@@ -10,10 +11,10 @@ import de.maxanier.guideapi.button.ButtonSearch;
 import de.maxanier.guideapi.network.PacketHandler;
 import de.maxanier.guideapi.network.PacketSyncHome;
 import de.maxanier.guideapi.wrapper.CategoryWrapper;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
@@ -29,7 +30,7 @@ public class HomeScreen extends BaseScreen {
     public ButtonSearch buttonSearch;
     public int categoryPage;
 
-    public HomeScreen(Book book, PlayerEntity player, ItemStack bookStack) {
+    public HomeScreen(Book book, Player player, ItemStack bookStack) {
         super(book.getTitle(), player, bookStack);
         this.book = book;
         this.pageTexture = book.getPageTexture();
@@ -44,17 +45,17 @@ public class HomeScreen extends BaseScreen {
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
-        addButton(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
+        addRenderableWidget(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
             if (categoryPage + 1 < categoryWrapperMap.asMap().size()) {
                 nextPage();
             }
         }, this));
-        addButton(buttonPrev = new ButtonPrev(guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn) -> {
+        addRenderableWidget(buttonPrev = new ButtonPrev(guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn) -> {
             if (categoryPage > 0) {
                 prevPage();
             }
         }, this));
-        addButton(buttonSearch = new ButtonSearch((guiLeft + xSize / 6) - 25, guiTop + 5, (btn) -> {
+        addRenderableWidget(buttonSearch = new ButtonSearch((guiLeft + xSize / 6) - 25, guiTop + 5, (btn) -> {
             minecraft.setScreen(new SearchScreen(book, player, bookStack, this));
         }, this));
 
@@ -131,14 +132,14 @@ public class HomeScreen extends BaseScreen {
     }
 
     @Override
-    public void render(MatrixStack stack, int mouseX, int mouseY, float renderPartialTicks) {
-        minecraft.getTextureManager().bind(pageTexture);
+    public void render(PoseStack stack, int mouseX, int mouseY, float renderPartialTicks) {
+        RenderSystem.setShaderTexture(0,pageTexture);
         blit(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
-        minecraft.getTextureManager().bind(outlineTexture);
+        RenderSystem.setShaderTexture(0,outlineTexture);
         drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
         drawCenteredStringWithoutShadow(stack, font, book.getHeader().getVisualOrderText(), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
 
-        categoryPage = MathHelper.clamp(categoryPage, 0, categoryWrapperMap.size() - 1);
+        categoryPage = Mth.clamp(categoryPage, 0, categoryWrapperMap.size() - 1);
 
         for (CategoryWrapper wrapper : this.categoryWrapperMap.get(categoryPage))
             if (wrapper.canPlayerSee())

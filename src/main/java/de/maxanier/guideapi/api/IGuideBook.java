@@ -2,8 +2,8 @@ package de.maxanier.guideapi.api;
 
 import de.maxanier.guideapi.GuideMod;
 import de.maxanier.guideapi.api.impl.Book;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

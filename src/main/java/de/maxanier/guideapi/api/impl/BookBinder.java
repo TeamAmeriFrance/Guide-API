@@ -2,11 +2,11 @@ package de.maxanier.guideapi.api.impl;
 
 import de.maxanier.guideapi.GuideMod;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.forgespi.language.IModInfo;
@@ -22,18 +22,18 @@ public class BookBinder {
     private final ResourceLocation registryName;
     private Consumer<List<CategoryAbstract>> contentProvider;
     @Nonnull
-    private ITextComponent guideTitle = new TranslationTextComponent("item.guideapi.book");
+    private Component guideTitle = new TranslatableComponent("item.guideapi.book");
     @Nullable
-    private ITextComponent header;
+    private Component header;
     @Nullable
-    private ITextComponent itemName;
+    private Component itemName;
     @Nullable
-    private ITextComponent author;
+    private Component author;
     private ResourceLocation pageTexture = new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png");
     private ResourceLocation outlineTexture = new ResourceLocation(GuideMod.ID, "textures/gui/book_greyscale.png");
     private Color color = new Color(171, 70, 30);
     private boolean spawnWithBook;
-    private ItemGroup creativeTab = ItemGroup.TAB_MISC;
+    private CreativeModeTab creativeTab = CreativeModeTab.TAB_MISC;
 
     /**
      * Creates a new {@link Book} builder which will provide a much more user-friendly interface for creating books.
@@ -64,7 +64,7 @@ public class BookBinder {
      */
     public Book build() {
         if (author == null)
-            this.author = new StringTextComponent(ModList.get().getModContainerById(registryName.getNamespace()).map(ModContainer::getModInfo).map(IModInfo::getDisplayName).orElse("Unknown"));
+            this.author = new TextComponent(ModList.get().getModContainerById(registryName.getNamespace()).map(ModContainer::getModInfo).map(IModInfo::getDisplayName).orElse("Unknown"));
 
         if (header == null)
             this.header = guideTitle;
@@ -88,7 +88,7 @@ public class BookBinder {
      * @param author The author of this book.
      * @return the builder instance for chaining.
      */
-    public BookBinder setAuthor(ITextComponent author) {
+    public BookBinder setAuthor(Component author) {
         this.author = author;
         return this;
     }
@@ -99,7 +99,7 @@ public class BookBinder {
      * @param guideTitle The title of this guide.
      * @return the builder instance for chaining.
      */
-    public BookBinder setGuideTitle(ITextComponent guideTitle) {
+    public BookBinder setGuideTitle(Component guideTitle) {
         this.guideTitle = guideTitle;
         return this;
     }
@@ -111,7 +111,7 @@ public class BookBinder {
      * @return the builder instance for chaining.
      */
     public BookBinder setGuideTitleKey(String translationKey) {
-        return this.setGuideTitle(new TranslationTextComponent(translationKey));
+        return this.setGuideTitle(new TranslatableComponent(translationKey));
     }
 
     /**
@@ -122,7 +122,7 @@ public class BookBinder {
      * @param header The header text to display.
      * @return the builder instance for chaining.
      */
-    public BookBinder setHeader(ITextComponent header) {
+    public BookBinder setHeader(Component header) {
         this.header = header;
         return this;
     }
@@ -136,7 +136,7 @@ public class BookBinder {
      * @return the builder instance for chaining.
      */
     public BookBinder setHeaderKey(String translationKey) {
-        return this.setHeader(new TranslationTextComponent(translationKey));
+        return this.setHeader(new TranslatableComponent(translationKey));
     }
 
     /**
@@ -147,7 +147,7 @@ public class BookBinder {
      * @param itemName The name for this item.
      * @return the builder instance for chaining.
      */
-    public BookBinder setItemName(ITextComponent itemName) {
+    public BookBinder setItemName(Component itemName) {
         this.itemName = itemName;
         return this;
     }
@@ -225,7 +225,7 @@ public class BookBinder {
      * @param creativeTab The creative tab this book should display in.
      * @return the builder instance for chaining.
      */
-    public BookBinder setCreativeTab(ItemGroup creativeTab) {
+    public BookBinder setCreativeTab(CreativeModeTab creativeTab) {
         this.creativeTab = creativeTab;
         return this;
     }
@@ -239,6 +239,6 @@ public class BookBinder {
      * @return the builder instance for chaining.
      */
     public BookBinder setItemNameKey(String translationKey) {
-        return this.setItemName(new TranslationTextComponent(translationKey));
+        return this.setItemName(new TranslatableComponent(translationKey));
     }
 }

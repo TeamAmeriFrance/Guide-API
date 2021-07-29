@@ -1,7 +1,7 @@
 package de.maxanier.guideapi.page;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.IPage;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
@@ -12,13 +12,13 @@ import de.maxanier.guideapi.gui.BaseScreen;
 import de.maxanier.guideapi.gui.EntryScreen;
 import de.maxanier.guideapi.gui.LinkedEntryScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.Util;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.logging.log4j.LogManager;
@@ -84,24 +84,24 @@ public class PageHolderWithLinks implements IPage {
 
 
     @Override
-    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, EntryScreen guiEntry) {
+    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, Player player, ItemStack bookStack, EntryScreen guiEntry) {
         return page.canSee(book, category, entry, player, bookStack, guiEntry);
     }
 
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+    public void draw(PoseStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, Font fontRendererObj) {
         page.draw(stack, book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+    public void drawExtras(PoseStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, Font fontRendererObj) {
         int ll = guiLeft + guiBase.xSize - 5;
         int y = guiTop + 10;
         for (Link l : links) {
-            ITextComponent t = l.getDisplayName();
+            Component t = l.getDisplayName();
             fontRendererObj.drawShadow(stack, t, ll, y, 0xFFFFFF);
             if (l.width == 0) {
                 l.width = fontRendererObj.width(t);
@@ -113,7 +113,7 @@ public class PageHolderWithLinks implements IPage {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void onInit(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, EntryScreen guiEntry) {
+    public void onInit(Book book, CategoryAbstract category, EntryAbstract entry, Player player, ItemStack bookStack, EntryScreen guiEntry) {
         while (lateLinks.size() > 0) {
             ResourceLocation s = lateLinks.remove(0);
             EntryAbstract e = bookHelper.getLinkedEntry(s);
@@ -129,7 +129,7 @@ public class PageHolderWithLinks implements IPage {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, double mouseX, double mouseY, PlayerEntity player, EntryScreen guiEntry) {
+    public void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, double mouseX, double mouseY, Player player, EntryScreen guiEntry) {
         if (mouseX > guiEntry.guiLeft + guiEntry.xSize) {
             //Avoid double/triple execution per click
             long lastClock = System.currentTimeMillis() / 4;
@@ -149,40 +149,40 @@ public class PageHolderWithLinks implements IPage {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, double mouseX, double mouseY, PlayerEntity player, EntryScreen guiEntry) {
+    public void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, double mouseX, double mouseY, Player player, EntryScreen guiEntry) {
         page.onRightClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
     }
 
     private static abstract class Link {
         public int width;
 
-        public abstract ITextComponent getDisplayName();
+        public abstract Component getDisplayName();
 
         @OnlyIn(Dist.CLIENT)
-        public abstract void onClicked(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, int page);
+        public abstract void onClicked(Book book, CategoryAbstract category, EntryAbstract entry, Player player, ItemStack bookStack, int page);
     }
 
     public static class URLLink extends Link {
-        private final ITextComponent name;
+        private final Component name;
         private final URI link;
 
         public URLLink(String name, URI link) {
-            this.name = new StringTextComponent(name);
+            this.name = new TextComponent(name);
             this.link = link;
         }
 
-        public URLLink(ITextComponent name, URI link) {
+        public URLLink(Component name, URI link) {
             this.name = name;
             this.link = link;
         }
 
         @Override
-        public ITextComponent getDisplayName() {
+        public Component getDisplayName() {
             return name;
         }
 
         @Override
-        public void onClicked(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, int page) {
+        public void onClicked(Book book, CategoryAbstract category, EntryAbstract entry, Player player, ItemStack bookStack, int page) {
             Util.getPlatform().openUri(link);
         }
     }
@@ -195,13 +195,13 @@ public class PageHolderWithLinks implements IPage {
         }
 
         @Override
-        public ITextComponent getDisplayName() {
+        public Component getDisplayName() {
             return linkedEntry.getName();
         }
 
         @OnlyIn(Dist.CLIENT)
         @Override
-        public void onClicked(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, int page) {
+        public void onClicked(Book book, CategoryAbstract category, EntryAbstract entry, Player player, ItemStack bookStack, int page) {
             openLinkedEntry(book, category, linkedEntry, player, bookStack, entry, page);
         }
 
@@ -209,7 +209,7 @@ public class PageHolderWithLinks implements IPage {
          * Simply opens a gui screen with a GuiLinkedEntry. Not sure why the @SideOnly does not work, but this uses Class.forName to solve server side class not found issues
          */
         @OnlyIn(Dist.CLIENT)
-        private void openLinkedEntry(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, EntryAbstract from, int fromPage) {
+        private void openLinkedEntry(Book book, CategoryAbstract category, EntryAbstract entry, Player player, ItemStack bookStack, EntryAbstract from, int fromPage) {
             BaseScreen screen = new LinkedEntryScreen(book, category, entry, player, bookStack, from, fromPage);
             Minecraft.getInstance().setScreen(screen);
         }

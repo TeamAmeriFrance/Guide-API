@@ -1,15 +1,15 @@
 package de.maxanier.guideapi.api.impl.abstraction;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.IPage;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.gui.BaseScreen;
 import de.maxanier.guideapi.gui.CategoryScreen;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -18,14 +18,14 @@ import java.util.List;
 public abstract class EntryAbstract {
 
     public final List<IPage> pageList;
-    public final ITextComponent name;
+    public final Component name;
 
-    public EntryAbstract(List<IPage> pageList, ITextComponent name) {
+    public EntryAbstract(List<IPage> pageList, Component name) {
         this.pageList = pageList;
         this.name = name;
     }
 
-    public EntryAbstract(ITextComponent name) {
+    public EntryAbstract(Component name) {
         this(Lists.newArrayList(), name);
     }
 
@@ -47,25 +47,25 @@ public abstract class EntryAbstract {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void draw(MatrixStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer renderer);
+    public abstract void draw(PoseStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, Font renderer);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer renderer);
+    public abstract void drawExtras(PoseStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, Font renderer);
 
-    public ITextComponent getName() {
+    public Component getName() {
         return name;
     }
 
-    public abstract boolean canSee(PlayerEntity player, ItemStack bookStack);
+    public abstract boolean canSee(Player player, ItemStack bookStack);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void onLeftClicked(Book book, CategoryAbstract category, double mouseX, double mouseY, PlayerEntity player, CategoryScreen guiCategory);
+    public abstract void onLeftClicked(Book book, CategoryAbstract category, double mouseX, double mouseY, Player player, CategoryScreen guiCategory);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void onRightClicked(Book book, CategoryAbstract category, double mouseX, double mouseY, PlayerEntity player, CategoryScreen guiCategory);
+    public abstract void onRightClicked(Book book, CategoryAbstract category, double mouseX, double mouseY, Player player, CategoryScreen guiCategory);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void onInit(Book book, CategoryAbstract category, CategoryScreen guiCategory, PlayerEntity player, ItemStack bookStack);
+    public abstract void onInit(Book book, CategoryAbstract category, CategoryScreen guiCategory, Player player, ItemStack bookStack);
 
     @Override
     public boolean equals(Object o) {

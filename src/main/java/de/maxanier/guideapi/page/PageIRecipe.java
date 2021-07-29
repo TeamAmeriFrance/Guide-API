@@ -1,6 +1,6 @@
 package de.maxanier.guideapi.page;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.IRecipeRenderer;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.Page;
@@ -13,13 +13,13 @@ import de.maxanier.guideapi.page.reciperenderer.FurnaceRecipeRenderer;
 import de.maxanier.guideapi.page.reciperenderer.ShapedRecipesRenderer;
 import de.maxanier.guideapi.page.reciperenderer.ShapelessRecipesRenderer;
 import de.maxanier.guideapi.util.LogHelper;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipe;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipe;
-import net.minecraft.item.crafting.ShapelessRecipe;
+import net.minecraft.client.gui.Font;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 
 public class PageIRecipe extends Page {
 
-    public IRecipe<?> recipe;
+    public Recipe<?> recipe;
     public IRecipeRenderer iRecipeRenderer;
     protected boolean isValid;
     private final IngredientCycler ingredientCycler = new IngredientCycler();
@@ -44,7 +44,7 @@ public class PageIRecipe extends Page {
      *
      * @param recipe - Recipe to draw
      */
-    public PageIRecipe(IRecipe<?> recipe) {
+    public PageIRecipe(Recipe<?> recipe) {
         this(recipe, getRenderer(recipe));
     }
 
@@ -52,7 +52,7 @@ public class PageIRecipe extends Page {
      * @param recipe          - Recipe to draw
      * @param iRecipeRenderer - Your custom Recipe drawer
      */
-    public PageIRecipe(IRecipe<?> recipe, IRecipeRenderer iRecipeRenderer) {
+    public PageIRecipe(Recipe<?> recipe, IRecipeRenderer iRecipeRenderer) {
         this.recipe = recipe;
         this.iRecipeRenderer = iRecipeRenderer;
         isValid = recipe != null && iRecipeRenderer != null;
@@ -60,7 +60,7 @@ public class PageIRecipe extends Page {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+    public void draw(PoseStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, Font fontRendererObj) {
         if (isValid) {
             super.draw(stack, book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
             ingredientCycler.tick(guiBase.getMinecraft());
@@ -70,7 +70,7 @@ public class PageIRecipe extends Page {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+    public void drawExtras(PoseStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, Font fontRendererObj) {
         if (isValid) {
             super.drawExtras(stack, book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
             iRecipeRenderer.drawExtras(stack, book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
@@ -78,13 +78,13 @@ public class PageIRecipe extends Page {
     }
 
     @Override
-    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, EntryScreen guiEntry) {
+    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, Player player, ItemStack bookStack, EntryScreen guiEntry) {
         return isValid;
     }
 
 
     @Nullable
-    public static IRecipeRenderer getRenderer(IRecipe<?> recipe) {
+    public static IRecipeRenderer getRenderer(Recipe<?> recipe) {
         if (recipe == null) {
             LogHelper.error("Cannot get renderer for null recipe.");
             return null;
@@ -92,8 +92,8 @@ public class PageIRecipe extends Page {
             return new ShapedRecipesRenderer((ShapedRecipe) recipe);
         } else if (recipe instanceof ShapelessRecipe) {
             return new ShapelessRecipesRenderer((ShapelessRecipe) recipe);
-        } else if (recipe instanceof FurnaceRecipe) {
-            return new FurnaceRecipeRenderer((FurnaceRecipe) recipe);
+        } else if (recipe instanceof SmeltingRecipe) {
+            return new FurnaceRecipeRenderer((SmeltingRecipe) recipe);
         } else {
             return null;
         }

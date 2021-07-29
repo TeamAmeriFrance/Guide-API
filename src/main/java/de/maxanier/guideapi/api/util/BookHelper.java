@@ -9,18 +9,18 @@ import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
 import de.maxanier.guideapi.page.PageHolderWithLinks;
 import de.maxanier.guideapi.page.PageIRecipe;
 import de.maxanier.guideapi.page.PageJsonRecipe;
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.fml.ForgeI18n;
+import net.minecraftforge.fmllegacy.ForgeI18n;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -41,13 +41,13 @@ public class BookHelper {
     private final Logger LOGGER;
     private final String modid;
     private final String baseKey;
-    private final Function<IRecipe<?>, IRecipeRenderer> recipeRendererSupplier;
-    private final BiFunction<String, Object[], ITextComponent> localizer;
+    private final Function<Recipe<?>, IRecipeRenderer> recipeRendererSupplier;
+    private final BiFunction<String, Object[], Component> localizer;
     private final Function<Block, String> blockNameMapper;
     private final Function<Item, String> itemNameMapper;
     private final Map<ResourceLocation, EntryAbstract> links = Maps.newHashMap();
 
-    private BookHelper(String modid, String baseKey, Function<IRecipe<?>, IRecipeRenderer> recipeRendererSupplier, BiFunction<String, Object[], ITextComponent> localizer, Function<Block, String> blockNameMapper, Function<Item, String> itemNameMapper) {
+    private BookHelper(String modid, String baseKey, Function<Recipe<?>, IRecipeRenderer> recipeRendererSupplier, BiFunction<String, Object[], Component> localizer, Function<Block, String> blockNameMapper, Function<Item, String> itemNameMapper) {
         LOGGER = LogManager.getLogger("BookHelper_" + modid);
         this.modid = modid;
         this.baseKey = baseKey;
@@ -167,7 +167,7 @@ public class BookHelper {
         return new ItemInfoBuilder(this, Ingredient.of(blocks), new ItemStack(i0), name, true);
     }
 
-    public ITextComponent localize(String key, Object... formats) {
+    public Component localize(String key, Object... formats) {
         return localizer.apply(key, formats);
     }
 
@@ -191,8 +191,8 @@ public class BookHelper {
     public static class Builder {
         private final String modid;
         private String baseKey;
-        private Function<IRecipe<?>, IRecipeRenderer> recipeRendererSupplier = PageIRecipe::getRenderer;
-        private BiFunction<String, Object[], ITextComponent> localizer = TranslationTextComponent::new;
+        private Function<Recipe<?>, IRecipeRenderer> recipeRendererSupplier = PageIRecipe::getRenderer;
+        private BiFunction<String, Object[], Component> localizer = TranslatableComponent::new;
         private Function<Block, String> blockNameMapper = (block -> block.getRegistryName().getPath());
         private Function<Item, String> itemNameMapper = (item -> item.getRegistryName().getPath());
 
@@ -247,7 +247,7 @@ public class BookHelper {
          * @param localizer Accept translation key and formats
          * @return this
          */
-        public BookHelper.Builder setLocalizer(BiFunction<String, Object[], ITextComponent> localizer) {
+        public BookHelper.Builder setLocalizer(BiFunction<String, Object[], Component> localizer) {
             this.localizer = localizer;
             return this;
         }
@@ -258,7 +258,7 @@ public class BookHelper {
          * @param rendererSupplier Should provide a recipe renderer for any used recipe
          * @return this
          */
-        public BookHelper.Builder setRecipeRendererSupplier(Function<IRecipe<?>, IRecipeRenderer> rendererSupplier) {
+        public BookHelper.Builder setRecipeRendererSupplier(Function<Recipe<?>, IRecipeRenderer> rendererSupplier) {
             this.recipeRendererSupplier = rendererSupplier;
             return this;
         }

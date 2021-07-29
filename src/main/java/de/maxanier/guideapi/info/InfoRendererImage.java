@@ -1,16 +1,18 @@
 package de.maxanier.guideapi.info;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.IInfoRenderer;
 import de.maxanier.guideapi.api.impl.Book;
-import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.level.Level;
 
 public class InfoRendererImage implements IInfoRenderer {
 
@@ -29,8 +31,10 @@ public class InfoRendererImage implements IInfoRenderer {
     }
 
     @Override
-    public void drawInformation(MatrixStack stack, Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player) {
-        Minecraft.getInstance().textureManager.bind(image);
-        AbstractGui.blit(stack, Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 + 20, Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 - imageHeight / 2, imageX, imageY, imageWidth, imageHeight, imageWidth, imageHeight);
+    public void drawInformation(PoseStack stack, Book book, Level world, BlockPos pos, BlockState state, HitResult rayTrace, Player player) {
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, image);
+        GuiComponent.blit(stack, Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 + 20, Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 - imageHeight / 2, imageX, imageY, imageWidth, imageHeight, imageWidth, imageHeight);
     }
 }

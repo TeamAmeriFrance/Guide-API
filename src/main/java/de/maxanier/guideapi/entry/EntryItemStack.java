@@ -1,15 +1,15 @@
 package de.maxanier.guideapi.entry;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.IPage;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.Entry;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.api.util.GuiHelper;
 import de.maxanier.guideapi.gui.BaseScreen;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -19,20 +19,20 @@ public class EntryItemStack extends Entry {
 
     public ItemStack itemStack;
 
-    public EntryItemStack(List<IPage> pageList, ITextComponent name, ItemStack stack) {
+    public EntryItemStack(List<IPage> pageList, Component name, ItemStack stack) {
         super(pageList, name);
         this.itemStack = stack;
     }
 
 
-    public EntryItemStack(ITextComponent name, ItemStack stack) {
+    public EntryItemStack(Component name, ItemStack stack) {
         super(name);
         this.itemStack = stack;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+    public void drawExtras(PoseStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, Font fontRendererObj) {
         if (itemStack != null)
             GuiHelper.drawScaledItemStack(stack, itemStack, entryX + 2, entryY, 0.5f);
 

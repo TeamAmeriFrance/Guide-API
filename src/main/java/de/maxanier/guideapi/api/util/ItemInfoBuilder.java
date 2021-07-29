@@ -4,11 +4,11 @@ import de.maxanier.guideapi.api.IPage;
 import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
 import de.maxanier.guideapi.entry.EntryItemStack;
 import de.maxanier.guideapi.page.PageBrewingRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import org.apache.logging.log4j.LogManager;
 
@@ -93,7 +93,7 @@ public class ItemInfoBuilder {
         }
         pages.addAll(this.additionalPages);
         if (links != null) bookHelper.addLinks(pages, links);
-        entries.put(new ResourceLocation(base), new EntryItemStack(pages, new TranslationTextComponent(customName ? base : mainStack.getDescriptionId()), mainStack));
+        entries.put(new ResourceLocation(base), new EntryItemStack(pages, new TranslatableComponent(customName ? base : mainStack.getDescriptionId()), mainStack));
     }
 
     /**

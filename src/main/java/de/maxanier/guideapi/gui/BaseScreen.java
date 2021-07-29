@@ -1,17 +1,18 @@
 package de.maxanier.guideapi.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IReorderingProcessor;
-import net.minecraft.util.text.ITextComponent;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.screens.Screen;
+import com.mojang.blaze3d.platform.Lighting;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.network.chat.Component;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
@@ -23,46 +24,39 @@ public class BaseScreen extends Screen {
     public int guiLeft, guiTop;
     public int xSize = 245;
     public int ySize = 192;
-    public PlayerEntity player;
+    public Player player;
     public ItemStack bookStack;
     public float publicZLevel;
 
-    public BaseScreen(ITextComponent title, PlayerEntity player, ItemStack bookStack) {
+    public BaseScreen(Component title, Player player, ItemStack bookStack) {
         super(title);
         this.player = player;
         this.bookStack = bookStack;
         this.publicZLevel = this.getBlitOffset(); //getBlitOffset
     }
 
-    public void drawCenteredStringWithoutShadow(MatrixStack matrixStack, FontRenderer fontRendererObj, String string, int x, int y, int color) {
-        RenderHelper.turnOff();
+    public void drawCenteredStringWithoutShadow(PoseStack matrixStack, Font fontRendererObj, String string, int x, int y, int color) {
         fontRendererObj.draw(matrixStack, string, x - fontRendererObj.width(string) / 2f, y, color); //drawString
-        RenderHelper.turnBackOn();
     }
 
-    public void drawCenteredStringWithoutShadow(MatrixStack matrixStack, FontRenderer fontRendererObj, IReorderingProcessor string, int x, int y, int color) {
-        RenderHelper.turnOff();
+    public void drawCenteredStringWithoutShadow(PoseStack matrixStack, Font fontRendererObj, FormattedCharSequence string, int x, int y, int color) {
         fontRendererObj.draw(matrixStack, string, x - fontRendererObj.width(string) / 2f, y, color); //drawString
-        RenderHelper.turnBackOn();
     }
 
-    public void drawCenteredStringWithoutShadow(MatrixStack matrixStack, FontRenderer fontRendererObj, ITextComponent string, int x, int y, int color) {
-        RenderHelper.turnOff();
+    public void drawCenteredStringWithoutShadow(PoseStack matrixStack, Font fontRendererObj, Component string, int x, int y, int color) {
         fontRendererObj.draw(matrixStack, string, x - fontRendererObj.width(string) / 2f, y, color); //drawString
-        RenderHelper.turnBackOn();
     }
 
 
-    public void drawTexturedModalRectWithColor(MatrixStack stack, int x, int y, int textureX, int textureY, int width, int height, Color color) {
+    public void drawTexturedModalRectWithColor(PoseStack stack, int x, int y, int textureX, int textureY, int width, int height, Color color) {
         stack.pushPose();
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         float f = 0.00390625F;
         float f1 = 0.00390625F;
-        RenderSystem.disableLighting();
-        RenderSystem.color3f((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F);
-        Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getBuilder().begin(7, DefaultVertexFormats.POSITION_TEX);
+        RenderSystem.setShaderColor((float) color.getRed() / 255F, (float) color.getGreen() / 255F, (float) color.getBlue() / 255F,1f);
+        Tesselator tessellator = Tesselator.getInstance();
+        tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         tessellator.getBuilder().vertex(x, y + height, this.publicZLevel).uv((float) (textureX) * f, (float) (textureY + height) * f1).endVertex();
         tessellator.getBuilder().vertex(x + width, y + height, this.publicZLevel).uv((float) (textureX + width) * f, (float) (textureY + height) * f1).endVertex();
         tessellator.getBuilder().vertex(x + width, y, this.publicZLevel).uv((float) (textureX + width) * f, (float) (textureY) * f1).endVertex();

@@ -16,19 +16,19 @@ import de.maxanier.guideapi.category.CategoryItemStack;
 import de.maxanier.guideapi.entry.EntryItemStack;
 import de.maxanier.guideapi.page.*;
 import de.maxanier.guideapi.page.reciperenderer.ShapedRecipesRenderer;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.Hand;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -44,7 +44,7 @@ public class TestBook implements IGuideBook {
     @Override
     public Book buildBook() {
         BookBinder binder = new BookBinder(new ResourceLocation(GuideMod.ID, "test_book"));
-        binder.setAuthor(new StringTextComponent("TehNut")).setColor(Color.PINK).setItemName(new StringTextComponent("Display Name")).setHeader(new StringTextComponent("Hello there")).setGuideTitle(new StringTextComponent("Title message")).setSpawnWithBook().setContentProvider(this::buildContent);
+        binder.setAuthor(new TextComponent("TehNut")).setColor(Color.PINK).setItemName(new TextComponent("Display Name")).setHeader(new TextComponent("Hello there")).setGuideTitle(new TextComponent("Title message")).setSpawnWithBook().setContentProvider(this::buildContent);
         return (book = binder.build());
     }
 
@@ -53,10 +53,10 @@ public class TestBook implements IGuideBook {
         Map<ResourceLocation, EntryAbstract> entries = Maps.newHashMap();
 
         List<IPage> pages = Lists.newArrayList();
-        pages.add(new PageText(new StringTextComponent("Hello, this is\nsome text with a new line.")));
-        pages.add(new PageText(new StringTextComponent("Hello, this is some text without a new line. It is long so it should probably be automatically wrapped")));
-        pages.addAll(PageHelper.pagesForLongText(new StringTextComponent("Hello, this is some text. It is very long so it should be split across multiple pages. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.")));
-        pages.addAll(PageHelper.pagesForLongText(new StringTextComponent("Hello, this is some text. It is very long so it should be split across multiple pages. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."), Items.COAL_BLOCK));
+        pages.add(new PageText(new TextComponent("Hello, this is\nsome text with a new line.")));
+        pages.add(new PageText(new TextComponent("Hello, this is some text without a new line. It is long so it should probably be automatically wrapped")));
+        pages.addAll(PageHelper.pagesForLongText(new TextComponent("Hello, this is some text. It is very long so it should be split across multiple pages. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.")));
+        pages.addAll(PageHelper.pagesForLongText(new TextComponent("Hello, this is some text. It is very long so it should be split across multiple pages. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."), Items.COAL_BLOCK));
 
         pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "stone")));
         pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "charcoal")));
@@ -65,26 +65,26 @@ public class TestBook implements IGuideBook {
 
         pages.add(new PageIRecipe(new ShapedRecipe(new ResourceLocation(GuideMod.ID, "test11"), "test", 1, 1, NonNullList.of(Ingredient.EMPTY, Ingredient.of(new ItemStack(Items.PUMPKIN))), new ItemStack(Blocks.OAK_LOG))));
         pages.add(new PageJsonRecipe(new ResourceLocation("minecraft", "acacia_fence")));
-        pages.add(new PageItemStack(new StringTextComponent("These are all logs"), Ingredient.of(ItemTags.LOGS)));
-        pages.add(new PageTextImage(new TranslationTextComponent("guideapi.test.string"), new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"), true));
-        pages.add(new PageTextImage(new TranslationTextComponent("guideapi.test.string"), new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"), false));
+        pages.add(new PageItemStack(new TextComponent("These are all logs"), Ingredient.of(ItemTags.LOGS)));
+        pages.add(new PageTextImage(new TranslatableComponent("guideapi.test.string"), new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"), true));
+        pages.add(new PageTextImage(new TranslatableComponent("guideapi.test.string"), new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png"), false));
         pages.add(new PageImage(new ResourceLocation(GuideMod.ID, "textures/gui/testimage.png")));
         pages.add(new PageEntity(EntityType.BLAZE));
         pages.add(new PageEntity((world) -> {
-            ZombieEntity z = EntityType.ZOMBIE.create(world);
-            z.setItemInHand(Hand.MAIN_HAND, new ItemStack(Items.IRON_SWORD));
+            Zombie z = EntityType.ZOMBIE.create(world);
+            z.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_SWORD));
             return z;
-        }, new StringTextComponent("This is a zombie")));
+        }, new TextComponent("This is a zombie")));
 
 
-        Entry entry = new EntryItemStack(pages, new TranslationTextComponent("guideapi.test.entry"), new ItemStack(Items.POTATO));
+        Entry entry = new EntryItemStack(pages, new TranslatableComponent("guideapi.test.entry"), new ItemStack(Items.POTATO));
         entries.put(new ResourceLocation(GuideMod.ID, "entry"), entry);
-        categories.add(new CategoryItemStack(entries, new TranslationTextComponent("guideapi.test.category"), new ItemStack(Items.ACACIA_DOOR)));
-        categories.add(new CategoryItemStack(entries, new TranslationTextComponent("guideapi.test.category"), new ItemStack(Items.PUMPKIN)));
-        categories.add(new CategoryItemStack(entries, new TranslationTextComponent("guideapi.test.category"), new ItemStack(Items.WOODEN_AXE)));
-        categories.add(new CategoryItemStack(entries, new TranslationTextComponent("guideapi.test.category"), new ItemStack(Items.SPRUCE_WOOD)));
-        categories.add(new CategoryItemStack(entries, new TranslationTextComponent("guideapi.test.category"), new ItemStack(Items.BONE_MEAL)));
-        categories.add(new CategoryItemStack(entries, new TranslationTextComponent("guideapi.test.category"), new ItemStack(Items.WHEAT)));
+        categories.add(new CategoryItemStack(entries, new TranslatableComponent("guideapi.test.category"), new ItemStack(Items.ACACIA_DOOR)));
+        categories.add(new CategoryItemStack(entries, new TranslatableComponent("guideapi.test.category"), new ItemStack(Items.PUMPKIN)));
+        categories.add(new CategoryItemStack(entries, new TranslatableComponent("guideapi.test.category"), new ItemStack(Items.WOODEN_AXE)));
+        categories.add(new CategoryItemStack(entries, new TranslatableComponent("guideapi.test.category"), new ItemStack(Items.SPRUCE_WOOD)));
+        categories.add(new CategoryItemStack(entries, new TranslatableComponent("guideapi.test.category"), new ItemStack(Items.BONE_MEAL)));
+        categories.add(new CategoryItemStack(entries, new TranslatableComponent("guideapi.test.category"), new ItemStack(Items.WHEAT)));
 
     }
 }

@@ -1,12 +1,12 @@
 package de.maxanier.guideapi.api;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.impl.Book;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,7 +34,7 @@ public interface IInfoRenderer {
      * @param rayTrace - A RayTraceResult containing data about the block currently looked at
      * @param player   - The player looking at the block
      */
-    void drawInformation(MatrixStack stack, Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player);
+    void drawInformation(PoseStack stack, Book book, Level world, BlockPos pos, BlockState state, HitResult rayTrace, Player player);
 
     /**
      * You can implement this in your block. However, this of course creates a hard dependency on GuideAPI
@@ -53,7 +53,7 @@ public interface IInfoRenderer {
          * @return an IInfoRenderer for this block. If no IInfoRenderer is needed, return null.
          */
         @Nullable
-        IInfoRenderer getInfoRenderer(Book book, World world, BlockPos pos, BlockState state, RayTraceResult rayTrace, PlayerEntity player);
+        IInfoRenderer getInfoRenderer(Book book, Level world, BlockPos pos, BlockState state, HitResult rayTrace, Player player);
 
         /**
          * @return returns the book required to display information.

@@ -34,7 +34,6 @@ minecraft {
     runs {
         client {
             taskName 'runClient1'
-            main 'net.minecraftforge.userdev.LaunchTesting'
             property 'forge.logging.console.level', 'info'
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             workingDirectory project.file('run/client1').canonicalPath
@@ -72,22 +71,14 @@ minecraft {
 
 processResources {
 
-    from(sourceSets.main.resources.srcDirs) {
-        include 'META-INF/mods.toml'
-
+    filesMatching("**/mods.toml"){
         expand 'version': project.mod_version, 'mcversion': minecraft_version, 'forge_version': forge_version
     }
 
-
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'META-INF/mods.toml'
-    }
     outputs.upToDateWhen { false }
 
     exclude '**/Thumbs.db'
 
-    duplicatesStrategy = 'include'
 }
 
 

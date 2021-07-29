@@ -31,7 +31,7 @@ configurations {
 
 group = "de.maxanier.guideapi"
 archivesBaseName = "Guide-API-VP"
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 ext.mod_version="Test"
 ext.type="test"
 

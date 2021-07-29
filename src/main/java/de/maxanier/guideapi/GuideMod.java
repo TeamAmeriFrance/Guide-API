@@ -9,7 +9,7 @@ import de.maxanier.guideapi.proxy.ClientProxy;
 import de.maxanier.guideapi.proxy.CommonProxy;
 import de.maxanier.guideapi.util.AnnotationHandler;
 import de.maxanier.guideapi.util.ReloadCommand;
-import net.minecraft.command.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -23,7 +23,7 @@ import org.apache.commons.lang3.tuple.Pair;
 public class GuideMod {
 
     public static final String NAME = "Guide-API VP";
-    public static final String ID = "guideapi-vp";
+    public static final String ID = "guideapi_vp";
     public static boolean inDev = false;
 
     public static GuideMod INSTANCE;
@@ -66,7 +66,7 @@ public class GuideMod {
 
     private void onRegisterCommands(RegisterCommandsEvent event) {
         if (inDev) {
-            event.getDispatcher().register(LiteralArgumentBuilder.<CommandSource>literal("guide-api-vp").then(ReloadCommand.register()));
+            event.getDispatcher().register(LiteralArgumentBuilder.<CommandSourceStack>literal("guide-api-vp").then(ReloadCommand.register()));
         }
     }
 }

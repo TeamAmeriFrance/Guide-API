@@ -1,7 +1,7 @@
 package de.maxanier.guideapi.api;
 
 import de.maxanier.guideapi.api.impl.Book;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public interface IGuideItem {
 

@@ -3,9 +3,9 @@ package de.maxanier.guideapi.api.impl;
 import com.google.common.base.Joiner;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.util.LogHelper;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.awt.*;
@@ -17,20 +17,20 @@ public class Book {
 
     private final List<CategoryAbstract> categories = new ArrayList<>();
     private final Consumer<List<CategoryAbstract>> contentProvider;
-    private final ITextComponent title;
-    private final ITextComponent header;
-    private final ITextComponent itemName;
-    private final ITextComponent author;
+    private final Component title;
+    private final Component header;
+    private final Component itemName;
+    private final Component author;
     private final ResourceLocation pageTexture;
     private final ResourceLocation outlineTexture;
     private final Color color;
     private final boolean spawnWithBook;
     private final ResourceLocation registryName;
-    private final ItemGroup creativeTab;
+    private final CreativeModeTab creativeTab;
     private boolean isInitialized;
 
 
-    protected Book(Consumer<List<CategoryAbstract>> contentProvider, ITextComponent title, ITextComponent header, ITextComponent displayName, ITextComponent author, ResourceLocation pageTexture, ResourceLocation outlineTexture, Color color, boolean spawnWithBook, ResourceLocation registryName, ItemGroup creativeTab) {
+    protected Book(Consumer<List<CategoryAbstract>> contentProvider, Component title, Component header, Component displayName, Component author, ResourceLocation pageTexture, ResourceLocation outlineTexture, Color color, boolean spawnWithBook, ResourceLocation registryName, CreativeModeTab creativeTab) {
         this.contentProvider = contentProvider;
         this.title = title;
         this.header = header;
@@ -67,19 +67,19 @@ public class Book {
         return this.categories;
     }
 
-    public ITextComponent getAuthor() {
+    public Component getAuthor() {
         return this.author;
     }
 
-    public ITextComponent getHeader() {
+    public Component getHeader() {
         return this.header;
     }
 
-    public ITextComponent getItemName() {
+    public Component getItemName() {
         return this.itemName;
     }
 
-    public ITextComponent getTitle() {
+    public Component getTitle() {
         return this.title;
     }
 
@@ -103,7 +103,7 @@ public class Book {
         return this.registryName;
     }
 
-    public ItemGroup getCreativeTab() {
+    public CreativeModeTab getCreativeTab() {
         return this.creativeTab;
     }
 

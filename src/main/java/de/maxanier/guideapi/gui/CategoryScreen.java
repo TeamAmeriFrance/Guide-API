@@ -2,7 +2,8 @@ package de.maxanier.guideapi.gui;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
@@ -13,10 +14,11 @@ import de.maxanier.guideapi.button.ButtonSearch;
 import de.maxanier.guideapi.network.PacketHandler;
 import de.maxanier.guideapi.network.PacketSyncCategory;
 import de.maxanier.guideapi.wrapper.EntryWrapper;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nullable;
@@ -38,7 +40,7 @@ public class CategoryScreen extends BaseScreen {
     @Nullable
     public EntryAbstract startEntry;
 
-    public CategoryScreen(Book book, CategoryAbstract category, PlayerEntity player, ItemStack bookStack, @Nullable EntryAbstract startEntry) {
+    public CategoryScreen(Book book, CategoryAbstract category, Player player, ItemStack bookStack, @Nullable EntryAbstract startEntry) {
         super(category.name, player, bookStack);
         this.book = book;
         this.category = category;
@@ -56,20 +58,20 @@ public class CategoryScreen extends BaseScreen {
         guiTop = (this.height - this.ySize) / 2; //Height
 
         //addButton
-        addButton(buttonBack = new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
+        addRenderableWidget(buttonBack = new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
             this.minecraft.setScreen(new HomeScreen(book, player, bookStack)); //minecraft
         }, this));
-        addButton(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
+        addRenderableWidget(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
             if (entryPage + 1 < entryWrapperMap.asMap().size()) {
                 nextPage();
             }
         }, this));
-        addButton(buttonPrev = new ButtonPrev(guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn) -> {
+        addRenderableWidget(buttonPrev = new ButtonPrev(guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn) -> {
             if (entryPage > 0) {
                 prevPage();
             }
         }, this));
-        addButton(buttonSearch = new ButtonSearch((guiLeft + xSize / 6) - 25, guiTop + 5, (btn) -> {
+        addRenderableWidget(buttonSearch = new ButtonSearch((guiLeft + xSize / 6) - 25, guiTop + 5, (btn) -> {
             this.minecraft.setScreen(new SearchScreen(book, player, bookStack, this));
         }, this));
 
@@ -148,13 +150,15 @@ public class CategoryScreen extends BaseScreen {
     }
 
     @Override
-    public void render(MatrixStack stack, int mouseX, int mouseY, float renderPartialTicks) { //render
-        minecraft.getTextureManager().bind(pageTexture); //minecraft
+    public void render(PoseStack stack, int mouseX, int mouseY, float renderPartialTicks) { //render
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1f);
+        RenderSystem.setShaderTexture(0, pageTexture); //minecraft
         blit(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
-        minecraft.getTextureManager().bind(outlineTexture);
+        RenderSystem.setShaderTexture(0, outlineTexture);
         drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
-        entryPage = MathHelper.clamp(entryPage, 0, entryWrapperMap.size() - 1);
+        entryPage = Mth.clamp(entryPage, 0, entryWrapperMap.size() - 1);
 
         for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
             if (wrapper.canPlayerSee()) {
@@ -166,7 +170,7 @@ public class CategoryScreen extends BaseScreen {
             }
         }
 
-        drawCenteredStringWithoutShadow(stack, font /*fontRenderer*/, String.format("%d/%d", entryPage + 1, entryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        drawCenteredStringWithoutShadow(stack, font , String.format("%d/%d", entryPage + 1, entryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
         drawCenteredString(stack, font, category.getName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = entryPage != 0; //visible

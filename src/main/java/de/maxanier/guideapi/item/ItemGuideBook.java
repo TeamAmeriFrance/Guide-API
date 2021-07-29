@@ -6,23 +6,29 @@ import de.maxanier.guideapi.api.IGuideItem;
 import de.maxanier.guideapi.api.IGuideLinked;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.util.ITooltipFlag.TooltipFlags;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.TooltipFlag.Default;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.util.*;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+
+import net.minecraft.Util;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 
 public class ItemGuideBook extends Item implements IGuideItem {
 
@@ -44,42 +50,42 @@ public class ItemGuideBook extends Item implements IGuideItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, World playerIn, List<ITextComponent> tooltip, ITooltipFlag advanced) {
+    public void appendHoverText(ItemStack stack, Level playerIn, List<Component> tooltip, TooltipFlag advanced) {
         if (book.getAuthor() != null) {
             tooltip.add(book.getAuthor());
-            if (advanced == TooltipFlags.ADVANCED) {
-                tooltip.add(new StringTextComponent(book.getRegistryName().toString()));
+            if (advanced == Default.ADVANCED) {
+                tooltip.add(new TextComponent(book.getRegistryName().toString()));
             }
         }
     }
 
     @Override
-    public ITextComponent getName(ItemStack stack) {
+    public Component getName(ItemStack stack) {
         return getBook(stack).getItemName() != null ? getBook(stack).getItemName() : super.getName(stack);
     }
 
     @Override
-    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 
         ItemStack heldStack = player.getItemInHand(hand);
 
         //Only handle book client side
-        if (!world.isClientSide()) return ActionResult.success(heldStack);
+        if (!world.isClientSide()) return InteractionResultHolder.success(heldStack);
 
 
         BookEvent.Open event = new BookEvent.Open(book, heldStack, player);
         if (MinecraftForge.EVENT_BUS.post(event)) {
             player.displayClientMessage(event.getCanceledText(), true);
-            return ActionResult.fail(heldStack);
+            return InteractionResultHolder.fail(heldStack);
         }
         GuideMod.PROXY.openGuidebook(player, world, book, heldStack);
-        return ActionResult.success(heldStack);
+        return InteractionResultHolder.success(heldStack);
     }
 
     @Override
-    public ActionResultType useOn(ItemUseContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         if (!context.getLevel().isClientSide || !context.isSecondaryUseActive())
-            return ActionResultType.PASS;
+            return InteractionResult.PASS;
 
         ItemStack stack = context.getItemInHand();
         BlockState state = context.getLevel().getBlockState(context.getClickedPos());
@@ -88,17 +94,17 @@ public class ItemGuideBook extends Item implements IGuideItem {
             IGuideLinked guideLinked = (IGuideLinked) state.getBlock();
             ResourceLocation entryKey = guideLinked.getLinkedEntry(context.getLevel(), context.getClickedPos(), context.getPlayer(), stack);
             if (entryKey == null)
-                return ActionResultType.FAIL;
+                return InteractionResult.FAIL;
 
             for (CategoryAbstract category : book.getCategoryList()) {
                 if (category.entries.containsKey(entryKey)) {
                     GuideMod.PROXY.openEntry(book, category, category.entries.get(entryKey), context.getPlayer(), stack);
-                    return ActionResultType.SUCCESS;
+                    return InteractionResult.SUCCESS;
                 }
             }
         }
 
-        return ActionResultType.PASS;
+        return InteractionResult.PASS;
     }
 
     @Override

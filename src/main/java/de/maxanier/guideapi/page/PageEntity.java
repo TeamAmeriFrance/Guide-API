@@ -1,20 +1,20 @@
 package de.maxanier.guideapi.page;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.Page;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
 import de.maxanier.guideapi.gui.BaseScreen;
 import de.maxanier.guideapi.gui.EntryScreen;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.screen.inventory.InventoryScreen;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.function.Function;
@@ -26,8 +26,8 @@ import java.util.function.Function;
 public class PageEntity extends Page {
 
     @Nullable
-    private final ITextComponent title;
-    private final Function<World, ? extends LivingEntity> supplier;
+    private final Component title;
+    private final Function<Level, ? extends LivingEntity> supplier;
     @Nullable
     private LivingEntity e;
 
@@ -39,23 +39,23 @@ public class PageEntity extends Page {
      * @param supplier Supply a (new) entity instance
      * @param title    Title to render below the entity. If null, the name of the entity will be rendered
      */
-    public PageEntity(Function<World, ? extends LivingEntity> supplier, @Nullable ITextComponent title) {
+    public PageEntity(Function<Level, ? extends LivingEntity> supplier, @Nullable Component title) {
         this.supplier = supplier;
         this.title = title;
     }
 
-    public PageEntity(Function<World, ? extends LivingEntity> supplier) {
+    public PageEntity(Function<Level, ? extends LivingEntity> supplier) {
         this(supplier, null);
     }
 
     @Override
-    public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+    public void draw(PoseStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, Font fontRendererObj) {
         if (e != null)
             InventoryScreen.renderEntityInInventory(guiLeft + 120, guiTop + 130, 50, (float) (guiLeft + 120) - mouseX, (float) (guiTop + 130) - mouseY, this.e);
     }
 
     @Override
-    public void drawExtras(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+    public void drawExtras(PoseStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, Font fontRendererObj) {
 
         if (e != null)
             guiBase.drawCenteredStringWithoutShadow(stack, fontRendererObj, (title != null ? title : e.getName()), guiLeft + guiBase.xSize / 2, guiTop + 140, 0x050505);
@@ -67,7 +67,7 @@ public class PageEntity extends Page {
     }
 
     @Override
-    public void onInit(Book book, CategoryAbstract category, EntryAbstract entry, PlayerEntity player, ItemStack bookStack, EntryScreen guiEntry) {
+    public void onInit(Book book, CategoryAbstract category, EntryAbstract entry, Player player, ItemStack bookStack, EntryScreen guiEntry) {
         if (guiEntry.getMinecraft().level != null) this.e = supplier.apply(guiEntry.getMinecraft().level);
     }
 }

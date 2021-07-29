@@ -11,19 +11,19 @@ import de.maxanier.guideapi.gui.CategoryScreen;
 import de.maxanier.guideapi.gui.EntryScreen;
 import de.maxanier.guideapi.gui.HomeScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.world.World;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy {
 
     @Override
-    public void openEntry(Book book, CategoryAbstract categoryAbstract, EntryAbstract entryAbstract, PlayerEntity player, ItemStack stack) {
+    public void openEntry(Book book, CategoryAbstract categoryAbstract, EntryAbstract entryAbstract, Player player, ItemStack stack) {
         BookEvent.Open event = new BookEvent.Open(book, stack, player);
         if (MinecraftForge.EVENT_BUS.post(event)) {
             player.displayClientMessage(event.getCanceledText(), true);
@@ -34,12 +34,12 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void openGuidebook(PlayerEntity player, World world, Book book, ItemStack bookStack) {
+    public void openGuidebook(Player player, Level world, Book book, ItemStack bookStack) {
         if (!bookStack.isEmpty() && bookStack.getItem() instanceof IGuideItem) {
             book.initializeContent();
             try {
                 if (bookStack.hasTag()) {
-                    CompoundNBT tagCompound = bookStack.getTag();
+                    CompoundTag tagCompound = bookStack.getTag();
                     if (tagCompound.contains(NBTBookTags.ENTRY_TAG) && tagCompound.contains(NBTBookTags.CATEGORY_TAG)) {
                         CategoryAbstract category = book.getCategoryList().get(tagCompound.getInt(NBTBookTags.CATEGORY_TAG));
                         EntryAbstract entry = category.entries.get(new ResourceLocation(tagCompound.getString(NBTBookTags.ENTRY_TAG)));
@@ -86,6 +86,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void playSound(SoundEvent sound) {
-        Minecraft.getInstance().getSoundManager().play(SimpleSound.forUI(sound, 1));
+        Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(sound, 1));
     }
 }

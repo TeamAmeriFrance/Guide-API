@@ -1,14 +1,13 @@
 package de.maxanier.guideapi.api;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
 import com.mojang.blaze3d.platform.GlStateManager;
 import de.maxanier.guideapi.GuideMod;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.resources.ResourceLocation;
+import com.mojang.math.Matrix4f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -59,15 +58,16 @@ public class SubTexture {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void draw(MatrixStack stack, int drawX, int drawY, float zLevel) {
+    public void draw(PoseStack stack, int drawX, int drawY, float zLevel) {
         Matrix4f matrix = stack.last().pose();
         final float someMagicValueFromMojang = 0.00390625F;
 
-        Minecraft.getInstance().getTextureManager().bind(textureLocation);
-        GlStateManager._color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        Tessellator tessellator = Tessellator.getInstance();
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, textureLocation);
+        Tesselator tessellator = Tesselator.getInstance();
         BufferBuilder vertexbuffer = tessellator.getBuilder();
-        vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        vertexbuffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         vertexbuffer.vertex(matrix, drawX, drawY + height, zLevel).uv((float) xPos * someMagicValueFromMojang, (float) (yPos + height) * someMagicValueFromMojang).endVertex();
         vertexbuffer.vertex(drawX + width, drawY + height, zLevel).uv((float) (xPos + width) * someMagicValueFromMojang, (float) (yPos + height) * someMagicValueFromMojang).endVertex();
         vertexbuffer.vertex(drawX + width, drawY, zLevel).uv((float) (xPos + width) * someMagicValueFromMojang, (float) yPos * someMagicValueFromMojang).endVertex();
@@ -76,7 +76,7 @@ public class SubTexture {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void draw(MatrixStack stack, int drawX, int drawY) {
+    public void draw(PoseStack stack, int drawX, int drawY) {
         draw(stack, drawX, drawY, 0.1f);
     }
 

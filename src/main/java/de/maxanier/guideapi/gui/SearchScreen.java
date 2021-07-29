@@ -2,7 +2,8 @@ package de.maxanier.guideapi.gui;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.GuideMod;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
@@ -12,12 +13,13 @@ import de.maxanier.guideapi.button.ButtonBack;
 import de.maxanier.guideapi.button.ButtonNext;
 import de.maxanier.guideapi.button.ButtonPrev;
 import de.maxanier.guideapi.util.GuiUtilsCopy;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.glfw.GLFW;
 
@@ -30,7 +32,7 @@ import java.util.Locale;
 public class SearchScreen extends BaseScreen {
 
     @Nonnull
-    static List<List<Pair<EntryAbstract, CategoryAbstract>>> getMatches(Book book, @Nullable String query, PlayerEntity player, ItemStack bookStack) {
+    static List<List<Pair<EntryAbstract, CategoryAbstract>>> getMatches(Book book, @Nullable String query, Player player, ItemStack bookStack) {
         List<Pair<EntryAbstract, CategoryAbstract>> discovered = Lists.newArrayList();
 
         for (CategoryAbstract category : book.getCategoryList()) {
@@ -53,7 +55,7 @@ public class SearchScreen extends BaseScreen {
     private final ResourceLocation outlineTexture;
     private ButtonNext buttonNext;
     private ButtonPrev buttonPrev;
-    private TextFieldWidget searchField;
+    private EditBox searchField;
     private final ResourceLocation pageTexture;
     private List<List<Pair<EntryAbstract, CategoryAbstract>>> searchResults;
     private int currentPage = 0;
@@ -63,7 +65,7 @@ public class SearchScreen extends BaseScreen {
     private final Screen parent;
 
 
-    public SearchScreen(Book book, PlayerEntity player, ItemStack bookStack, Screen parent) {
+    public SearchScreen(Book book, Player player, ItemStack bookStack, Screen parent) {
         super(book.getTitle(), player, bookStack);
 
         this.book = book;
@@ -88,20 +90,20 @@ public class SearchScreen extends BaseScreen {
         guiLeft = (this.width - this.xSize) / 2;
         guiTop = (this.height - this.ySize) / 2;
 
-        addButton(new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
+        addRenderableWidget(new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
             minecraft.setScreen(parent);
 
         }, this));
-        addButton(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
+        addRenderableWidget(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
             if (currentPage <= searchResults.size() - 1)
                 currentPage++;
         }, this));
-        addButton(buttonPrev = new ButtonPrev(guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn) -> {
+        addRenderableWidget(buttonPrev = new ButtonPrev(guiLeft + xSize / 5, guiTop + 5 * ySize / 6, (btn) -> {
             if (currentPage > 0)
                 currentPage--;
         }, this));
 
-        searchField = new TextFieldWidget(font, guiLeft + 43, guiTop + 12, 100, 10, new TranslationTextComponent("guideapi.button.search"));
+        searchField = new EditBox(font, guiLeft + 43, guiTop + 12, 100, 10, new TranslatableComponent("guideapi.button.search"));
         searchField.setBordered(false);
         searchField.changeFocus(true); //changeFocus
         searchResults = getMatches(book, null, player, bookStack);
@@ -160,10 +162,14 @@ public class SearchScreen extends BaseScreen {
     }
 
     @Override
-    public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
-        minecraft.getTextureManager().bind(pageTexture);
+    public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, pageTexture);
         blit(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
-        minecraft.getTextureManager().bind(outlineTexture);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, outlineTexture);
         drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
         fill(stack, searchField.x - 1, searchField.y - 1, searchField.x + searchField.getInnerWidth() + 1, searchField.y + searchField.getHeight() + 1, new Color(166, 166, 166, 128).getRGB());

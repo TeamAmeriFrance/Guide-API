@@ -1,6 +1,6 @@
 package de.maxanier.guideapi.page.reciperenderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.IRecipeRenderer;
 import de.maxanier.guideapi.api.SubTexture;
 import de.maxanier.guideapi.api.impl.Book;
@@ -9,24 +9,24 @@ import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
 import de.maxanier.guideapi.api.util.GuiHelper;
 import de.maxanier.guideapi.api.util.IngredientCycler;
 import de.maxanier.guideapi.gui.BaseScreen;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipe;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.List;
 
 
-public class FurnaceRecipeRenderer extends IRecipeRenderer.RecipeRendererBase<FurnaceRecipe> {
-    private final ITextComponent title = new TranslationTextComponent("guideapi.text.furnace.smelting");
-    public FurnaceRecipeRenderer(FurnaceRecipe recipe) {
+public class FurnaceRecipeRenderer extends IRecipeRenderer.RecipeRendererBase<SmeltingRecipe> {
+    private final Component title = new TranslatableComponent("guideapi.text.furnace.smelting");
+    public FurnaceRecipeRenderer(SmeltingRecipe recipe) {
         super(recipe);
     }
 
     @Override
-    public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj, IngredientCycler cycler) {
+    public void draw(PoseStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, Font fontRendererObj, IngredientCycler cycler) {
         SubTexture.FURNACE_GRID.draw(stack, guiLeft + 90, guiTop + 71);
 
         guiBase.drawCenteredStringWithoutShadow(stack, fontRendererObj, title, guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
@@ -38,7 +38,7 @@ public class FurnaceRecipeRenderer extends IRecipeRenderer.RecipeRendererBase<Fu
         cycler.getCycledIngredientStack(input, 0).ifPresent(s -> {
             GuiHelper.drawItemStack(stack, s, x, y);
 
-            List<ITextComponent> tooltip = null;
+            List<Component> tooltip = null;
             if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
                 tooltips = GuiHelper.getTooltip(s);
         });

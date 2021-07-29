@@ -2,9 +2,9 @@ package de.maxanier.guideapi.api;
 
 import com.google.common.collect.*;
 import de.maxanier.guideapi.api.impl.Book;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 import java.util.Map;

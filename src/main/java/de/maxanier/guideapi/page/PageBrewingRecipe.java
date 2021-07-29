@@ -1,6 +1,6 @@
 package de.maxanier.guideapi.page;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.SubTexture;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.Page;
@@ -10,13 +10,13 @@ import de.maxanier.guideapi.api.util.GuiHelper;
 import de.maxanier.guideapi.api.util.IngredientCycler;
 import de.maxanier.guideapi.api.util.TextHelper;
 import de.maxanier.guideapi.gui.BaseScreen;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.client.gui.Font;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.brewing.BrewingRecipe;
@@ -58,7 +58,7 @@ public class PageBrewingRecipe extends Page {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void draw(MatrixStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, FontRenderer fontRendererObj) {
+    public void draw(PoseStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, Font fontRendererObj) {
         cycler.tick(guiBase.getMinecraft());
 
         int xStart = guiLeft + 88;
@@ -66,8 +66,8 @@ public class PageBrewingRecipe extends Page {
 
         SubTexture.POTION_GRID.draw(stack, xStart, yStart);
 
-        List<ITextComponent> badTip = new ArrayList<>();
-        badTip.add(new TranslationTextComponent("guideapi.text.brewing.error"));
+        List<Component> badTip = new ArrayList<>();
+        badTip.add(new TranslatableComponent("guideapi.text.brewing.error"));
 
         guiBase.drawCenteredStringWithoutShadow(stack, fontRendererObj, TextHelper.localizeEffect("guideapi.text.brewing.brew"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
@@ -81,7 +81,7 @@ public class PageBrewingRecipe extends Page {
             GuiHelper.drawItemStack(stack, s, finalX, finalY);
         });
 
-        List<ITextComponent> tooltip = null;
+        List<Component> tooltip = null;
         if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, 15, 15))
             tooltip = GuiHelper.getTooltip(ingredient.getItems()[0]);
 

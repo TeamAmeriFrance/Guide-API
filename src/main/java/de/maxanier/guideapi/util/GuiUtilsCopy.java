@@ -22,23 +22,24 @@ package de.maxanier.guideapi.util;
 
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IReorderingProcessor;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.ITextProperties;
-import net.minecraft.util.text.LanguageMap;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.MultiBufferSource;
+import com.mojang.blaze3d.vertex.Tesselator;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.util.FormattedCharSequence;
+import com.mojang.math.Matrix4f;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
+import net.minecraft.locale.Language;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.minecraftforge.fml.client.gui.GuiUtils.*;
+import static net.minecraftforge.fmlclient.gui.GuiUtils.*;
+
 
 /**
  * This class provides several methods and constants used by the Config GUI classes.
@@ -52,7 +53,7 @@ public class GuiUtilsCopy {
     private static final ItemStack cachedTooltipStack = ItemStack.EMPTY;
 
 
-    public static void drawHoveringText(MatrixStack mStack, List<? extends ITextComponent> textLines, int mouseX, int mouseY, int screenWidth, int screenHeight, int maxTextWidth, FontRenderer font) {
+    public static void drawHoveringText(PoseStack mStack, List<? extends Component> textLines, int mouseX, int mouseY, int screenWidth, int screenHeight, int maxTextWidth, Font font) {
         drawHoveringText(mStack, textLines, mouseX, mouseY, screenWidth, screenHeight, maxTextWidth, DEFAULT_BACKGROUND_COLOR, DEFAULT_BORDER_COLOR_START, DEFAULT_BORDER_COLOR_END, font);
     }
 
@@ -75,12 +76,12 @@ public class GuiUtilsCopy {
      *                         between the start and end values.
      * @param font             the font for drawing the text in the tooltip box
      */
-    public static void drawHoveringText(MatrixStack mStack, List<? extends ITextComponent> textLines, int mouseX, int mouseY, int screenWidth, int screenHeight,
-                                        int maxTextWidth, int backgroundColor, int borderColorStart, int borderColorEnd, FontRenderer font) {
+    public static void drawHoveringText(PoseStack mStack, List<? extends Component> textLines, int mouseX, int mouseY, int screenWidth, int screenHeight,
+                                        int maxTextWidth, int backgroundColor, int borderColorStart, int borderColorEnd, Font font) {
         drawHoveringText(cachedTooltipStack, mStack, textLines, mouseX, mouseY, screenWidth, screenHeight, maxTextWidth, backgroundColor, borderColorStart, borderColorEnd, font);
     }
 
-    public static void drawHoveringText(@Nonnull final ItemStack stack, MatrixStack mStack, List<? extends ITextComponent> textLines, int mouseX, int mouseY, int screenWidth, int screenHeight, int maxTextWidth, FontRenderer font) {
+    public static void drawHoveringText(@Nonnull final ItemStack stack, PoseStack mStack, List<? extends Component> textLines, int mouseX, int mouseY, int screenWidth, int screenHeight, int maxTextWidth, Font font) {
         drawHoveringText(stack, mStack, textLines, mouseX, mouseY, screenWidth, screenHeight, maxTextWidth, DEFAULT_BACKGROUND_COLOR, DEFAULT_BORDER_COLOR_START, DEFAULT_BORDER_COLOR_END, font);
     }
 
@@ -90,17 +91,16 @@ public class GuiUtilsCopy {
      * @see #drawHoveringText(MatrixStack, List, int, int, int, int, int, int, int, int, FontRenderer)
      */
     //TODO, Validate rendering is the same as the original
-    public static void drawHoveringText(@Nonnull final ItemStack stack, MatrixStack mStack, List<? extends ITextComponent> textLines, int mouseX, int mouseY,
+    public static void drawHoveringText(@Nonnull final ItemStack stack, PoseStack mStack, List<? extends Component> textLines, int mouseX, int mouseY,
                                         int screenWidth, int screenHeight, int maxTextWidth,
-                                        int backgroundColor, int borderColorStart, int borderColorEnd, FontRenderer font) {
+                                        int backgroundColor, int borderColorStart, int borderColorEnd, Font font) {
         if (!textLines.isEmpty()) {
 
 
-            RenderSystem.disableRescaleNormal();
             RenderSystem.disableDepthTest();
             int tooltipTextWidth = 0;
 
-            for (ITextComponent textLine : textLines) {
+            for (Component textLine : textLines) {
                 int textLineWidth = font.width(textLine);
                 if (textLineWidth > tooltipTextWidth)
                     tooltipTextWidth = textLineWidth;
@@ -126,17 +126,17 @@ public class GuiUtilsCopy {
                 tooltipTextWidth = maxTextWidth;
                 needsWrap = true;
             }
-            List<IReorderingProcessor> finalTexLines;
+            List<FormattedCharSequence> finalTexLines;
             if (needsWrap) {
                 int wrappedTooltipWidth = 0;
-                List<IReorderingProcessor> wrappedTextLines = new ArrayList<>();
+                List<FormattedCharSequence> wrappedTextLines = new ArrayList<>();
                 for (int i = 0; i < textLines.size(); i++) {
-                    ITextProperties textLine = textLines.get(i);
-                    List<IReorderingProcessor> wrappedLine = font.split(textLine, tooltipTextWidth);
+                    FormattedText textLine = textLines.get(i);
+                    List<FormattedCharSequence> wrappedLine = font.split(textLine, tooltipTextWidth);
                     if (i == 0)
                         titleLinesCount = wrappedLine.size();
 
-                    for (IReorderingProcessor line : wrappedLine) {
+                    for (FormattedCharSequence line : wrappedLine) {
                         int lineWidth = font.width(line);
                         if (lineWidth > wrappedTooltipWidth)
                             wrappedTooltipWidth = lineWidth;
@@ -151,7 +151,7 @@ public class GuiUtilsCopy {
                 else
                     tooltipX = mouseX + 12;
             } else {
-                finalTexLines = textLines.stream().map(t -> LanguageMap.getInstance().getVisualOrder(t)).collect(ImmutableList.toImmutableList());
+                finalTexLines = textLines.stream().map(t -> Language.getInstance().getVisualOrder(t)).collect(ImmutableList.toImmutableList());
             }
 
             int tooltipY = mouseY - 12;
@@ -184,13 +184,13 @@ public class GuiUtilsCopy {
             drawGradientRect(mat, zLevel, tooltipX - 3, tooltipY + tooltipHeight + 2, tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 3, borderColorEnd, borderColorEnd);
 
 
-            IRenderTypeBuffer.Impl renderType = IRenderTypeBuffer.immediate(Tessellator.getInstance().getBuilder());
+            MultiBufferSource.BufferSource renderType = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
             mStack.translate(0.0D, 0.0D, zLevel);
 
             int tooltipTop = tooltipY;
 
             for (int lineNumber = 0; lineNumber < finalTexLines.size(); ++lineNumber) {
-                IReorderingProcessor line = finalTexLines.get(lineNumber);
+                FormattedCharSequence line = finalTexLines.get(lineNumber);
                 if (line != null)
                     font.drawInBatch(line, (float) tooltipX, (float) tooltipY, -1, true, mat, renderType, false, 0, 15728880);
 
@@ -205,7 +205,6 @@ public class GuiUtilsCopy {
 
 
             RenderSystem.enableDepthTest();
-            RenderSystem.enableRescaleNormal();
         }
     }
 

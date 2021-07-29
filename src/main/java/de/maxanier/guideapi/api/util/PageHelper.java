@@ -1,21 +1,21 @@
 package de.maxanier.guideapi.api.util;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.IPage;
 import de.maxanier.guideapi.gui.BaseScreen;
 import de.maxanier.guideapi.page.PageItemStack;
 import de.maxanier.guideapi.page.PageText;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IReorderingProcessor;
-import net.minecraft.util.text.ITextProperties;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.Style;
+import net.minecraft.client.gui.Font;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.network.chat.FormattedText;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Style;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +34,14 @@ public class PageHelper {
      * @param subsequentHeight Available height on subsequent pages (pixel)
      * @return Each list element should be drawn on a individual page. Lines are wrapped using '\n'
      */
-    public static List<ITextProperties> prepareForLongText(ITextProperties text, int lineWidth, int firstHeight, int subsequentHeight) {
-        FontRenderer fontRenderer = Minecraft.getInstance().font;
+    public static List<FormattedText> prepareForLongText(FormattedText text, int lineWidth, int firstHeight, int subsequentHeight) {
+        Font fontRenderer = Minecraft.getInstance().font;
         int firstCount = firstHeight / fontRenderer.lineHeight;
         int count = subsequentHeight / fontRenderer.lineHeight;
-        List<ITextProperties> lines = new ArrayList<>(fontRenderer.getSplitter().splitLines(text, lineWidth, Style.EMPTY));
-        List<ITextProperties> pages = new ArrayList<>();
+        List<FormattedText> lines = new ArrayList<>(fontRenderer.getSplitter().splitLines(text, lineWidth, Style.EMPTY));
+        List<FormattedText> pages = new ArrayList<>();
 
-        List<ITextProperties> pageLines = lines.size() > firstCount ? lines.subList(0, firstCount) : lines;
+        List<FormattedText> pageLines = lines.size() > firstCount ? lines.subList(0, firstCount) : lines;
         pages.add(combineWithNewLine(pageLines));
         pageLines.clear();
         while (lines.size() > 0) {
@@ -56,8 +56,8 @@ public class PageHelper {
     /**
      * Spread the text over multiple pages if necessary. Display ingredient at first page
      */
-    public static List<IPage> pagesForLongText(ITextProperties text, Ingredient ingredient) {
-        List<ITextProperties> pageText = prepareForLongText(text, 164, 81, 120);
+    public static List<IPage> pagesForLongText(FormattedText text, Ingredient ingredient) {
+        List<FormattedText> pageText = prepareForLongText(text, 164, 81, 120);
         List<IPage> pageList = new ArrayList<>();
         for (int i = 0; i < pageText.size(); i++) {
             if (i == 0) {
@@ -70,18 +70,18 @@ public class PageHelper {
     }
 
 
-    public static List<IPage> pagesForLongText(ITextProperties text) {
+    public static List<IPage> pagesForLongText(FormattedText text) {
         List<IPage> pageList = new ArrayList<>();
         prepareForLongText(text, 164, 126, 126).forEach(t -> pageList.add(new PageText(t)));
         return pageList;
     }
 
 
-    public static void drawFormattedText(MatrixStack stack, int x, int y, BaseScreen guiBase, ITextProperties toDraw) {
-        FontRenderer fontRenderer = Minecraft.getInstance().font;
+    public static void drawFormattedText(PoseStack stack, int x, int y, BaseScreen guiBase, FormattedText toDraw) {
+        Font fontRenderer = Minecraft.getInstance().font;
 
-        List<IReorderingProcessor> cutLines = fontRenderer.split(toDraw, 170);
-        for (IReorderingProcessor cut : cutLines) {
+        List<FormattedCharSequence> cutLines = fontRenderer.split(toDraw, 170);
+        for (FormattedCharSequence cut : cutLines) {
             fontRenderer.draw(stack, cut, x, y, 0);
             y += 10;
         }
@@ -93,7 +93,7 @@ public class PageHelper {
      * @param item - The item to put on the first page
      * @return a list of IPages with the text cut to fit on page
      */
-    public static List<IPage> pagesForLongText(ITextProperties text, Item item) {
+    public static List<IPage> pagesForLongText(FormattedText text, Item item) {
         return pagesForLongText(text, new ItemStack(item));
     }
 
@@ -102,7 +102,7 @@ public class PageHelper {
      * @param block - The block to put on the first page
      * @return a list of IPages with the text cut to fit on page
      */
-    public static List<IPage> pagesForLongText(ITextProperties text, Block block) {
+    public static List<IPage> pagesForLongText(FormattedText text, Block block) {
         return pagesForLongText(text, new ItemStack(block));
     }
 
@@ -111,7 +111,7 @@ public class PageHelper {
      * @param item    - The stack to put on the first page
      * @return a list of IPages with the text cut to fit on page
      */
-    public static List<IPage> pagesForLongText(ITextProperties text, ItemStack item) {
+    public static List<IPage> pagesForLongText(FormattedText text, ItemStack item) {
         return pagesForLongText(text, Ingredient.of(item));
     }
 
@@ -120,7 +120,7 @@ public class PageHelper {
      * @param recipe2 - The second IRecipe to compare
      * @return whether or not the class, size and the output of the recipes are the same
      */
-    public static boolean areIRecipesEqual(IRecipe recipe1, IRecipe recipe2) {
+    public static boolean areIRecipesEqual(Recipe recipe1, Recipe recipe2) {
         if (recipe1 == recipe2) return true;
         if (recipe1 == null || recipe2 == null || recipe1.getClass() != recipe2.getClass()) return false;
         if (recipe1.equals(recipe2)) return true;
@@ -133,14 +133,14 @@ public class PageHelper {
      * @param elements The list ist not used itself, but the elements are passed to the new ITextProperties
      * @return a new ITextProperties that combines the given elements with a newline in between
      */
-    private static ITextProperties combineWithNewLine(List<ITextProperties> elements) {
-        ITextProperties newLine = new StringTextComponent("\n");
-        List<ITextProperties> copy = new ArrayList<>(elements.size() * 2);
+    private static FormattedText combineWithNewLine(List<FormattedText> elements) {
+        FormattedText newLine = new TextComponent("\n");
+        List<FormattedText> copy = new ArrayList<>(elements.size() * 2);
         for (int i = 0; i < elements.size() - 1; i++) {
             copy.add(elements.get(i));
             copy.add(newLine);
         }
         copy.add(elements.get(elements.size() - 1));
-        return ITextProperties.composite(copy);
+        return FormattedText.composite(copy);
     }
 }

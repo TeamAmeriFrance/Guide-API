@@ -1,15 +1,15 @@
 package de.maxanier.guideapi.category;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.Category;
 import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
 import de.maxanier.guideapi.api.util.GuiHelper;
 import de.maxanier.guideapi.gui.BaseScreen;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -19,25 +19,25 @@ public class CategoryItemStack extends Category {
 
     public ItemStack itemStack;
 
-    public CategoryItemStack(Map<ResourceLocation, EntryAbstract> entries, ITextComponent name, ItemStack stack) {
+    public CategoryItemStack(Map<ResourceLocation, EntryAbstract> entries, Component name, ItemStack stack) {
         super(entries, name);
         this.itemStack = stack;
     }
 
-    public CategoryItemStack(ITextComponent name, ItemStack stack) {
+    public CategoryItemStack(Component name, ItemStack stack) {
         super(name);
         this.itemStack = stack;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void draw(MatrixStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
+    public void draw(PoseStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
         GuiHelper.drawScaledItemStack(stack, this.itemStack, categoryX, categoryY, 1.5F);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void drawExtras(MatrixStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
+    public void drawExtras(PoseStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
         if (canSee(guiBase.player, guiBase.bookStack) && GuiHelper.isMouseBetween(mouseX, mouseY, categoryX, categoryY, categoryWidth, categoryHeight))
             guiBase.renderComponentTooltip(stack, this.getTooltip(), mouseX, mouseY);
     }

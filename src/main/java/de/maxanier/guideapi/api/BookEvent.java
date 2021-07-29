@@ -1,11 +1,11 @@
 package de.maxanier.guideapi.api;
 
 import de.maxanier.guideapi.api.impl.Book;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.eventbus.api.Cancelable;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -22,9 +22,9 @@ public class BookEvent extends Event {
 
     private final Book book;
     private final ItemStack stack;
-    private final PlayerEntity player;
+    private final Player player;
 
-    protected BookEvent(Book book, ItemStack stack, PlayerEntity player) {
+    protected BookEvent(Book book, ItemStack stack, Player player) {
         this.book = book;
         this.stack = stack;
         this.player = player;
@@ -38,7 +38,7 @@ public class BookEvent extends Event {
         return stack;
     }
 
-    public PlayerEntity getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
@@ -50,20 +50,20 @@ public class BookEvent extends Event {
     @Cancelable
     public static class Open extends BookEvent {
 
-        private static final ITextComponent DEFAULT_CANCEL = new TranslationTextComponent("text.open.failed").withStyle(TextFormatting.RED);
+        private static final Component DEFAULT_CANCEL = new TranslatableComponent("text.open.failed").withStyle(ChatFormatting.RED);
 
-        private ITextComponent canceledText = DEFAULT_CANCEL;
+        private Component canceledText = DEFAULT_CANCEL;
 
-        public Open(Book book, ItemStack stack, PlayerEntity player) {
+        public Open(Book book, ItemStack stack, Player player) {
             super(book, stack, player);
         }
 
         @Nonnull
-        public ITextComponent getCanceledText() {
+        public Component getCanceledText() {
             return canceledText;
         }
 
-        public void setCanceledText(@Nonnull ITextComponent canceledText) {
+        public void setCanceledText(@Nonnull Component canceledText) {
             this.canceledText = canceledText;
         }
     }

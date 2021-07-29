@@ -3,15 +3,15 @@ package de.maxanier.guideapi.api.impl.abstraction;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.gui.BaseScreen;
 import de.maxanier.guideapi.gui.HomeScreen;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -21,15 +21,15 @@ import java.util.Map;
 public abstract class CategoryAbstract {
 
     public final Map<ResourceLocation, EntryAbstract> entries;
-    public final ITextComponent name;
+    public final Component name;
     private String keyBase;
 
-    public CategoryAbstract(Map<ResourceLocation, EntryAbstract> entries, ITextComponent name) {
+    public CategoryAbstract(Map<ResourceLocation, EntryAbstract> entries, Component name) {
         this.entries = entries;
         this.name = name;
     }
 
-    public CategoryAbstract(ITextComponent name) {
+    public CategoryAbstract(Component name) {
         this(Maps.newLinkedHashMap(), name);
     }
 
@@ -121,34 +121,34 @@ public abstract class CategoryAbstract {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void draw(MatrixStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem);
+    public abstract void draw(PoseStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void drawExtras(MatrixStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem);
+    public abstract void drawExtras(PoseStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem);
 
     /**
      * Obtains a localized copy of this category's name.
      *
      * @return a localized copy of this category's name.
      */
-    public ITextComponent getName() {
+    public Component getName() {
         return name;
     }
 
-    public List<ITextComponent> getTooltip() {
+    public List<Component> getTooltip() {
         return Lists.newArrayList(getName());
     }
 
-    public abstract boolean canSee(PlayerEntity player, ItemStack bookStack);
+    public abstract boolean canSee(Player player, ItemStack bookStack);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void onLeftClicked(Book book, double mouseX, double mouseY, PlayerEntity player, ItemStack bookStack);
+    public abstract void onLeftClicked(Book book, double mouseX, double mouseY, Player player, ItemStack bookStack);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void onRightClicked(Book book, double mouseX, double mouseY, PlayerEntity player, ItemStack bookStack);
+    public abstract void onRightClicked(Book book, double mouseX, double mouseY, Player player, ItemStack bookStack);
 
     @OnlyIn(Dist.CLIENT)
-    public abstract void onInit(Book book, HomeScreen guiHome, PlayerEntity player, ItemStack bookStack);
+    public abstract void onInit(Book book, HomeScreen guiHome, Player player, ItemStack bookStack);
 
     @Override
     public boolean equals(Object o) {

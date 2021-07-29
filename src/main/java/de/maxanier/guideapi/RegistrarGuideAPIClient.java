@@ -4,10 +4,10 @@ import de.maxanier.guideapi.api.GuideAPI;
 import de.maxanier.guideapi.api.IGuideBook;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.util.AnnotationHandler;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelBakeEvent;
@@ -40,7 +40,7 @@ public class RegistrarGuideAPIClient {
                 ModelResourceLocation newMrl = new ModelResourceLocation(loc, "inventory");
                 Item bookItem = GuideAPI.getStackFromBook(guide.getLeft()).getItem();
                 ModelResourceLocation oldMrl = new ModelResourceLocation(bookItem.getRegistryName(), "inventory");
-                IBakedModel model = event.getModelRegistry().get(newMrl);
+                BakedModel model = event.getModelRegistry().get(newMrl);
 
                 event.getModelRegistry().put(oldMrl, model);
 
