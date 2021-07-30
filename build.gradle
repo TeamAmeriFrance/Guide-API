@@ -40,7 +40,7 @@ ext.type="test"
 
 apply from: 'gradle/versioning.gradle'
 apply from: 'gradle/forge.gradle'
-apply from: 'gradle/dev.gradle'
+apply from: 'gradle/artifacts.gradle'
 apply from: 'gradle/deploy.gradle'
 
 

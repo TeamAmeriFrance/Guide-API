@@ -86,6 +86,7 @@ processResources {
 
 
 jar {
+    finalizedBy('reobfJar')
 
     //Keep the jar as clean as possible
     includeEmptyDirs = false
@@ -111,5 +112,5 @@ jar {
 
     exclude 'de/maxanier/guideapi/test/**/*'
 
-
+    finalizedBy 'reobfJar'
 }

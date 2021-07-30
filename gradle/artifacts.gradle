@@ -1,0 +1,25 @@
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    description = 'Creates a JAR containing the source code.'
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+task deobfJar(type: Jar) {
+    description = 'Creates a JAR containing the non-obfuscated compiled code.'
+    from sourceSets.main.output
+    classifier = "deobf"
+}
+
+artifacts {
+    archives sourcesJar
+    archives deobfJar
+}
+
+reobf {
+    jar { classpath.from(sourceSets.main.compileClasspath) }
+}
+
+task reobf {
+    dependsOn reobfJar
+}
