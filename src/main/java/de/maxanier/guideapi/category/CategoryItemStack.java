@@ -14,6 +14,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class CategoryItemStack extends Category {
 
@@ -45,12 +46,10 @@ public class CategoryItemStack extends Category {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CategoryItemStack)) return false;
+        if (!(o instanceof CategoryItemStack that)) return false;
         if (!super.equals(o)) return false;
 
-        CategoryItemStack that = (CategoryItemStack) o;
-
-        return itemStack != null ? itemStack.equals(that.itemStack) : that.itemStack == null;
+        return Objects.equals(itemStack, that.itemStack);
     }
 
     @Override

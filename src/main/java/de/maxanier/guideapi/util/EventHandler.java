@@ -90,8 +90,7 @@ public class EventHandler {
         BlockState state = world.getBlockState(rayTracePos);
         @Nullable
         Component linkedEntry = null;
-        if (state.getBlock() instanceof IGuideLinked) {
-            IGuideLinked linked = (IGuideLinked) state.getBlock();
+        if (state.getBlock() instanceof IGuideLinked linked) {
             ResourceLocation entryKey = linked.getLinkedEntry(world, rayTracePos, player, held);
             if (entryKey != null) {
                 for (CategoryAbstract category : book.getCategoryList()) {

@@ -54,12 +54,12 @@ public class CategoryScreen extends BaseScreen {
     public void init() { //Init
         this.entryWrapperMap.clear();
 
-        guiLeft = (this.width - this.xSize) / 2; //width
-        guiTop = (this.height - this.ySize) / 2; //Height
+        guiLeft = (this.width - this.xSize) / 2;
+        guiTop = (this.height - this.ySize) / 2;
 
         //addButton
         addRenderableWidget(buttonBack = new ButtonBack(guiLeft + xSize / 6, guiTop, (btn) -> {
-            this.minecraft.setScreen(new HomeScreen(book, player, bookStack)); //minecraft
+            this.minecraft.setScreen(new HomeScreen(book, player, bookStack));
         }, this));
         addRenderableWidget(buttonNext = new ButtonNext(guiLeft + 4 * xSize / 6, guiTop + 5 * ySize / 6, (btn) -> {
             if (entryPage + 1 < entryWrapperMap.asMap().size()) {
@@ -99,13 +99,11 @@ public class CategoryScreen extends BaseScreen {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int p_keyPressed_2_, int p_keyPressed_3_) { //keyPressed
-        if (keyCode == GLFW.GLFW_KEY_BACKSPACE || keyCode == this.minecraft.options.keyUse.getKey().getValue()) { //minecraft
+    public boolean keyPressed(int keyCode, int p_keyPressed_2_, int p_keyPressed_3_) {
+        if (keyCode == GLFW.GLFW_KEY_BACKSPACE || keyCode == this.minecraft.options.keyUse.getKey().getValue()) {
             this.minecraft.setScreen(new HomeScreen(book, player, bookStack));
             return true;
         } else if ((keyCode == GLFW.GLFW_KEY_UP || keyCode == GLFW.GLFW_KEY_RIGHT) && entryPage + 1 < entryWrapperMap.asMap().size()) {
-
-
             nextPage();
             return true;
         } else if ((keyCode == GLFW.GLFW_KEY_DOWN || keyCode == GLFW.GLFW_KEY_LEFT) && entryPage > 0) {
@@ -116,7 +114,7 @@ public class CategoryScreen extends BaseScreen {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int typeofClick) { //mouseClicked
+    public boolean mouseClicked(double mouseX, double mouseY, int typeofClick) {
         boolean ret = super.mouseClicked(mouseX, mouseY, typeofClick);
 
         for (EntryWrapper wrapper : this.entryWrapperMap.get(entryPage)) {
@@ -128,19 +126,19 @@ public class CategoryScreen extends BaseScreen {
         }
 
         if (typeofClick == 1)
-            this.minecraft.setScreen(new HomeScreen(book, player, bookStack)); //minecraft
+            this.minecraft.setScreen(new HomeScreen(book, player, bookStack));
         return ret;
     }
 
     @Override
-    public void onClose() { //onClose
+    public void onClose() {
         super.onClose();
 
         PacketHandler.INSTANCE.sendToServer(new PacketSyncCategory(book.getCategoryList().indexOf(category), entryPage));
     }
 
     @Override
-    public boolean mouseScrolled(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double movement) { //mouseScrolled
+    public boolean mouseScrolled(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double movement) {
         if (movement < 0)
             nextPage();
         else if (movement > 0)
@@ -150,7 +148,7 @@ public class CategoryScreen extends BaseScreen {
     }
 
     @Override
-    public void render(PoseStack stack, int mouseX, int mouseY, float renderPartialTicks) { //render
+    public void render(PoseStack stack, int mouseX, int mouseY, float renderPartialTicks) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1f);
         RenderSystem.setShaderTexture(0, pageTexture); //minecraft
@@ -173,7 +171,7 @@ public class CategoryScreen extends BaseScreen {
         drawCenteredStringWithoutShadow(stack, font , String.format("%d/%d", entryPage + 1, entryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
         drawCenteredString(stack, font, category.getName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
-        buttonPrev.visible = entryPage != 0; //visible
+        buttonPrev.visible = entryPage != 0;
         buttonNext.visible = entryPage != entryWrapperMap.asMap().size() - 1 && !entryWrapperMap.asMap().isEmpty();
 
         super.render(stack, mouseX, mouseY, renderPartialTicks);

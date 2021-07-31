@@ -62,7 +62,7 @@ You should be able to include it with the following in your `build.gradle`:
 repositories {
     //Maven repo for Guide-API
     maven {
-        url = "https://maxanier.de/maven2"
+        url = "https://maven.maxanier.de"
     }
 }
 dependencies {
@@ -75,12 +75,12 @@ dependencies {
 #### Choose a version
 
 
-For a list of available Vampirism version, see [CurseForge](https://www.curseforge.com/minecraft/mc-mods/guide-api-village-and-pillage) or the [maven listing](https://maxanier.de/maven2/de/maxanier/guideapi/Guide-API-VP/) .
+For a list of available Vampirism version, see [CurseForge](https://www.curseforge.com/minecraft/mc-mods/guide-api-village-and-pillage) or the [maven listing](https://maven.maxanier.de/de/maxanier/guideapi/Guide-API-VP/) .
 
 These properties can be set in a file named `gradle.properties`, placed in the same directory as your `build.gradle` file.
 Example `gradle.properties`:
 ```
-guideapi_version=1.14.4-2.2.0-beta.1
+guideapi_version=1.14.4-2.2.1
 ```
 
 #### Rerun Gradle setup commands
@@ -91,14 +91,14 @@ Refresh/Restart your IDE afterwards.
 #### Examples
 Checkout the test books [here](https://github.com/maxanier/Guide-API/tree/1.14.4_latest/src/main/java/de/maxanier/guideapi/test)  
 
-Checkout Vampirism which adds a extensive guide book [here](https://github.com/TeamLapen/Vampirism/blob/1.14/src/main/java/de/teamlapen/vampirism/modcompat/guide/GuideBook.java)
+Checkout Vampirism which adds an extensive guide book [here](https://github.com/TeamLapen/Vampirism/blob/1.14/src/main/java/de/teamlapen/vampirism/modcompat/guide/GuideBook.java)
 
 #### Crafting recipe
 Add a crafting recipe for your book like this
 ```
 {
   "result": {
-    "item": "guideapi-vp:vampirism-guidebook"
+    "item": "guideapi_vp:vampirism-guidebook"
   },
   "ingredients": [
     {
@@ -111,7 +111,7 @@ Add a crafting recipe for your book like this
   "conditions": [
     {
       "type": "forge:mod_loaded",
-      "modid": "guideapi-vp"
+      "modid": "guideapi_vp"
     }
   ],
   "type": "minecraft:crafting_shapeless"

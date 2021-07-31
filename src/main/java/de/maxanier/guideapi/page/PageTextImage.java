@@ -16,6 +16,8 @@ import net.minecraft.network.chat.FormattedText;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.Objects;
+
 public class PageTextImage extends Page {
 
     public PageText pageText;
@@ -47,14 +49,12 @@ public class PageTextImage extends Page {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PageTextImage)) return false;
+        if (!(o instanceof PageTextImage that)) return false;
         if (!super.equals(o)) return false;
 
-        PageTextImage that = (PageTextImage) o;
-
         if (drawAtTop != that.drawAtTop) return false;
-        if (pageText != null ? !pageText.equals(that.pageText) : that.pageText != null) return false;
-        return image != null ? image.equals(that.image) : that.image == null;
+        if (!Objects.equals(pageText, that.pageText)) return false;
+        return Objects.equals(image, that.image);
     }
 
     @Override

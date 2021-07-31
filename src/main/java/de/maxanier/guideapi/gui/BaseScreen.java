@@ -32,19 +32,19 @@ public class BaseScreen extends Screen {
         super(title);
         this.player = player;
         this.bookStack = bookStack;
-        this.publicZLevel = this.getBlitOffset(); //getBlitOffset
+        this.publicZLevel = this.getBlitOffset();
     }
 
     public void drawCenteredStringWithoutShadow(PoseStack matrixStack, Font fontRendererObj, String string, int x, int y, int color) {
-        fontRendererObj.draw(matrixStack, string, x - fontRendererObj.width(string) / 2f, y, color); //drawString
+        fontRendererObj.draw(matrixStack, string, x - fontRendererObj.width(string) / 2f, y, color);
     }
 
     public void drawCenteredStringWithoutShadow(PoseStack matrixStack, Font fontRendererObj, FormattedCharSequence string, int x, int y, int color) {
-        fontRendererObj.draw(matrixStack, string, x - fontRendererObj.width(string) / 2f, y, color); //drawString
+        fontRendererObj.draw(matrixStack, string, x - fontRendererObj.width(string) / 2f, y, color);
     }
 
     public void drawCenteredStringWithoutShadow(PoseStack matrixStack, Font fontRendererObj, Component string, int x, int y, int color) {
-        fontRendererObj.draw(matrixStack, string, x - fontRendererObj.width(string) / 2f, y, color); //drawString
+        fontRendererObj.draw(matrixStack, string, x - fontRendererObj.width(string) / 2f, y, color);
     }
 
 
@@ -69,12 +69,12 @@ public class BaseScreen extends Screen {
     @Override
     public boolean isPauseScreen() {
         return false;
-    } //IsPauseScreen
+    }
 
     @Override
-    public boolean keyPressed(int p_keyPressed_1_, int p_keyPressed_2_, int p_keyPressed_3_) { //KeyPressed
-        if (minecraft != null && (p_keyPressed_1_ == GLFW.GLFW_KEY_ESCAPE || p_keyPressed_1_ == this.minecraft.options.keyInventory.getKey().getValue())) { //minecraft
-            this.onClose(); //onClose
+    public boolean keyPressed(int p_keyPressed_1_, int p_keyPressed_2_, int p_keyPressed_3_) {
+        if (minecraft != null && (p_keyPressed_1_ == GLFW.GLFW_KEY_ESCAPE || p_keyPressed_1_ == this.minecraft.options.keyInventory.getKey().getValue())) {
+            this.onClose();
             this.minecraft.setWindowActive(true);
             return true;
         } else {

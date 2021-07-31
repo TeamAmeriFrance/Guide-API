@@ -17,6 +17,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EntryResourceLocation extends Entry {
 
@@ -46,12 +47,10 @@ public class EntryResourceLocation extends Entry {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof EntryResourceLocation)) return false;
+        if (!(o instanceof EntryResourceLocation that)) return false;
         if (!super.equals(o)) return false;
 
-        EntryResourceLocation that = (EntryResourceLocation) o;
-
-        return image != null ? image.equals(that.image) : that.image == null;
+        return Objects.equals(image, that.image);
     }
 
     @Override

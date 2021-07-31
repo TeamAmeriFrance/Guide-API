@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 public class LogHelper {
 
-    private static Logger logger = LogManager.getLogger(GuideMod.NAME);
+    private static final Logger logger = LogManager.getLogger(GuideMod.NAME);
 
     /**
      * @param info - String to log to the info level

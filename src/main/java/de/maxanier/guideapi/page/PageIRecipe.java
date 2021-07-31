@@ -24,6 +24,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 
 public class PageIRecipe extends Page {
@@ -102,13 +103,11 @@ public class PageIRecipe extends Page {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PageIRecipe)) return false;
+        if (!(o instanceof PageIRecipe that)) return false;
         if (!super.equals(o)) return false;
 
-        PageIRecipe that = (PageIRecipe) o;
-
-        if (recipe != null ? !recipe.equals(that.recipe) : that.recipe != null) return false;
-        return iRecipeRenderer != null ? iRecipeRenderer.equals(that.iRecipeRenderer) : that.iRecipeRenderer == null;
+        if (!Objects.equals(recipe, that.recipe)) return false;
+        return Objects.equals(iRecipeRenderer, that.iRecipeRenderer);
     }
 
     @Override

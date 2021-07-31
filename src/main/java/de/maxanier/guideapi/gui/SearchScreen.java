@@ -105,7 +105,7 @@ public class SearchScreen extends BaseScreen {
 
         searchField = new EditBox(font, guiLeft + 43, guiTop + 12, 100, 10, new TranslatableComponent("guideapi.button.search"));
         searchField.setBordered(false);
-        searchField.changeFocus(true); //changeFocus
+        searchField.changeFocus(true);
         searchResults = getMatches(book, null, player, bookStack);
     }
 

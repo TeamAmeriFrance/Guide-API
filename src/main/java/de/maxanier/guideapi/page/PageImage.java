@@ -15,6 +15,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.Objects;
+
 public class PageImage extends Page {
 
     public ResourceLocation image;
@@ -38,12 +40,10 @@ public class PageImage extends Page {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PageImage)) return false;
+        if (!(o instanceof PageImage pageImage)) return false;
         if (!super.equals(o)) return false;
 
-        PageImage pageImage = (PageImage) o;
-
-        return image != null ? image.equals(pageImage.image) : pageImage.image == null;
+        return Objects.equals(image, pageImage.image);
     }
 
     @Override

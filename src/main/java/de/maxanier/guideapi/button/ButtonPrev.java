@@ -22,7 +22,7 @@ public class ButtonPrev extends ButtonGuideAPI {
     }
 
     @Override
-    public void renderButton(PoseStack stack, int mouseX, int mouseY, float partialTicks) { //renderButton
+    public void renderButton(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) { //visible
             RenderSystem.enableBlend();
             RenderSystem.setShader(GameRenderer::getPositionTexShader);

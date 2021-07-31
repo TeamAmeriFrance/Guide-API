@@ -22,7 +22,7 @@ public class ButtonNext extends ButtonGuideAPI {
 
     @Override
     public void renderButton(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
-        if (this.visible) { //visible
+        if (this.visible) {
             RenderSystem.enableBlend();
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

@@ -16,6 +16,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.Objects;
+
 public class PageSound extends Page {
 
     public IPage pageToEmulate;
@@ -63,14 +65,12 @@ public class PageSound extends Page {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PageSound)) return false;
+        if (!(o instanceof PageSound pageSound)) return false;
         if (!super.equals(o)) return false;
 
-        PageSound pageSound = (PageSound) o;
-
-        if (pageToEmulate != null ? !pageToEmulate.equals(pageSound.pageToEmulate) : pageSound.pageToEmulate != null)
+        if (!Objects.equals(pageToEmulate, pageSound.pageToEmulate))
             return false;
-        return sound != null ? sound.equals(pageSound.sound) : pageSound.sound == null;
+        return Objects.equals(sound, pageSound.sound);
     }
 
     @Override

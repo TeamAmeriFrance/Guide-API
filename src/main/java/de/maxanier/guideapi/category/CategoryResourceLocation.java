@@ -16,6 +16,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class CategoryResourceLocation extends Category {
 
@@ -50,12 +51,10 @@ public class CategoryResourceLocation extends Category {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CategoryResourceLocation)) return false;
+        if (!(o instanceof CategoryResourceLocation that)) return false;
         if (!super.equals(o)) return false;
 
-        CategoryResourceLocation that = (CategoryResourceLocation) o;
-
-        return resourceLocation != null ? resourceLocation.equals(that.resourceLocation) : that.resourceLocation == null;
+        return Objects.equals(resourceLocation, that.resourceLocation);
     }
 
     @Override

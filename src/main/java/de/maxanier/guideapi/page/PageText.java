@@ -44,10 +44,8 @@ public class PageText extends Page {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PageText)) return false;
+        if (!(o instanceof PageText pageText)) return false;
         if (!super.equals(o)) return false;
-
-        PageText pageText = (PageText) o;
 
         if (yOffset != pageText.yOffset) return false;
         return Objects.equals(draw, pageText.draw);

@@ -24,7 +24,7 @@ public class LinkedEntryScreen extends EntryScreen {
     @Override
     public void init() {
         super.init();
-        this.clearWidgets();
+        this.removeWidget(this.buttonBack);
         this.addRenderableWidget(this.buttonBack = new ButtonBack(this.guiLeft + this.xSize / 6, this.guiTop, (btn) -> {
             EntryScreen e = new EntryScreen(book, category, from, player, bookStack);
             e.pageNumber = fromPage;

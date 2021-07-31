@@ -14,6 +14,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EntryItemStack extends Entry {
 
@@ -42,12 +43,10 @@ public class EntryItemStack extends Entry {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof EntryItemStack)) return false;
+        if (!(o instanceof EntryItemStack that)) return false;
         if (!super.equals(o)) return false;
 
-        EntryItemStack that = (EntryItemStack) o;
-
-        return itemStack != null ? itemStack.equals(that.itemStack) : that.itemStack == null;
+        return Objects.equals(itemStack, that.itemStack);
     }
 
     @Override

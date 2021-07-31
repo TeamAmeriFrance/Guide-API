@@ -187,7 +187,7 @@ public class PageHolderWithLinks implements IPage {
         }
     }
 
-    private class EntryLink extends Link {
+    private static class EntryLink extends Link {
         private final EntryAbstract linkedEntry;
 
         private EntryLink(EntryAbstract entry) {

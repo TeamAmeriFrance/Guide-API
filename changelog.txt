@@ -1,9 +1,0 @@
-------------------------------------------------------
-Version 2.1.8
-------------------------------------------------------
-
-- Return to the page an entry is on when backing out of it
-- When opening the search GUI, auto-focus the search bar
-- Fix json recipe renderer spamming the log
-- Hide categories if they're empty
-- Add search button to all views

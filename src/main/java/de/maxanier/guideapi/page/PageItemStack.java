@@ -16,6 +16,8 @@ import net.minecraft.network.chat.FormattedText;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.Objects;
+
 public class PageItemStack extends PageText {
 
     public Ingredient ingredient;
@@ -64,12 +66,10 @@ public class PageItemStack extends PageText {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PageItemStack)) return false;
+        if (!(o instanceof PageItemStack that)) return false;
         if (!super.equals(o)) return false;
 
-        PageItemStack that = (PageItemStack) o;
-
-        return ingredient != null ? ingredient.equals(that.ingredient) : that.ingredient == null;
+        return Objects.equals(ingredient, that.ingredient);
     }
 
     @Override

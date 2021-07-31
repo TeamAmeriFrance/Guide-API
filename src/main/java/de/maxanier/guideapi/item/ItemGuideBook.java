@@ -59,11 +59,13 @@ public class ItemGuideBook extends Item implements IGuideItem {
         }
     }
 
+    @Nonnull
     @Override
     public Component getName(ItemStack stack) {
         return getBook(stack).getItemName() != null ? getBook(stack).getItemName() : super.getName(stack);
     }
 
+    @Nonnull
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 
@@ -82,6 +84,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
         return InteractionResultHolder.success(heldStack);
     }
 
+    @Nonnull
     @Override
     public InteractionResult useOn(UseOnContext context) {
         if (!context.getLevel().isClientSide || !context.isSecondaryUseActive())
@@ -90,8 +93,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
         ItemStack stack = context.getItemInHand();
         BlockState state = context.getLevel().getBlockState(context.getClickedPos());
 
-        if (state.getBlock() instanceof IGuideLinked) {
-            IGuideLinked guideLinked = (IGuideLinked) state.getBlock();
+        if (state.getBlock() instanceof IGuideLinked guideLinked) {
             ResourceLocation entryKey = guideLinked.getLinkedEntry(context.getLevel(), context.getClickedPos(), context.getPlayer(), stack);
             if (entryKey == null)
                 return InteractionResult.FAIL;
@@ -107,6 +109,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
         return InteractionResult.PASS;
     }
 
+    @Nonnull
     @Override
     protected String getOrCreateDescriptionId() {
         if (this.translation_key == null) {
