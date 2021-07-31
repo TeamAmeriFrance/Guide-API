@@ -12,15 +12,28 @@ import de.maxanier.guideapi.gui.EntryScreen;
 import de.maxanier.guideapi.gui.HomeScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy {
+
+    @Override
+    public void initColors() {
+        for (ItemStack bookStack : GuideAPI.getBookToStack().values()) {
+            Minecraft.getInstance().getItemColors().register((stack, tintIndex) -> {
+                IGuideItem guideItem = (IGuideItem) stack.getItem();
+                if (guideItem.getBook(stack) != null && tintIndex == 0)
+                    return guideItem.getBook(stack).getColor().getRGB();
+
+                return -1;
+            }, bookStack.getItem());
+        }
+    }
 
     @Override
     public void openEntry(Book book, CategoryAbstract categoryAbstract, EntryAbstract entryAbstract, Player player, ItemStack stack) {
@@ -68,19 +81,6 @@ public class ClientProxy extends CommonProxy {
             }
 
             Minecraft.getInstance().setScreen(new HomeScreen(book, player, bookStack));
-        }
-    }
-
-    @Override
-    public void initColors() {
-        for (ItemStack bookStack : GuideAPI.getBookToStack().values()) {
-            Minecraft.getInstance().getItemColors().register((stack, tintIndex) -> {
-                IGuideItem guideItem = (IGuideItem) stack.getItem();
-                if (guideItem.getBook(stack) != null && tintIndex == 0)
-                    return guideItem.getBook(stack).getColor().getRGB();
-
-                return -1;
-            }, bookStack.getItem());
         }
     }
 

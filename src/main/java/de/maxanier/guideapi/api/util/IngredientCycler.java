@@ -15,9 +15,9 @@ import java.util.Random;
  */
 public class IngredientCycler {
 
+    private final Random rand = new Random();
     private long lastCycle = -1;
     private int cycleIdx = 0;
-    private final Random rand = new Random();
 
     /**
      * Retrieves a itemstack that matches the ingredient.

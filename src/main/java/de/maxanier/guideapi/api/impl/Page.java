@@ -15,6 +15,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class Page implements IPage {
 
     @Override
+    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, Player player, ItemStack bookStack, EntryScreen guiEntry) {
+        return true;
+    }
+
+    @Override
     @OnlyIn(Dist.CLIENT)
     public void draw(PoseStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, Font fontRendererObj) {
     }
@@ -25,8 +30,15 @@ public class Page implements IPage {
     }
 
     @Override
-    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, Player player, ItemStack bookStack, EntryScreen guiEntry) {
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        return getClass() == o.getClass();
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void onInit(Book book, CategoryAbstract category, EntryAbstract entry, Player player, ItemStack bookStack, EntryScreen guiEntry) {
     }
 
     @Override
@@ -37,17 +49,5 @@ public class Page implements IPage {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, double mouseX, double mouseY, Player player, EntryScreen guiEntry) {
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void onInit(Book book, CategoryAbstract category, EntryAbstract entry, Player player, ItemStack bookStack, EntryScreen guiEntry) {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
-        return getClass() == o.getClass();
     }
 }

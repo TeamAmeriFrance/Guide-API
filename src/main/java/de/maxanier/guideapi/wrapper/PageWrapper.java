@@ -38,10 +38,6 @@ public class PageWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void onHoverOver(int mouseX, int mouseY) {
-    }
-
-    @Override
     public boolean canPlayerSee() {
         return page.canSee(book, category, entry, player, bookStack, guiEntry);
     }
@@ -59,5 +55,9 @@ public class PageWrapper extends AbstractWrapper {
     @Override
     public boolean isMouseOnWrapper(double mouseX, double mouseY) {
         return true;
+    }
+
+    @Override
+    public void onHoverOver(int mouseX, int mouseY) {
     }
 }

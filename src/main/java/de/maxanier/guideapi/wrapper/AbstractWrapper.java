@@ -5,8 +5,6 @@ import de.maxanier.guideapi.gui.BaseScreen;
 
 public abstract class AbstractWrapper {
 
-    public abstract void onHoverOver(int mouseX, int mouseY);
-
     public abstract boolean canPlayerSee();
 
     public abstract void draw(PoseStack stack, int mouseX, int mouseY, BaseScreen gui);
@@ -14,4 +12,6 @@ public abstract class AbstractWrapper {
     public abstract void drawExtras(PoseStack stack, int mouseX, int mouseY, BaseScreen gui);
 
     public abstract boolean isMouseOnWrapper(double mouseX, double mouseY);
+
+    public abstract void onHoverOver(int mouseX, int mouseY);
 }

@@ -8,11 +8,8 @@ import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 
 public class PacketHandler {
     private static final String PROTOCOL_VERSION = Integer.toString(1);
-    private static byte packetId = 0;
-
-
     public static SimpleChannel INSTANCE = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(GuideMod.ID, "main")).clientAcceptedVersions(PROTOCOL_VERSION::equals).serverAcceptedVersions(PROTOCOL_VERSION::equals).networkProtocolVersion(() -> PROTOCOL_VERSION).simpleChannel();
-
+    private static byte packetId = 0;
 
     public static void registerPackets() {
         INSTANCE.registerMessage(nextID(), PacketSyncEntry.class, PacketSyncEntry::encode, PacketSyncEntry::decode, PacketSyncEntry::handle);

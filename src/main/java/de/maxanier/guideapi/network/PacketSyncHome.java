@@ -2,26 +2,16 @@ package de.maxanier.guideapi.network;
 
 import de.maxanier.guideapi.api.IGuideItem;
 import de.maxanier.guideapi.api.util.NBTBookTags;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import org.apache.commons.lang3.Validate;
 
 import java.util.function.Supplier;
 
 public class PacketSyncHome {
-
-    public int page;
-
-    public PacketSyncHome() {
-        this.page = -1;
-    }
-
-    public PacketSyncHome(int page) {
-        this.page = page;
-    }
 
     static void encode(PacketSyncHome msg, FriendlyByteBuf buf) {
         buf.writeInt(msg.page);
@@ -51,5 +41,15 @@ public class PacketSyncHome {
             }
         });
         ctx.setPacketHandled(true);
+    }
+
+    public int page;
+
+    public PacketSyncHome() {
+        this.page = -1;
+    }
+
+    public PacketSyncHome(int page) {
+        this.page = page;
     }
 }

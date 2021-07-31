@@ -20,6 +20,14 @@ public class GuideConfig {
      */
     public static Common COMMON;
 
+    public static void buildConfiguration() {
+        final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
+        ForgeConfigSpec commonSpec = specPair.getRight();
+        COMMON = specPair.getLeft();
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, commonSpec);
+        FMLJavaModLoadingContext.get().getModEventBus().register(GuideConfig.class);
+    }
+
     public static class Common {
 
         public final ForgeConfigSpec.BooleanValue canSpawnWithBook;
@@ -39,14 +47,6 @@ public class GuideConfig {
             builder.pop();
             builder.pop();
         }
-    }
-
-    public static void buildConfiguration() {
-        final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
-        ForgeConfigSpec commonSpec = specPair.getRight();
-        COMMON = specPair.getLeft();
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, commonSpec);
-        FMLJavaModLoadingContext.get().getModEventBus().register(GuideConfig.class);
     }
 
 }

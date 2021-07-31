@@ -39,14 +39,10 @@ public class GuideMod {
         MinecraftForge.EVENT_BUS.addListener(this::onRegisterCommands);
     }
 
-    private void setup(final FMLCommonSetupEvent event) {
-        if (GuideConfig.COMMON == null) {
-            throw new IllegalStateException("Did not build configuration, before configuration load. Make sure to call GuideConfig#buildConfiguration during one of the registry events");
-        }
-        PacketHandler.registerPackets();
-        for (Pair<Book, IGuideBook> pair : AnnotationHandler.BOOK_CLASSES) {
-            IGuideBook guide = pair.getRight();
-            guide.registerInfoRenderer(pair.getLeft());
+    private void checkDevEnv() {
+        String launchTarget = System.getenv().get("target");
+        if (launchTarget != null && launchTarget.contains("dev")) {
+            inDev = true;
         }
     }
 
@@ -57,16 +53,20 @@ public class GuideMod {
             guide.getRight().handlePost(GuideAPI.getStackFromBook(guide.getLeft()));
     }
 
-    private void checkDevEnv() {
-        String launchTarget = System.getenv().get("target");
-        if (launchTarget != null && launchTarget.contains("dev")) {
-            inDev = true;
-        }
-    }
-
     private void onRegisterCommands(RegisterCommandsEvent event) {
         if (inDev) {
             event.getDispatcher().register(LiteralArgumentBuilder.<CommandSourceStack>literal("guide-api-vp").then(ReloadCommand.register()));
+        }
+    }
+
+    private void setup(final FMLCommonSetupEvent event) {
+        if (GuideConfig.COMMON == null) {
+            throw new IllegalStateException("Did not build configuration, before configuration load. Make sure to call GuideConfig#buildConfiguration during one of the registry events");
+        }
+        PacketHandler.registerPackets();
+        for (Pair<Book, IGuideBook> pair : AnnotationHandler.BOOK_CLASSES) {
+            IGuideBook guide = pair.getRight();
+            guide.registerInfoRenderer(pair.getLeft());
         }
     }
 }

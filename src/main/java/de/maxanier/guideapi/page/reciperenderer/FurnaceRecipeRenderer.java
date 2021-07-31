@@ -10,17 +10,18 @@ import de.maxanier.guideapi.api.util.GuiHelper;
 import de.maxanier.guideapi.api.util.IngredientCycler;
 import de.maxanier.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.Font;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
 
 import java.util.List;
 
 
 public class FurnaceRecipeRenderer extends IRecipeRenderer.RecipeRendererBase<SmeltingRecipe> {
     private final Component title = new TranslatableComponent("guideapi.text.furnace.smelting");
+
     public FurnaceRecipeRenderer(SmeltingRecipe recipe) {
         super(recipe);
     }

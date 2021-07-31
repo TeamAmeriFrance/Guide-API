@@ -5,17 +5,17 @@ import de.maxanier.guideapi.api.IPage;
 import de.maxanier.guideapi.gui.BaseScreen;
 import de.maxanier.guideapi.page.PageItemStack;
 import de.maxanier.guideapi.page.PageText;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.FormattedText;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.network.chat.FormattedText;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.block.Block;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,7 +108,7 @@ public class PageHelper {
 
     /**
      * @param text - Text
-     * @param item    - The stack to put on the first page
+     * @param item - The stack to put on the first page
      * @return a list of IPages with the text cut to fit on page
      */
     public static List<IPage> pagesForLongText(FormattedText text, ItemStack item) {

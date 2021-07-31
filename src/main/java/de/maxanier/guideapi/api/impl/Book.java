@@ -3,9 +3,9 @@ package de.maxanier.guideapi.api.impl;
 import com.google.common.base.Joiner;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import de.maxanier.guideapi.util.LogHelper;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.awt.*;
@@ -44,12 +44,15 @@ public class Book {
         this.creativeTab = creativeTab;
     }
 
-    public void initializeContent() {
-        if (!isInitialized) {
-            LogHelper.debug("Opening book " + registryName.toString() + " for the first time -> Initializing content");
-            contentProvider.accept(categories);
-            isInitialized = true;
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+
+        return getRegistryName().equals(book.getRegistryName());
+
     }
 
     /**
@@ -63,12 +66,20 @@ public class Book {
         initializeContent();
     }
 
+    public Component getAuthor() {
+        return this.author;
+    }
+
     public List<CategoryAbstract> getCategoryList() {
         return this.categories;
     }
 
-    public Component getAuthor() {
-        return this.author;
+    public Color getColor() {
+        return this.color;
+    }
+
+    public CreativeModeTab getCreativeTab() {
+        return this.creativeTab;
     }
 
     public Component getHeader() {
@@ -79,34 +90,38 @@ public class Book {
         return this.itemName;
     }
 
-    public Component getTitle() {
-        return this.title;
+    public ResourceLocation getOutlineTexture() {
+        return this.outlineTexture;
     }
 
     public ResourceLocation getPageTexture() {
         return this.pageTexture;
     }
 
-    public ResourceLocation getOutlineTexture() {
-        return this.outlineTexture;
+    public ResourceLocation getRegistryName() {
+        return this.registryName;
     }
 
-    public Color getColor() {
-        return this.color;
+    public Component getTitle() {
+        return this.title;
+    }
+
+    @Override
+    public int hashCode() {
+        return getRegistryName().hashCode();
+    }
+
+    public void initializeContent() {
+        if (!isInitialized) {
+            LogHelper.debug("Opening book " + registryName.toString() + " for the first time -> Initializing content");
+            contentProvider.accept(categories);
+            isInitialized = true;
+        }
     }
 
     public boolean shouldSpawnWithBook() {
         return this.spawnWithBook;
     }
-
-    public ResourceLocation getRegistryName() {
-        return this.registryName;
-    }
-
-    public CreativeModeTab getCreativeTab() {
-        return this.creativeTab;
-    }
-
 
     @Override
     public String toString() {
@@ -123,21 +138,5 @@ public class Book {
                 .append("registryName", registryName)
                 .append("creativeTab", creativeTab)
                 .toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Book book = (Book) o;
-
-        return getRegistryName().equals(book.getRegistryName());
-
-    }
-
-    @Override
-    public int hashCode() {
-        return getRegistryName().hashCode();
     }
 }

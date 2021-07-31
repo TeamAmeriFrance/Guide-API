@@ -17,8 +17,8 @@ import java.util.Objects;
 
 public class PageText extends Page {
 
-    public FormattedText draw;
     private final int yOffset;
+    public FormattedText draw;
 
     /**
      * @param draw    - Text to draw. Checks for localization.

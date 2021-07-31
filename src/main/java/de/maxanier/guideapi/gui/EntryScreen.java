@@ -13,12 +13,11 @@ import de.maxanier.guideapi.button.ButtonSearch;
 import de.maxanier.guideapi.network.PacketHandler;
 import de.maxanier.guideapi.network.PacketSyncEntry;
 import de.maxanier.guideapi.wrapper.PageWrapper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
@@ -127,6 +126,24 @@ public class EntryScreen extends BaseScreen {
     }
 
     @Override
+    public boolean mouseScrolled(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double movement) {
+
+        if (movement < 0)
+            nextPage();
+        else if (movement > 0)
+            prevPage();
+
+
+        return movement != 0 || super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
+
+    }
+
+    public void nextPage() {
+        if (pageNumber != pageWrapperList.size() - 1 && !pageWrapperList.isEmpty())
+            pageNumber++;
+    }
+
+    @Override
     public void onClose() {
         super.onClose();
         for (IPage page : this.entry.pageList) {
@@ -141,17 +158,9 @@ public class EntryScreen extends BaseScreen {
             PacketHandler.INSTANCE.sendToServer(new PacketSyncEntry(book.getCategoryList().indexOf(category), key, pageNumber));
     }
 
-    @Override
-    public boolean mouseScrolled(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double movement) {
-
-        if (movement < 0)
-            nextPage();
-        else if (movement > 0)
-            prevPage();
-
-
-        return movement != 0 || super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
-
+    public void prevPage() {
+        if (pageNumber != 0)
+            pageNumber--;
     }
 
     @Override
@@ -181,15 +190,5 @@ public class EntryScreen extends BaseScreen {
         buttonNext.visible = pageNumber != pageWrapperList.size() - 1 && !pageWrapperList.isEmpty();
 
         super.render(stack, mouseX, mouseY, renderPartialTicks);
-    }
-
-    public void nextPage() {
-        if (pageNumber != pageWrapperList.size() - 1 && !pageWrapperList.isEmpty())
-            pageNumber++;
-    }
-
-    public void prevPage() {
-        if (pageNumber != 0)
-            pageNumber--;
     }
 }

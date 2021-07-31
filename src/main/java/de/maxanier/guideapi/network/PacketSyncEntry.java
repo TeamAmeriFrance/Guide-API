@@ -3,33 +3,17 @@ package de.maxanier.guideapi.network;
 import de.maxanier.guideapi.GuideMod;
 import de.maxanier.guideapi.api.IGuideItem;
 import de.maxanier.guideapi.api.util.NBTBookTags;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import org.apache.commons.lang3.Validate;
 
 import java.util.function.Supplier;
 
 public class PacketSyncEntry {
-
-    public int category;
-    public ResourceLocation entry;
-    public int page;
-
-    public PacketSyncEntry() {
-        this.category = -1;
-        this.entry = new ResourceLocation(GuideMod.ID, "none");
-        this.page = -1;
-    }
-
-    public PacketSyncEntry(int category, ResourceLocation entry, int page) {
-        this.category = category;
-        this.entry = entry;
-        this.page = page;
-    }
 
     static void encode(PacketSyncEntry msg, FriendlyByteBuf buf) {
         buf.writeInt(msg.category);
@@ -66,6 +50,22 @@ public class PacketSyncEntry {
             }
         });
         ctx.setPacketHandled(true);
+    }
+
+    public int category;
+    public ResourceLocation entry;
+    public int page;
+
+    public PacketSyncEntry() {
+        this.category = -1;
+        this.entry = new ResourceLocation(GuideMod.ID, "none");
+        this.page = -1;
+    }
+
+    public PacketSyncEntry(int category, ResourceLocation entry, int page) {
+        this.category = category;
+        this.entry = entry;
+        this.page = page;
     }
 
 

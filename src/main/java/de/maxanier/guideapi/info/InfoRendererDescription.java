@@ -4,16 +4,16 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.IInfoRenderer;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.util.GuiHelper;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.HitResult;
 
 import java.awt.*;
 import java.util.List;
@@ -53,13 +53,13 @@ public class InfoRendererDescription implements IInfoRenderer {
             stack.popPose();
     }
 
-    public InfoRendererDescription setTiny(boolean tiny) {
-        this.tiny = tiny;
+    public InfoRendererDescription setOffsetY(int yOffset) {
+        this.yOffset = yOffset;
         return this;
     }
 
-    public InfoRendererDescription setOffsetY(int yOffset) {
-        this.yOffset = yOffset;
+    public InfoRendererDescription setTiny(boolean tiny) {
+        this.tiny = tiny;
         return this;
     }
 }

@@ -8,10 +8,10 @@ import de.maxanier.guideapi.gui.CategoryScreen;
 import de.maxanier.guideapi.gui.HomeScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -28,6 +28,11 @@ public class Category extends CategoryAbstract {
     }
 
     @Override
+    public boolean canSee(Player player, ItemStack bookStack) {
+        return true;
+    }
+
+    @Override
     @OnlyIn(Dist.CLIENT)
     public void draw(PoseStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem) {
     }
@@ -38,8 +43,8 @@ public class Category extends CategoryAbstract {
     }
 
     @Override
-    public boolean canSee(Player player, ItemStack bookStack) {
-        return true;
+    @OnlyIn(Dist.CLIENT)
+    public void onInit(Book book, HomeScreen guiHome, Player player, ItemStack bookStack) {
     }
 
     @Override
@@ -51,10 +56,5 @@ public class Category extends CategoryAbstract {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void onRightClicked(Book book, double mouseX, double mouseY, Player player, ItemStack bookStack) {
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void onInit(Book book, HomeScreen guiHome, Player player, ItemStack bookStack) {
     }
 }

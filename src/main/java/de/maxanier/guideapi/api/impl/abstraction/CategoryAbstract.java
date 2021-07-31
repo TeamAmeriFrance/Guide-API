@@ -8,10 +8,10 @@ import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.gui.BaseScreen;
 import de.maxanier.guideapi.gui.HomeScreen;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -31,6 +31,10 @@ public abstract class CategoryAbstract {
 
     public CategoryAbstract(Component name) {
         this(Maps.newLinkedHashMap(), name);
+    }
+
+    public void addEntries(Map<ResourceLocation, EntryAbstract> entries) {
+        this.entries.putAll(entries);
     }
 
     /**
@@ -58,17 +62,22 @@ public abstract class CategoryAbstract {
         addEntry(new ResourceLocation(keyBase, key), entry);
     }
 
-    public void removeEntry(ResourceLocation key) {
-        entries.remove(key);
-    }
+    public abstract boolean canSee(Player player, ItemStack bookStack);
 
-    public void addEntries(Map<ResourceLocation, EntryAbstract> entries) {
-        this.entries.putAll(entries);
-    }
+    @OnlyIn(Dist.CLIENT)
+    public abstract void draw(PoseStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem);
 
-    public void removeEntries(List<ResourceLocation> keys) {
-        for (ResourceLocation key : keys)
-            entries.remove(key);
+    @OnlyIn(Dist.CLIENT)
+    public abstract void drawExtras(PoseStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem);
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CategoryAbstract that = (CategoryAbstract) o;
+        if (entries != null ? !entries.equals(that.entries) : that.entries != null) return false;
+        return name != null ? name.equals(that.name) : that.name == null;
     }
 
     /**
@@ -107,26 +116,6 @@ public abstract class CategoryAbstract {
     }
 
     /**
-     * Sets the domain to use for all ResourceLocation keys passed through {@link #getEntry(String)} and
-     * {@link #addEntry(String, EntryAbstract)}
-     * <p>
-     * Required in order to use those.
-     *
-     * @param keyBase - The base domain for this entry.
-     * @return self for chaining.
-     */
-    public CategoryAbstract withKeyBase(String keyBase) {
-        this.keyBase = keyBase;
-        return this;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public abstract void draw(PoseStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem);
-
-    @OnlyIn(Dist.CLIENT)
-    public abstract void drawExtras(PoseStack stack, Book book, int categoryX, int categoryY, int categoryWidth, int categoryHeight, int mouseX, int mouseY, BaseScreen guiBase, boolean drawOnLeft, ItemRenderer renderItem);
-
-    /**
      * Obtains a localized copy of this category's name.
      *
      * @return a localized copy of this category's name.
@@ -139,7 +128,15 @@ public abstract class CategoryAbstract {
         return Lists.newArrayList(getName());
     }
 
-    public abstract boolean canSee(Player player, ItemStack bookStack);
+    @Override
+    public int hashCode() {
+        int result = entries != null ? entries.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public abstract void onInit(Book book, HomeScreen guiHome, Player player, ItemStack bookStack);
 
     @OnlyIn(Dist.CLIENT)
     public abstract void onLeftClicked(Book book, double mouseX, double mouseY, Player player, ItemStack bookStack);
@@ -147,23 +144,26 @@ public abstract class CategoryAbstract {
     @OnlyIn(Dist.CLIENT)
     public abstract void onRightClicked(Book book, double mouseX, double mouseY, Player player, ItemStack bookStack);
 
-    @OnlyIn(Dist.CLIENT)
-    public abstract void onInit(Book book, HomeScreen guiHome, Player player, ItemStack bookStack);
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CategoryAbstract that = (CategoryAbstract) o;
-        if (entries != null ? !entries.equals(that.entries) : that.entries != null) return false;
-        return name != null ? name.equals(that.name) : that.name == null;
+    public void removeEntries(List<ResourceLocation> keys) {
+        for (ResourceLocation key : keys)
+            entries.remove(key);
     }
 
-    @Override
-    public int hashCode() {
-        int result = entries != null ? entries.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+    public void removeEntry(ResourceLocation key) {
+        entries.remove(key);
+    }
+
+    /**
+     * Sets the domain to use for all ResourceLocation keys passed through {@link #getEntry(String)} and
+     * {@link #addEntry(String, EntryAbstract)}
+     * <p>
+     * Required in order to use those.
+     *
+     * @param keyBase - The base domain for this entry.
+     * @return self for chaining.
+     */
+    public CategoryAbstract withKeyBase(String keyBase) {
+        this.keyBase = keyBase;
+        return this;
     }
 }

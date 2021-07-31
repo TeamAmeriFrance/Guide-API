@@ -15,10 +15,10 @@ import de.maxanier.guideapi.network.PacketHandler;
 import de.maxanier.guideapi.network.PacketSyncCategory;
 import de.maxanier.guideapi.wrapper.EntryWrapper;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nullable;
@@ -131,13 +131,6 @@ public class CategoryScreen extends BaseScreen {
     }
 
     @Override
-    public void onClose() {
-        super.onClose();
-
-        PacketHandler.INSTANCE.sendToServer(new PacketSyncCategory(book.getCategoryList().indexOf(category), entryPage));
-    }
-
-    @Override
     public boolean mouseScrolled(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double movement) {
         if (movement < 0)
             nextPage();
@@ -145,6 +138,27 @@ public class CategoryScreen extends BaseScreen {
             prevPage();
 
         return movement != 0 || super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
+    }
+
+    public void nextPage() {
+        if (entryPage >= entryWrapperMap.asMap().size())
+            entryPage = entryWrapperMap.asMap().size() - 1;
+        if (entryPage != entryWrapperMap.asMap().size() - 1 && !entryWrapperMap.asMap().isEmpty())
+            entryPage++;
+    }
+
+    @Override
+    public void onClose() {
+        super.onClose();
+
+        PacketHandler.INSTANCE.sendToServer(new PacketSyncCategory(book.getCategoryList().indexOf(category), entryPage));
+    }
+
+    public void prevPage() {
+        if (entryPage >= entryWrapperMap.asMap().size())
+            entryPage = entryWrapperMap.asMap().size() - 1;
+        if (entryPage != 0)
+            entryPage--;
     }
 
     @Override
@@ -168,26 +182,12 @@ public class CategoryScreen extends BaseScreen {
             }
         }
 
-        drawCenteredStringWithoutShadow(stack, font , String.format("%d/%d", entryPage + 1, entryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
+        drawCenteredStringWithoutShadow(stack, font, String.format("%d/%d", entryPage + 1, entryWrapperMap.asMap().size()), guiLeft + xSize / 2, guiTop + 5 * ySize / 6, 0);
         drawCenteredString(stack, font, category.getName(), guiLeft + xSize / 2, guiTop - 10, Color.WHITE.getRGB());
 
         buttonPrev.visible = entryPage != 0;
         buttonNext.visible = entryPage != entryWrapperMap.asMap().size() - 1 && !entryWrapperMap.asMap().isEmpty();
 
         super.render(stack, mouseX, mouseY, renderPartialTicks);
-    }
-
-    public void nextPage() {
-        if (entryPage >= entryWrapperMap.asMap().size())
-            entryPage = entryWrapperMap.asMap().size() - 1;
-        if (entryPage != entryWrapperMap.asMap().size() - 1 && !entryWrapperMap.asMap().isEmpty())
-            entryPage++;
-    }
-
-    public void prevPage() {
-        if (entryPage >= entryWrapperMap.asMap().size())
-            entryPage = entryWrapperMap.asMap().size() - 1;
-        if (entryPage != 0)
-            entryPage--;
     }
 }

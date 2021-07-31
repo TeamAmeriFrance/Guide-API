@@ -2,11 +2,11 @@ package de.maxanier.guideapi.api.impl;
 
 import de.maxanier.guideapi.GuideMod;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.forgespi.language.IModInfo;
@@ -44,19 +44,6 @@ public class BookBinder {
         this.registryName = registryName;
     }
 
-
-    /**
-     * Set a consumer (method) that will generate the content for your book and add it to the provided list
-     * This will be called on client side when the book is opened for the first time.
-     *
-     * @param contentProvider The consumer. Categories are displayed in which they are added to the provided list
-     * @return the builder instance for chaining.
-     */
-    public BookBinder setContentProvider(Consumer<List<CategoryAbstract>> contentProvider) {
-        this.contentProvider = contentProvider;
-        return this;
-    }
-
     /**
      * Constructs a book from the given data. Will modify specific values if not set so they have defaults.
      *
@@ -90,6 +77,55 @@ public class BookBinder {
      */
     public BookBinder setAuthor(Component author) {
         this.author = author;
+        return this;
+    }
+
+    /**
+     * Sets the color to overlay on the book model and GUI border.
+     * <p>
+     * By default, this is a reddish-brown color.
+     *
+     * @param color The color to overlay with.
+     * @return the builder instance for chaining.
+     */
+    public BookBinder setColor(Color color) {
+        this.color = color;
+        return this;
+    }
+
+    /**
+     * An overload that takes an RGB color instead of a {@link Color} instance.
+     *
+     * @param color The color to overlay with.
+     * @return the builder instance for chaining.
+     * @see #setColor(int)
+     */
+    public BookBinder setColor(int color) {
+        return setColor(new Color(color));
+    }
+
+    /**
+     * Set a consumer (method) that will generate the content for your book and add it to the provided list
+     * This will be called on client side when the book is opened for the first time.
+     *
+     * @param contentProvider The consumer. Categories are displayed in which they are added to the provided list
+     * @return the builder instance for chaining.
+     */
+    public BookBinder setContentProvider(Consumer<List<CategoryAbstract>> contentProvider) {
+        this.contentProvider = contentProvider;
+        return this;
+    }
+
+    /**
+     * Sets the Creative Tab this book should appear in.
+     * <p>
+     * By default, all books will appear in {@link ItemGroup#MISC}.
+     *
+     * @param creativeTab The creative tab this book should display in.
+     * @return the builder instance for chaining.
+     */
+    public BookBinder setCreativeTab(CreativeModeTab creativeTab) {
+        this.creativeTab = creativeTab;
         return this;
     }
 
@@ -153,17 +189,15 @@ public class BookBinder {
     }
 
     /**
-     * The texture to use for the pages themselves. These are un-colored and drawn just how they appear in the texture file.
-     * The dimensions should remain the same as the default texture.
+     * Sets the unlocalized name for the item containing this book.
      * <p>
-     * By default, this uses the same page texture as vanilla books.
+     * By default, this is the same as {@link #guideTitle}.
      *
-     * @param pageTexture The page texture to use for this guide.
+     * @param translationKey The translation key for the name for this item.
      * @return the builder instance for chaining.
      */
-    public BookBinder setPageTexture(ResourceLocation pageTexture) {
-        this.pageTexture = pageTexture;
-        return this;
+    public BookBinder setItemNameKey(String translationKey) {
+        return this.setItemName(new TranslatableComponent(translationKey));
     }
 
     /**
@@ -181,27 +215,17 @@ public class BookBinder {
     }
 
     /**
-     * Sets the color to overlay on the book model and GUI border.
+     * The texture to use for the pages themselves. These are un-colored and drawn just how they appear in the texture file.
+     * The dimensions should remain the same as the default texture.
      * <p>
-     * By default, this is a reddish-brown color.
+     * By default, this uses the same page texture as vanilla books.
      *
-     * @param color The color to overlay with.
+     * @param pageTexture The page texture to use for this guide.
      * @return the builder instance for chaining.
      */
-    public BookBinder setColor(Color color) {
-        this.color = color;
+    public BookBinder setPageTexture(ResourceLocation pageTexture) {
+        this.pageTexture = pageTexture;
         return this;
-    }
-
-    /**
-     * An overload that takes an RGB color instead of a {@link Color} instance.
-     *
-     * @param color The color to overlay with.
-     * @return the builder instance for chaining.
-     * @see #setColor(int)
-     */
-    public BookBinder setColor(int color) {
-        return setColor(new Color(color));
     }
 
     /**
@@ -215,30 +239,5 @@ public class BookBinder {
     public BookBinder setSpawnWithBook() {
         this.spawnWithBook = true;
         return this;
-    }
-
-    /**
-     * Sets the Creative Tab this book should appear in.
-     * <p>
-     * By default, all books will appear in {@link ItemGroup#MISC}.
-     *
-     * @param creativeTab The creative tab this book should display in.
-     * @return the builder instance for chaining.
-     */
-    public BookBinder setCreativeTab(CreativeModeTab creativeTab) {
-        this.creativeTab = creativeTab;
-        return this;
-    }
-
-    /**
-     * Sets the unlocalized name for the item containing this book.
-     * <p>
-     * By default, this is the same as {@link #guideTitle}.
-     *
-     * @param translationKey The translation key for the name for this item.
-     * @return the builder instance for chaining.
-     */
-    public BookBinder setItemNameKey(String translationKey) {
-        return this.setItemName(new TranslatableComponent(translationKey));
     }
 }

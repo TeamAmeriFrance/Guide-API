@@ -6,29 +6,27 @@ import de.maxanier.guideapi.api.IGuideItem;
 import de.maxanier.guideapi.api.IGuideLinked;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.TooltipFlag.Default;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.util.*;
+import net.minecraft.Util;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.TooltipFlag.Default;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-
-import net.minecraft.Util;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 
 public class ItemGuideBook extends Item implements IGuideItem {
 
@@ -43,12 +41,6 @@ public class ItemGuideBook extends Item implements IGuideItem {
         setTranslation_key(GuideMod.ID + ".book." + book.getRegistryName().getNamespace() + "." + book.getRegistryName().getPath());
     }
 
-    @Nullable
-    @Override
-    public String getCreatorModId(ItemStack itemStack) {
-        return book.getRegistryName().getNamespace();
-    }
-
     @Override
     public void appendHoverText(ItemStack stack, Level playerIn, List<Component> tooltip, TooltipFlag advanced) {
         if (book.getAuthor() != null) {
@@ -57,6 +49,17 @@ public class ItemGuideBook extends Item implements IGuideItem {
                 tooltip.add(new TextComponent(book.getRegistryName().toString()));
             }
         }
+    }
+
+    @Override
+    public Book getBook(ItemStack stack) {
+        return book;
+    }
+
+    @Nullable
+    @Override
+    public String getCreatorModId(ItemStack itemStack) {
+        return book.getRegistryName().getNamespace();
     }
 
     @Nonnull
@@ -119,17 +122,12 @@ public class ItemGuideBook extends Item implements IGuideItem {
         return this.translation_key;
     }
 
+    // IGuideItem
+
     /**
      * Set a custom translation key
      */
     protected void setTranslation_key(String name) {
         this.translation_key = Util.makeDescriptionId("item", new ResourceLocation(GuideMod.ID, name));
-    }
-
-    // IGuideItem
-
-    @Override
-    public Book getBook(ItemStack stack) {
-        return book;
     }
 }

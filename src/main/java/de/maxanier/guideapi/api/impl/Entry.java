@@ -11,12 +11,12 @@ import de.maxanier.guideapi.gui.CategoryScreen;
 import de.maxanier.guideapi.gui.EntryScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
-import net.minecraft.locale.Language;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -32,6 +32,11 @@ public class Entry extends EntryAbstract {
 
     public Entry(Component name) {
         super(name);
+    }
+
+    @Override
+    public boolean canSee(Player player, ItemStack bookStack) {
+        return true;
     }
 
     @Override
@@ -79,8 +84,8 @@ public class Entry extends EntryAbstract {
     }
 
     @Override
-    public boolean canSee(Player player, ItemStack bookStack) {
-        return true;
+    @OnlyIn(Dist.CLIENT)
+    public void onInit(Book book, CategoryAbstract category, CategoryScreen guiCategory, Player player, ItemStack bookStack) {
     }
 
     @Override
@@ -92,10 +97,5 @@ public class Entry extends EntryAbstract {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void onRightClicked(Book book, CategoryAbstract category, double mouseX, double mouseY, Player player, CategoryScreen guiCategory) {
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void onInit(Book book, CategoryAbstract category, CategoryScreen guiCategory, Player player, ItemStack bookStack) {
     }
 }

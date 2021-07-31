@@ -8,9 +8,9 @@ import de.maxanier.guideapi.api.util.GuiHelper;
 import de.maxanier.guideapi.api.util.IngredientCycler;
 import de.maxanier.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraft.network.chat.TranslatableComponent;
 
 public class ShapedRecipesRenderer extends CraftingRecipeRenderer<ShapedRecipe> {
 

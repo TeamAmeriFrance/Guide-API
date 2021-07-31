@@ -1,23 +1,21 @@
 package de.maxanier.guideapi.api.util;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import net.minecraft.world.item.TooltipFlag.Default;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag.Default;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.List;
-
 
 
 public class GuiHelper {
@@ -42,8 +40,8 @@ public class GuiHelper {
      * MatrixStack isn't used yet as vanilla ItemRenderer does not use it yet.
      *
      * @param poseStack - The itemstack to be drawn
-     * @param x     - The position on the x-axis to draw the itemstack
-     * @param y     - The position on the y-axis to draw the itemstack
+     * @param x         - The position on the x-axis to draw the itemstack
+     * @param y         - The position on the y-axis to draw the itemstack
      */
     public static void drawItemStack(PoseStack poseStack, ItemStack stack, int x, int y) {
         PoseStack mStack = RenderSystem.getModelViewStack();
@@ -61,10 +59,11 @@ public class GuiHelper {
 
     /**
      * MatrixStack isn't used yet as vanilla ItemRenderer does not use it yet.
+     *
      * @param poseStack - The itemstack to be drawn
-     * @param x     - The position on the x-axis to draw the itemstack
-     * @param y     - The position on the y-axis to draw the itemstack
-     * @param scale - The scale with which to draw the itemstack
+     * @param x         - The position on the x-axis to draw the itemstack
+     * @param y         - The position on the y-axis to draw the itemstack
+     * @param scale     - The scale with which to draw the itemstack
      */
     public static void drawScaledItemStack(PoseStack poseStack, ItemStack stack, int x, int y, float scale) {
         PoseStack mStack = RenderSystem.getModelViewStack();
@@ -75,13 +74,14 @@ public class GuiHelper {
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderSystem.enableDepthTest();
         RenderSystem.applyModelViewMatrix();
-        render.renderAndDecorateItem(stack, (int )(x/scale) , (int)(y /scale));
+        render.renderAndDecorateItem(stack, (int) (x / scale), (int) (y / scale));
         mStack.popPose();
         RenderSystem.applyModelViewMatrix();
     }
 
     /**
      * MatrixStack isn't used yet as vanilla ItemRenderer does not use it yet.
+     *
      * @param x      - The position on the x-axis to draw the icon
      * @param y      - The position on the y-axis to draw the icon
      * @param width  - The width of the icon
@@ -103,6 +103,7 @@ public class GuiHelper {
 
     /**
      * MatrixStack isn't used yet as vanilla ItemRenderer does not use it yet.
+     *
      * @param x      - The position on the x-axis to draw the icon
      * @param y      - The position on the y-axis to draw the icon
      * @param width  - The width of the icon
@@ -127,6 +128,7 @@ public class GuiHelper {
 
     /**
      * MatrixStack isn't used yet as vanilla ItemRenderer does not use it yet.
+     *
      * @param x      - The position on the x-axis to draw the icon
      * @param y      - The position on the y-axis to draw the icon
      * @param width  - The width of the icon
@@ -157,6 +159,7 @@ public class GuiHelper {
 
     /**
      * MatrixStack isn't used yet as vanilla ItemRenderer does not use it yet.
+     *
      * @param x      - The position on the x-axis to draw the icon
      * @param y      - The position on the y-axis to draw the icon
      * @param width  - The width of the icon

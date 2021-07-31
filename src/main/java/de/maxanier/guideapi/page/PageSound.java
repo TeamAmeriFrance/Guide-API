@@ -10,9 +10,9 @@ import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
 import de.maxanier.guideapi.gui.BaseScreen;
 import de.maxanier.guideapi.gui.EntryScreen;
 import net.minecraft.client.gui.Font;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -33,6 +33,11 @@ public class PageSound extends Page {
     }
 
     @Override
+    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, Player player, ItemStack bookStack, EntryScreen guiEntry) {
+        return pageToEmulate.canSee(book, category, entry, player, bookStack, guiEntry);
+    }
+
+    @Override
     @OnlyIn(Dist.CLIENT)
     public void draw(PoseStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, Font fontRendererObj) {
         pageToEmulate.draw(stack, book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
@@ -42,24 +47,6 @@ public class PageSound extends Page {
     @OnlyIn(Dist.CLIENT)
     public void drawExtras(PoseStack stack, Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, BaseScreen guiBase, Font fontRendererObj) {
         pageToEmulate.drawExtras(stack, book, category, entry, guiLeft, guiTop, mouseX, mouseY, guiBase, fontRendererObj);
-    }
-
-    @Override
-    public boolean canSee(Book book, CategoryAbstract category, EntryAbstract entry, Player player, ItemStack bookStack, EntryScreen guiEntry) {
-        return pageToEmulate.canSee(book, category, entry, player, bookStack, guiEntry);
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, double mouseX, double mouseY, Player player, EntryScreen guiEntry) {
-        GuideMod.PROXY.playSound(sound);
-        pageToEmulate.onLeftClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, double mouseX, double mouseY, Player player, EntryScreen guiEntry) {
-        pageToEmulate.onRightClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
     }
 
     @Override
@@ -78,5 +65,18 @@ public class PageSound extends Page {
         int result = pageToEmulate != null ? pageToEmulate.hashCode() : 0;
         result = 31 * result + (sound != null ? sound.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void onLeftClicked(Book book, CategoryAbstract category, EntryAbstract entry, double mouseX, double mouseY, Player player, EntryScreen guiEntry) {
+        GuideMod.PROXY.playSound(sound);
+        pageToEmulate.onLeftClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void onRightClicked(Book book, CategoryAbstract category, EntryAbstract entry, double mouseX, double mouseY, Player player, EntryScreen guiEntry) {
+        pageToEmulate.onRightClicked(book, category, entry, mouseX, mouseY, player, guiEntry);
     }
 }

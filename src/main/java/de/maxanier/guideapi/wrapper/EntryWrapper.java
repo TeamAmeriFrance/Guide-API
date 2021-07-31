@@ -38,10 +38,6 @@ public class EntryWrapper extends AbstractWrapper {
     }
 
     @Override
-    public void onHoverOver(int mouseX, int mouseY) {
-    }
-
-    @Override
     public boolean canPlayerSee() {
         return entry.canSee(player, bookStack);
     }
@@ -59,5 +55,9 @@ public class EntryWrapper extends AbstractWrapper {
     @Override
     public boolean isMouseOnWrapper(double mouseX, double mouseY) {
         return GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height);
+    }
+
+    @Override
+    public void onHoverOver(int mouseX, int mouseY) {
     }
 }

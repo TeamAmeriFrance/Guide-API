@@ -11,10 +11,10 @@ import de.maxanier.guideapi.button.ButtonSearch;
 import de.maxanier.guideapi.network.PacketHandler;
 import de.maxanier.guideapi.network.PacketSyncHome;
 import de.maxanier.guideapi.wrapper.CategoryWrapper;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
@@ -82,13 +82,6 @@ public class HomeScreen extends BaseScreen {
     }
 
     @Override
-    public void onClose() {
-        super.onClose();
-
-        PacketHandler.INSTANCE.sendToServer(new PacketSyncHome(categoryPage));
-    }
-
-    @Override
     public boolean keyPressed(int keyCode, int p_keyPressed_2_, int p_keyPressed_3_) {
         if ((keyCode == GLFW.GLFW_KEY_UP || keyCode == GLFW.GLFW_KEY_RIGHT) && categoryPage + 1 < categoryWrapperMap.asMap().size()) {
             nextPage();
@@ -131,11 +124,28 @@ public class HomeScreen extends BaseScreen {
         return movement != 0 || super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
     }
 
+    public void nextPage() {
+        if (categoryPage != categoryWrapperMap.asMap().size() - 1 && !categoryWrapperMap.asMap().isEmpty())
+            categoryPage++;
+    }
+
+    @Override
+    public void onClose() {
+        super.onClose();
+
+        PacketHandler.INSTANCE.sendToServer(new PacketSyncHome(categoryPage));
+    }
+
+    public void prevPage() {
+        if (categoryPage != 0)
+            categoryPage--;
+    }
+
     @Override
     public void render(PoseStack stack, int mouseX, int mouseY, float renderPartialTicks) {
-        RenderSystem.setShaderTexture(0,pageTexture);
+        RenderSystem.setShaderTexture(0, pageTexture);
         blit(stack, guiLeft, guiTop, 0, 0, xSize, ySize);
-        RenderSystem.setShaderTexture(0,outlineTexture);
+        RenderSystem.setShaderTexture(0, outlineTexture);
         drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
         drawCenteredStringWithoutShadow(stack, font, book.getHeader().getVisualOrderText(), guiLeft + xSize / 2 + 1, guiTop + 15, 0);
 
@@ -156,15 +166,5 @@ public class HomeScreen extends BaseScreen {
         buttonNext.visible = categoryPage != categoryWrapperMap.asMap().size() - 1 && !categoryWrapperMap.asMap().isEmpty();
 
         super.render(stack, mouseX, mouseY, renderPartialTicks);
-    }
-
-    public void nextPage() {
-        if (categoryPage != categoryWrapperMap.asMap().size() - 1 && !categoryWrapperMap.asMap().isEmpty())
-            categoryPage++;
-    }
-
-    public void prevPage() {
-        if (categoryPage != 0)
-            categoryPage--;
     }
 }

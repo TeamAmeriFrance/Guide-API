@@ -4,11 +4,11 @@ import de.maxanier.guideapi.api.IPage;
 import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
 import de.maxanier.guideapi.entry.EntryItemStack;
 import de.maxanier.guideapi.page.PageBrewingRecipe;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import org.apache.logging.log4j.LogManager;
 
@@ -28,6 +28,7 @@ public class ItemInfoBuilder {
     private final BookHelper bookHelper;
     private final Ingredient ingredient;
     private final ItemStack mainStack;
+    private final List<IPage> additionalPages = new ArrayList<>();
     private String name;
     private Object[] formats = new Object[0];
     private Object[] links = null;
@@ -36,7 +37,6 @@ public class ItemInfoBuilder {
     private List<ResourceLocation> recipes = Collections.emptyList();
     @Nullable
     private ItemStack[] brewingStacks;
-    private final List<IPage> additionalPages = new ArrayList<>();
 
     /**
      * @param name       name used for translation keys
@@ -97,6 +97,14 @@ public class ItemInfoBuilder {
     }
 
     /**
+     * Add pages that are placed at the end of the entry
+     */
+    public ItemInfoBuilder customPages(IPage... additionalPages) {
+        this.additionalPages.addAll(Arrays.asList(additionalPages));
+        return this;
+    }
+
+    /**
      * Add recipes
      * String ids are prefixed with your modid
      *
@@ -148,14 +156,6 @@ public class ItemInfoBuilder {
      */
     public ItemInfoBuilder useCustomEntryName() {
         customName = true;
-        return this;
-    }
-
-    /**
-     * Add pages that are placed at the end of the entry
-     */
-    public ItemInfoBuilder customPages(IPage... additionalPages) {
-        this.additionalPages.addAll(Arrays.asList(additionalPages));
         return this;
     }
 }

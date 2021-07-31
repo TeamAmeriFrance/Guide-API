@@ -1,11 +1,11 @@
 package de.maxanier.guideapi.api;
 
 import de.maxanier.guideapi.api.impl.Book;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.chat.Component;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.eventbus.api.Cancelable;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -34,12 +34,12 @@ public class BookEvent extends Event {
         return book;
     }
 
-    public ItemStack getStack() {
-        return stack;
-    }
-
     public Player getPlayer() {
         return player;
+    }
+
+    public ItemStack getStack() {
+        return stack;
     }
 
     /**

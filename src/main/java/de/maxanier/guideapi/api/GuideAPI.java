@@ -2,9 +2,9 @@ package de.maxanier.guideapi.api;
 
 import com.google.common.collect.*;
 import de.maxanier.guideapi.api.impl.Book;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,7 @@ public class GuideAPI {
     private static final Map<ResourceLocation, Book> BOOKS = Maps.newHashMap();
     private static final Map<Book, ItemStack> BOOK_TO_STACK = Maps.newHashMap();
     private static final Map<Book, Multimap<Block, IInfoRenderer>> INFO_RENDERERS = Maps.newHashMap();
-    private static List<Book> indexedBooks = Lists.newArrayList();
+    private static final List<Book> indexedBooks = Lists.newArrayList();
 
     /**
      * Obtains a new ItemStack associated with the provided book.

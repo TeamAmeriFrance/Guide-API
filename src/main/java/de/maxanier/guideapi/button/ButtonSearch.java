@@ -1,7 +1,7 @@
 package de.maxanier.guideapi.button;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.maxanier.guideapi.api.SubTexture;
 import de.maxanier.guideapi.api.button.ButtonGuideAPI;
 import de.maxanier.guideapi.api.util.GuiHelper;
@@ -9,7 +9,6 @@ import de.maxanier.guideapi.gui.BaseScreen;
 import de.maxanier.guideapi.util.GuiUtilsCopy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
-import com.mojang.blaze3d.platform.Lighting;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.TranslatableComponent;
 

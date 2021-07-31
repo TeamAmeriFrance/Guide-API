@@ -10,13 +10,13 @@ import de.maxanier.guideapi.api.util.GuiHelper;
 import de.maxanier.guideapi.api.util.IngredientCycler;
 import de.maxanier.guideapi.api.util.TextHelper;
 import de.maxanier.guideapi.gui.BaseScreen;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.brewing.BrewingRecipe;
@@ -26,12 +26,11 @@ import java.util.List;
 
 public class PageBrewingRecipe extends Page {
 
+    private final IngredientCycler cycler = new IngredientCycler();
     public BrewingRecipe recipe;
     public Ingredient ingredient;
     public Ingredient input;
     public ItemStack output;
-
-    private final IngredientCycler cycler = new IngredientCycler();
 
     /**
      * Your brewing recipe - what you pass to BrewingRecipeRegistry.addRecipe

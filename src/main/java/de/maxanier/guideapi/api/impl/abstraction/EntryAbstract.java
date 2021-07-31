@@ -7,9 +7,9 @@ import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.gui.BaseScreen;
 import de.maxanier.guideapi.gui.CategoryScreen;
 import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -34,38 +34,17 @@ public abstract class EntryAbstract {
         this.pageList.add(page);
     }
 
-    public void removePage(IPage page) {
-        this.pageList.remove(page);
-    }
-
     public void addPageList(List<IPage> pages) {
         this.pageList.addAll(pages);
     }
 
-    public void removePageList(List<IPage> pages) {
-        this.pageList.removeAll(pages);
-    }
+    public abstract boolean canSee(Player player, ItemStack bookStack);
 
     @OnlyIn(Dist.CLIENT)
     public abstract void draw(PoseStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, Font renderer);
 
     @OnlyIn(Dist.CLIENT)
     public abstract void drawExtras(PoseStack stack, Book book, CategoryAbstract category, int entryX, int entryY, int entryWidth, int entryHeight, int mouseX, int mouseY, BaseScreen guiBase, Font renderer);
-
-    public Component getName() {
-        return name;
-    }
-
-    public abstract boolean canSee(Player player, ItemStack bookStack);
-
-    @OnlyIn(Dist.CLIENT)
-    public abstract void onLeftClicked(Book book, CategoryAbstract category, double mouseX, double mouseY, Player player, CategoryScreen guiCategory);
-
-    @OnlyIn(Dist.CLIENT)
-    public abstract void onRightClicked(Book book, CategoryAbstract category, double mouseX, double mouseY, Player player, CategoryScreen guiCategory);
-
-    @OnlyIn(Dist.CLIENT)
-    public abstract void onInit(Book book, CategoryAbstract category, CategoryScreen guiCategory, Player player, ItemStack bookStack);
 
     @Override
     public boolean equals(Object o) {
@@ -77,10 +56,31 @@ public abstract class EntryAbstract {
         return name != null ? name.equals(that.name) : that.name == null;
     }
 
+    public Component getName() {
+        return name;
+    }
+
     @Override
     public int hashCode() {
         int result = pageList != null ? pageList.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public abstract void onInit(Book book, CategoryAbstract category, CategoryScreen guiCategory, Player player, ItemStack bookStack);
+
+    @OnlyIn(Dist.CLIENT)
+    public abstract void onLeftClicked(Book book, CategoryAbstract category, double mouseX, double mouseY, Player player, CategoryScreen guiCategory);
+
+    @OnlyIn(Dist.CLIENT)
+    public abstract void onRightClicked(Book book, CategoryAbstract category, double mouseX, double mouseY, Player player, CategoryScreen guiCategory);
+
+    public void removePage(IPage page) {
+        this.pageList.remove(page);
+    }
+
+    public void removePageList(List<IPage> pages) {
+        this.pageList.removeAll(pages);
     }
 }

@@ -13,13 +13,13 @@ import de.maxanier.guideapi.api.util.BookHelper;
 import de.maxanier.guideapi.api.util.ItemInfoBuilder;
 import de.maxanier.guideapi.category.CategoryItemStack;
 import de.maxanier.guideapi.info.InfoRendererDescription;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;

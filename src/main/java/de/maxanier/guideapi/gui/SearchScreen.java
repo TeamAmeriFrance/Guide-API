@@ -13,13 +13,13 @@ import de.maxanier.guideapi.button.ButtonBack;
 import de.maxanier.guideapi.button.ButtonNext;
 import de.maxanier.guideapi.button.ButtonPrev;
 import de.maxanier.guideapi.util.GuiUtilsCopy;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.chat.TranslatableComponent;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.glfw.GLFW;
 
@@ -53,16 +53,16 @@ public class SearchScreen extends BaseScreen {
 
     private final Book book;
     private final ResourceLocation outlineTexture;
-    private ButtonNext buttonNext;
-    private ButtonPrev buttonPrev;
-    private EditBox searchField;
     private final ResourceLocation pageTexture;
-    private List<List<Pair<EntryAbstract, CategoryAbstract>>> searchResults;
-    private int currentPage = 0;
-    private String lastQuery = "";
     private final int renderXOffset = 37;
     private final int renderYOffset = 30;
     private final Screen parent;
+    private ButtonNext buttonNext;
+    private ButtonPrev buttonPrev;
+    private EditBox searchField;
+    private List<List<Pair<EntryAbstract, CategoryAbstract>>> searchResults;
+    private int currentPage = 0;
+    private String lastQuery = "";
 
 
     public SearchScreen(Book book, Player player, ItemStack bookStack, Screen parent) {
@@ -162,6 +162,17 @@ public class SearchScreen extends BaseScreen {
     }
 
     @Override
+    public boolean mouseScrolled(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double movement) {
+        if (movement < 0 && buttonNext.visible && currentPage <= searchResults.size())
+            currentPage++;
+        else if (movement > 0 && buttonPrev.visible && currentPage > 0)
+            currentPage--;
+
+        return movement != 0 || super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
+
+    }
+
+    @Override
     public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -198,17 +209,6 @@ public class SearchScreen extends BaseScreen {
         buttonNext.visible = currentPage != searchResults.size() - 1 && !searchResults.isEmpty();
 
         super.render(stack, mouseX, mouseY, partialTicks);
-    }
-
-    @Override
-    public boolean mouseScrolled(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double movement) {
-        if (movement < 0 && buttonNext.visible && currentPage <= searchResults.size())
-            currentPage++;
-        else if (movement > 0 && buttonPrev.visible && currentPage > 0)
-            currentPage--;
-
-        return movement != 0 || super.mouseScrolled(p_mouseScrolled_1_, p_mouseScrolled_3_, movement);
-
     }
 
     private void updateSearch() {
