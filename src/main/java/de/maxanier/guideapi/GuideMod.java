@@ -40,7 +40,7 @@ public class GuideMod {
     }
 
     private void checkDevEnv() {
-        String launchTarget = System.getenv().get("target");
+        String launchTarget = System.getProperty("guideapi.target");
         if (launchTarget != null && launchTarget.contains("dev")) {
             inDev = true;
         }

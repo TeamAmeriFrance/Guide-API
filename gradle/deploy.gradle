@@ -112,10 +112,6 @@ curseforge {
             displayName = "Guide-API-VP-${project.minecraft_version}-${project.mod_version}"
         }
 
-        relations {
-            optionalLibrary 'jei'
-        }
-
     }
 
 
