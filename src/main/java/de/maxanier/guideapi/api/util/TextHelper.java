@@ -1,6 +1,6 @@
 package de.maxanier.guideapi.api.util;
 
-import net.minecraftforge.fmllegacy.ForgeI18n;
+import net.minecraftforge.common.ForgeI18n;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.ArrayList;

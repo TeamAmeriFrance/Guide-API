@@ -38,7 +38,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.minecraftforge.fmlclient.gui.GuiUtils.*;
+import static net.minecraftforge.client.gui.GuiUtils.*;
 
 
 /**

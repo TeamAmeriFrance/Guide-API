@@ -2,8 +2,8 @@ package de.maxanier.guideapi.network;
 
 import de.maxanier.guideapi.GuideMod;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.fmllegacy.network.NetworkRegistry;
-import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 
 
 public class PacketHandler {

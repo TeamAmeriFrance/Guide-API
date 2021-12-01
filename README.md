@@ -1,9 +1,10 @@
 # Guide-API - Village and Pillage [![](http://cf.way2muchnoise.eu/versions/guide-api-village-and-pillage.svg)](https://www.curseforge.com/minecraft/mc-mods/guide-api-village-and-pillage)
-
+** 1.18 version not used in any mod yet, therefore breaking changes still possible, let me know if you already use
+this **
 Library mod for easy creation of guide books.
 
 Fork by maxanier of Guide-API for Minecraft 1.14+ (Village and Pillage)  
-Original mod by TehNut and Tombenpotter. https://github.com/TeamAmeriFrance/Guide-API  
+Original mod by TehNut and Tombenpotter. https://github.com/TeamAmeriFrance/Guide-API
 
 Allows easy creation of a guide book for your mod.
 Books are mostly maintained by Guide-API (it registers them, it puts them in its own creative tab, etc).

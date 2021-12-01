@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ForgeModelBakery;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.tuple.Pair;
@@ -26,7 +26,7 @@ public class RegistrarGuideAPIClient {
         for (Pair<Book, IGuideBook> guide : AnnotationHandler.BOOK_CLASSES) {
             ResourceLocation loc = guide.getRight().getModel();
             if (loc != null) {
-                ModelLoader.addSpecialModel(new ModelResourceLocation(loc, "inventory"));
+                ForgeModelBakery.addSpecialModel(new ModelResourceLocation(loc, "inventory"));
             }
         }
     }

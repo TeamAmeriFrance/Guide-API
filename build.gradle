@@ -31,7 +31,7 @@ configurations {
 
 group = "de.maxanier.guideapi"
 archivesBaseName = "Guide-API-VP"
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 ext.mod_version="Test"
 ext.type="test"
 
