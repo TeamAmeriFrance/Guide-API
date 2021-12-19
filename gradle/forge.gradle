@@ -24,6 +24,9 @@ dependencies {
             name: "forge",
             version: "${project.minecraft_version}-${project.forge_version}"
     ])
+    //Don't export dependencies to pom as their deobfuscated version would be used which cannot be found in dependent projects
+    compileOnly fg.deobf("mezz.jei:jei-${project.jei_version}:api") //API for compile
+    runtimeOnly fg.deobf("mezz.jei:jei-${project.jei_version}") //Full for runtime
 
 }
 
