@@ -32,18 +32,17 @@ configurations {
 group = "de.maxanier.guideapi"
 archivesBaseName = "Guide-API-VP"
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-ext.mod_version="Test"
-ext.type="test"
 
-
+//These will be overridden in gradle/versioning.gradle, but have to be defined here
+ext.mod_version = "Test"
+ext.type = "test"
+ext.classification = "test"
 
 
 apply from: 'gradle/versioning.gradle'
 apply from: 'gradle/forge.gradle'
 apply from: 'gradle/artifacts.gradle'
 apply from: 'gradle/deploy.gradle'
-
-
 
 
 idea {
