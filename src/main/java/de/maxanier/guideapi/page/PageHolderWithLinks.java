@@ -15,7 +15,6 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -167,7 +166,7 @@ public class PageHolderWithLinks implements IPage {
         private final URI link;
 
         public URLLink(String name, URI link) {
-            this.name = new TextComponent(name);
+            this.name = Component.literal(name);
             this.link = link;
         }
 

@@ -12,7 +12,6 @@ import de.maxanier.guideapi.api.util.TextHelper;
 import de.maxanier.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -66,7 +65,7 @@ public class PageBrewingRecipe extends Page {
         SubTexture.POTION_GRID.draw(stack, xStart, yStart);
 
         List<Component> badTip = new ArrayList<>();
-        badTip.add(new TranslatableComponent("guideapi.text.brewing.error"));
+        badTip.add(Component.translatable("guideapi.text.brewing.error"));
 
         guiBase.drawCenteredStringWithoutShadow(stack, fontRendererObj, TextHelper.localizeEffect("guideapi.text.brewing.brew"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 

@@ -17,7 +17,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -82,7 +81,7 @@ public class EventHandler {
                 break;
             }
         }
-        PoseStack stack = event.getMatrixStack();
+        PoseStack stack = event.getPoseStack();
 
         if (book == null)
             return;
@@ -113,7 +112,7 @@ public class EventHandler {
             drawY -= 2;
             drawX += 20;
             fontRenderer.drawShadow(stack, linkedEntry instanceof MutableComponent ? ((MutableComponent) linkedEntry).withStyle(ChatFormatting.WHITE) : linkedEntry, drawX, drawY, 0);
-            fontRenderer.drawShadow(stack, new TranslatableComponent("guideapi.text.linked.open").withStyle(ChatFormatting.WHITE, ChatFormatting.ITALIC), drawX, drawY + 12, 0);
+            fontRenderer.drawShadow(stack, Component.translatable("guideapi.text.linked.open").withStyle(ChatFormatting.WHITE, ChatFormatting.ITALIC), drawX, drawY + 12, 0);
         }
 
         if (state.getBlock() instanceof IInfoRenderer.Block) {

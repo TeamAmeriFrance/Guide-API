@@ -10,12 +10,12 @@ import de.maxanier.guideapi.util.GuiUtilsCopy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 
 public class ButtonSearch extends ButtonGuideAPI {
 
     public ButtonSearch(int widthIn, int heightIn, Button.OnPress onPress, BaseScreen guiBase) {
-        super(widthIn, heightIn, 15, 15, new TranslatableComponent("guideapi.button.search"), onPress, guiBase);
+        super(widthIn, heightIn, 15, 15, Component.translatable("guideapi.button.search"), onPress, guiBase);
     }
 
     @Override

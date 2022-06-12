@@ -11,13 +11,13 @@ import de.maxanier.guideapi.util.GuiUtilsCopy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class ButtonPrev extends ButtonGuideAPI {
 
     public ButtonPrev(int widthIn, int heightIn, Button.OnPress onPress, BaseScreen guiBase) {
-        super(widthIn, heightIn, 18, 10, new TranslatableComponent("guideapi.button.prev"), onPress, guiBase);
+        super(widthIn, heightIn, 18, 10, Component.translatable("guideapi.button.prev"), onPress, guiBase);
     }
 
     @Override

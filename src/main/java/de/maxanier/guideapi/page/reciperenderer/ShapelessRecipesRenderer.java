@@ -8,14 +8,14 @@ import de.maxanier.guideapi.api.util.GuiHelper;
 import de.maxanier.guideapi.api.util.IngredientCycler;
 import de.maxanier.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.Font;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 
 public class ShapelessRecipesRenderer extends CraftingRecipeRenderer<ShapelessRecipe> {
 
     public ShapelessRecipesRenderer(ShapelessRecipe recipe) {
-        super(recipe, new TranslatableComponent("guideapi.text.crafting.shapeless"));
+        super(recipe, Component.translatable("guideapi.text.crafting.shapeless"));
     }
 
     @Override

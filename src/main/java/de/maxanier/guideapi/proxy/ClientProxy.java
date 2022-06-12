@@ -20,18 +20,20 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 
+import java.util.function.Supplier;
+
 public class ClientProxy extends CommonProxy {
 
     @Override
     public void initColors() {
-        for (ItemStack bookStack : GuideAPI.getBookToStack().values()) {
+        for (Supplier<ItemStack> bookStack : GuideAPI.getBookToStack().values()) {
             Minecraft.getInstance().getItemColors().register((stack, tintIndex) -> {
                 IGuideItem guideItem = (IGuideItem) stack.getItem();
                 if (guideItem.getBook(stack) != null && tintIndex == 0)
                     return guideItem.getBook(stack).getColor().getRGB();
 
                 return -1;
-            }, bookStack.getItem());
+            }, bookStack.get().getItem());
         }
     }
 

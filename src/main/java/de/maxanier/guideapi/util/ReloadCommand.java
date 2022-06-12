@@ -9,7 +9,7 @@ import de.maxanier.guideapi.api.impl.Book;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.ResourceLocationArgument;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -20,7 +20,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
  */
 public class ReloadCommand {
 
-    private static final DynamicCommandExceptionType BOOK_NOT_FOUND = new DynamicCommandExceptionType((id) -> new TextComponent("Book with registry id " + id + " not found"));
+    private static final DynamicCommandExceptionType BOOK_NOT_FOUND = new DynamicCommandExceptionType((id) -> Component.literal("Book with registry id " + id + " not found"));
     private static final SimpleCommandExceptionType NOT_CLIENT = new SimpleCommandExceptionType(new LiteralMessage("This command can only be used in singleplayer"));
 
     public static ArgumentBuilder<CommandSourceStack, ?> register() {

@@ -10,7 +10,6 @@ import de.maxanier.guideapi.page.PageHolderWithLinks;
 import de.maxanier.guideapi.page.PageIRecipe;
 import de.maxanier.guideapi.page.PageJsonRecipe;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -20,6 +19,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -191,9 +191,9 @@ public class BookHelper {
         private final String modid;
         private String baseKey;
         private Function<Recipe<?>, IRecipeRenderer> recipeRendererSupplier = PageIRecipe::getRenderer;
-        private BiFunction<String, Object[], Component> localizer = TranslatableComponent::new;
-        private Function<Block, String> blockNameMapper = (block -> block.getRegistryName().getPath());
-        private Function<Item, String> itemNameMapper = (item -> item.getRegistryName().getPath());
+        private BiFunction<String, Object[], Component> localizer = Component::translatable;
+        private Function<Block, String> blockNameMapper = (block -> ForgeRegistries.BLOCKS.getKey(block).getPath());
+        private Function<Item, String> itemNameMapper = (item -> ForgeRegistries.ITEMS.getKey(item).getPath());
 
         public Builder(String modid) {
             this.modid = modid;

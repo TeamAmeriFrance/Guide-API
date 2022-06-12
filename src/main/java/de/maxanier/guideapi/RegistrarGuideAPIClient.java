@@ -15,6 +15,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ForgeModelBakery;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
 
 
@@ -39,7 +40,7 @@ public class RegistrarGuideAPIClient {
             if (loc != null) {
                 ModelResourceLocation newMrl = new ModelResourceLocation(loc, "inventory");
                 Item bookItem = GuideAPI.getStackFromBook(guide.getLeft()).getItem();
-                ModelResourceLocation oldMrl = new ModelResourceLocation(bookItem.getRegistryName(), "inventory");
+                ModelResourceLocation oldMrl = new ModelResourceLocation(ForgeRegistries.ITEMS.getKey(bookItem), "inventory");
                 BakedModel model = event.getModelRegistry().get(newMrl);
 
                 event.getModelRegistry().put(oldMrl, model);

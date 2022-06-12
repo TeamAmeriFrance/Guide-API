@@ -3,7 +3,6 @@ package de.maxanier.guideapi.api;
 import de.maxanier.guideapi.api.impl.Book;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.Cancelable;
@@ -50,7 +49,7 @@ public class BookEvent extends Event {
     @Cancelable
     public static class Open extends BookEvent {
 
-        private static final Component DEFAULT_CANCEL = new TranslatableComponent("text.open.failed").withStyle(ChatFormatting.RED);
+        private static final Component DEFAULT_CANCEL = Component.translatable("text.open.failed").withStyle(ChatFormatting.RED);
 
         private Component canceledText = DEFAULT_CANCEL;
 

@@ -7,9 +7,9 @@ import de.maxanier.guideapi.page.PageItemStack;
 import de.maxanier.guideapi.page.PageText;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -134,7 +134,7 @@ public class PageHelper {
      * @return a new ITextProperties that combines the given elements with a newline in between
      */
     private static FormattedText combineWithNewLine(List<FormattedText> elements) {
-        FormattedText newLine = new TextComponent("\n");
+        FormattedText newLine = Component.literal("\n");
         List<FormattedText> copy = new ArrayList<>(elements.size() * 2);
         for (int i = 0; i < elements.size() - 1; i++) {
             copy.add(elements.get(i));

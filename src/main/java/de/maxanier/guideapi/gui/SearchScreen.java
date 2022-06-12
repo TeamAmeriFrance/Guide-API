@@ -16,7 +16,7 @@ import de.maxanier.guideapi.util.GuiUtilsCopy;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -103,7 +103,7 @@ public class SearchScreen extends BaseScreen {
                 currentPage--;
         }, this));
 
-        searchField = new EditBox(font, guiLeft + 43, guiTop + 12, 100, 10, new TranslatableComponent("guideapi.button.search"));
+        searchField = new EditBox(font, guiLeft + 43, guiTop + 12, 100, 10, Component.translatable("guideapi.button.search"));
         searchField.setBordered(false);
         searchField.changeFocus(true);
         searchResults = getMatches(book, null, player, bookStack);

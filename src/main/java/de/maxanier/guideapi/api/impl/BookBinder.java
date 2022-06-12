@@ -3,8 +3,6 @@ package de.maxanier.guideapi.api.impl;
 import de.maxanier.guideapi.GuideMod;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.fml.ModContainer;
@@ -22,7 +20,7 @@ public class BookBinder {
     private final ResourceLocation registryName;
     private Consumer<List<CategoryAbstract>> contentProvider;
     @Nonnull
-    private Component guideTitle = new TranslatableComponent("item.guideapi.book");
+    private Component guideTitle = Component.translatable("item.guideapi.book");
     @Nullable
     private Component header;
     @Nullable
@@ -51,7 +49,7 @@ public class BookBinder {
      */
     public Book build() {
         if (author == null)
-            this.author = new TextComponent(ModList.get().getModContainerById(registryName.getNamespace()).map(ModContainer::getModInfo).map(IModInfo::getDisplayName).orElse("Unknown"));
+            this.author = Component.literal(ModList.get().getModContainerById(registryName.getNamespace()).map(ModContainer::getModInfo).map(IModInfo::getDisplayName).orElse("Unknown"));
 
         if (header == null)
             this.header = guideTitle;
@@ -147,7 +145,7 @@ public class BookBinder {
      * @return the builder instance for chaining.
      */
     public BookBinder setGuideTitleKey(String translationKey) {
-        return this.setGuideTitle(new TranslatableComponent(translationKey));
+        return this.setGuideTitle(Component.translatable(translationKey));
     }
 
     /**
@@ -172,7 +170,7 @@ public class BookBinder {
      * @return the builder instance for chaining.
      */
     public BookBinder setHeaderKey(String translationKey) {
-        return this.setHeader(new TranslatableComponent(translationKey));
+        return this.setHeader(Component.translatable(translationKey));
     }
 
     /**
@@ -197,7 +195,7 @@ public class BookBinder {
      * @return the builder instance for chaining.
      */
     public BookBinder setItemNameKey(String translationKey) {
-        return this.setItemName(new TranslatableComponent(translationKey));
+        return this.setItemName(Component.translatable(translationKey));
     }
 
     /**

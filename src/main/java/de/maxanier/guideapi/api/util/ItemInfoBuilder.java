@@ -4,7 +4,7 @@ import de.maxanier.guideapi.api.IPage;
 import de.maxanier.guideapi.api.impl.abstraction.EntryAbstract;
 import de.maxanier.guideapi.entry.EntryItemStack;
 import de.maxanier.guideapi.page.PageBrewingRecipe;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -93,7 +93,7 @@ public class ItemInfoBuilder {
         }
         pages.addAll(this.additionalPages);
         if (links != null) bookHelper.addLinks(pages, links);
-        entries.put(new ResourceLocation(base), new EntryItemStack(pages, new TranslatableComponent(customName ? base : mainStack.getDescriptionId()), mainStack));
+        entries.put(new ResourceLocation(base), new EntryItemStack(pages, Component.translatable(customName ? base : mainStack.getDescriptionId()), mainStack));
     }
 
     /**

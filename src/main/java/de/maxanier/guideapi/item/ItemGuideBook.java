@@ -9,7 +9,6 @@ import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import net.minecraft.Util;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -46,7 +45,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
         if (book.getAuthor() != null) {
             tooltip.add(book.getAuthor());
             if (advanced == Default.ADVANCED) {
-                tooltip.add(new TextComponent(book.getRegistryName().toString()));
+                tooltip.add(Component.literal(book.getRegistryName().toString()));
             }
         }
     }

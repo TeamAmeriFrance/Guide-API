@@ -1,5 +1,6 @@
 package de.maxanier.guideapi.util;
 
+import com.google.common.base.Supplier;
 import com.google.common.base.Throwables;
 import de.maxanier.guideapi.GuideMod;
 import de.maxanier.guideapi.api.GuideAPI;
@@ -36,7 +37,7 @@ public class APISetter {
         }
     }
 
-    public static void setBookForStack(Book book, ItemStack stack) {
+    public static void setBookForStack(Book book, Supplier<ItemStack> stack) {
         try {
             sanityCheck();
         } catch (IllegalAccessException e) {
@@ -47,7 +48,7 @@ public class APISetter {
         try {
             Field stacks = GuideAPI.class.getDeclaredField("BOOK_TO_STACK");
             stacks.setAccessible(true);
-            Map<Book, ItemStack> BOOK_TO_STACK = (Map<Book, ItemStack>) stacks.get(null);
+            Map<Book, Supplier<ItemStack>> BOOK_TO_STACK = (Map<Book, Supplier<ItemStack>>) stacks.get(null);
             BOOK_TO_STACK.put(book, stack);
         } catch (Exception e) {
             e.printStackTrace();

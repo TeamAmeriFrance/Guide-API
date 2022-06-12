@@ -8,14 +8,14 @@ import de.maxanier.guideapi.api.util.GuiHelper;
 import de.maxanier.guideapi.api.util.IngredientCycler;
 import de.maxanier.guideapi.gui.BaseScreen;
 import net.minecraft.client.gui.Font;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
 public class ShapedRecipesRenderer extends CraftingRecipeRenderer<ShapedRecipe> {
 
     public ShapedRecipesRenderer(ShapedRecipe recipe) {
-        super(recipe, new TranslatableComponent("guideapi.text.crafting.shaped"));
+        super(recipe, Component.translatable("guideapi.text.crafting.shaped"));
     }
 
     @Override

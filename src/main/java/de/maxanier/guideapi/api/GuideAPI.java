@@ -8,11 +8,12 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class GuideAPI {
 
     private static final Map<ResourceLocation, Book> BOOKS = Maps.newHashMap();
-    private static final Map<Book, ItemStack> BOOK_TO_STACK = Maps.newHashMap();
+    private static final Map<Book, Supplier<ItemStack>> BOOK_TO_STACK = Maps.newHashMap();
     private static final Map<Book, Multimap<Block, IInfoRenderer>> INFO_RENDERERS = Maps.newHashMap();
     private static final List<Book> indexedBooks = Lists.newArrayList();
 
@@ -23,7 +24,7 @@ public class GuideAPI {
      * @return - The ItemStack associated with the provided book.
      */
     public static ItemStack getStackFromBook(Book book) {
-        return BOOK_TO_STACK.get(book) == null ? ItemStack.EMPTY : BOOK_TO_STACK.get(book);
+        return BOOK_TO_STACK.get(book) == null ? ItemStack.EMPTY : BOOK_TO_STACK.get(book).get();
     }
 
     /**
@@ -48,7 +49,7 @@ public class GuideAPI {
         return ImmutableMap.copyOf(BOOKS);
     }
 
-    public static Map<Book, ItemStack> getBookToStack() {
+    public static Map<Book, Supplier<ItemStack>> getBookToStack() {
         return ImmutableMap.copyOf(BOOK_TO_STACK);
     }
 
