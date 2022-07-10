@@ -28,8 +28,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -61,8 +61,8 @@ public class EventHandler {
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public static void renderOverlay(RenderGameOverlayEvent.PreLayer event) {
-        if (event.getOverlay() != ForgeIngameGui.CROSSHAIR_ELEMENT)
+    public static void renderOverlay(RenderGuiOverlayEvent.Pre event) {
+        if (event.getOverlay() != VanillaGuiOverlay.CROSSHAIR.type())
             return;
 
         HitResult rayTrace = Minecraft.getInstance().hitResult;
