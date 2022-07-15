@@ -31,7 +31,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -43,7 +43,7 @@ import java.util.Collection;
 public class EventHandler {
 
     @SubscribeEvent
-    public static void onPlayerJoinWorld(EntityJoinWorldEvent event) {
+    public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
         if (!event.getEntity().level.isClientSide && event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
             CompoundTag tag = getModTag(player, GuideMod.ID);
