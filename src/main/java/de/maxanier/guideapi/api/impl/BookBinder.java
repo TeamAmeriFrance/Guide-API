@@ -4,7 +4,6 @@ import de.maxanier.guideapi.GuideMod;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.forgespi.language.IModInfo;
@@ -31,7 +30,6 @@ public class BookBinder {
     private ResourceLocation outlineTexture = new ResourceLocation(GuideMod.ID, "textures/gui/book_greyscale.png");
     private Color color = new Color(171, 70, 30);
     private boolean spawnWithBook;
-    private CreativeModeTab creativeTab = CreativeModeTab.TAB_MISC;
 
     /**
      * Creates a new {@link Book} builder which will provide a much more user-friendly interface for creating books.
@@ -61,7 +59,7 @@ public class BookBinder {
             throw new IllegalStateException("Content supplier of book " + registryName.toString() + " must be provided");
         }
 
-        return new Book(contentProvider, guideTitle, header, itemName, author, pageTexture, outlineTexture, color, spawnWithBook, registryName, creativeTab);
+        return new Book(contentProvider, guideTitle, header, itemName, author, pageTexture, outlineTexture, color, spawnWithBook, registryName);
     }
 
     /**
@@ -114,18 +112,6 @@ public class BookBinder {
         return this;
     }
 
-    /**
-     * Sets the Creative Tab this book should appear in.
-     * <p>
-     * By default, all books will appear in {@link ItemGroup#MISC}.
-     *
-     * @param creativeTab The creative tab this book should display in.
-     * @return the builder instance for chaining.
-     */
-    public BookBinder setCreativeTab(CreativeModeTab creativeTab) {
-        this.creativeTab = creativeTab;
-        return this;
-    }
 
     /**
      * Sets the title of this book to be displayed in the GUI.

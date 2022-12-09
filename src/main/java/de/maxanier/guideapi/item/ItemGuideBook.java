@@ -7,7 +7,6 @@ import de.maxanier.guideapi.api.IGuideLinked;
 import de.maxanier.guideapi.api.impl.Book;
 import de.maxanier.guideapi.api.impl.abstraction.CategoryAbstract;
 import net.minecraft.Util;
-import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -22,6 +21,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -35,7 +35,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
 
 
     public ItemGuideBook(Book book) {
-        super(new Item.Properties().stacksTo(1).tab(book.getCreativeTab()));
+        super(new Item.Properties().stacksTo(1));
         this.book = book;
         setTranslation_key(GuideMod.ID + ".book." + book.getRegistryName().getNamespace() + "." + book.getRegistryName().getPath());
     }
@@ -115,7 +115,7 @@ public class ItemGuideBook extends Item implements IGuideItem {
     @Override
     protected String getOrCreateDescriptionId() {
         if (this.translation_key == null) {
-            this.translation_key = Util.makeDescriptionId("item", Registry.ITEM.getKey(this));
+            this.translation_key = Util.makeDescriptionId("item", ForgeRegistries.ITEMS.getKey(this));
         }
 
         return this.translation_key;

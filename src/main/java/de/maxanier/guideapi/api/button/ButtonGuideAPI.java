@@ -12,7 +12,7 @@ public class ButtonGuideAPI extends Button {
     public BaseScreen guiBase;
 
     public ButtonGuideAPI(int widthIn, int heightIn, int width, int height, Component name, Button.OnPress onPress, BaseScreen guiBase) {
-        super(widthIn, heightIn, width, height, name, onPress);
+        super(widthIn, heightIn, width, height, name, onPress, DEFAULT_NARRATION);
         this.guiBase = guiBase;
     }
 

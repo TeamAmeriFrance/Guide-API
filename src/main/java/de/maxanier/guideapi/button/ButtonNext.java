@@ -26,11 +26,11 @@ public class ButtonNext extends ButtonGuideAPI {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.setShaderTexture(0, new ResourceLocation(GuideMod.ID, "textures/gui/book_colored.png"));
-            if (GuiHelper.isMouseBetween(mouseX, mouseY, x, y, width, height)) { //x,y,width,height
-                this.blit(stack, x, y + 1, 47, 201, 18, 10); //blit
+            if (GuiHelper.isMouseBetween(mouseX, mouseY, getX(), getY(), width, height)) { //x,y,width,height
+                this.blit(stack, getX(), getY() + 1, 47, 201, 18, 10); //blit
                 GuiUtilsCopy.drawHoveringText(stack, getHoveringText(), mouseX, mouseY, guiBase.width, guiBase.height, -1, Minecraft.getInstance().font);
             } else {
-                this.blit(stack, x, y, 24, 201, 18, 10);
+                this.blit(stack, getX(), getY(), 24, 201, 18, 10);
             }
             RenderSystem.disableBlend();
         }

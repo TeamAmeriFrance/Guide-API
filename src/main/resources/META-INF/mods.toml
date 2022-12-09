@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[37,)"
+loaderVersion = "[44,)"
 issueTrackerURL = "https://github.com/maxanier/Guide-API/issues"
 license = "MIT"
 

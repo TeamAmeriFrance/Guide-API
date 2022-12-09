@@ -142,7 +142,7 @@ public class SearchScreen extends BaseScreen {
                     }
                 }
             } else if (typeofClick == 1) {
-                if (GuiHelper.isMouseBetween(mouseX, mouseY, searchField.x, searchField.y, searchField.getInnerWidth(), searchField.getHeight())) {
+                if (GuiHelper.isMouseBetween(mouseX, mouseY, searchField.getX(), searchField.getY(), searchField.getInnerWidth(), searchField.getHeight())) {
                     searchField.setValue("");
                     lastQuery = "";
                     searchResults = getMatches(book, "", player, bookStack);
@@ -183,8 +183,8 @@ public class SearchScreen extends BaseScreen {
         RenderSystem.setShaderTexture(0, outlineTexture);
         drawTexturedModalRectWithColor(stack, guiLeft, guiTop, 0, 0, xSize, ySize, book.getColor());
 
-        fill(stack, searchField.x - 1, searchField.y - 1, searchField.x + searchField.getInnerWidth() + 1, searchField.y + searchField.getHeight() + 1, new Color(166, 166, 166, 128).getRGB());
-        fill(stack, searchField.x, searchField.y, searchField.x + searchField.getInnerWidth(), searchField.y + searchField.getHeight(), new Color(58, 58, 58, 128).getRGB());
+        fill(stack, searchField.getX() - 1, searchField.getY() - 1, searchField.getX() + searchField.getInnerWidth() + 1, searchField.getY() + searchField.getHeight() + 1, new Color(166, 166, 166, 128).getRGB());
+        fill(stack, searchField.getX(), searchField.getY(), searchField.getX() + searchField.getInnerWidth(), searchField.getY() + searchField.getHeight(), new Color(58, 58, 58, 128).getRGB());
         searchField.render(stack, mouseX, mouseY, partialTicks);
 
         int entryX = guiLeft + renderXOffset;
